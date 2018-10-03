@@ -1,0 +1,18 @@
+.thm_grd{
+	background: #191654;
+    background: -moz-linear-gradient(45deg, #43C6AC, #13547a);
+    background: -webkit-linear-gradient(45deg, #43C6AC, #13547a);
+    background: linear-gradient(45deg, #43C6AC, #13547a);
+}
+.bttn.bttn_submit{
+	background: #eab92d;
+	background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
+	background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
+	background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
+}
+label.switcher input:checked:after{
+	background: #eab92d;
+	background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
+	background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
+	background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
+}

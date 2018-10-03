@@ -1,0 +1,105 @@
+/* Module defaults */
+
+#module{
+	position:relative;
+}
+#module .module_header .module_title{
+	font-size:26px;
+	line-height: 40px;
+	padding-bottom:20px;
+}
+#module .module_header.size_s .module_title,
+#module .module_header.size_xs .module_title,
+#module .module_header.size_xxs .module_title{
+	text-align:center;
+}
+#module .module_header .module_actions{
+	text-align:right;
+	padding-bottom:20px;
+}
+#module .module_header.size_s .module_actions,
+#module .module_header.size_xs .module_actions,
+#module .module_header.size_xxs .module_actions{
+	text-align:center;
+}
+#module .module_header .module_actions .switcher{
+	display: inline-block;
+	padding-left:60px;
+}
+#module .module_menu {
+	display:block;
+	padding-bottom: 10px;
+}
+#module .module_menu li{
+	display:block;
+	float:left;
+	line-height:20px;
+	font-size: 12px;
+	font-weight: 700;
+	margin:0 1px 10px 0;
+}
+#module .module_menu li.sep_right{
+	margin-right:10px;
+}
+#module .module_menu li span{
+	display: block;
+	padding:5px 10px;
+}
+#module .module_menu li a{
+	display: block;
+	padding:5px 10px;
+}
+#module .module_menu li a i{
+	padding-right:3px;
+}
+#module .module_menu li a:hover{
+	background-color:rgba(0, 0, 0, 0.4);
+}
+#module .module_menu li.select select{
+	display:inline-block;
+	border:0;
+	height:30px;
+	color:#ffffff;
+	line-height:30px;
+	font-size: 12px;
+	font-weight: 700;
+    font-family:'Open Sans', sans-serif;
+	background: transparent;
+	cursor:pointer;
+}
+
+/* Module users */
+
+#module .module_content.module_users .user{
+	position:relative;
+}
+#module .module_content.module_users .user:hover{
+	background-color:rgba(0, 0, 0, 0.4);
+}
+#module .module_content.module_users .user:after{
+	content:'';
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	height: 1px;
+	background:rgba(255, 255, 255, 0.2);
+}
+#module .module_content.module_users .user .user_meta{
+	padding:10px 0;
+	line-height:22px;
+	border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+#module .module_content.module_users .user .user_meta strong{
+	display:block;
+	font-weight: 400;
+}
+#module .module_content.module_users .user .user_meta span{
+	display:block;
+	font-size:14px;
+}
+#module .module_content.module_users .user .user_role{
+	padding:10px 0;
+	line-height:22px;
+	border-right: 1px solid rgba(255, 255, 255, 0.2);
+}

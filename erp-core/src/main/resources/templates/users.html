@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User management</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<div th:replace="fragment/header :: content">HEADER_PLACE</div>
+<table border="1" cellspacing="25">
+    <tr>
+        <td>
+            <h3>Update or Create User</h3>
+            <form action="#" method="post" th:action="@{/users/manage}" th:object="${user}">
+                <p>User Name: <input id="user-name-input" type="text" th:field="*{username}" required/></p>
+                <p>Password:<input id="user-password-input" type="text" th:field="*{password}"/></p>
+                <p>Email: <input id="user-email-input" type="text" th:field="*{mail}"/></p>
+                <div th:each="role : ${roles}">
+                    <input th:id="'role-' + ${role}" type="checkbox" th:field="*{authorities}" th:value="${role}"/>
+                    <label th:text="${role.getAuthority()}">"ROLES-CHECKBOXES</label>
+                </div>
+                <p><input type="checkbox" class="field-checkbox" id="user-is-account-non-expired-checkbox"
+                          th:field="*{accountNonExpired}">Account Non Expired</p>
+                <p><input type="checkbox" class="field-checkbox" id="user-is-account-non-locked-checkbox"
+                          th:field="*{accountNonLocked}">Account Non Locked</p>
+                <p><input type="checkbox" class="field-checkbox" id="user-is-credential-non-expired-checkbox"
+                          th:field="*{credentialsNonExpired}" >Credential Non Expired</p>
+                <input type="checkbox" class="field-checkbox" id="user-is-enabled-checkbox" th:field="*{enabled}">Enabled
+                </p>
+                <p><input type="submit" name="action" value="Update or Create"/></p>
+                <p>
+                    <button onclick=setInputToDefault()>Clear input field</button>
+                </p>
+            </form>
+        </td>
+        <td>
+            <h3>Exists Users</h3>
+            <form action="#" th:action="@{/users/manage}" th:object="${usersDto}" method="post">
+                <input type="submit" id="delete-selected-users-button" name="action" value="Delete selected users">
+                <div class=scrollable>
+                    <table id="users-table" border="1">
+                        <tr>
+                            <th>User Id</th>
+                            <th>User name</th>
+                            <th>User mail</th>
+                            <th>Roles</th>
+                            <th>Account Non Expired</th>
+                            <th>Account Non Locked</th>
+                            <th>Credentials Non Expired</th>
+                            <th>Enable</th>
+                        </tr>
+                        <tr th:each="user, userStat : *{users}"
+                            th:onclick="'setDataFromTableToInputs(\'' + ${user.getId()} + '\');setAuthoritie(\'' + ${user.authorities} +'\',\''+ ${roles} +  '\')'">
+                            <td>
+                                <input th:id="'user-id-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].id}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td >
+                                <input th:id="'user-name-'+ ${user.getId()}"  th:field="*{users[__${userStat.index}__].username}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td>
+                                <input th:id="'user-email-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].mail}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td >
+                                <input th:field="*{users[__${userStat.index}__].authorities}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td>
+                                <input th:id="'user-is-account-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonExpired}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td >
+                                <input th:id="'user-is-account-non-locked-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonLocked}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td>
+                                <input th:id="'user-is-credential-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].credentialsNonExpired}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td >
+                                <input th:id="'user-is-enabled-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].enabled}"
+                                       class="user-table-td-input" readonly/>
+                            </td>
+                            <td >
+                                <input type="checkbox" th:field="*{users[__${userStat.index}__].del}"
+                                       class="user-table-td-input"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
+<!-- Переделал таблицу с дивами (нам пока поля необходимо мапить на инпуты - их надо сделать совершенно не примечательными,
+ те такими чтоб пользователь не видел разницу между ячейками и инпутами. Рскоментируй и увидишь что работает-->
+<!--<div>-->
+    <!--<h3>Exists Users</h3>-->
+    <!--<form action="#" th:action="@{/users/manage}" th:object="${usersDto}" method="post">-->
+        <!--<input type="submit" id="delete-selected-users-button-2" name="action" value="Delete selected users 2">-->
+        <!--<div class=scrollable>-->
+            <!--<div>-->
+                <!--<div>-->
+                    <!--<div>User Id</div>-->
+                    <!--<div>User name</div>-->
+                    <!--<div>User mail</div>-->
+                    <!--<div>Roles</div>-->
+                    <!--<div>Account Non Expired</div>-->
+                    <!--<div>Account Non Locked</div>-->
+                    <!--<div>Credentials Non Expired</div>-->
+                    <!--<div>Enable</div>-->
+                <!--</div>-->
+                <!--<div th:each="user, userStat : *{users}"-->
+                     <!--th:onclick="'setDataFromTableToInputs(\'' + ${user.getId()} + '\');setAuthoritie(\'' + ${user.authorities} +'\',\''+ ${roles} +  '\')'">-->
+                    <!--<div>-->
+                        <!--<input th:id="'user-id-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].id}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div >-->
+                        <!--<input th:id="'user-name-'+ ${user.getId()}"  th:field="*{users[__${userStat.index}__].username}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<input th:id="'user-email-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].mail}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div >-->
+                        <!--<input th:field="*{users[__${userStat.index}__].authorities}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<input th:id="'user-is-account-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonExpired}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div >-->
+                        <!--<input th:id="'user-is-account-non-locked-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonLocked}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<input th:id="'user-is-credential-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].credentialsNonExpired}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div >-->
+                        <!--<input th:id="'user-is-enabled-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].enabled}"-->
+                               <!--class="user-table-td-input" readonly/>-->
+                    <!--</div>-->
+                    <!--<div >-->
+                        <!--<input type="checkbox" th:field="*{users[__${userStat.index}__].del}"-->
+                               <!--class="user-table-td-input"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->
+<script>
+    function setDataFromTableToInputs(value) {
+        document.getElementById("user-name-input")
+            .value = getValuelById("user-name-" + value);
+        document.getElementById("user-email-input")
+            .value = getValuelById("user-email-" + value);
+        document.getElementById("user-is-account-non-expired-checkbox")
+            .checked = getBooleanValueFromTextById("user-is-account-non-expired-" + value);
+        document.getElementById("user-is-account-non-locked-checkbox")
+            .checked = getBooleanValueFromTextById("user-is-account-non-locked-" + value);
+        document.getElementById("user-is-credential-non-expired-checkbox")
+            .checked = getBooleanValueFromTextById("user-is-credential-non-expired-" + value);
+        document.getElementById("user-is-enabled-checkbox")
+            .checked = getBooleanValueFromTextById("user-is-enabled-" + value);
+    }
+
+    function setAuthoritie(userRoles, allRoles) {
+        var allRolesArray = charArrayToStringArray(allRoles);
+        var userRolesArray = charArrayToStringArray(userRoles);
+        for (var i = 0; i < allRolesArray.length; i++) {
+            document.getElementById("role-" + allRolesArray[i]).checked = userRolesArray.includes(allRolesArray[i]);
+        }
+
+    }
+
+    function charArrayToStringArray(array) {
+        return array.toString().replace('[', '').replace(']', '').replace(' ', '').split(',');
+    }
+
+    function setInputToDefault() {
+        document.getElementById("user-name-input").value = '';
+        document.getElementById("user-password-input").value = '';
+        document.getElementById("user-email-input").value = '';
+        document.getElementById("user-is-account-non-expired-checkbox").checked = true;
+        document.getElementById("user-is-account-non-locked-checkbox").checked = true;
+        document.getElementById("user-is-credential-non-expired-checkbox").checked = true;
+        document.getElementById("user-is-enabled-checkbox").checked = true;
+        document.getElementById("user-is-deleted-checkbox").checked = false;
+    }
+
+
+    function getBooleanValueFromTextById(id) {
+        var text = document.getElementById(id).value;
+        switch (text.trim()) {
+            case "true":
+                return true;
+            case "false":
+                return false;
+        }
+    }
+
+    function getValuelById(id) {
+        return document.getElementById(id).value
+    }
+</script>
+</body>
+
+<style>
+    td, th {
+        vertical-align: top;
+    }
+    .user-table-td-input{
+        background:rgba(0,0,0,0);
+        border:none;
+    }
+
+    div.scrollable {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        align-content: start;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box
+    }
+
+    /* Full-width input fields */
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+    }
+
+    td {
+        border: 1px #DDD solid;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .field-checkbox {
+        margin-bottom: 15px
+    }
+
+</style>
+</html>

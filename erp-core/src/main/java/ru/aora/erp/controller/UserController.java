@@ -32,14 +32,14 @@ public class UserController {
 //        this.userService = userService;
 //    }
 
-    @RequestMapping("/")
-    public String userForm(Map<String, Object> model, Principal principal) {
-//        model.put(USER_MODEL, userService.emptyUser());
-//        model.put(USERS_DTO_MODEL, userService.usersDto());
-//        model.put(ROLES_MODEL, userService.allRoles());
-//        model.put(USER_NAME_MODEL, principal.getName());
-        return "test";
-    }
+//    @RequestMapping("/")
+//    public String userForm(Map<String, Object> model, Principal principal) {
+////        model.put(USER_MODEL, userService.emptyUser());
+////        model.put(USERS_DTO_MODEL, userService.usersDto());
+////        model.put(ROLES_MODEL, userService.allRoles());
+////        model.put(USER_NAME_MODEL, principal.getName());
+//        return "test";
+//    }
 
 //    @PostMapping(params = "action=Update or Create")
 //    public String add(@ModelAttribute User user) {

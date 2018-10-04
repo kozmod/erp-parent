@@ -11,15 +11,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.aora.erp.model.user.UserRole;
 import ru.aora.erp.service.UserService;
 
+import static ru.aora.erp.component.CoreModuleIdentifier.DASHBOARD_MAPPING;
+import static ru.aora.erp.component.CoreModuleIdentifier.INCLUDE_ROOT_MAPPING;
+import static ru.aora.erp.component.CoreModuleIdentifier.LOGIN_MAPPING;
+import static ru.aora.erp.component.CoreModuleIdentifier.LOGOUT_MAPPING;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    public static final String INCLUDE_ROOT_MAPPING = "/**";
-    public static final String LOGOUT_MAPPING = "/logout";
-    public static final String LOGIN_MAPPING = "/login";
-    public static final String ROOT_MAPPING = "/";
 
     private static final String ALL_CSS_MAPPING = "/css/**";
     private static final String ALL_JS_MAPPING = "/js/**";
@@ -46,15 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_CSS_MAPPING).permitAll()
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
-//                .antMatchers(USERS_MANAGE_MAPPING).hasAnyAuthority(UserRole.ADMIN.getAuthority())
                 .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
+                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
 //                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage(LOGIN_MAPPING)
-                .defaultSuccessUrl(ROOT_MAPPING)
+                .defaultSuccessUrl(DASHBOARD_MAPPING)
+                .successForwardUrl(DASHBOARD_MAPPING)
                 .permitAll()
 
                 .and()

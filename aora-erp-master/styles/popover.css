@@ -22,7 +22,6 @@
   display: none;
   min-width: 50px;
   min-height: 32px;
-  padding: 1px;
   text-align: left;
   white-space: normal;
   background-color: #ffffff;
@@ -93,12 +92,12 @@
   filter: alpha(opacity=100);
 }
 .webui-popover .webui-popover-content {
-  padding: 9px 14px;
+  padding: 5px 0px;
   overflow: auto;
   display: block;
 }
 .webui-popover .webui-popover-content > div:first-child {
-  width: 99%;
+  width: 100%;
 }
 .webui-popover-inner .close {
   font-family: arial;

@@ -10,9 +10,10 @@
 	background: -webkit-linear-gradient(270deg, #772eff 0%, #5C23C4 100%); 
 	background: linear-gradient(180deg, #772eff 0%, #5C23C4 100%); 
 }
-label.switcher input:checked:after{
+label.switcher input:checked:after,
+label.radiocheck input[type="radio"]:before{
 	background: #772eff;
-	background: -moz-linear-gradient(270deg, #772eff 0%, #5C23C4 100%); 
-	background: -webkit-linear-gradient(270deg, #772eff 0%, #5C23C4 100%); 
-	background: linear-gradient(180deg, #772eff 0%, #5C23C4 100%); 
+}
+label.radiocheck input[type="checkbox"]:before{
+	color: #772eff;
 }

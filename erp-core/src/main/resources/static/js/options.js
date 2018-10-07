@@ -207,15 +207,27 @@ $(document).ready(function($) {
 	$('.ttp_lt').tooltipster({side:'left'});
 	$('.ttp_rt').tooltipster({side:'right'});
 	
-	// Quick options popover
+	// Equal heights
 	
-	//$('.quick_options_show').webuiPopover({
-		//animation:'pop',
-		//placement:'bottom-left',
-		//type:'html',
-		//trigger:'click',
-		// content:$('#' + $(this).data('popover')),
-		//content:$('.quick_options_popover'),
-	//});
+	$('.height_equal').matchHeight();
+	
+	// Auto popover
+	
+	$('.show_popover').each(function() {
+		$(this).webuiPopover({
+			container:'#content .wrapper',
+			animation:'fade',
+			dismissible: true,
+			type:'html',
+			trigger:'click',
+			placement:$(this).data('popover-position'),
+			content:$('#' + $(this).data('popover')),
+			onShow: function($element) {
+				$('.webui-popover-content a').click(function() {
+					//alert('DONE');
+				});
+			}
+		});
+	});
 	
 });

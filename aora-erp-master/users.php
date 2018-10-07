@@ -102,9 +102,9 @@
 								'Кастомный',
 							);
 							
-							foreach (range(1, 100) as $user) {
+							foreach (range(1, 10) as $user) {
 								
-							$user_id = rand(001, 999);
+							$user_id = rand(1, 1000);
 							$user_name = $user_names[array_rand($user_names)];
 							$user_email = str_replace(' ', '', strtolower($user_name)).'@gmail.com';
 							$user_phone = '+'.rand(1, 9).' ('.rand(111, 999).') '.rand(11111111, 99999999);
@@ -115,30 +115,77 @@
 							<div class="row">
 								<div class="col_xxs_10 col_xs_10 col_s_10 col_m_10 col_l_10">
 									<div class="row">
-										<div class="col_xxs_1 col_xs_1 col_s_1 col_m_1 col_l_1">
-											<input type="checkbox" />
-										</div>
-										
-										<div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6">
-											<div class="user_meta">
-												<strong><?php echo $user_name; ?></strong>
-												<span>ID <?php echo $user_id; ?> &bull; <?php echo $user_role; ?></span>
+										<div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
+											<div class="details name size_is height_equal">
+												<div>
+													<strong><?php echo $user_name; ?></strong>
+													<span>ID <?php echo $user_id; ?> &bull; <?php echo $user_role; ?></span>
+													
+													<label class="radiocheck">
+														<input type="checkbox" class="www" />
+													</label>
+												</div>
 											</div>
 										</div>
 								
 										<div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
-											<div class="user_meta">
-												<span><?php echo $user_email; ?></span>
-												<span><?php echo $user_phone; ?></span>
+											<div class="details meta size_is height_equal">
+												<div>
+													<span><?php echo $user_email; ?></span>
+													<span><?php echo $user_phone; ?></span>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								
 								<div class="col_xxs_2 col_xs_2 col_s_2 col_m_2 col_l_2">
-									Block
-									Delete
-									Edit
+									<div class="actions size_is height_equal">
+										<a href="javascript:;" class="show_popover rds_full" data-popover="user_actions_<?php echo $user_id; ?>" data-popover-position="left">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+									</div>
+									
+									<div class="hide_me">
+										<div id="user_actions_<?php echo $user_id; ?>">
+											<ul class="popover_menu">
+												<li><a href="javascript:;" class="toggle_cb" data-toggle="user_edit_<?php echo $user_id; ?>"><i class="fas fa-user-edit"></i> Изменить</a></li>
+												<li><a href="javascript:;" class="toggle_cb" data-toggle="user_roles_<?php echo $user_id; ?>"><i class="fas fa-key"></i> Права доступа</a></li>
+												<li><a href="javascript:;"><i class="fas fa-ban"></i> Заблокировать</a></li>
+												<li><a href="javascript:;"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+											</ul>
+										</div>
+										
+										<div class="actions_popover">1111</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="user_edit_<?php echo $user_id; ?> edit hide_me">
+								<div class="row">
+									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
+										Изменение пользователя <?php echo $user_name; ?>
+									</div>
+									
+									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
+										
+									</div>
+								</div>
+							</div>
+							
+							<div class="user_roles_<?php echo $user_id; ?> edit hide_me">
+								<div class="row">
+									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
+										<div class="edit_title"></div>
+                                        
+                                        <div class="item">
+                                            
+                                        </div>
+									</div>
+									
+									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
+										
+									</div>
 								</div>
 							</div>
 						</div>

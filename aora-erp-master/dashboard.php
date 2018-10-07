@@ -16,6 +16,24 @@
         content goes here <br /> content goes here <br /> content goes here <br />
         content goes here <br /> content goes here <br /> content goes here <br />
                 
+        <label class="radiocheck">
+            <input type="checkbox" class="www" />
+            
+            <strong>Включить</strong>
+        </label>
+                
+        <label class="radiocheck">
+            <input type="radio" name="dinner" class="www" />
+            
+            <strong>Бургер</strong>
+        </label>
+                
+        <label class="radiocheck">
+            <input type="radio" name="dinner" class="www" />
+            
+            <strong>Пицца</strong>
+        </label>
+                
         <label class="switcher">
             <input type="checkbox" class="www" />
             

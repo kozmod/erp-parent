@@ -73,9 +73,6 @@
 #module .module_content.module_users .user{
 	position:relative;
 }
-#module .module_content.module_users .user:hover{
-	background-color:rgba(0, 0, 0, 0.4);
-}
 #module .module_content.module_users .user:after{
 	content:'';
 	position:absolute;
@@ -85,21 +82,71 @@
 	height: 1px;
 	background:rgba(255, 255, 255, 0.2);
 }
-#module .module_content.module_users .user .user_meta{
+#module .module_content.module_users .user .details{
 	padding:10px 0;
 	line-height:22px;
-	border-right: 1px solid rgba(255, 255, 255, 0.2);
+	display:flex;
+	align-items:center;
 }
-#module .module_content.module_users .user .user_meta strong{
+#module .module_content.module_users .user .details strong{
 	display:block;
 	font-weight: 400;
+	line-height:24px;
+	padding-bottom:4px;
 }
-#module .module_content.module_users .user .user_meta span{
+#module .module_content.module_users .user .details span{
 	display:block;
 	font-size:14px;
+	line-height:20px;
 }
-#module .module_content.module_users .user .user_role{
-	padding:10px 0;
-	line-height:22px;
+#module .module_content.module_users .user .details.name{
 	border-right: 1px solid rgba(255, 255, 255, 0.2);
+	position:relative;
+	padding-left:60px;
+}
+#module .module_content.module_users .user .details.name.size_s,
+#module .module_content.module_users .user .details.name.size_xs,
+#module .module_content.module_users .user .details.name.size_xxs{
+	border-right:0;
+}
+#module .module_content.module_users .user .details.name .radiocheck{
+	position:absolute;
+	top:50%;
+	left:15px;
+	margin-top:-25px;
+}
+#module .module_content.module_users .user .details.meta.size_s,
+#module .module_content.module_users .user .details.meta.size_xs,
+#module .module_content.module_users .user .details.meta.size_xxs{
+	padding-left:60px;
+}
+#module .module_content.module_users .user .actions{
+	display:flex;
+	align-items:center;
+	text-align:right;
+	padding:0 10px 0 0;
+}
+#module .module_content.module_users .user .actions.size_s,
+#module .module_content.module_users .user .actions.size_xs,
+#module .module_content.module_users .user .actions.size_xxs{
+	display:block;
+	text-align:right;
+	padding:10px 10px 0 0;
+}
+#module .module_content.module_users .user .actions a{
+	display:inline-block;
+	width:40px;
+	height: 40px;
+	line-height: 40px;
+	font-size:20px;
+	margin-left: auto;
+	text-align:center;
+}
+#module .module_content.module_users .user .actions a:hover{
+	background:rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user .edit{
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	padding:20px 0;
+	text-align: center;
 }

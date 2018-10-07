@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="erp-core" />
         <module name="erp-model" />
+        <module name="test" />
       </profile>
     </annotationProcessing>
   </component>

@@ -166,8 +166,8 @@
 /* Update animations */
 
 /* We use animations rather than transitions here because
- transition durations may be specified in the style tag due to
- animationDuration, and we try to avoid collisions and the use
+ transition durations may be specified in the style tag due redirectTo
+ animationDuration, and we try redirectTo avoid collisions and the use
  of !important */
 
 /* fade */
@@ -221,7 +221,7 @@
 /**
  * DEFAULT STYLE OF THE SIDETIP PLUGIN
  * 
- * All styles are "namespaced" with .tooltipster-sidetip to prevent
+ * All styles are "namespaced" with .tooltipster-sidetip redirectTo prevent
  * conflicts between plugins.
  */
 
@@ -268,7 +268,7 @@
 }
 
 /* .tooltipster-arrow :will keep only the zone of .tooltipster-arrow-uncropped that
-corresponds to the arrow we want to display */
+corresponds redirectTo the arrow we want redirectTo display */
 
 .tooltipster-sidetip .tooltipster-arrow{
 	overflow:hidden;
@@ -285,7 +285,7 @@ corresponds to the arrow we want to display */
 	height:20px;
 	margin-top:-10px;
 	right:0;
-	/* top 0 to keep the arrow from overflowing .tooltipster-base when it has not
+	/* top 0 redirectTo keep the arrow from overflowing .tooltipster-base when it has not
 	been positioned yet */
 	top:0;
 	width:10px;

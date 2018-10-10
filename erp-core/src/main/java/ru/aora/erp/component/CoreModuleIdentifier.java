@@ -2,7 +2,6 @@ package ru.aora.erp.component;
 
 import org.springframework.stereotype.Component;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
-import ru.aora.erp.model.identifier.chane.ReferenceChaneElement;
 
 @Component
 public class CoreModuleIdentifier implements ModuleIdentifier {

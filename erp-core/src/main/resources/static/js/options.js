@@ -14,7 +14,7 @@ $(document).ready(function($) {
 			
 			$('#preloader').fadeOut(300);
 			
-		}, 600);
+		}, 900);
 
 	});	
 	
@@ -199,6 +199,10 @@ $(document).ready(function($) {
 		title:true,
 		theme:'slinky_sidemenu',
 	});
+	
+	// Select boxes
+	
+	$('select').niceSelect();
 	
 	// Tooltips general
 	

@@ -3,20 +3,20 @@
 <div id="sidebar" class="animate_300" th:fragment="sidebar">
     <div class="inner clr_b2">
         <div class="user_menu">
-            <!--/*@thymesVar id="referenceChaneElementsModel" type="java.util.List<ru.aora.erp.model.identifier.chane.ReferenceChaneElement>"*/-->
+            <!--/*@thymesVar id="uiChaneNodeModel" type="java.util.List<ru.aora.erp.model.identifier.chane.UiChaneNode>"*/-->
             <!--/*@thymesVar id="name" type="java.lang.String"*/-->
-            <!--/*@thymesVar id="next" type="java.util.List<ru.aora.erp.model.identifier.chane.ReferenceChaneElement>"*/-->
+            <!--/*@thymesVar id="next" type="java.util.List<ru.aora.erp.model.identifier.chane.UiChaneNode>"*/-->
             <ul>
-                <li th:each="refElement : ${referenceChaneElementsModel}">
-                    <a href="#" th:text="${refElement.name()}">
+                <li th:each="uiNode : ${uiChaneNodeModel}">
+                    <a href="#" th:text="${uiNode.name()}">
                         MODULE_TEXT
                     </a>
-                    <ul th:fragment="fragment_node(refElement)" th:unless="${#lists.isEmpty(refElement.next())}">
-                        <li th:each="childRefElement : ${refElement.next()}" th:inline="text">
-                            <a th:href="${childRefElement.mapping().orElse('#')}" th:text="${childRefElement.name()}">
+                    <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
+                        <li th:each="uiChilNode : ${uiNode.next()}" th:inline="text">
+                            <a th:href="${uiChilNode.mapping().orElse('#')}" th:text="${uiChilNode.name()}">
                                 CHILD_MODULE_TEXT
                             </a>
-                            <ul th:replace="this::fragment_node(${childRefElement})"></ul>
+                            <ul th:replace="this::fragment_node(${uiChilNode})"></ul>
                         </li>
                     </ul>
                 </li>

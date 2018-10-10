@@ -2,8 +2,8 @@ package ru.aora.erp.component;
 
 import org.springframework.stereotype.Component;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
-import ru.aora.erp.model.identifier.chane.ReferenceChaneElement;
-import ru.aora.erp.model.identifier.chane.SidebarReferenceChaneElement;
+import ru.aora.erp.model.identifier.chane.SidebarChaneNode;
+import ru.aora.erp.model.identifier.chane.UiChaneNode;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
@@ -11,7 +11,7 @@ import java.util.Collections;
 @Component
 public class TestIdentifierSidebar implements SidebarModuleIdentifier {
 
-    private ReferenceChaneElement firstReferenceChaneElement;
+    private UiChaneNode firstUiChaneNode;
 
     @PostConstruct
     private void init() {
@@ -21,13 +21,13 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
         final String CHILD_MAPPING = "/child-mapping";
 
 
-        this.firstReferenceChaneElement = new SidebarReferenceChaneElement(
+        this.firstUiChaneNode = new SidebarChaneNode(
                 PARENT_NAME,
                 Collections.singletonList(
-                        new SidebarReferenceChaneElement(
+                        new SidebarChaneNode(
                                 PARENT_CHILD_NAME,
                                 Collections.singletonList(
-                                        new SidebarReferenceChaneElement(
+                                        new SidebarChaneNode(
                                                 PARENT_CHILD_NAME,
                                                 CHILD_MAPPING
                                         )
@@ -39,8 +39,8 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     }
 
     @Override
-    public ReferenceChaneElement firstReferenceChaneElement() {
-        return firstReferenceChaneElement;
+    public UiChaneNode firstReferenceChaneElement() {
+        return firstUiChaneNode;
     }
 
     @Override

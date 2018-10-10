@@ -3,7 +3,7 @@ package ru.aora.erp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
-import ru.aora.erp.model.identifier.chane.ReferenceChaneElement;
+import ru.aora.erp.model.identifier.chane.UiChaneNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ public class ModulesIdentifiersService {
         this.sidebarModuleIdentifiers = sidebarModuleIdentifiers;
     }
 
-    public List<ReferenceChaneElement> modulesReferenceChaneElements() {
-        final List<ReferenceChaneElement> list = new ArrayList<>();
+    public List<UiChaneNode> modulesReferenceChaneElements() {
+        final List<UiChaneNode> list = new ArrayList<>();
         if (isNotEmpty(sidebarModuleIdentifiers)) {
             sidebarModuleIdentifiers.forEach(moduleIdentifier ->
                     list.add(moduleIdentifier.firstReferenceChaneElement())

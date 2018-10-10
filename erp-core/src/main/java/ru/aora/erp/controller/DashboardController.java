@@ -8,13 +8,15 @@ import ru.aora.erp.service.ModulesIdentifiersService;
 import java.util.Map;
 
 import static ru.aora.erp.component.CoreModuleIdentifier.DASHBOARD_MAPPING;
+import static ru.aora.erp.component.CoreModuleIdentifier.ROOT_MAPPING;
+import static ru.aora.erp.model.mappring.HttpUtils.redirectTo;
 
 @Controller
 public class DashboardController {
 
     private static final String DASHBOARD_TEMPLATE = "dashboard";
 
-    private static final String MODULES_REFERENCE_CHANE_ELEMENTS_MODEL = "referenceChaneElementsModel";
+    private static final String MODULES_REFERENCE_CHANE_ELEMENTS_MODEL = "uiChaneNodeModel";
 
     private final ModulesIdentifiersService modulesIdentifiersService;
 
@@ -31,5 +33,15 @@ public class DashboardController {
                 modulesIdentifiersService.modulesReferenceChaneElements()
         );
         return DASHBOARD_TEMPLATE;
+    }
+
+    @RequestMapping(ROOT_MAPPING)
+    public String rootRedirect(Map<String, Object> model) {
+        System.out.println( modulesIdentifiersService.modulesReferenceChaneElements());
+//        model.put(
+//                MODULES_REFERENCE_CHANE_ELEMENTS_MODEL,
+//                modulesIdentifiersService.modulesReferenceChaneElements()
+//        );
+        return redirectTo(DASHBOARD_TEMPLATE);
     }
 }

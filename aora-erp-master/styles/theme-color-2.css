@@ -1,19 +1,25 @@
 .thm_grd{
-	background: #191654;
+	background: #43C6AC;
     background: -moz-linear-gradient(45deg, #43C6AC, #13547a);
     background: -webkit-linear-gradient(45deg, #43C6AC, #13547a);
     background: linear-gradient(45deg, #43C6AC, #13547a);
 }
-.bttn.bttn_submit{
-	background: #eab92d;
-	background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
-	background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
-	background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
+#topbar .nav li .quick_options .inner .patterns a{
+	background: #2e8790 !important;
 }
+
+/* elements.css */
+
 label.switcher input:checked:after,
 label.radiocheck input[type="radio"]:before{
 	background: #eab92d;
 }
 label.radiocheck input[type="checkbox"]:before{
 	color: #eab92d;
+}
+.bttn.bttn_submit{
+	background: #eab92d;
+	background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
+	background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
+	background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
 }

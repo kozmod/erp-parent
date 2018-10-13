@@ -27,7 +27,6 @@ public class DashboardController {
 
     @RequestMapping(DASHBOARD_MAPPING)
     public String dashboard(Map<String, Object> model) {
-        System.out.println( modulesIdentifiersService.modulesReferenceChaneElements());
         model.put(
                 MODULES_REFERENCE_CHANE_ELEMENTS_MODEL,
                 modulesIdentifiersService.modulesReferenceChaneElements()
@@ -36,12 +35,8 @@ public class DashboardController {
     }
 
     @RequestMapping(ROOT_MAPPING)
-    public String rootRedirect(Map<String, Object> model) {
-        System.out.println( modulesIdentifiersService.modulesReferenceChaneElements());
-//        model.put(
-//                MODULES_REFERENCE_CHANE_ELEMENTS_MODEL,
-//                modulesIdentifiersService.modulesReferenceChaneElements()
-//        );
+    public String redirectToRoot() {
         return redirectTo(DASHBOARD_TEMPLATE);
     }
+
 }

@@ -49,6 +49,31 @@
 <!-- Container end -->
 
 <div th:replace="fragment/footer :: footer"/>
+<script>
+    function changeContentDiv() {
 
+        var params = {}; //put parameter if any
+        $.ajax({
+            headers: {
+                Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
+            },
+            url: "/controller",
+            method: "GET",
+            data: params,
+
+            success: function (data, textStatus, response) {
+                var text = response.responseText;
+                if (text == "") {
+                    return;
+                }
+                $("#content").text(text);
+            },
+            error: function (response) {
+                alert(response);
+                // terminate the script
+            }
+        });
+    }
+</script>
 </body>
 </html>

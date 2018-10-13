@@ -4,8 +4,8 @@
 	$settings = array(
 		'app_screen_name' => 'Dashboard',
 		
-		'user_theme_color' => '1',
-		'user_theme_pattern' => '0',
+		'user_theme_color' => '5',
+		'user_theme_pattern' => '1',
 		'user_theme_zoom' => '1.0',
 	);
 ?>
@@ -21,6 +21,7 @@
     <script type="text/javascript" src="scripts/actual.js"></script>
     <script type="text/javascript" src="scripts/popover.js"></script>
     <script type="text/javascript" src="scripts/tooltipster.js"></script>
+    <script type="text/javascript" src="scripts/niceselect.js"></script>
     <script type="text/javascript" src="scripts/sidemenu.js"></script>
     <script type="text/javascript" src="scripts/equals.js"></script>
     <script type="text/javascript" src="scripts/options.js"></script>

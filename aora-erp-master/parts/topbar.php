@@ -38,12 +38,12 @@
 						<!--<a href="javascript:;" class="no_color meta right"><i class="fas fa-check"></i> Нет</a>-->
 					</strong>
 				
-					<div class="colors">
-						<a href="javascript:;" class="thm_1 left rds_5 active" data-color="1"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_2 left rds_5" data-color="2"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_3 left rds_5" data-color="3"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_4 left rds_5" data-color="4"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_5 left rds_5" data-color="5"><i class="fas fa-check"></i></a>
+					<div class="style colors">
+						<a href="javascript:;" class="clr_1 left rds_5 active" data-color="1"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="clr_2 left rds_5" data-color="2"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="clr_3 left rds_5" data-color="3"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="clr_4 left rds_5" data-color="4"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="clr_5 left rds_5" data-color="5"><i class="fas fa-check"></i></a>
 						
 						<div class="clear"></div>
 					</div>
@@ -55,26 +55,24 @@
 						<a href="javascript:;" class="no_pattern meta right active"><i class="fas fa-check"></i> Нет</a>
 					</strong>
 				
-					<div class="patterns">
-						<a href="javascript:;" class="thm_1 left rds_5" data-pattern="1"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_2 left rds_5" data-pattern="2"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_3 left rds_5" data-pattern="3"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_4 left rds_5" data-pattern="4"><i class="fas fa-check"></i></a>
-						<a href="javascript:;" class="thm_5 left rds_5" data-pattern="5"><i class="fas fa-check"></i></a>
+					<div class="style patterns">
+						<a href="javascript:;" class="pttrn_1 left rds_5" data-pattern="1"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="pttrn_2 left rds_5" data-pattern="2"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="pttrn_3 left rds_5" data-pattern="3"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="pttrn_4 left rds_5" data-pattern="4"><i class="fas fa-check"></i></a>
+						<a href="javascript:;" class="pttrn_5 left rds_5" data-pattern="5"><i class="fas fa-check"></i></a>
 						
 						<div class="clear"></div>
 					</div>
 				</div>
 				
-				<a href="javascript:;" class="bttn bttn_40 left">Настройки</a>
-				<button type="submit" name="submit" class="bttn bttn_submit bttn_40 right" disabled="true">Сохранить</button>
-				
-				<div class="clear"></div>
+	<div class="actions">
+    					<a href="javascript:;" class="bttn bttn_40 left">Настройки</a>
+    					<button type="submit" name="submit" class="bttn bttn_submit bttn_40 right" disabled="true">Сохранить</button>
+
+    					<div class="clear"></div>
+    				</div>
 			</form>
-		</li>
-		
-		<li>
-			<a href="lock.php" class="button toggle_dialog" data-dialog="test_simple"><i class="fas fa-lock-alt"></i></a>
 		</li>
 		
 		<li>

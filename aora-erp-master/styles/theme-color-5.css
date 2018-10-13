@@ -1,19 +1,186 @@
 .thm_grd{
-	background: #0d4647;
-	background: -moz-linear-gradient(45deg, #0d4647 0%, #021b1c 100%); 
-	background: -webkit-linear-gradient(45deg, #0d4647 0%, #021b1c 100%); 
-	background: linear-gradient(45deg, #0d4647 0%, #021b1c 100%); 
+	background: #efeff4;
 }
-.bttn.bttn_submit{
-	background: #eab92d;
-	background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
-	background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
-	background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
+
+/* general.css */
+
+body{
+    font-weight: 400;
+    color: #4d4d4d;
 }
-label.switcher input:checked:after,
-label.radiocheck input[type="radio"]:before{
-	background: #eab92d;
+#preloader{
+	background: #efeff4;
+}
+#topbar{
+	background: #ffffff;
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+}
+#topbar .button:hover,
+#topbar .button.active{
+	color:#187efb;
+    background: transparent;
+}
+#topbar .nav li .quick_options{
+    background:#ffffff;
+    top:49px;
+	border:1px solid rgba(0, 0, 0, 0.2);
+	border-top:0;
+     
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+#topbar .nav li .inner .inp_range:before{
+    background:rgba(0, 0, 0, 0.2);
+}
+#topbar .nav li .quick_options .inner .patterns a{
+    background-color: #ffffff !important;
+}
+#topbar .nav li .quick_options .inner .style.patterns a:before{
+	filter: invert(1);
+	opacity: 0.8;
+}
+#sidebar .inner{
+	background: #ffffff;
+	border-right:1px solid rgba(0, 0, 0, 0.2);
+}
+#background .pattern{
+    opacity:1;
+}
+
+/* elements.css */
+
+label.fld .sign{
+	color: #a3a3a7;
+}
+label.fld input{
+    color:#4d4d4d;
+	background: #e3e2e7;
+	border:1px solid transparent;
+    font-weight: 400;
+    
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+label.fld input::placeholder{
+	color: #a3a3a7;
+}
+label.fld input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #000000 inset;
+    -webkit-text-fill-color: #ffffff !important;
+}
+label.fld input:focus{
+	border:1px solid rgba(0, 0, 0, 0.1);
+
+	-moz-box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.2);
+}
+label.switcher input:before{
+	width:28px;
+	height:28px;
+	top:6px;
+	left:1px;
+	
+	-moz-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+}
+label.switcher input:checked:before{
+	left:31px;
+}
+label.switcher input:after{
+	background: #ffffff;
+	border:1px solid #eae9ec;
+}
+label.switcher input:checked:after{
+	background: #53d56a;
+	border:1px solid #53d56a;
+}
+label.switcher .signs{
+	color: #9be5a9;
+}
+label.radiocheck input:after{
+	border:1px solid #eae9ec;
+	background: #ffffff;
 }
 label.radiocheck input[type="checkbox"]:before{
-	color: #eab92d;
+	color:#ffffff;
+	background: #187efb;
 }
+label.radiocheck input[type="radio"]:checked:before{
+	background:#187efb;
+}
+label.radiocheck input[type="radio"]:checked:after{
+	border:1px solid #187efb;
+}
+.bttn{
+    color:#ffffff;
+	text-shadow:none;
+}
+.bttn.bttn_submit{
+	background: #157efb;
+}
+.inp_range::-webkit-slider-runnable-track{
+	height: 1px;
+	background: #157efb;
+}
+.inp_range::-moz-range-track {
+	height: 1px;
+	background: #157efb;
+}
+.inp_range::-webkit-slider-thumb{
+	margin-top: -10px;
+	
+	-moz-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+}
+.inp_range::-moz-range-thumb{
+	margin-top: -10px;
+	
+	-moz-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+	box-shadow:0 2px 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* popover.css */
+
+/* sidemenu.css */
+
+.slinky_sidemenu {
+	border-top:0;
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+}
+.slinky_sidemenu li li {
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+}
+.slinky_sidemenu li a {
+	color:#4d4d4d;
+}
+.slinky_sidemenu li a.back {
+	color:#157efb;
+}
+.slinky_sidemenu li a.back:hover {
+	color:rgba(0, 0, 0, 0.8);
+}
+.slinky_sidemenu li a:after{
+	background:rgba(0, 0, 0, 0.2);
+}
+.slinky_sidemenu li a.back span.symbol{
+	color:#157efb;
+}
+.slinky_sidemenu li a.back:hover span.symbol{
+	color:rgba(0, 0, 0, 0.8);
+}
+.slinky_sidemenu li a span.arrow{
+	color:rgba(0, 0, 0, 0.4);
+}
+
+/* pages.css */
+
+
+
+/* module.css */
+

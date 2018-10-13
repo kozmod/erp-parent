@@ -40,7 +40,9 @@
 									<i class="fas fa-user-plus"></i> Добавить
 								</a>
 							</li>
+						</ul>
 							
+                        <ul class="module_menu">
 							<li>
 								<span class="clr_b2">С отмеченными:</span>
 							</li>
@@ -64,6 +66,7 @@
 									<option>Бухгалтер</option>
 									<option>Менеджер</option>
 									<option>Прораб</option>
+									<option>Очень длинная роль</option>
 								</select>
 							</li>
 							
@@ -72,8 +75,6 @@
 									Сохранить
 								</a>
 							</li>
-							
-							<div class="clear"></div>
 						</ul>
 					</div>
 				</div>
@@ -175,16 +176,43 @@
 							
 							<div class="user_roles_<?php echo $user_id; ?> edit hide_me">
 								<div class="row">
-									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
-										<div class="edit_title"></div>
-                                        
-                                        <div class="item">
+									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                                        <?php
+                                            $modules = array(
+                                                'Контрагенты ',
+                                                'Финанализ',
+                                                'Строительство',
+                                                'Пользователи',
+                                                'Ещё один модуль',
+                                            );
                                             
-                                        </div>
-									</div>
-									
-									<div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
-										
+                                            foreach ($modules as $module) {
+                                        ?>
+                                        
+                                            <div class="edit_title"><i class="fas fa-ambulance"></i> <?php echo $module; ?></div>
+                                            
+                                            <?php
+                                                $access = array(
+                                                    'Доступ к модулю',
+                                                    'Добавлять данные',
+                                                    'Изменять данные',
+                                                    'Удалять данные',
+                                                );
+                                                
+                                                foreach ($access as $rule) {
+                                            ?>
+                                            
+                                                <div class="edit_item">
+                                                    <strong><?php echo $rule; ?></strong>
+                                                    
+                                                    <label class="switcher">
+                                                        <input type="checkbox" class="www" />
+                                                    </label>
+                                                </div>
+                                            
+                                            <?php } ?>
+                                        
+                                        <?php } ?>
 									</div>
 								</div>
 							</div>

@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
                 .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
                 .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
+                .antMatchers("/controller").hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
 //                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
 

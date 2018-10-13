@@ -21,7 +21,6 @@
 }
 .slinky-menu a {
 	align-items: center;
-	display: flex;
 }
 .slinky-menu li ul {
 	display: none;
@@ -30,113 +29,105 @@
 	top: 0;
 }
 .slinky-menu .header {
-	display: flex;
 }
 .slinky-menu .header .title {
-	flex: 1;
-	line-height: 1.4;
-	margin: 0;
-	order: 1;
 }
-
-/* Default theme */
-
-.slinky-theme-default {
-	background: #f6f7f8;
-}
-.slinky-theme-default .title {
-	color: #333;
-	padding: 1em;
-}
-.slinky-theme-default li {
-	line-height: 1;
-}
-.slinky-theme-default a:not(.back) {
-	color: #333;
-	padding: 1em;
-}
-.slinky-theme-default a:not(.back):hover {
-	background: rgba(90, 200, 250, 0.25);
-}
-.slinky-theme-default a:not(.back):active {
-	background: rgba(90, 200, 250, 0.5);
-}
-.slinky-theme-default .next::after,
-.slinky-theme-default .back::before {
-	background-size: 1em;
-	content: '';
-	height: 1em;
-	opacity: 0.25;
-	transition: 200ms;
-	width: 1em;
-}
-.slinky-theme-default .next::after {
-	margin-left: 1em;
-}
-.slinky-theme-default .back::before {
-	padding: 1em;
-	-webkit-transform: scaleX(-1);
-	transform: scaleX(-1);
-}
-.slinky-theme-default .next:hover::after,
-.slinky-theme-default .back:hover::before {
-	opacity: 0.75;
-}
-.slinky-theme-default .next:active::after,
-.slinky-theme-default .back:active::before {
-	opacity: 1;
-}
-
+	
 /* Submenu theme */
-
+	
 .slinky_sidemenu {
-  border-top:1px solid rgba(255, 255, 255, 0.2);
 	display: block;
-  width: 100%;
+	width: 100%;
+	font-size:14px;
+	position:relative;
+	border-top:1px solid rgba(255, 255, 255, 0.2);
+	border-bottom:1px solid rgba(255, 255, 255, 0.2);
+	margin-bottom:100px;
 }
-.slinky_sidemenu .title {
+.slinky_sidemenu li li {
+	border-bottom:1px solid rgba(255, 255, 255, 0.2);
 }
-.slinky_sidemenu li {
-	line-height: 20px;
-  border-bottom:1px solid rgba(255, 255, 255, 0.2);
+.slinky_sidemenu li li:last-child {
+	border-bottom:0;
 }
-.slinky_sidemenu a:not(.back) {
-  padding:20px 30px 20px 20px;
-  position: relative;
+.slinky_sidemenu li a {
+	display: block;
+	position:relative;
+	min-height:50px;
+	padding:15px 25px 15px 60px;
+	line-height:20px;
+	color:#ffffff;
 }
-.slinky_sidemenu a:not(.back):hover {
-    background:rgba(0, 0, 0, 0.6);
+.slinky_sidemenu li a.back {
+	padding:15px 15px 15px 40px;
+	color:rgba(255, 255, 255, 0.4);
 }
-.slinky_sidemenu a:not(.back):active {
-    background:rgba(0, 0, 0, 0.2);
+.slinky_sidemenu li a:hover {
+	background:rgba(0, 0, 0, 0.2);
 }
-.slinky_sidemenu a:not(.back) em{
-  display:block;
-  width:20px;
-  height:20px;
-  line-height:20px;
-  text-align: center;
-  position: absolute;
-  top:50%;
-  right:10px;
-  margin-top:-10px;
-  color:rgba(255, 255, 255, 0.4);
-  font-size:12px;
+.slinky_sidemenu li a.back:hover {
+	background:transparent;
+	color:rgba(255, 255, 255, 0.8);
 }
-.slinky_sidemenu li.header {
-	line-height: 20px;
-  position: relative;
-  padding:20px 20px 20px 50px;
+.slinky_sidemenu li li a {
+	padding:15px 20px;
 }
-.slinky_sidemenu li.header .back{
-  display:block;
-  align-items: center;
-	line-height: 20px;
-  position: absolute;
-  top:0;
-  left:0;
-  bottom:0;
-  width:60px;
-  height:100%;
-  padding:20px;
+.slinky_sidemenu li a:after{
+	position: absolute;
+	content:'';
+	height:1px;
+	left:60px;
+	right:0;
+	bottom:0;
+	background:rgba(255, 255, 255, 0.2);
+}
+.slinky_sidemenu li a:hover:after,
+.slinky_sidemenu li li a:after,
+.slinky_sidemenu li:last-child a:after{
+	background:transparent !important;
+}
+.slinky_sidemenu li a span.symbol{
+	position: absolute;
+	top:50%;
+	left:10px;
+	display:block;
+	width:30px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	margin-top:-15px;
+	color:#ffffff;
+	font-size:18px;
+}
+.slinky_sidemenu li a span.symbol.clr_1{
+	background: #3a79f0;
+}
+.slinky_sidemenu li a span.symbol.clr_2{
+	background: #df415a;
+}
+.slinky_sidemenu li a span.symbol.clr_3{
+	background: #0bd6b0;
+}
+.slinky_sidemenu li a span.symbol.clr_4{
+	background: #86858b;
+}
+.slinky_sidemenu li a.back span.symbol{
+	background:transparent;
+	font-size:30px;
+	color:rgba(255, 255, 255, 0.4);
+}
+.slinky_sidemenu li a.back:hover span.symbol{
+	color:rgba(255, 255, 255, 0.8);
+}
+.slinky_sidemenu li a span.arrow{
+	display:block;
+	width:20px;
+	height:20px;
+	line-height:20px;
+	position: absolute;
+	top:50%;
+	right:0;
+	margin-top:-10px;
+	color:rgba(255, 255, 255, 0.4);
+	font-size:16px;
 }

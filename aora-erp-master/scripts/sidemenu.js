@@ -58,15 +58,18 @@ var Slinky = function () {
 			this.base;
 			var t = this.menu,
 				n = this.settings;
-			t.addClass("slinky-menu").addClass(n.theme), this._transition(n.speed), jQuery("a + ul", t).prev().addClass("next").append('<em><i class="fas fa-arrow-right"></i></em>'), jQuery("li > a", t).wrapInner("<span>");
+			t.addClass("slinky-menu").addClass(n.theme), this._transition(n.speed), jQuery("a + ul", t).prev().addClass("next").append('<span class="arrow"><i class="fal fa-angle-right"></i></span>'), jQuery("li > a", t);
 			var i = jQuery("<li>").addClass("header");
 			jQuery("li > ul", t).prepend(i);
-			var s = jQuery("<a>").prop("href", "javascript:;").addClass("back").html('<i class="far fa-arrow-circle-left"></i>');
+			
+			//var n = jQuery(t).parent().find("a").first().text();
+			
+			var s = jQuery("<a>").prop("href", "javascript:;").addClass("back").html('<span class="symbol animate_150"><i class="fal fa-angle-left"></i></span>');
 			jQuery(".header", t).prepend(s), n.title && jQuery("li > ul", t).each(function (e, t) {
 				var n = jQuery(t).parent().find("a").first().text();
 				if (n) {
-					var i = jQuery("<header>").addClass("title").text(n);
-					jQuery("> .header", t).append(i)
+					//var i = jQuery("<span>").text(n);
+					jQuery("> .header a", t).append(n)
 				}
 			}), this._addListeners(), this._jumpToInitial()
 		}
@@ -92,7 +95,7 @@ var Slinky = function () {
 				t = this.settings,
 				n = e.find(".active");
 			0 < n.length && (n.removeClass("active"), this.jump(n, !1)), setTimeout(function () {
-				return e.height(e.outerHeight())
+				//return e.height(e.outerHeight())
 			}, t.speed)
 		}
 	}, {

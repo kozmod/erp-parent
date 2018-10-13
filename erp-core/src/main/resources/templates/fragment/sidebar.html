@@ -4,19 +4,21 @@
     <div class="inner clr_b2">
         <div class="user_menu">
             <!--/*@thymesVar id="uiChaneNodeModel" type="java.util.List<ru.aora.erp.model.identifier.chane.UiChaneNode>"*/-->
-            <!--/*@thymesVar id="name" type="java.lang.String"*/-->
-            <!--/*@thymesVar id="next" type="java.util.List<ru.aora.erp.model.identifier.chane.UiChaneNode>"*/-->
+            <!--/*@thymesVar id="uiChildNode" type="ru.aora.erp.model.identifier.chane.UiChaneNode"*/-->
+            <!--/*@thymesVar id="uiNode" type="ru.aora.erp.model.identifier.chane.UiChaneNode"*/-->
             <ul>
                 <li th:each="uiNode : ${uiChaneNodeModel}">
                     <a href="#" th:text="${uiNode.name()}">
                         MODULE_TEXT
                     </a>
                     <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
-                        <li th:each="uiChilNode : ${uiNode.next()}" th:inline="text">
-                            <a th:href="${uiChilNode.mapping().orElse('#')}" th:text="${uiChilNode.name()}">
+                        <li th:each="uiChildNode : ${uiNode.next()}" th:inline="text">
+
+                            <a th:href="${uiChildNode.mapping().orElse('#')}" th:text="${uiChildNode.name()}">
+                            <!--<a onclick="changeContentDiv()" th:text="${uiChildNode.name()}">-->
                                 CHILD_MODULE_TEXT
                             </a>
-                            <ul th:replace="this::fragment_node(${uiChilNode})"></ul>
+                            <ul th:replace="this::fragment_node(${uiChildNode})"></ul>
                         </li>
                     </ul>
                 </li>

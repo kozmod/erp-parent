@@ -4,16 +4,22 @@
     background: -webkit-linear-gradient(45deg, #3ab5b0 0%, #3d99be 31%, #56317a 100%);
     background: linear-gradient(45deg, #3ab5b0 0%, #3d99be 31%, #56317a 100%);
 }
-.bttn.bttn_submit{
-	background: #0bd6b0;
-	background: -moz-linear-gradient(top, #0bd6b0 0%, #0bbfa7 100%);
-	background: -webkit-linear-gradient(top, #0bd6b0 0%,#0bbfa7 100%);
-	background: linear-gradient(to bottom, #0bd6b0 0%,#0bbfa7 100%);
+#topbar .nav li .quick_options .inner .patterns a{
+    background: #4979a6 !important;
 }
+
+/* elements.css */
+
 label.switcher input:checked:after,
 label.radiocheck input[type="radio"]:before{
 	background: #0bd6b0;
 }
 label.radiocheck input[type="checkbox"]:before{
 	color: #0bd6b0;
+}
+.bttn.bttn_submit{
+	background: #0bd6b0;
+	background: -moz-linear-gradient(top, #0bd6b0 0%, #0bbfa7 100%);
+	background: -webkit-linear-gradient(top, #0bd6b0 0%,#0bbfa7 100%);
+	background: linear-gradient(to bottom, #0bd6b0 0%,#0bbfa7 100%);
 }

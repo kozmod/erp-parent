@@ -12,11 +12,19 @@
                         MODULE_TEXT
                     </a>
                     <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
-                        <li th:each="uiChildNode : ${uiNode.next()}" th:inline="text">
-
-                            <a th:href="${uiChildNode.mapping().orElse('#')}" th:text="${uiChildNode.name()}">
-                            <!--<a onclick="changeContentDiv()" th:text="${uiChildNode.name()}">-->
+                        <li th:each="uiChildNode : ${uiNode.next()}"
+                            th:inline="text"
+                            th:switch="${uiChildNode.isLast()}">
+                            <a th:case="false"
+                               href="#"
+                               th:text="${uiChildNode.name()}">
                                 CHILD_MODULE_TEXT
+                            </a>
+                            <a th:case="true"
+                               href="#"
+                               th:onclick="'changeDashboardContentDiv(\''+${uiChildNode.mapping().orElse('#')} +'\')'"
+                               th:text="${uiChildNode.name()}">
+                                LAST_CHILD_MODULE_TEXT
                             </a>
                             <ul th:replace="this::fragment_node(${uiChildNode})"></ul>
                         </li>

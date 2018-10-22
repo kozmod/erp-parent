@@ -8,7 +8,7 @@
     <!-- Container start -->
     <div th:replace="fragment/topbar :: topbar"/>
     <div id="content" class="animate_300">
-        <div class="wrapper">
+        <div id="wrapper" class="wrapper">
             content goes here <br/> content goes here <br/> content goes here <br/>
             content goes here <br/> content goes here <br/> content goes here <br/>
             content goes here <br/> content goes here <br/> content goes here <br/>
@@ -50,29 +50,27 @@
 
 <div th:replace="fragment/footer :: footer"/>
 <script>
-    function changeContentDiv() {
-
-        var params = {}; //put parameter if any
-        $.ajax({
-            headers: {
-                Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
-            },
-            url: "/controller",
-            method: "GET",
-            data: params,
-
-            success: function (data, textStatus, response) {
-                var text = response.responseText;
-                if (text == "") {
-                    return;
+    function changeDashboardContentDiv(reference) {
+            $.ajax({
+                headers: {
+                    Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
+                },
+                url: reference,
+                method: "GET",
+                data: {},
+                success: function (data, textStatus, response) {
+                    var text = response.responseText;
+                    if (text === "") {
+                        return;
+                    }
+                    // console.log(text);
+                    $("#content").html(text)
+                },
+                error: function (response) {
+                    alert(response);
+                    // terminate the script
                 }
-                $("#content").text(text);
-            },
-            error: function (response) {
-                alert(response);
-                // terminate the script
-            }
-        });
+            });
     }
 </script>
 </body>

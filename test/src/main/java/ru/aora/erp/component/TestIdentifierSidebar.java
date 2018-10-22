@@ -18,7 +18,7 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
         final String PARENT_NAME = "TEST_MODULE";
         final String PARENT_CHILD_NAME = "TEST_PARENT_CHILD";
         final String PARENT_CHILD_CHILD_NAME = "TEST_PARENT_CHILD_CHILD";
-        final String CHILD_MAPPING = "/child-mapping";
+        final String CHILD_MAPPING = "/xxx";
 
 
         this.firstUiChaneNode = new SidebarChaneNode(

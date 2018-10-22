@@ -41,4 +41,10 @@ public class SidebarChaneNode implements UiChaneNode {
                 ? nextElements
                 : new ArrayList<>();
     }
+
+    @Override
+    public boolean isLast() {
+        return Objects.isNull(nextElements) || nextElements.isEmpty();
+    }
+
 }

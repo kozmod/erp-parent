@@ -49,29 +49,5 @@
 <!-- Container end -->
 
 <div th:replace="fragment/footer :: footer"/>
-<script>
-    function changeDashboardContentDiv(reference) {
-            $.ajax({
-                headers: {
-                    Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
-                },
-                url: reference,
-                method: "GET",
-                data: {},
-                success: function (data, textStatus, response) {
-                    var text = response.responseText;
-                    if (text === "") {
-                        return;
-                    }
-                    // console.log(text);
-                    $("#content").html(text)
-                },
-                error: function (response) {
-                    alert(response);
-                    // terminate the script
-                }
-            });
-    }
-</script>
 </body>
 </html>

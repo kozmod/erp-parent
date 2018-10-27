@@ -22,7 +22,7 @@
                             </a>
                             <a th:case="true"
                                href="#"
-                               th:onclick="'changeDashboardContentDiv(\''+${uiChildNode.mapping().orElse('#')} +'\')'"
+                               th:onclick="'getFragmentAndChangeDiv(\'#content\',\''+${uiChildNode.mapping().orElse('#')} +'\')'"
                                th:text="${uiChildNode.name()}">
                                 LAST_CHILD_MODULE_TEXT
                             </a>
@@ -37,5 +37,6 @@
         <!--<a href="users.php">Пользователи</a>-->
         <!--<a href="admin.php">Администрирование</a>-->
         <!--</div>-->
+        <!--th:onclick="'changeDivFromServerData(content,\''+${uiChildNode.mapping().orElse('#')} +'\')'"-->
     </div>
 </div>

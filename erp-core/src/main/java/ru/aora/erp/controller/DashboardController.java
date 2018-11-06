@@ -3,7 +3,7 @@ package ru.aora.erp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.aora.erp.service.ModulesIdentifiersService;
+import ru.aora.erp.service.SidebarModulesIdentifiersService;
 
 import java.util.Map;
 
@@ -16,19 +16,19 @@ public class DashboardController {
 
     private static final String DASHBOARD_TEMPLATE = "dashboard";
 
-    private static final String MODULES_REFERENCE_CHANE_ELEMENTS_MODEL = "uiChaneNodeModel";
+    private static final String UI_CHANE_NODE_MODEL = "uiChaneNodeModel";
 
-    private final ModulesIdentifiersService modulesIdentifiersService;
+    private final SidebarModulesIdentifiersService modulesIdentifiersService;
 
     @Autowired
-    public DashboardController(ModulesIdentifiersService modulesIdentifiersService) {
+    public DashboardController(SidebarModulesIdentifiersService modulesIdentifiersService) {
         this.modulesIdentifiersService = modulesIdentifiersService;
     }
 
     @RequestMapping(DASHBOARD_MAPPING)
     public String dashboard(Map<String, Object> model) {
         model.put(
-                MODULES_REFERENCE_CHANE_ELEMENTS_MODEL,
+                UI_CHANE_NODE_MODEL,
                 modulesIdentifiersService.modulesReferenceChaneElements()
         );
         return DASHBOARD_TEMPLATE;

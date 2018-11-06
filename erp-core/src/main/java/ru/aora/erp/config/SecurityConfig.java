@@ -6,13 +6,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.aora.erp.model.user.UserRole;
+import ru.aora.erp.model.identifier.ModuleIdentifier;
+import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
 
+import java.util.Map;
+
 import static ru.aora.erp.component.CoreModuleIdentifier.DASHBOARD_MAPPING;
-import static ru.aora.erp.component.CoreModuleIdentifier.INCLUDE_ROOT_MAPPING;
 import static ru.aora.erp.component.CoreModuleIdentifier.LOGIN_MAPPING;
 import static ru.aora.erp.component.CoreModuleIdentifier.LOGOUT_MAPPING;
 
@@ -27,11 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final AuthorityModulesIdentifiersService authorityModulesIdentifiersService;
 
     @Autowired
-    public SecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
+    public SecurityConfig(
+            UserService userService,
+            PasswordEncoder passwordEncoder,
+            AuthorityModulesIdentifiersService authorityModulesIdentifiersService
+    ) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.authorityModulesIdentifiersService = authorityModulesIdentifiersService;
     }
 
     @Override
@@ -46,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_CSS_MAPPING).permitAll()
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
-                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
-                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
+//                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
+//                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
 //                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
 
@@ -64,6 +73,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         new AntPathRequestMatcher(LOGOUT_MAPPING)
                 )
                 .logoutSuccessUrl(LOGIN_MAPPING);
+        defineAuthoritiesMapping(http);
+    }
+
+    private void defineAuthoritiesMapping(final HttpSecurity http) throws Exception {
+        for (ModuleIdentifier moduleIdentifier : authorityModulesIdentifiersService.moduleIdentifiers()) {
+            for (Map.Entry<String, GrantedAuthority[]> entry : moduleIdentifier.moduleMapping().entrySet()) {
+                http.authorizeRequests()
+                        .antMatchers(entry.getKey())
+                        .hasAnyAuthority(
+                                convertGrantedAuthority(entry.getValue())
+                        );
+            }
+        }
+    }
+
+    private String[] convertGrantedAuthority(GrantedAuthority[] grantedAuthorities) {
+        final var stringAuthorities = new String[grantedAuthorities.length];
+        for (int i = 0; i < grantedAuthorities.length; i++) {
+            stringAuthorities[i] = grantedAuthorities[i].getAuthority();
+        }
+        return stringAuthorities;
     }
 
 

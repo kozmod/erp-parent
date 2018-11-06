@@ -1,59 +1,47 @@
-package ru.aora.erp.model.user;
+package ru.aora.erp.model.entity.user;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Collection;
 
-@Entity
-@Table(name = "Users")
+//@Entity
+//@Table(name = "Users")
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "role", nullable = false)
-    @JoinTable(
-            name = "Users_Roles",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Collection<UserRole> authorities;
+//    @Column(name = "role", nullable = false)
+//    @JoinTable(
+//            name = "Users_Roles",
+//            joinColumns = @JoinColumn(name = "user_id")
+//    )
+//    @Enumerated(EnumType.STRING)
+//    @ElementCollection(fetch = FetchType.EAGER)
+    private Collection<GrantedAuthority> authorities;
 
-    @Column(name = "account_non_expired", columnDefinition = "BOOLEAN")
+//    @Column(name = "account_non_expired", columnDefinition = "BOOLEAN")
     private boolean accountNonExpired;
-    @Column(name = "account_non_locked", columnDefinition = "BOOLEAN")
+//    @Column(name = "account_non_locked", columnDefinition = "BOOLEAN")
     private boolean accountNonLocked;
-    @Column(name = "credentials_non_expired", columnDefinition = "BOOLEAN")
+//    @Column(name = "credentials_non_expired", columnDefinition = "BOOLEAN")
     private boolean credentialsNonExpired;
-    @Column(name = "enabled", columnDefinition = "BOOLEAN")
+//    @Column(name = "enabled", columnDefinition = "BOOLEAN")
     private boolean enabled;
 
-    @Column(name = "user_name", nullable = false)
+//    @Column(name = "user_name", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
+//    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "mail", nullable = false)
+//    @Column(name = "mail", nullable = false)
     private String mail;
 
-    @Transient
+//    @Transient
     private boolean del;
 
     public int getId() {
@@ -70,7 +58,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<UserRole> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
@@ -102,7 +90,7 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public void setAuthorities(Collection<UserRole> authorities) {
+    public void setAuthorities(Collection<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
@@ -148,7 +136,7 @@ public class User implements UserDetails {
 
     public static class UserBuilder {
         private int id;
-        private Collection<UserRole> authorities;
+        private Collection<GrantedAuthority> authorities;
         private boolean accountNonExpired;
         private boolean accountNonLocked;
         private boolean credentialsNonExpired;
@@ -166,7 +154,7 @@ public class User implements UserDetails {
             return this;
         }
 
-        public UserBuilder withAuthorities(Collection<UserRole> authorities) {
+        public UserBuilder withAuthorities(Collection<GrantedAuthority> authorities) {
             this.authorities = authorities;
             return this;
         }

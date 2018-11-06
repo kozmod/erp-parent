@@ -22,7 +22,7 @@
                             </a>
                             <a th:case="true"
                                href="#"
-                               th:onclick="'getFragmentAndChangeDiv(\'#content\',\''+${uiChildNode.mapping().orElse('#')} +'\')'"
+                               th:onclick="getFragmentAndChangeDiv('#content',[[${uiChildNode.mapping().orElse('#')}]]);"
                                th:text="${uiChildNode.name()}">
                                 LAST_CHILD_MODULE_TEXT
                             </a>

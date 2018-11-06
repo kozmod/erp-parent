@@ -1,4 +1,4 @@
-package ru.aora.erp.model.user;
+package ru.aora.erp.model.entity.user;
 
 import java.util.List;
 

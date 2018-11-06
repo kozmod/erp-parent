@@ -5,7 +5,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.config.UserDataBaseConfig;
-import ru.aora.erp.repository.UserRepository;
+import ru.aora.erp.repository.DbUserRepository;
+
 
 
 import static org.junit.Assert.assertNotNull;
@@ -16,27 +17,40 @@ import static org.junit.Assert.assertNotNull;
 //@TransactionConfiguration
 public class JpaTest {
 
+//    @Autowired
+//    private UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
-//    @Autowired
-//    private UserTestRepository userTestRepository;
+    private DbUserRepository userRepository;
 
-
-//    @Autowired
-//    private ProductRepository productRepository;
 
     @Test
     @Transactional("userTransactionManager")
     public void whenCreatingUser_thenCreated() {
+        System.out.println(
+                "\n_______________________________________\n"+
+                userRepository.findByName("User")+
+                "\n_______________________________________\n"
+        );
+        assertNotNull(userRepository.findByName("User"));
+    }
+
+    @Test
+    @Transactional("userTransactionManager")
+    public void whenCreatingUser_thenCreated_Z() {
+        System.out.println(
+                "\n_______________________________________\n"+
+                        userRepository.findByName("z")+
+                        "\n_______________________________________\n"
+        );
         assertNotNull(userRepository.findByName("z"));
-        System.out.println(userRepository.findByName("z"));
     }
 
 //    @Test
 //    @Transactional("userTransactionManager")
 //    public void shouldFindUserTest() {
-//        assertNotNull(userTestRepository.findByName("z"));
-//        System.out.println(userTestRepository.findByName("z"));
+////        assertNotNull(userTestRepository.findByName("z"));
+//        System.out.println(userTestRepository.findAll());
 //    }
 
 //    @Test

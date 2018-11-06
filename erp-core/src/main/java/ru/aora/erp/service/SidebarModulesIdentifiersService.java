@@ -11,12 +11,12 @@ import java.util.List;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 
 @Service
-public class ModulesIdentifiersService {
+public class SidebarModulesIdentifiersService {
 
     private final List<SidebarModuleIdentifier> sidebarModuleIdentifiers;
 
     @Autowired
-    public ModulesIdentifiersService(List<SidebarModuleIdentifier> sidebarModuleIdentifiers) {
+    public SidebarModulesIdentifiersService(List<SidebarModuleIdentifier> sidebarModuleIdentifiers) {
         this.sidebarModuleIdentifiers = sidebarModuleIdentifiers;
     }
 
@@ -28,9 +28,5 @@ public class ModulesIdentifiersService {
             );
         }
         return list;
-    }
-
-    public List<SidebarModuleIdentifier> moduleIdentifiers() {
-        return sidebarModuleIdentifiers;
     }
 }

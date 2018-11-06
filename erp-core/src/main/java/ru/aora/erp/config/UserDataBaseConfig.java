@@ -3,11 +3,13 @@ package ru.aora.erp.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,15 +22,16 @@ import java.util.Map;
 import java.util.Objects;
 
 @Configuration
-@PropertySource({ "db.properties" })
+@PropertySource({"db.properties"})
 @EnableJpaRepositories(
         basePackages = "ru.aora.erp.repository",
         entityManagerFactoryRef = "userEntityManager",
         transactionManagerRef = "userTransactionManager"
 )
+@ComponentScan("ru.aora.erp.repository")
 public class UserDataBaseConfig {
 
-    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[] { "ru.aora.erp.model.user" };
+    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.user"};
     private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String JDBC_DRIVER_CLASS_NAME = "jdbc.driverClassName";
@@ -75,7 +78,13 @@ public class UserDataBaseConfig {
         return transactionManager;
     }
 
-    private Map<String, Object> jpaPropertyMap(){
+    @Primary
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(userDataSource());
+    }
+
+    private Map<String, Object> jpaPropertyMap() {
         Map<String, Object> properties = new HashMap<>();
         properties.put(
                 HIBERNATE_HBM2DDL_AUTO,

@@ -4,9 +4,8 @@
     clear: both;
     cursor: pointer;
     display: block;
-    float: left;
     outline: none;
-    padding-right: 20px;
+    padding-right: 26px !important;
     position: relative;
     text-align: left !important;
     -webkit-transition: all 0.2s ease-in-out;
@@ -18,19 +17,13 @@
     white-space: nowrap;
     width: auto;
 }
- .nice-select:hover {
-    border-color: #dbdbdb;
-}
- .nice-select:active, .nice-select.open, .nice-select:focus {
-    border-color: #999;
-}
  .nice-select:after {
     border-bottom: 2px solid #999;
     border-right: 2px solid #999;
     content: '';
     display: block;
-    height: 5px;
-    width: 5px;
+    height: 6px;
+    width: 6px;
     margin-top: -4px;
     pointer-events: none;
     position: absolute;
@@ -61,41 +54,15 @@
     -ms-transform: scale(1) translateY(0);
     transform: scale(1) translateY(0);
 }
- .nice-select.disabled {
-    border-color: #ededed;
-    color: #999;
-    pointer-events: none;
+ .no-csspointerevents .nice-select .list {
+    display: none;
 }
- .nice-select.disabled:after {
-    border-color: #cccccc;
+ .no-csspointerevents .nice-select.open .list {
+    display: block;
 }
- .nice-select.wide {
-    width: 100%;
-}
- .nice-select.wide .list {
-    left: 0 !important;
-    right: 0 !important;
-}
- .nice-select.right {
-    float: right;
-}
- .nice-select.right .list {
-    left: auto;
-    right: 0;
-}
- .nice-select.small {
-    font-size: 12px;
-    height: 36px;
-    line-height: 34px;
-}
- .nice-select.small:after {
-    height: 4px;
-    width: 4px;
-}
- .nice-select.small .option {
-    line-height: 34px;
-    min-height: 34px;
-}
+
+/* List items */
+
  .nice-select .list {
     background-color: #ffffff;
     box-sizing: border-box;
@@ -107,8 +74,9 @@
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: 9;
+    z-index: 1000;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
     
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -129,46 +97,57 @@
     -webkit-transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
     transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
 }
- .nice-select .list li{
+ .nice-select .list li.option{
     display: block !important;
-    padding: 10px 15px !important;
-    line-height: 22px !important;
     margin:0 !important;
     float:none !important;
-    cursor: pointer !important;
-    font-weight: 400 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    list-style: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
  }
- .nice-select .list li:last-child{
+ .nice-select .list li.option:last-child{
     border-bottom:0 !important;
  }
- .nice-select .list li:hover,
- .nice-select .list li.focus,
- .nice-select .list li.focus.selected{
-     background:rgba(0, 0, 0, 0.1);
-}
- .nice-select .list:hover .option:not(:hover) {
-    background-color: transparent !important;
-}
- .nice-select .option {
-    list-style: none;
-    outline: none;
+ .nice-select .list:hover li.option:not(:hover) {
     
-    -webkit-transition: all 0.2s;
-    transition: all 0.2s;
 }
- .nice-select .option.selected {
-    font-weight: bold;
+ .nice-select .list li.option.selected {
+    
 }
- .nice-select .option.disabled {
-    background-color: transparent;
-    color: #999;
-    cursor: default;
-}
- .no-csspointerevents .nice-select .list {
-    display: none;
-}
- .no-csspointerevents .nice-select.open .list {
+.nice-select .list li.option em {
     display: block;
+    padding: 7px 12px !important;
+    line-height: 22px !important;
+    font-size:14px !important;
+    font-weight: 400 !important;
+    color:#000000;
+    cursor: pointer !important;
+
+    -moz-transition:all 150ms linear;
+    -webkit-transition:all 150ms linear;
+    transition:all 150ms linear;
 }
+ .nice-select .list li:hover em,
+ .nice-select .list li.focus em{
+    background:rgba(0, 0, 0, 0.05);
+}
+ .nice-select .list li.selected em{
+    background:rgba(0, 0, 0, 0.05);
+}
+ .nice-select .list li.option.disabled em{
+    background-color: transparent;
+    cursor: default !important;
+    font-weight:600 !important;
+    color: #999;
+    font-size:12px !important;
+}
+.nice-select .current i,
+.nice-select .list li.option em i {
+    display: inline-block;
+    width: 20px;
+ }
+.nice-select .list li.option em i {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+
  

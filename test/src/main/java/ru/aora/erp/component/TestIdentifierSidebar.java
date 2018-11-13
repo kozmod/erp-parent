@@ -2,6 +2,7 @@ package ru.aora.erp.component;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
 import ru.aora.erp.model.identifier.chane.SidebarChaneNode;
 import ru.aora.erp.model.identifier.chane.UiChaneNode;
@@ -11,7 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,7 +21,7 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     private final String CHILD_MAPPING = "/xxx";
 
     private UiChaneNode firstUiChaneNode;
-    private Map<String, GrantedAuthority[]> mappingAuthorities;
+    private Map<String, IdAuthority[]> mappingAuthorities;
 
     public TestIdentifierSidebar() {
         this.mappingAuthorities = new HashMap<>();
@@ -54,7 +54,7 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     private void prepareModuleAuthority() {
         mappingAuthorities.put(
                 CHILD_MAPPING,
-                new GrantedAuthority[]{
+                new IdAuthority[]{
                         TestModuleAuthority.ADD,
                         TestModuleAuthority.DELETE
                 }
@@ -72,12 +72,12 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     }
 
     @Override
-    public Set<GrantedAuthority> moduleAuthorities() {
+    public Set<IdAuthority> moduleAuthorities() {
         return new HashSet<>(Arrays.asList(TestModuleAuthority.values()));
     }
 
     @Override
-    public Map<String, GrantedAuthority[]> moduleMapping() {
+    public Map<String, IdAuthority[]> moduleMapping() {
         return mappingAuthorities;
     }
 }

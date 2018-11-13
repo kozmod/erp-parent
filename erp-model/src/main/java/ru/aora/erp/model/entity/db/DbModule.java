@@ -1,19 +1,20 @@
 package ru.aora.erp.model.entity.db;
 
 import java.util.Set;
+import java.util.StringJoiner;
 
 public class DbModule {
 
-    private int id;
+    private long id;
     private String name;
 
-    private Set<String> moduleRoles;
+    private Set<DbModuleRule> moduleRoles;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -25,23 +26,57 @@ public class DbModule {
         this.name = name;
     }
 
-    public Set<String> getModuleRoles() {
+    public Set<DbModuleRule> getModuleRoles() {
         return moduleRoles;
     }
 
-    public void setModuleRoles(Set<String> moduleRoles) {
+    public void setModuleRoles(Set<DbModuleRule> moduleRoles) {
         this.moduleRoles = moduleRoles;
+    }
+
+    public static DbModuleBuilder builder() {
+        return new DbModuleBuilder();
+    }
+
+    public final static class DbModuleBuilder {
+        private long id;
+        private String name;
+        private Set<DbModuleRule> moduleRoles;
+
+        private DbModuleBuilder() {
+        }
+
+
+        public DbModuleBuilder withId(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public DbModuleBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public DbModuleBuilder withModuleRoles(Set<DbModuleRule> moduleRoles) {
+            this.moduleRoles = moduleRoles;
+            return this;
+        }
+
+        public DbModule build() {
+            DbModule dbModule = new DbModule();
+            dbModule.setId(id);
+            dbModule.setName(name);
+            dbModule.setModuleRoles(moduleRoles);
+            return dbModule;
+        }
     }
 
     @Override
     public String toString() {
-        return "DbModule{"
-                .concat("id=")
-                .concat(Integer.toString(id))
-                .concat(", name=")
-                .concat(name)
-                .concat(", moduleRoles=")
-                .concat(moduleRoles.toString())
-                .concat("}");
+        return new StringJoiner(", ", DbModule.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("name='" + name + "'")
+                .add("moduleRoles=" + moduleRoles)
+                .toString();
     }
 }

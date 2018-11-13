@@ -2,49 +2,25 @@ package ru.aora.erp.model.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.aora.erp.model.entity.IdAuthority;
 
 import java.util.Collection;
+import java.util.StringJoiner;
 
-//@Entity
-//@Table(name = "Users")
 public class User implements UserDetails {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id", nullable = false)
-    private int id;
-
-//    @Column(name = "role", nullable = false)
-//    @JoinTable(
-//            name = "Users_Roles",
-//            joinColumns = @JoinColumn(name = "user_id")
-//    )
-//    @Enumerated(EnumType.STRING)
-//    @ElementCollection(fetch = FetchType.EAGER)
-    private Collection<GrantedAuthority> authorities;
-
-//    @Column(name = "account_non_expired", columnDefinition = "BOOLEAN")
+    private long id;
+    private Collection<IdAuthority> authorities;
     private boolean accountNonExpired;
-//    @Column(name = "account_non_locked", columnDefinition = "BOOLEAN")
     private boolean accountNonLocked;
-//    @Column(name = "credentials_non_expired", columnDefinition = "BOOLEAN")
     private boolean credentialsNonExpired;
-//    @Column(name = "enabled", columnDefinition = "BOOLEAN")
     private boolean enabled;
-
-//    @Column(name = "user_name", nullable = false)
     private String username;
-
-//    @Column(name = "password", nullable = false)
     private String password;
-
-//    @Column(name = "mail", nullable = false)
     private String mail;
-
-//    @Transient
     private boolean del;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -58,7 +34,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<GrantedAuthority> getAuthorities() {
+    public Collection<IdAuthority> getAuthorities() {
         return authorities;
     }
 
@@ -86,11 +62,11 @@ public class User implements UserDetails {
         return mail;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setAuthorities(Collection<GrantedAuthority> authorities) {
+    public void setAuthorities(Collection<IdAuthority> authorities) {
         this.authorities = authorities;
     }
 
@@ -136,7 +112,7 @@ public class User implements UserDetails {
 
     public static class UserBuilder {
         private int id;
-        private Collection<GrantedAuthority> authorities;
+        private Collection<IdAuthority> authorities;
         private boolean accountNonExpired;
         private boolean accountNonLocked;
         private boolean credentialsNonExpired;
@@ -154,7 +130,7 @@ public class User implements UserDetails {
             return this;
         }
 
-        public UserBuilder withAuthorities(Collection<GrantedAuthority> authorities) {
+        public UserBuilder withAuthorities(Collection<IdAuthority> authorities) {
             this.authorities = authorities;
             return this;
         }
@@ -217,17 +193,17 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", authorities=" + authorities +
-                ", accountNonExpired=" + accountNonExpired +
-                ", accountNonLocked=" + accountNonLocked +
-                ", credentialsNonExpired=" + credentialsNonExpired +
-                ", enabled=" + enabled +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", mail='" + mail + '\'' +
-                ", del=" + del +
-                '}';
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("authorities=" + authorities)
+                .add("accountNonExpired=" + accountNonExpired)
+                .add("accountNonLocked=" + accountNonLocked)
+                .add("credentialsNonExpired=" + credentialsNonExpired)
+                .add("enabled=" + enabled)
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
+                .add("mail='" + mail + "'")
+                .add("del=" + del)
+                .toString();
     }
 }

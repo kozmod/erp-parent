@@ -31,7 +31,7 @@ import java.util.Objects;
 @ComponentScan("ru.aora.erp.repository")
 public class UserDataBaseConfig {
 
-    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.user"};
+    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.db"};
     private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String JDBC_DRIVER_CLASS_NAME = "jdbc.driverClassName";

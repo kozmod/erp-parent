@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
@@ -78,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void defineAuthoritiesMapping(final HttpSecurity http) throws Exception {
         for (ModuleIdentifier moduleIdentifier : authorityModulesIdentifiersService.moduleIdentifiers()) {
-            for (Map.Entry<String, GrantedAuthority[]> entry : moduleIdentifier.moduleMapping().entrySet()) {
+            for (Map.Entry<String, IdAuthority[]> entry : moduleIdentifier.moduleMapping().entrySet()) {
                 http.authorizeRequests()
                         .antMatchers(entry.getKey())
                         .hasAnyAuthority(

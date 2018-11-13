@@ -71,6 +71,14 @@ a:hover{
 	width:100%;
 	height:0;
 }
+.clear_after:after{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: ' ';
+	clear: both;
+	height: 0;
+}
 .hide_me{
 	display:none;
 }
@@ -153,13 +161,37 @@ label.fld{
 	display:block;
 	position: relative;
 }
+label.fld.filler{
+	padding-top:30px;
+}
+label.fld.filler em{
+	display:block;
+	cursor:pointer;
+	height:30px;
+	line-height:30px;
+	position: absolute;
+	top:35px;
+	left:40px;
+	z-index: 10;
+    font-weight: 300;
+	
+	-moz-transition:all 150ms linear;
+	-webkit-transition:all 150ms linear;
+	transition:all 150ms linear;
+}
+label.fld.filler em.focus{
+	top:0;
+	left:0;
+	font-size:12px;
+	font-weight: 600;
+}
 label.fld .sign{
 	display:block;
 	width:40px;
 	height:40px;
 	line-height:40px;
 	position: absolute;
-	top:0;
+	bottom:0;
 	left:0;
 	z-index: 10;
 	cursor:pointer;
@@ -174,7 +206,6 @@ label.fld input{
 	z-index: 5;
 	border:0;
 	padding:0 0 0 40px;
-    color:#ffffff;
     font-family:'Open Sans', sans-serif;
     font-weight: 300;
     font-size:16px;
@@ -183,17 +214,10 @@ label.fld input{
 	-moz-transition:all 150ms linear;
 	-webkit-transition:all 150ms linear;
 	transition:all 150ms linear;
-	
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	border-radius:20px;
 }
 label.fld input::placeholder{
-    color:rgba(255, 255, 255, 0.4);
-}
-label.fld input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #000000 inset;
-    -webkit-text-fill-color: #ffffff !important;
+    font-family:'Open Sans', sans-serif;
+    font-weight: 300;
 }
 label.fld input:focus{
 	border:1px solid rgba(0, 0, 0, 0.1);
@@ -310,8 +334,7 @@ label.radiocheck input{
 	width:10px !important;
 	height:10px !important;
 	padding: 0 !important;
-	margin: 10px 10px 10px -60px;
-	z-index:5;
+	margin: 10px 10px 10px -9999px;
 }
 label.radiocheck input:before,
 label.radiocheck input:after{
@@ -329,7 +352,7 @@ label.radiocheck input:after{
 	border-radius:50%;
 }
 label.radiocheck input:before{
-	z-index:15;
+	z-index:10;
 	opacity:0;
 }
 label.radiocheck input:after{
@@ -338,11 +361,11 @@ label.radiocheck input:after{
 	width:30px;
 	height:30px;
 	position: absolute;
-	top:5px;
-	left:0;
-	z-index:10;
+	top: 5px;
+	left: 0;
+	z-index:5;
 	border:2px solid #ffffff;
-	background:rgba(0, 0, 0, 0.2);
+	background:rgba(0, 0, 0, 0.4);
 }
 label.radiocheck input:checked:before{
 	opacity:1;
@@ -357,8 +380,8 @@ label.radiocheck input[type="checkbox"]:before{
 	line-height:30px;
 	font-size:18px;
     font-style: normal;
-	top:5px;
-	left:0;
+	top: 5px;
+	left: 0;
 	color:#ffffff;
 }
 label.radiocheck input[type="radio"]:before{
@@ -366,8 +389,8 @@ label.radiocheck input[type="radio"]:before{
 	width:14px;
 	height:14px;
 	background:#ffffff;
-	top:13px;
-	left:8px;
+    top:13px;
+    left:8px;
 }
 label.radiocheck strong{
 	display:inline-block;
@@ -412,7 +435,7 @@ label.radiocheck strong{
 	right:0;
 	bottom:0;
 	opacity:0;
-	background:rgba(0, 0, 0, 0.2);
+	background:rgba(0, 0, 0, 0.1);
 }
 .bttn:active:after{
 	opacity:1;
@@ -423,21 +446,22 @@ label.radiocheck strong{
 	top: -50%;
 	right: -50%;
 	bottom: -50%;
-	left: -50%;
+	left: -200%;
+	opacity:0;
 	
     background: rgba(255, 255, 255, 0.5);
     background: -moz-linear-gradient(top, rgba(229, 172, 142, 0), rgba(255, 255, 255, 0.5) 50%, rgba(229, 172, 142, 0));
     background: -webkit-linear-gradient(top, rgba(229, 172, 142, 0), rgba(255, 255, 255, 0.5) 50%, rgba(229, 172, 142, 0));
 	background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255, 255, 255, 0.5) 50%, rgba(229, 172, 142, 0));
 	
-	-moz-transform: rotateZ(60deg) translate(-5em, 7.5em);
-	-webkit-transform: rotateZ(60deg) translate(-5em, 7.5em);
-	transform: rotateZ(60deg) translate(-5em, 7.5em);
+	-moz-transform: rotateZ(60deg);
+	-webkit-transform: rotateZ(60deg);
+	transform: rotateZ(60deg);
 }
 .bttn:not(:disabled):hover:before{
-    -moz-animation: submit 1s forwards;
-    -webkit-animation: submit 1s forwards;
-    animation: submit 1s forwards;
+    -moz-animation: bttn 1s forwards;
+    -webkit-animation: bttn 1s forwards;
+    animation: bttn 1s forwards;
 }
 .bttn i{
 	padding-right:5px;
@@ -445,6 +469,11 @@ label.radiocheck strong{
 .bttn.bttn_40{
     height:40px;
     line-height:40px;
+	padding:0 20px;
+}
+.bttn.bttn_50{
+    height:50px;
+    line-height:50px;
 	padding:0 20px;
 }
 
@@ -532,76 +561,23 @@ label.radiocheck strong{
 	border-radius:50%;
 }
 
-/********************************************/
-/* Dialog */
-/********************************************/
+/* Accordion */
 
-#dialog_wrapper{
-	position:fixed;
-	z-index:10000;
-	overflow-x:hidden;
-	overflow-y:auto;
-}
-#dialog_wrapper .dialog_window{
-	position:relative;
-	overflow:hidden;
-    z-index:10;
-	
-	-moz-transform:scale(0);
-	-webkit-transform:scale(0);
-	transform:scale(0);
-}
-#dialog_wrapper .dialog_window.open{
-	-moz-transform:scale(1);
-	-webkit-transform:scale(1);
-	transform:scale(1);
-}
-#dialog_wrapper .dialog_background{
-    position:fixed;
-    z-index:5;
-    opacity:0.8;
-}
 
-/* Dialog simple */
-
-#dialog_wrapper .dialog_simple{
-	background:#ffffff;
-	padding:10px;
-	position:relative;
-    margin:50px 0;
-	
-	-moz-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
-	box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+.accordion {
+	list-style: none;
+	padding: 0;
+	margin:0;
+	display: block;
+}   
+.accordion .toggle_acc {
+	display: block;
+	cursor:pointer;
 }
-
-/* Dialog launchpad */
-
-#dialog_wrapper .dialog_launchpad{
-    padding:50px 30px;
+.accordion .inner_acc {
+	overflow: hidden;
+	display: none;
 }
-#dialog_wrapper .dialog_launchpad a{
-    display:block;
-    position:relative;
-    margin:0 20px 40px;
-	text-align: center;
-}
-#dialog_wrapper .dialog_launchpad a.size_xs,
-#dialog_wrapper .dialog_launchpad a.size_xxs{
-    margin:0 10px 20px;
-}
-#dialog_wrapper .dialog_launchpad a img{
-    display:block;
-    max-width:100%;
-    height:auto;
-	margin-bottom:10px;
-}
-#dialog_wrapper .dialog_launchpad a:hover img{
-	-moz-transform:scale(0.9);
-	-webkit-transform:scale(0.9);
-	transform:scale(0.9);
-}
-#dialog_wrapper .dialog_launchpad a strong{
-    display:block;
-	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+.accordion .inner_acc.show {
+	/*display: block;*/
 }

@@ -509,6 +509,8 @@
 .hide_m.size_m,
 .hide_l.size_l {
 	display:none !important;
+	width:0 !important;
+	height:0 !important;
 }
 
 /* Fix float */

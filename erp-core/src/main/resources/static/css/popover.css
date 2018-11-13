@@ -277,7 +277,9 @@
      box-shadow: none;
      float: none;
 }
+
 /* Popover menu */
+
  .popover_menu{
      padding:0;
      color:#000000;
@@ -286,19 +288,19 @@
      white-space: nowrap;
 }
  .popover_menu li{
-     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
  .popover_menu li:last-child{
      border-bottom: 0;
 }
  .popover_menu li a{
      display:block;
-     padding:10px 15px;
+    padding: 7px 12px;
      line-height:22px;
      position: relative;
 }
  .popover_menu li a:hover{
-     background:rgba(0, 0, 0, 0.1);
+     background:rgba(0, 0, 0, 0.05);
 }
  .popover_menu li a i{
      color:rgba(0, 0, 0, 0.4);

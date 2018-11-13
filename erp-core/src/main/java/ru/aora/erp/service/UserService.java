@@ -10,8 +10,6 @@ import ru.aora.erp.model.entity.db.UserConverter;
 import ru.aora.erp.model.entity.user.User;
 import ru.aora.erp.repository.DbUserRepository;
 
-import java.util.Arrays;
-
 @Service
 public class UserService implements UserDetailsService {
 

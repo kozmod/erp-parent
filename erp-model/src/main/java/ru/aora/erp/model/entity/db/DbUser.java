@@ -1,55 +1,20 @@
 package ru.aora.erp.model.entity.db;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Collection;
+import java.util.Set;
 
-@Entity
-@Table(name = "Users")
+
 public class DbUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
-
-    @OneToMany
-    @JoinTable(
-            name = "j_Users_Modules_Rule",
-            joinColumns = {@JoinColumn(name="id_User",referencedColumnName="id")},
-            inverseJoinColumns = {@JoinColumn(name="id_User", referencedColumnName="id_User")}
-    )
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @Transient
-    private Collection<DbModule> authorities;
-
-    @Column(name = "account_non_expired", columnDefinition = "BOOLEAN")
+    private Set<DbModule> authorities;
     private boolean accountNonExpired;
-    @Column(name = "account_non_locked", columnDefinition = "BOOLEAN")
     private boolean accountNonLocked;
-    @Column(name = "credentials_non_expired", columnDefinition = "BOOLEAN")
     private boolean credentialsNonExpired;
-    @Column(name = "enabled", columnDefinition = "BOOLEAN")
     private boolean enabled;
-
-    @Column(name = "user_name", nullable = false)
     private String username;
-
-    @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "mail", nullable = false)
     private String mail;
-
-    @Transient
     private boolean del;
 
     public int getId() {
@@ -64,7 +29,7 @@ public class DbUser {
         return password;
     }
 
-    public Collection<DbModule> getAuthorities() {
+    public Set<DbModule> getAuthorities() {
         return authorities;
     }
 
@@ -92,7 +57,7 @@ public class DbUser {
         this.id = id;
     }
 
-    public void setAuthorities(Collection<DbModule> authorities) {
+    public void setAuthorities(Set<DbModule> authorities) {
         this.authorities = authorities;
     }
 
@@ -138,7 +103,7 @@ public class DbUser {
 
     public static class UserBuilder {
         private int id;
-        private Collection<DbModule> authorities;
+        private Set<DbModule> authorities;
         private boolean accountNonExpired;
         private boolean accountNonLocked;
         private boolean credentialsNonExpired;
@@ -156,7 +121,7 @@ public class DbUser {
             return this;
         }
 
-        public UserBuilder withAuthorities(Collection<DbModule> authorities) {
+        public UserBuilder withAuthorities(Set<DbModule> authorities) {
             this.authorities = authorities;
             return this;
         }

@@ -10,6 +10,23 @@
 
 /* elements.css */
 
+label.fld.filler em{
+    color:rgba(255, 255, 255, 0.4);
+}
+label.fld.filler em.focus{
+    color: #ffffff;
+}
+label.fld input{
+    color:#ffffff;
+	background: rgba(0, 0, 0, 0.4);
+	
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+}
+label.fld input::placeholder{
+    color:rgba(255, 255, 255, 0.4);
+}
 label.switcher input:checked:after,
 label.radiocheck input[type="radio"]:before{
 	background: #0bd6b0;

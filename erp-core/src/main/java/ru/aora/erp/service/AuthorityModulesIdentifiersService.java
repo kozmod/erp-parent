@@ -1,8 +1,9 @@
 package ru.aora.erp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+
 import org.springframework.stereotype.Service;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class AuthorityModulesIdentifiersService {
         return moduleIdentifiers;
     }
 
-    public List<GrantedAuthority> modulesAuthorities() {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
+    public List<IdAuthority> modulesAuthorities() {
+        final List<IdAuthority> authorities = new ArrayList<>();
         for (ModuleIdentifier moduleIdentifier : moduleIdentifiers) {
             authorities.addAll(moduleIdentifier.moduleAuthorities());
         }

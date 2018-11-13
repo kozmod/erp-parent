@@ -9,6 +9,6 @@ public class AjaxController {
 
     @RequestMapping("/xxx")
     public String t() {
-        return "test";
+        return "users";
     }
 }

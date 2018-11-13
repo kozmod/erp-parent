@@ -1,261 +1,396 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>User management</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-</head>
-<body>
-<div th:replace="fragment/header :: content">HEADER_PLACE</div>
-<table border="1" cellspacing="25">
-    <tr>
-        <td>
-            <h3>Update or Create User</h3>
-            <form action="#" method="post" th:action="@{/users/manage}" th:object="${user}">
-                <p>User Name: <input id="user-name-input" type="text" th:field="*{username}" required/></p>
-                <p>Password:<input id="user-password-input" type="text" th:field="*{password}"/></p>
-                <p>Email: <input id="user-email-input" type="text" th:field="*{mail}"/></p>
-                <div th:each="role : ${roles}">
-                    <input th:id="'role-' + ${role}" type="checkbox" th:field="*{authorities}" th:value="${role}"/>
-                    <label th:text="${role.getAuthority()}">"ROLES-CHECKBOXES</label>
+<!-- Container start -->
+<div class="wrapper">
+    <div id="module">
+        <div class="module_header size_is">
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_8 col_l_8">
+                        <div class="module_title">Управление пользователями</div>
+                    </div>
+
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_4 col_l_4">
+                        <div class="module_actions">
+                            <label class="switcher ttp_bt" title="Добавить в лаунчпад">
+                                <input type="checkbox" class="www"/>
+
+                                <div class="signs">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <p><input type="checkbox" class="field-checkbox" id="user-is-account-non-expired-checkbox"
-                          th:field="*{accountNonExpired}">Account Non Expired</p>
-                <p><input type="checkbox" class="field-checkbox" id="user-is-account-non-locked-checkbox"
-                          th:field="*{accountNonLocked}">Account Non Locked</p>
-                <p><input type="checkbox" class="field-checkbox" id="user-is-credential-non-expired-checkbox"
-                          th:field="*{credentialsNonExpired}" >Credential Non Expired</p>
-                <input type="checkbox" class="field-checkbox" id="user-is-enabled-checkbox" th:field="*{enabled}">Enabled
-                </p>
-                <p><input type="submit" name="action" value="Update or Create"/></p>
-                <p>
-                    <button onclick=setInputToDefault()>Clear input field</button>
-                </p>
-            </form>
-        </td>
-        <td>
-            <h3>Exists Users</h3>
-            <form action="#" th:action="@{/users/manage}" th:object="${usersDto}" method="post">
-                <input type="submit" id="delete-selected-users-button" name="action" value="Delete selected users">
-                <div class=scrollable>
-                    <table id="users-table" border="1">
-                        <tr>
-                            <th>User Id</th>
-                            <th>User name</th>
-                            <th>User mail</th>
-                            <th>Roles</th>
-                            <th>Account Non Expired</th>
-                            <th>Account Non Locked</th>
-                            <th>Credentials Non Expired</th>
-                            <th>Enable</th>
-                        </tr>
-                        <tr th:each="user, userStat : *{users}"
-                            th:onclick="'setDataFromTableToInputs(\'' + ${user.getId()} + '\');setAuthoritie(\'' + ${user.authorities} +'\',\''+ ${roles} +  '\')'">
-                            <td>
-                                <input th:id="'user-id-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].id}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td >
-                                <input th:id="'user-name-'+ ${user.getId()}"  th:field="*{users[__${userStat.index}__].username}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td>
-                                <input th:id="'user-email-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].mail}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td >
-                                <input th:field="*{users[__${userStat.index}__].authorities}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td>
-                                <input th:id="'user-is-account-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonExpired}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td >
-                                <input th:id="'user-is-account-non-locked-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonLocked}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td>
-                                <input th:id="'user-is-credential-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].credentialsNonExpired}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td >
-                                <input th:id="'user-is-enabled-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].enabled}"
-                                       class="user-table-td-input" readonly/>
-                            </td>
-                            <td >
-                                <input type="checkbox" th:field="*{users[__${userStat.index}__].del}"
-                                       class="user-table-td-input"/>
-                            </td>
-                        </tr>
-                    </table>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                    <ul class="module_menu">
+                        <li class="sep_right">
+                            <a href="javascript:;" class="toggle_dialog ttp_tp" data-dialog="adduser">
+                                <i class="fas fa-user-plus"></i> Добавить
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="module_menu">
+                        <form method="get">
+                            <li>
+                                <div class="name">С отмеченными:</div>
+                            </li>
+
+                            <li>
+                                <select name="someselect">
+                                    <option disabled>Выберите действие</option>
+                                    <option data-display="&lt;i class=&quot;fas fa-minus-circle&quot;&gt;&lt;/i&gt; Заблокировать">
+                                        Заблокировать
+                                    </option>
+                                    <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt;
+     Удалить">Удалить
+                                    </option>
+                                    <option disabled>Назначить роль</option>
+                                    <option>Бухгалтер</option>
+                                    <option>Менеджер</option>
+                                    <option>Прораб</option>
+                                    <option>Очень длинная роль</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <button type="submit" class="button">Применить</button>
+                            </li>
+
+                            <li>
+                                <a href="#testanchor" class="testscroll">SCROLL</a>
+                            </li>
+                        </form>
+                    </ul>
                 </div>
-            </form>
-        </td>
-    </tr>
-</table>
-<!-- Переделал таблицу с дивами (нам пока поля необходимо мапить на инпуты - их надо сделать совершенно не примечательными,
- те такими чтоб пользователь не видел разницу между ячейками и инпутами. Рскоментируй и увидишь что работает-->
-<!--<div>-->
-    <!--<h3>Exists Users</h3>-->
-    <!--<form action="#" th:action="@{/users/manage}" th:object="${usersDto}" method="post">-->
-        <!--<input type="submit" id="delete-selected-users-button-2" name="action" value="Delete selected users 2">-->
-        <!--<div class=scrollable>-->
-            <!--<div>-->
-                <!--<div>-->
-                    <!--<div>User Id</div>-->
-                    <!--<div>User name</div>-->
-                    <!--<div>User mail</div>-->
-                    <!--<div>Roles</div>-->
-                    <!--<div>Account Non Expired</div>-->
-                    <!--<div>Account Non Locked</div>-->
-                    <!--<div>Credentials Non Expired</div>-->
-                    <!--<div>Enable</div>-->
-                <!--</div>-->
-                <!--<div th:each="user, userStat : *{users}"-->
-                     <!--th:onclick="'setDataFromTableToInputs(\'' + ${user.getId()} + '\');setAuthoritie(\'' + ${user.authorities} +'\',\''+ ${roles} +  '\')'">-->
-                    <!--<div>-->
-                        <!--<input th:id="'user-id-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].id}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div >-->
-                        <!--<input th:id="'user-name-'+ ${user.getId()}"  th:field="*{users[__${userStat.index}__].username}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div>-->
-                        <!--<input th:id="'user-email-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].mail}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div >-->
-                        <!--<input th:field="*{users[__${userStat.index}__].authorities}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div>-->
-                        <!--<input th:id="'user-is-account-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonExpired}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div >-->
-                        <!--<input th:id="'user-is-account-non-locked-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].accountNonLocked}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div>-->
-                        <!--<input th:id="'user-is-credential-non-expired-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].credentialsNonExpired}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div >-->
-                        <!--<input th:id="'user-is-enabled-'+ ${user.getId()}" th:field="*{users[__${userStat.index}__].enabled}"-->
-                               <!--class="user-table-td-input" readonly/>-->
-                    <!--</div>-->
-                    <!--<div >-->
-                        <!--<input type="checkbox" th:field="*{users[__${userStat.index}__].del}"-->
-                               <!--class="user-table-td-input"/>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
-<!--</div>-->
-<script>
-    function setDataFromTableToInputs(value) {
-        document.getElementById("user-name-input")
-            .value = getValuelById("user-name-" + value);
-        document.getElementById("user-email-input")
-            .value = getValuelById("user-email-" + value);
-        document.getElementById("user-is-account-non-expired-checkbox")
-            .checked = getBooleanValueFromTextById("user-is-account-non-expired-" + value);
-        document.getElementById("user-is-account-non-locked-checkbox")
-            .checked = getBooleanValueFromTextById("user-is-account-non-locked-" + value);
-        document.getElementById("user-is-credential-non-expired-checkbox")
-            .checked = getBooleanValueFromTextById("user-is-credential-non-expired-" + value);
-        document.getElementById("user-is-enabled-checkbox")
-            .checked = getBooleanValueFromTextById("user-is-enabled-" + value);
-    }
+            </div>
+        </div>
 
-    function setAuthoritie(userRoles, allRoles) {
-        var allRolesArray = charArrayToStringArray(allRoles);
-        var userRolesArray = charArrayToStringArray(userRoles);
-        for (var i = 0; i < allRolesArray.length; i++) {
-            document.getElementById("role-" + allRolesArray[i]).checked = userRolesArray.includes(allRolesArray[i]);
-        }
+        <a name="testanchor"></a>
+        <div id="testanchor"></div>
 
-    }
+        <div class="module_content module_users">
+            <div class="container">
+                <div class="row no_gutter">
+                    <!-- todo -->
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150">
+                        <div class="row">
+                            <div class="col_xxs_10 col_xs_10 col_s_10 col_m_10 col_l_10">
+                                <div class="row">
+                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
+                                        <div class="details name size_is height_equal">
+                                            <div>
+                                                <strong>Mignon Dempsey</strong>
+                                                <span>ID 414 &bull; Бухгалтер</span>
 
-    function charArrayToStringArray(array) {
-        return array.toString().replace('[', '').replace(']', '').replace(' ', '').split(',');
-    }
+                                                <label class="radiocheck">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
 
-    function setInputToDefault() {
-        document.getElementById("user-name-input").value = '';
-        document.getElementById("user-password-input").value = '';
-        document.getElementById("user-email-input").value = '';
-        document.getElementById("user-is-account-non-expired-checkbox").checked = true;
-        document.getElementById("user-is-account-non-locked-checkbox").checked = true;
-        document.getElementById("user-is-credential-non-expired-checkbox").checked = true;
-        document.getElementById("user-is-enabled-checkbox").checked = true;
-        document.getElementById("user-is-deleted-checkbox").checked = false;
-    }
+                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
+                                        <div class="details meta size_is height_equal">
+                                            <div>
+                                                <span>mignondempsey@gmail.com</span>
+                                                <span>+3 (449) 12062527</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col_xxs_2 col_xs_2 col_s_2 col_m_2 col_l_2">
+                                <div class="actions size_is height_equal">
+                                    <a href="javascript:;" class="show_popover rds_full" data-popover="user_actions_414" data-popover-position="left">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                </div>
+                                <div class="hide_me">
+                                    <div id="user_actions_414">
+                                        <ul class="popover_menu">
+                                            <li><a href="#user_edit_414" class="toggle_cb" data-toggle="user_edit_414"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                            <li><a href="#user_roles_414" class="toggle_cb" data-toggle="user_roles_414"><i class="fas fa-key"></i> Права доступа</a></li>
+                                            <li><a href="javascript:;"><i class="fas fa-ban"></i> Заблокировать</a></li>
+                                            <li><a href="javascript:;"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="actions_popover">1111</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user_edit_414 edit hide_me">
+                            <div class="row no_gutter">
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                    <a name="user_edit_414"></a>
+                                    <div class="edit_user">
+                                        Изменение пользователя
+                                        <span>Mignon Dempsey</span>
+                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_edit_414"><i class="far fa-times-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                                    <div class="edit_basic">
+                                        <label class="fld filler">
+                                            <em>ФИО</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" name="somename" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Должность</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" name="somename" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Email</em>
+                                            <div class="sign"><i class="fas fa-envelope"></i></div>
+                                            <input type="text" class="inp" name="somename" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Телефон</em>
+                                            <div class="sign"><i class="fas fa-phone"></i></div>
+                                            <input type="text" class="inp" name="somename" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Пароль</em>
+                                            <div class="sign"><i class="fas fa-key"></i></div>
+                                            <input type="password" class="inp" name="somename" />
+                                        </label>
+                                        <div class="clear_after">
+                                            <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
+                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_edit_414">Закрыть</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user_roles_414 edit hide_me">
+                            <div class="row no_gutter">
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                    <div class="edit_user">
+                                        <a name="user_roles_414"></a>
+
+                                        Управление правами пользователя
+                                        <span>Mignon Dempsey</span>
+                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_roles_414"><i class="far fa-times-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                                    <form class="accordion">
+                                        <div class="edit_title toggle_acc">
+                                            <div class="icon rds_5">
+                                                <i class="fas fa-ambulance"></i>
+                                            </div>
+                                            <span>Модуль</span>
+                                            <strong>Контрагенты</strong>
+                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                        </div>
+                                        <div class="inner_acc">
+                                            <div class="edit_item">
+                                                <strong>Доступ к модулю</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Добавлять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Изменять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Удалять данные</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="edit_title toggle_acc">
+                                            <div class="icon rds_5">
+                                                <i class="fas fa-ambulance"></i>
+                                            </div>
+                                            <span>Модуль</span>
+                                            <strong>Финанализ</strong>
+                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                        </div>
+                                        <div class="inner_acc">
+                                            <div class="edit_item">
+                                                <strong>Доступ к модулю</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Добавлять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Изменять данные</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Удалять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="edit_title toggle_acc">
+                                            <div class="icon rds_5">
+                                                <i class="fas fa-ambulance"></i>
+                                            </div>
+                                            <span>Модуль</span>
+                                            <strong>Строительство</strong>
+                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                        </div>
+                                        <div class="inner_acc">
+                                            <div class="edit_item">
+                                                <strong>Доступ к модулю</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Добавлять данные</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Изменять данные</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Удалять данные</strong>
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="edit_title toggle_acc">
+                                            <div class="icon rds_5">
+                                                <i class="fas fa-ambulance"></i>
+                                            </div>
+                                            <span>Модуль</span>
+                                            <strong>Пользователи</strong>
+                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                        </div>
+                                        <div class="inner_acc">
+                                            <div class="edit_item">
+                                                <strong>Доступ к модулю</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Добавлять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Изменять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Удалять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="edit_title toggle_acc">
+                                            <div class="icon rds_5">
+                                                <i class="fas fa-ambulance"></i>
+                                            </div>
+                                            <span>Система</span>
+                                            <strong>Доступ к настройкам</strong>
+                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                        </div>
+                                        <div class="inner_acc">
+                                            <div class="edit_item">
+                                                <strong>Доступ к модулю</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Добавлять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Изменять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+                                            <div class="edit_item">
+                                                <strong>Удалять данные</strong>
+
+                                                <label class="switcher">
+                                                    <input type="checkbox" class="www" />
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="clear_after">
+                                            <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
+
+                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_roles_414">Закрыть</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-    function getBooleanValueFromTextById(id) {
-        var text = document.getElementById(id).value;
-        switch (text.trim()) {
-            case "true":
-                return true;
-            case "false":
-                return false;
-        }
-    }
+                    <!--?>-->
 
-    function getValuelById(id) {
-        return document.getElementById(id).value
-    }
-</script>
-</body>
+                    <!--<?php } ?>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<style>
-    td, th {
-        vertical-align: top;
-    }
-    .user-table-td-input{
-        background:rgba(0,0,0,0);
-        border:none;
-    }
-
-    div.scrollable {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: auto;
-        align-content: start;
-    }
-
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    * {
-        box-sizing: border-box
-    }
-
-    /* Full-width input fields */
-    input[type=text], input[type=password] {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0 22px 0;
-        display: inline-block;
-        border: none;
-        background: #f1f1f1;
-    }
-
-    td {
-        border: 1px #DDD solid;
-        padding: 5px;
-        cursor: pointer;
-    }
-
-    .field-checkbox {
-        margin-bottom: 15px
-    }
-
-</style>
-</html>
+<div class="shadow top animate_150"></div>
+<div class="shadow bot animate_150"></div>

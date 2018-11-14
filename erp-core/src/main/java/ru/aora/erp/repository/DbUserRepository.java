@@ -123,6 +123,7 @@ public class DbUserRepository {
         user.setId(rs.getInt("id"));
         user.setUsername(rs.getString("user_name"));
         user.setPassword(rs.getString("password"));
+        user.setPhoneNumber(rs.getString("phone_number"));
         user.setMail(rs.getString("mail"));
         user.setAccountNonExpired(rs.getBoolean("account_non_expired"));
         user.setAccountNonLocked(rs.getBoolean("account_non_locked"));

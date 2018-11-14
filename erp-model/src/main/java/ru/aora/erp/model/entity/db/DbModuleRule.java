@@ -55,6 +55,24 @@ public class DbModuleRule implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DbModuleRule)) return false;
+
+        DbModuleRule that = (DbModuleRule) o;
+
+        if (id != that.id) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return new StringJoiner(", ", DbModuleRule.class.getSimpleName() + "[", "]")
                 .add("id=" + id)

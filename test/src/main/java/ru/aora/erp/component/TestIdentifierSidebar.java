@@ -21,7 +21,7 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     private final String CHILD_MAPPING = "/xxx";
 
     private UiChaneNode firstUiChaneNode;
-    private Map<String, IdAuthority[]> mappingAuthorities;
+    private Map<String, IdAuthority> mappingAuthorities;
 
     public TestIdentifierSidebar() {
         this.mappingAuthorities = new HashMap<>();
@@ -52,13 +52,8 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     }
 
     private void prepareModuleAuthority() {
-        mappingAuthorities.put(
-                CHILD_MAPPING,
-                new IdAuthority[]{
-                        TestModuleAuthority.ADD,
-                        TestModuleAuthority.DELETE
-                }
-        );
+        mappingAuthorities.put(CHILD_MAPPING, TestModuleAuthority.ADD);
+        mappingAuthorities.put(CHILD_MAPPING, TestModuleAuthority.DELETE);
     }
 
     @Override
@@ -77,7 +72,7 @@ public class TestIdentifierSidebar implements SidebarModuleIdentifier {
     }
 
     @Override
-    public Map<String, IdAuthority[]> moduleMapping() {
+    public Map<String, IdAuthority> moduleMapping() {
         return mappingAuthorities;
     }
 }

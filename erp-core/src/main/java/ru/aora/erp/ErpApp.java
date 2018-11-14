@@ -10,7 +10,7 @@ import ru.aora.erp.config.UserDataBaseConfig;
 @SpringBootApplication(scanBasePackages = {
         "ru.aora.erp.controller",
         "ru.aora.erp.service",
-//        "ru.aora.erp.repository",
+        "ru.aora.erp.repository",
         "ru.aora.erp.component"
 })
 @Import({

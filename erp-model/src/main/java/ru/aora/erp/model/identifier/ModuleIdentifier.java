@@ -8,5 +8,5 @@ import java.util.Set;
 public interface ModuleIdentifier {
     String moduleIdentifier();
     Set<IdAuthority> moduleAuthorities();
-    Map<String, IdAuthority[]> moduleMapping();
+    Map<String, IdAuthority> moduleMapping();
 }

@@ -79,23 +79,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void defineAuthoritiesMapping(final HttpSecurity http) throws Exception {
         for (ModuleIdentifier moduleIdentifier : authorityModulesIdentifiersService.moduleIdentifiers()) {
-            for (Map.Entry<String, IdAuthority[]> entry : moduleIdentifier.moduleMapping().entrySet()) {
+            for (Map.Entry<String, IdAuthority> entry : moduleIdentifier.moduleMapping().entrySet()) {
                 http.authorizeRequests()
                         .antMatchers(entry.getKey())
-                        .hasAnyAuthority(
-                                convertGrantedAuthority(entry.getValue())
-                        );
+                        .hasAnyAuthority(entry.getValue().getAuthority());
             }
         }
     }
-
-    private String[] convertGrantedAuthority(GrantedAuthority[] grantedAuthorities) {
-        final var stringAuthorities = new String[grantedAuthorities.length];
-        for (int i = 0; i < grantedAuthorities.length; i++) {
-            stringAuthorities[i] = grantedAuthorities[i].getAuthority();
-        }
-        return stringAuthorities;
-    }
-
-
 }

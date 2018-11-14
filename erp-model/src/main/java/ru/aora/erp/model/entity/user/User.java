@@ -17,6 +17,7 @@ public class User implements UserDetails {
     private boolean enabled;
     private String username;
     private String password;
+    private String phoneNumber;
     private String mail;
     private boolean del;
 
@@ -94,6 +95,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -119,6 +128,7 @@ public class User implements UserDetails {
         private boolean enabled;
         private String username;
         private String password;
+        private String phoneNumber;
         private String mail;
         private boolean del;
 
@@ -170,6 +180,11 @@ public class User implements UserDetails {
             return this;
         }
 
+        public UserBuilder withPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
         public UserBuilder withDel(boolean del) {
             this.del = del;
             return this;
@@ -185,6 +200,7 @@ public class User implements UserDetails {
             user.setEnabled(enabled);
             user.setUsername(username);
             user.setPassword(password);
+            user.setPhoneNumber(phoneNumber);
             user.setMail(mail);
             user.setDel(del);
             return user;
@@ -202,6 +218,7 @@ public class User implements UserDetails {
                 .add("enabled=" + enabled)
                 .add("username='" + username + "'")
                 .add("password='" + password + "'")
+                .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("del=" + del)
                 .toString();

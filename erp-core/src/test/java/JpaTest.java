@@ -25,14 +25,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-//        SecurityConfig.class,
-//        CoreConfig.class,
         UserDataBaseConfig.class})
-//@ComponentScan({
-//        "ru.aora.erp.controller",
-//        "ru.aora.erp.service",
-//        "ru.aora.erp.component"
-//})
 //@TransactionConfiguration
 public class JpaTest {
 
@@ -80,7 +73,7 @@ public class JpaTest {
         var dbUser = newDbUser();
         userRepository.save(dbUser);
         System.out.println(
-                "\n_______________________________________\n"+
+                "\n_______________________________________\n" +
                         dbUser +
                         "\n_______________________________________\n"
         );
@@ -96,15 +89,16 @@ public class JpaTest {
                 .withCredentialsNonExpired(true)
                 .withEnabled(true)
                 .withMail("z")
+                .withPhoneNumber("+7(926)1057452")
                 .withAuthorities(
                         Set.of(
                                 DbModule.builder()
-                                        .withId(2)
+                                        .withId(1)
                                         .withName("CoreModuleAuthority")
                                         .withModuleRoles(
                                                 Set.of(
                                                         DbModuleRule.builder()
-                                                                .withId(2002)
+                                                                .withId(1)
                                                                 .withName("GET_USERS")
                                                                 .build()
                                                 )
@@ -115,5 +109,4 @@ public class JpaTest {
                 .build();
         return bdUser;
     }
-
 }

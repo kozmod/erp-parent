@@ -1,8 +1,7 @@
 package ru.aora.erp.model.entity.db;
 
-import java.util.Collection;
 import java.util.Set;
-
+import java.util.StringJoiner;
 
 public class DbUser {
 
@@ -14,6 +13,7 @@ public class DbUser {
     private boolean enabled;
     private String username;
     private String password;
+    private String phoneNumber;
     private String mail;
     private boolean del;
 
@@ -47,6 +47,14 @@ public class DbUser {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getMail() {
@@ -110,6 +118,7 @@ public class DbUser {
         private boolean enabled;
         private String username;
         private String password;
+        private String phoneNumber;
         private String mail;
         private boolean del;
 
@@ -156,6 +165,11 @@ public class DbUser {
             return this;
         }
 
+        public UserBuilder withPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
         public UserBuilder withMail(String mail) {
             this.mail = mail;
             return this;
@@ -176,6 +190,7 @@ public class DbUser {
             user.setEnabled(enabled);
             user.setUsername(username);
             user.setPassword(password);
+            user.setPhoneNumber(phoneNumber);
             user.setMail(mail);
             user.setDel(del);
             return user;
@@ -184,17 +199,18 @@ public class DbUser {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", authorities=" + authorities +
-                ", accountNonExpired=" + accountNonExpired +
-                ", accountNonLocked=" + accountNonLocked +
-                ", credentialsNonExpired=" + credentialsNonExpired +
-                ", enabled=" + enabled +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", mail='" + mail + '\'' +
-                ", del=" + del +
-                '}';
+        return new StringJoiner(", ", DbUser.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("authorities=" + authorities)
+                .add("accountNonExpired=" + accountNonExpired)
+                .add("accountNonLocked=" + accountNonLocked)
+                .add("credentialsNonExpired=" + credentialsNonExpired)
+                .add("enabled=" + enabled)
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
+                .add("phoneNumber='" + phoneNumber + "'")
+                .add("mail='" + mail + "'")
+                .add("del=" + del)
+                .toString();
     }
 }

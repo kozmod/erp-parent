@@ -5,8 +5,10 @@ import ru.aora.erp.model.entity.user.User;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,6 +27,8 @@ public class UserConverter {
         user.setUsername(dbUser.getUsername());
         user.setPassword(dbUser.getPassword());
         user.setEnabled(dbUser.isEnabled());
+        user.setPhoneNumber(dbUser.getPhoneNumber());
+        user.setMail(dbUser.getMail());
         user.setDel(dbUser.isDel());
         user.setAccountNonExpired(dbUser.isAccountNonExpired());
         user.setAccountNonLocked(dbUser.isAccountNonLocked());
@@ -54,7 +58,7 @@ public class UserConverter {
         return Optional.empty();
     }
 
-    public DbUser convert(User user){
+    public DbUser convert(User user) {
         requireNonNull(user, "DbUser should not be null");
         final var dbUser = new DbUser();
         dbUser.setId(dbUser.getId());
@@ -66,16 +70,45 @@ public class UserConverter {
         dbUser.setAccountNonLocked(dbUser.isAccountNonLocked());
         dbUser.setCredentialsNonExpired(dbUser.isCredentialsNonExpired());
 
-        final List<DbModule> modules = new ArrayList<>();
-        final List<DbModuleRule> moduleRules = new ArrayList<>();
-
+        final Set<DbModule> modules = new HashSet<>();
         for (IdAuthority authority : user.getAuthorities()) {
-            final var module = new DbModule();
-            module.setId(authority.getModuleId());
-//            module.setModuleRoles();
+            tryFindModule(authority.getClass().getSimpleName(), modules)
+                    .ifPresentOrElse(
+                            dbModule ->
+                                    dbModule.getModuleRoles().add(
+                                            DbModuleRule.builder()
+                                                    .withId(authority.getRuleId())
+                                                    .withName(authority.getAuthority())
+                                                    .build()
+                                    )
+                            , () ->
+                                    modules.add(
+                                            DbModule.builder()
+                                                    .withId(authority.getModuleId())
+                                                    .withName(authority.getClass().getSimpleName())
+                                                    .withModuleRoles(
+                                                            Set.of(
+                                                                    DbModuleRule.builder()
+                                                                            .withId(authority.getRuleId())
+                                                                            .withName(authority.getAuthority())
+                                                                            .build()
+                                                            )
+                                                    ).build()
+                                    )
+                    );
         }
-
+        dbUser.setAuthorities(modules);
         return dbUser;
+    }
+
+    private Optional<DbModule> tryFindModule(String name, Set<DbModule> modules) {
+        for (DbModule module : modules) {
+            if (module.getName().equals(name)) {
+                return Optional.of(module);
+            }
+        }
+        return Optional.empty();
+
     }
 
 

@@ -21,7 +21,7 @@ public class CoreModuleIdentifier implements ModuleIdentifier {
     public static final String LOGIN_MAPPING = "/login";
     public static final String ROOT_MAPPING = "/";
 
-    private Map<String, IdAuthority[]> mappingAuthorities;
+    private Map<String, IdAuthority> mappingAuthorities;
 
 
     public CoreModuleIdentifier() {
@@ -46,7 +46,7 @@ public class CoreModuleIdentifier implements ModuleIdentifier {
     }
 
     @Override
-    public Map<String, IdAuthority[]> moduleMapping() {
+    public Map<String, IdAuthority> moduleMapping() {
         return mappingAuthorities;
     }
 

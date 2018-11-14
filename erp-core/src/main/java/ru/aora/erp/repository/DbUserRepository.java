@@ -18,21 +18,21 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public final class DbUserRepository {
+public class DbUserRepository {
 
     private static final String SELECT_USER_BY_NAME_JOIN_QUERY =
-            "SELECT U.*, J.id_Module, M.name as name_Module, J.id_rule, R.name as name_Rule FROM dbo.[Users] U (nolock)" +
+            "SELECT U.*, J.id_Module, M.name as name_Module, J.id_Rule, R.name as name_Rule FROM dbo.[Users] U (nolock)" +
                     "JOIN dbo.j_Users_Modules_Rule J (nolock) ON U.id = J.id_User   " +
                     "JOIN dbo.Modules              M (nolock) ON M.id = J.id_Module " +
-                    "JOIN dbo.Modules_access_rules R (nolock) ON R.id = J.id_rule   " +
+                    "JOIN dbo.Modules_Access_Rules R (nolock) ON R.id = J.id_Rule   " +
                     "WHERE U.user_name = ?";
 
     private static final String INSERT_USER =
-            "INSERT INTO Users (user_name, password, mail, account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?) ";
+            "INSERT INTO Users (user_name, password ,phone_number, mail, account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
 
     private static final String INSERT_USER_LINK =
-            "INSERT INTO j_Users_Modules_Rule (id_User, id_Module, id_rule) " +
+            "INSERT INTO j_Users_Modules_Rule (id_User, id_Module, id_Rule) " +
                     "VALUES (?, ?, ?) ";
 
     private JdbcTemplate jdbcTemplate;
@@ -94,11 +94,12 @@ public final class DbUserRepository {
                     );
                     ps.setString(1, user.getUsername());
                     ps.setString(2, user.getPassword());
-                    ps.setString(3, user.getMail());
-                    ps.setBoolean(4, user.isAccountNonExpired());
-                    ps.setBoolean(5, user.isAccountNonLocked());
-                    ps.setBoolean(6, user.isCredentialsNonExpired());
-                    ps.setBoolean(7, user.isEnabled());
+                    ps.setString(3, user.getPhoneNumber());
+                    ps.setString(4, user.getMail());
+                    ps.setBoolean(5, user.isAccountNonExpired());
+                    ps.setBoolean(6, user.isAccountNonLocked());
+                    ps.setBoolean(7, user.isCredentialsNonExpired());
+                    ps.setBoolean(8, user.isEnabled());
                     return ps;
                 },
                 keyHolder

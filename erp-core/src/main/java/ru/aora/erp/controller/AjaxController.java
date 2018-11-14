@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AjaxController {
 
+    private static final String USERS_MODEL = "user";
+
     @RequestMapping("/xxx")
     public String t() {
         return "users";

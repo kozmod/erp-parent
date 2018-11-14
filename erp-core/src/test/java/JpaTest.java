@@ -2,14 +2,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.component.CoreModuleAuthority;
-import ru.aora.erp.config.CoreConfig;
-import ru.aora.erp.config.SecurityConfig;
 import ru.aora.erp.config.UserDataBaseConfig;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
@@ -18,6 +15,7 @@ import ru.aora.erp.model.entity.db.UserConverter;
 import ru.aora.erp.repository.DbUserRepository;
 
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -35,7 +33,7 @@ public class JpaTest {
 
     @Test
     @Transactional("userTransactionManager")
-    public void whenCreatingUser_thenCreated() {
+    public void whenFindByName() throws SQLException {
         var dbUser = userRepository.findByName("z").get();
         System.out.println(
                 "\n_______________________________________\n" +
@@ -47,7 +45,7 @@ public class JpaTest {
 
     @Test
     @Transactional("userTransactionManager")
-    public void shouldConvertDbUser() {
+    public void shouldConvertDbUser() throws SQLException {
         var dbUser = userRepository.findByName("z").get();
 
         var userConverter = new UserConverter(Arrays.asList(CoreModuleAuthority.values()));
@@ -82,7 +80,7 @@ public class JpaTest {
 
 
     private DbUser newDbUser() {
-        var bdUser = DbUser.builder()
+        return DbUser.builder()
                 .withUsername("z")
                 .withPassword(new BCryptPasswordEncoder().encode("z"))
                 .withAccountNonExpired(true)
@@ -108,6 +106,5 @@ public class JpaTest {
                         )
                 )
                 .build();
-        return bdUser;
     }
 }

@@ -15,11 +15,9 @@ import java.util.Map;
 public class UserController {
 
 //    public static final String USERS_MANAGE_MAPPING = "/users/manage";
-//    public static final String LOGIN_MAPPING = "/login";
-//    public static final String LOGOUT_MAPPING = "/logout";
 //
-//    private static final String USER_MODEL = "user";
-//    private static final String USERS_DTO_MODEL = "usersDto";
+    private static final String USER_MODEL = "user";
+    private static final String USERS_DTO_MODEL = "usersDto";
 //    private static final String USER_NAME_MODEL = "username";
 //    private static final String ROLES_MODEL = "roles";
 //
@@ -34,10 +32,10 @@ public class UserController {
 
 //    @RequestMapping("/")
 //    public String userForm(Map<String, Object> model, Principal principal) {
-////        model.put(USER_MODEL, userService.emptyUser());
-////        model.put(USERS_DTO_MODEL, userService.usersDto());
-////        model.put(ROLES_MODEL, userService.allRoles());
-////        model.put(USER_NAME_MODEL, principal.getName());
+//        model.put(USER_MODEL, userService.emptyUser());
+//        model.put(USERS_DTO_MODEL, userService.usersDto());
+//        model.put(ROLES_MODEL, userService.allRoles());
+//        model.put(USER_NAME_MODEL, principal.getName());
 //        return "test";
 //    }
 

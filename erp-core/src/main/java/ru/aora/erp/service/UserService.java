@@ -8,7 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.UserConverter;
 import ru.aora.erp.model.entity.user.User;
+import ru.aora.erp.model.entity.user.UsersDto;
 import ru.aora.erp.repository.DbUserRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -30,9 +34,20 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        return userRepository.findByName(name)
+        try {
+            return userRepository.findByName(name)
+                    .map(userConverter::convert)
+                    .orElseThrow(() -> new UsernameNotFoundException(name));
+        } catch (Exception ex) {
+            throw new UsernameNotFoundException(String.join("User not found by name: ", name), ex);
+        }
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll()
+                .stream()
                 .map(userConverter::convert)
-                .orElseThrow(() -> new UsernameNotFoundException(name));
+                .collect(Collectors.toList());
     }
 
     //    public ActionResult updateOrCreate(final User user) {
@@ -77,9 +92,9 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-//    public UsersDto usersDto(){
-//        return new UsersDto(userRepository.findAll());
-//    }
+    public UsersDto usersDto() {
+        return new UsersDto(findAll());
+    }
 
     private void encodeUserPassword(User user) {
         user.setPassword(

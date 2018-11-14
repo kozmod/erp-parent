@@ -5,7 +5,7 @@ import java.util.StringJoiner;
 
 public class DbUser {
 
-    private int id;
+    private long id;
     private Set<DbModule> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -17,8 +17,12 @@ public class DbUser {
     private String mail;
     private boolean del;
 
-    public int getId() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -59,10 +63,6 @@ public class DbUser {
 
     public String getMail() {
         return mail;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setAuthorities(Set<DbModule> authorities) {
@@ -110,7 +110,7 @@ public class DbUser {
     }
 
     public static class UserBuilder {
-        private int id;
+        private long id;
         private Set<DbModule> authorities;
         private boolean accountNonExpired;
         private boolean accountNonLocked;
@@ -125,7 +125,7 @@ public class DbUser {
         private UserBuilder() {
         }
 
-        public UserBuilder withId(int id) {
+        public UserBuilder withId(long id) {
             this.id = id;
             return this;
         }

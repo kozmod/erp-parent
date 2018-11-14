@@ -15,7 +15,6 @@ import static ru.aora.erp.model.mappring.HttpUtils.redirectTo;
 public class DashboardController {
 
     private static final String DASHBOARD_TEMPLATE = "dashboard";
-
     private static final String UI_CHANE_NODE_MODEL = "uiChaneNodeModel";
 
     private final SidebarModulesIdentifiersService modulesIdentifiersService;

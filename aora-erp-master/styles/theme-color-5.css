@@ -1,5 +1,5 @@
 .thm_grd{
-	background: #efeff4;
+	background: #ffffff;
 }
 
 /* general.css */
@@ -26,9 +26,9 @@ body{
 	border:1px solid rgba(0, 0, 0, 0.2);
 	border-top:0;
      
-     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+     -webkit-box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
 }
 #topbar .nav li .inner .inp_range:before{
     background:rgba(0, 0, 0, 0.2);
@@ -44,12 +44,32 @@ body{
 	background: #ffffff;
 	border-right:1px solid rgba(0, 0, 0, 0.2);
 }
+#sidebar .admin_menu{
+	background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+#sidebar .admin_menu li{
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+#sidebar .admin_menu li:last-child{
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+#sidebar .admin_menu li a i{
+	display:inline-block;
+    width:30px;
+}
 #background .pattern{
     opacity:1;
 }
 
 /* elements.css */
 
+label.fld.filler em{
+	color: #a3a3a7;
+}
+label.fld.filler em.focus{
+    color: #4d4d4d;
+}
 label.fld .sign{
 	color: #a3a3a7;
 }
@@ -65,10 +85,6 @@ label.fld input{
 }
 label.fld input::placeholder{
 	color: #a3a3a7;
-}
-label.fld input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px #000000 inset;
-    -webkit-text-fill-color: #ffffff !important;
 }
 label.fld input:focus{
 	border:1px solid rgba(0, 0, 0, 0.1);
@@ -121,6 +137,15 @@ label.radiocheck input[type="radio"]:checked:after{
 }
 .bttn.bttn_submit{
 	background: #157efb;
+}
+.bttn.bttn_simple{
+	color: #157efb;
+}
+.bttn.bttn_simple:before {
+    background: rgba(24, 126, 251, 0.2);
+    background: -moz-linear-gradient(top, rgb(24, 126, 251, 0), rgba(24, 126, 251, 0.2) 50%, rgba(24, 126, 251, 0));
+    background: -webkit-linear-gradient(top, rgb(24, 126, 251, 0), rgba(24, 126, 251, 0.2) 50%, rgba(24, 126, 251, 0));
+	background: linear-gradient(to bottom, rgba(24, 126, 251, 0), rgba(24, 126, 251, 0.2) 50%, rgba(24, 126, 251, 0));
 }
 .inp_range::-webkit-slider-runnable-track{
 	height: 1px;
@@ -178,9 +203,71 @@ label.radiocheck input[type="radio"]:checked:after{
 	color:rgba(0, 0, 0, 0.4);
 }
 
+/* dialog.css */
+
+#dialog_wrapper .dialog_actions .inner{
+	background:#ffffff;
+	
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	border-radius:20px;
+}
+
 /* pages.css */
 
 
 
 /* module.css */
 
+#module .module_menu li{
+	margin:0 0 10px 0;
+}
+#module .module_menu li .nice-select,
+#module .module_menu li .button,
+#module .module_menu li .name,
+#module .module_menu li a{
+	color:#157efb;
+	background:#ffffff;
+	border:1px solid #157efb;
+	border-right:1px solid transparent;
+}
+#module .module_menu li:last-child .nice-select,
+#module .module_menu li:last-child .button,
+#module .module_menu li:last-child .name,
+#module .module_menu li:last-child a{
+	border-right:1px solid #157efb;
+}
+#module .module_menu li .nice-select:hover,
+#module .module_menu li .button:hover,
+#module .module_menu li a:hover{
+	color:#ffffff;
+	background:#157efb;
+}
+
+
+
+#module .module_content.module_users .user{
+	background-color:#ffffff;
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user:first-child:before {
+	background-color:rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user:after{
+	background-color:rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user .details.name{
+	border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user .edit .edit_user{
+	background: #ffffff;
+	border-top: 1px solid rgba(0, 0, 0, 0.2);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user .edit .edit_title{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+#module .module_content.module_users .user .edit .inner_acc{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

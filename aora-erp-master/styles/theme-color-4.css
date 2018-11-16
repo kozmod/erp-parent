@@ -36,10 +36,6 @@ body{
 }
 #topbar .nav li .quick_options{
     background:#cdcdcd;
-     
-     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 #topbar .nav li .quick_options .inner .patterns a{
     background-color: #ffffff !important;
@@ -57,8 +53,29 @@ body{
 
 /* elements.css */
 
+label.fld.filler em{
+    color:rgba(0, 0, 0, 0.4);
+}
+label.fld.filler em.focus{
+    color: #4d4d4d;
+}
+label.fld .sign{
+	color: rgba(0, 0, 0, 0.2);
+}
 label.fld input{
     font-weight: 400;
+	background: #ffffff;
+	border:1px solid rgba(0, 0, 0, 0.2);
+}
+label.fld input::placeholder{
+    color:rgba(0, 0, 0, 0.4);
+}
+label.fld input:focus{
+	border:1px solid #fed44f;
+
+	-moz-box-shadow: 0 0 5px 0 #fed44f;
+	-webkit-box-shadow: 0 0 5px 0 #fed44f;
+	box-shadow: 0 0 5px 0 #fed44f;
 }
 label.switcher input:before{
 	width:22px;
@@ -101,7 +118,7 @@ label.radiocheck input[type="radio"]:before{
 	background:#149549;
 }
 .bttn{
-    color:#4d4d4d !important;
+    color:#4d4d4d;
 	text-shadow:none !important;
 }
 .bttn.bttn_submit{
@@ -109,6 +126,15 @@ label.radiocheck input[type="radio"]:before{
 	background: -moz-linear-gradient(top, #fbec75 0%, #f9cc3a 100%);
 	background: -webkit-linear-gradient(top, #fbec75 0%,#f9cc3a 100%);
 	background: linear-gradient(to bottom, #fbec75 0%,#f9cc3a 100%);
+}
+.bttn.bttn_simple{
+	color: #149549;
+}
+.bttn.bttn_simple:before {
+    background: rgba(20, 149, 73, 0.2);
+    background: -moz-linear-gradient(top, rgb(20, 149, 73, 0), rgba(20, 149, 73, 0.2) 50%, rgba(20, 149, 73, 0));
+    background: -webkit-linear-gradient(top, rgb(20, 149, 73, 0), rgba(20, 149, 73, 0.2) 50%, rgba(20, 149, 73, 0));
+	background: linear-gradient(to bottom, rgba(20, 149, 73, 0), rgba(20, 149, 73, 0.2) 50%, rgba(20, 149, 73, 0));
 }
 
 /* popover.css */
@@ -145,6 +171,18 @@ label.radiocheck input[type="radio"]:before{
 }
 .slinky_sidemenu li a span.arrow{
 	color:rgba(0, 0, 0, 0.4);
+}
+
+/* dialog.css */
+
+#dialog_wrapper .dialog_actions .inner{
+	background:#ffffff;
+	position:relative;
+    margin:50px 0;
+	
+	-moz-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* pages.css */

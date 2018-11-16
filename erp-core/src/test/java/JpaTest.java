@@ -81,13 +81,17 @@ public class JpaTest {
 
     private DbUser newDbUser() {
         return DbUser.builder()
-                .withUsername("z")
-                .withPassword(new BCryptPasswordEncoder().encode("z"))
+                .withUsername("y")
+                .withPassword(new BCryptPasswordEncoder().encode("y"))
+                .withFirstName("Иванов")
+                .withSurname("Иван")
+                .withPatronymic("Иванович")
                 .withAccountNonExpired(true)
                 .withAccountNonLocked(true)
                 .withCredentialsNonExpired(true)
                 .withEnabled(true)
-                .withMail("z-mail@gMail.com")
+                .withMail("y-mail@gMail.com")
+                .withEmployeePosition("Слесарь")
                 .withPhoneNumber("+7(926)1057452")
                 .withAuthorities(
                         Set.of(

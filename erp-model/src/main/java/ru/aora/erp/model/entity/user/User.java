@@ -1,6 +1,5 @@
 package ru.aora.erp.model.entity.user;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.aora.erp.model.entity.IdAuthority;
 
@@ -17,12 +16,20 @@ public class User implements UserDetails {
     private boolean enabled;
     private String username;
     private String password;
+    private String firstName;
+    private String surname;
+    private String patronymic;
     private String phoneNumber;
     private String mail;
+    private String employeePosition;
     private boolean del;
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
@@ -30,8 +37,41 @@ public class User implements UserDetails {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 
     @Override
@@ -39,9 +79,17 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    public void setAuthorities(Collection<IdAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
 
     @Override
@@ -49,9 +97,17 @@ public class User implements UserDetails {
         return accountNonLocked;
     }
 
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
     }
 
     @Override
@@ -59,40 +115,8 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setAuthorities(Collection<IdAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPhoneNumber() {
@@ -103,8 +127,20 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getEmployeePosition() {
+        return employeePosition;
+    }
+
+    public void setEmployeePosition(String employeePosition) {
+        this.employeePosition = employeePosition;
     }
 
     public boolean isDel() {
@@ -128,8 +164,12 @@ public class User implements UserDetails {
         private boolean enabled;
         private String username;
         private String password;
+        private String firstName;
+        private String surname;
+        private String patronymic;
         private String phoneNumber;
         private String mail;
+        private String employeePosition;
         private boolean del;
 
         private UserBuilder() {
@@ -175,6 +215,22 @@ public class User implements UserDetails {
             return this;
         }
 
+        public UserBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public UserBuilder withSurname(String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+        public UserBuilder withPatronymic(String patronymic) {
+            this.patronymic = patronymic;
+            return this;
+        }
+
+
         public UserBuilder withMail(String mail) {
             this.mail = mail;
             return this;
@@ -182,6 +238,11 @@ public class User implements UserDetails {
 
         public UserBuilder withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public UserBuilder withEmployeePosition(String employeePosition) {
+            this.employeePosition = employeePosition;
             return this;
         }
 
@@ -200,8 +261,12 @@ public class User implements UserDetails {
             user.setEnabled(enabled);
             user.setUsername(username);
             user.setPassword(password);
+            user.setFirstName(firstName);
+            user.setSurname(surname);
+            user.setPatronymic(patronymic);
             user.setPhoneNumber(phoneNumber);
             user.setMail(mail);
+            user.setEmployeePosition(employeePosition);
             user.setDel(del);
             return user;
         }
@@ -218,8 +283,12 @@ public class User implements UserDetails {
                 .add("enabled=" + enabled)
                 .add("username='" + username + "'")
                 .add("password='" + password + "'")
+                .add("firstName='" + firstName + "'")
+                .add("surname='" + surname + "'")
+                .add("patronymic='" + patronymic + "'")
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
+                .add("employeePosition='" + employeePosition + "'")
                 .add("del=" + del)
                 .toString();
     }

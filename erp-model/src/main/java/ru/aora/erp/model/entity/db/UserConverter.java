@@ -26,13 +26,17 @@ public class UserConverter {
         user.setId(dbUser.getId());
         user.setUsername(dbUser.getUsername());
         user.setPassword(dbUser.getPassword());
-        user.setEnabled(dbUser.isEnabled());
+        user.setFirstName(dbUser.getFirstName());
+        user.setSurname(dbUser.getSurname());
+        user.setPatronymic(dbUser.getPatronymic());
         user.setPhoneNumber(dbUser.getPhoneNumber());
         user.setMail(dbUser.getMail());
-        user.setDel(dbUser.isDel());
+        user.setEmployeePosition(dbUser.getEmployeePosition());
+        user.setEnabled(dbUser.isEnabled());
         user.setAccountNonExpired(dbUser.isAccountNonExpired());
         user.setAccountNonLocked(dbUser.isAccountNonLocked());
         user.setCredentialsNonExpired(dbUser.isCredentialsNonExpired());
+        user.setDel(dbUser.isDel());
 
         final List<IdAuthority> authorities = new ArrayList<>();
         for (var module : dbUser.getAuthorities()) {

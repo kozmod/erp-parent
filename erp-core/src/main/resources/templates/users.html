@@ -118,37 +118,51 @@
                             </div>
                             <div class="col_xxs_2 col_xs_2 col_s_2 col_m_2 col_l_2">
                                 <div class="actions size_is height_equal">
-                                    <a href="javascript:;" class="show_popover rds_full" data-popover="user_actions_414" data-popover-position="left">
+                                    <a href="javascript:;"
+                                       class="show_popover rds_full"
+                                       th:data-popover="'user_actions_'+*{users[__${userStat.index}__].getId()}"
+                                       data-popover-position="left"
+                                    >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                 </div>
                                 <div class="hide_me">
-                                    <div id="user_actions_414">
+                                    <div th:id="'user_actions_'+*{users[__${userStat.index}__].getId()}">
                                         <ul class="popover_menu">
-                                            <li><a href="#user_edit_414" class="toggle_cb" data-toggle="user_edit_414"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                            <li><a href="#user_roles_414" class="toggle_cb" data-toggle="user_roles_414"><i class="fas fa-key"></i> Права доступа</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}"><i class="fas fa-key"></i> Права доступа</a></li>
                                             <li><a href="javascript:;"><i class="fas fa-ban"></i> Заблокировать</a></li>
                                             <li><a href="javascript:;"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                         </ul>
                                     </div>
-                                    <div class="actions_popover">1111</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_edit_414 edit hide_me">
+                        <div th:class="'user_edit_'+*{users[__${userStat.index}__].getId()}+' edit hide_me'">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                                    <a name="user_edit_414"></a>
+                                    <a th:name="'user_edit_'+*{users[__${userStat.index}__].getId()}"></a>
                                     <div class="edit_user">
                                         Изменение пользователя
                                         <span>Mignon Dempsey</span>
-                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_edit_414"><i class="far fa-times-circle"></i></a>
+                                        <a href="javascript:;" class="toggle_cb"
+                                           th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-                                    <div class="edit_basic">
+                                    <form class="edit_basic" method="get">
                                         <label class="fld filler">
-                                            <em>ФИО</em>
+                                            <em>Фамилия</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" name="somename" th:value="*{users[__${userStat.index}__].getSurname()}"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Имя</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" name="somename" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Отчество</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
                                             <input type="text" class="inp" name="somename" />
                                         </label>
@@ -174,21 +188,22 @@
                                         </label>
                                         <div class="clear_after">
                                             <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
-                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_edit_414">Закрыть</a>
+                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}">Закрыть</a>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_roles_414 edit hide_me">
+                        <div th:class="'user_roles_'+*{users[__${userStat.index}__].getId()}+' edit hide_me'">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
                                     <div class="edit_user">
-                                        <a name="user_roles_414"></a>
+                                        <a th:name="'user_roles_'+*{users[__${userStat.index}__].getId()}"></a>
 
                                         Управление правами пользователя
                                         <span>Mignon Dempsey</span>
-                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_roles_414"><i class="far fa-times-circle"></i></a>
+                                        <a href="javascript:;" class="toggle_cb"
+                                           th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
@@ -386,17 +401,16 @@
                                         <div class="clear_after">
                                             <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
 
-                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_roles_414">Закрыть</a>
+                                            <a href="javascript:;"
+                                               class="bttn bttn_40 right rds_5 toggle_cb"
+                                               th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}">Закрыть</a>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                     <!--?>-->
-
                     <!--<?php } ?>-->
                 </div>
             </div>

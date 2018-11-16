@@ -1,4 +1,4 @@
-$(document).ready(function($) {
+function loadOptions () {
 	
 	////////////////////////////////////
 	// GENERAL
@@ -18,45 +18,9 @@ $(document).ready(function($) {
 
 	});	
 	
-	// Log-off timer
-	
-	$('.test_timer').startTimer({
-		onComplete: function(element) {
-			window.location.replace('login.php');
-		},
-	});
-	
 	// Log-in screen
 	
 	$('.height_equal').matchHeight();
-	
-	// Get scrollbar width
-	
-	function getScrollBarWidth () {
-		var inner = document.createElement('p');
-		inner.style.width = '100%';
-		inner.style.height = '200px';
-
-		var outer = document.createElement('div');
-		outer.style.position = 'absolute';
-		outer.style.top = '0px';
-		outer.style.left = '0px';
-		outer.style.visibility = 'hidden';
-		outer.style.width = '200px';
-		outer.style.height = '150px';
-		outer.style.overflow = 'hidden';
-		outer.appendChild (inner);
-
-		document.body.appendChild (outer);
-		var w1 = inner.offsetWidth;
-		outer.style.overflow = 'scroll';
-		var w2 = inner.offsetWidth;
-		if (w1 == w2) w2 = outer.clientWidth;
-
-		document.body.removeChild (outer);
-
-		return (w1 - w2);
-	};
 	
 	// Make item responsive
 	
@@ -121,40 +85,6 @@ $(document).ready(function($) {
 	$(window).on('load resize scroll', function() {
 		contentShadow();
 	});
-	
-	// Sidebar toggle
-	
-	$('.toggle_sidebar').click(function() {
-		$('#sidebar').toggleClass('collapsed');
-		$('#content').toggleClass('expanded');
-	});
-	
-	// Toggle dialog window
-	
-    $('.toggle_dialog').click(function() {
-		var dialogWindow = $(this).data('dialog');
-			
-		$('#container').toggleClass('blur_3');
-		$('#content').toggleClass('locked');
-		$('#dialog_wrapper').fadeToggle(300);
-		
-		setTimeout(function() {
-			$('#dialog_wrapper .dialog_window.dialog_' + dialogWindow).toggleClass('hide_me');
-		}, 150);
-		
-		setTimeout(function() {
-			$('#dialog_wrapper .dialog_window.dialog_' + dialogWindow).toggleClass('open');
-		}, 300);
-    });
-	
-	// Toggle content block
-	
-    $('.toggle_cb').click(function() {
-		$(this).toggleClass('active');
-		
-		var toggleContainer = $(this).data('toggle');
-		$('.' + toggleContainer).slideToggle(300);
-    });
 	
 	// Toggle accordion
 	
@@ -223,13 +153,6 @@ $(document).ready(function($) {
 		
 		$('#user_theme_pattern').attr('href', 'styles/theme-pattern-0.css');
 		$('#topbar .nav .quick_options button.bttn').prop('disabled', false);
-	});
-	
-	// Sidebar menu
-	
-	$('#container #sidebar .user_menu').slinky({
-		title:true,
-		theme:'slinky_sidemenu',
 	});
 	
 	// Select boxes
@@ -309,6 +232,86 @@ $(document).ready(function($) {
 					popoverToggler.webuiPopover('hide');
 				});
 			}
+		});
+	});
+
+    // Toggle content block
+
+    $('.toggle_cb').click(function() {
+        $(this).toggleClass('active');
+
+        var toggleContainer = $(this).data('toggle');
+        $('.' + toggleContainer).slideToggle(300);
+    });
+	
+}
+	
+$(document).ready(function($) {
+	
+	// Sidebar toggle
+	
+	$('.toggle_sidebar').click(function() {
+		$('#sidebar').toggleClass('collapsed');
+		$('#content').toggleClass('expanded');
+	});
+	
+	// Toggle dialog window
+	
+    $('.toggle_dialog').click(function() {
+		var dialogWindow = $(this).data('dialog');
+			
+		$('#container').toggleClass('blur_3');
+		$('#content').toggleClass('locked');
+		$('#dialog_wrapper').fadeToggle(300);
+		
+		setTimeout(function() {
+			$('#dialog_wrapper .dialog_window.dialog_' + dialogWindow).toggleClass('hide_me');
+		}, 150);
+		
+		setTimeout(function() {
+			$('#dialog_wrapper .dialog_window.dialog_' + dialogWindow).toggleClass('open');
+		}, 300);
+    });
+	
+	// Sidebar menu
+	
+	$('#container #sidebar .user_menu').slinky({
+		title:true,
+		theme:'slinky_sidemenu',
+	});
+	
+	// Log-off timer
+	
+	$('.test_timer').startTimer({
+		onComplete: function(element) {
+			window.location.replace('login.php');
+		},
+	});
+	
+	
+	
+	
+	
+	loadOptions();
+	
+	// Ajax load #content
+	
+	$('.load_content').each(function() {
+		$(this).click(function() {
+			
+			var contentPart = $(this).data('load');
+			
+			$.ajax({
+				url:contentPart,
+				success: function(response) {
+					$("#content").html($(response));
+					
+					loadOptions();
+				}
+			});
+			
+			//alert(contentPart);
+		
 		});
 	});
 	

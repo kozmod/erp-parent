@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.UserConverter;
 import ru.aora.erp.model.entity.user.User;
-import ru.aora.erp.model.entity.user.UsersDto;
 import ru.aora.erp.repository.DbUserRepository;
 
 import java.util.List;

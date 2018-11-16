@@ -28,8 +28,9 @@ public class DbUserRepository {
     private static final String SELECT_USER_BY_NAME_JOIN_QUERY = SELECT_ALL_USERS + " WHERE U.user_name = ? ";
 
     private static final String INSERT_USER =
-            "INSERT INTO Users (user_name, password ,phone_number, mail, account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?) ";
+                "INSERT INTO Users (user_name,password,first_name,surname,patronymic,phone_number,mail,employee_position,account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
+                        " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
 
     private static final String INSERT_USER_LINK =
             "INSERT INTO j_Users_Modules_Rule (id_User, id_Module, id_Rule) " +
@@ -73,12 +74,16 @@ public class DbUserRepository {
                     );
                     ps.setString(1, user.getUsername());
                     ps.setString(2, user.getPassword());
-                    ps.setString(3, user.getPhoneNumber());
-                    ps.setString(4, user.getMail());
-                    ps.setBoolean(5, user.isAccountNonExpired());
-                    ps.setBoolean(6, user.isAccountNonLocked());
-                    ps.setBoolean(7, user.isCredentialsNonExpired());
-                    ps.setBoolean(8, user.isEnabled());
+                    ps.setString(3, user.getFirstName());
+                    ps.setString(4, user.getSurname());
+                    ps.setString(5, user.getPatronymic());
+                    ps.setString(6, user.getPhoneNumber());
+                    ps.setString(7, user.getMail());
+                    ps.setString(8, user.getEmployeePosition());
+                    ps.setBoolean(9, user.isAccountNonExpired());
+                    ps.setBoolean(10, user.isAccountNonLocked());
+                    ps.setBoolean(11, user.isCredentialsNonExpired());
+                    ps.setBoolean(12, user.isEnabled());
                     return ps;
                 },
                 keyHolder

@@ -18,6 +18,7 @@ function getFragmentAndChangeDiv(divId,reference) {
             }
             // console.log(text);
             $(divId).html(text)
+            loadOptions();
         },
         error: function (response) {
             alert(response);

@@ -87,7 +87,7 @@ public class JpaTest {
                 .withAccountNonLocked(true)
                 .withCredentialsNonExpired(true)
                 .withEnabled(true)
-                .withMail("z")
+                .withMail("z-mail@gMail.com")
                 .withPhoneNumber("+7(926)1057452")
                 .withAuthorities(
                         Set.of(

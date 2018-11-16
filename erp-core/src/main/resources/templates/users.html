@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <!-- Container start -->
-<div class="wrapper">
+<!--/*@thymesVar id="usersDto" type="ru.aora.erp.model.entity.user.UsersDto"*/-->
+<div class="wrapper" th:fragment="users" th:object="${usersDto}">
     <div id="module">
         <div class="module_header size_is">
             <div class="container">
@@ -77,15 +80,20 @@
             <div class="container">
                 <div class="row no_gutter">
                     <!-- todo -->
-                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150">
-                        <div class="row">
+                    <div th:each="user, userStat : *{users}"
+                         class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150" >
+                        <div  class="row">
                             <div class="col_xxs_10 col_xs_10 col_s_10 col_m_10 col_l_10">
                                 <div class="row">
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
                                         <div class="details name size_is height_equal">
                                             <div>
-                                                <strong>Mignon Dempsey</strong>
-                                                <span>ID 414 &bull; Бухгалтер</span>
+                                                <strong th:text="*{users[__${userStat.index}__].getUsername()}" >
+                                                    ------ USER NAME -----
+                                                </strong>
+                                                <span th:text="'ID '+*{users[__${userStat.index}__].getId()}">
+                                                    ----- ID 414 - Бухгалтер -----
+                                                </span>
 
                                                 <label class="radiocheck">
                                                     <input type="checkbox" class="www" />
@@ -97,8 +105,12 @@
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
                                         <div class="details meta size_is height_equal">
                                             <div>
-                                                <span>mignondempsey@gmail.com</span>
-                                                <span>+3 (449) 12062527</span>
+                                                <span th:text="*{users[__${userStat.index}__].getMail()}">
+                                                    ----- USER_MAIL@MAIL.COM -----
+                                                </span>
+                                                <span th:text="*{users[__${userStat.index}__].getPhoneNumber()}">
+                                                    +3 (449) 12062527
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

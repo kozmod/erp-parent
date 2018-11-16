@@ -2,11 +2,9 @@ package ru.aora.erp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ru.aora.erp.model.entity.user.UsersDto;
+import ru.aora.erp.service.UserService;
 
 import java.security.Principal;
 import java.util.Map;
@@ -23,21 +21,24 @@ public class UserController {
 //
 //    private static final String USERS_TEMPLATE = "users";
 //
-//    private UserService userService;
+    private UserService userService;
 //
-//    @Autowired
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-//    @RequestMapping("/")
-//    public String userForm(Map<String, Object> model, Principal principal) {
+    @RequestMapping("/xxx")
+    public String userForm(Map<String, Object> model, Principal principal) {
 //        model.put(USER_MODEL, userService.emptyUser());
-//        model.put(USERS_DTO_MODEL, userService.usersDto());
+        model.put(
+                USERS_DTO_MODEL,
+                UsersDto.of(userService.loadAll())
+        );
 //        model.put(ROLES_MODEL, userService.allRoles());
 //        model.put(USER_NAME_MODEL, principal.getName());
-//        return "test";
-//    }
+        return "users";
+    }
 
 //    @PostMapping(params = "action=Update or Create")
 //    public String add(@ModelAttribute User user) {

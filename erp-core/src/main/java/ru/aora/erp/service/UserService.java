@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> findAll() {
+    public List<User> loadAll() {
         return userRepository.findAll()
                 .stream()
                 .map(userConverter::convert)
@@ -90,10 +90,6 @@ public class UserService implements UserDetailsService {
                 .withCredentialsNonExpired(true)
                 .withEnabled(true)
                 .build();
-    }
-
-    public UsersDto usersDto() {
-        return new UsersDto(findAll());
     }
 
     private void encodeUserPassword(User user) {

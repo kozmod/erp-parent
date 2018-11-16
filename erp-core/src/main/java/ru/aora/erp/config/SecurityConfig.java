@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
 //                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
 //                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
-//                .antMatchers("/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         new AntPathRequestMatcher(LOGOUT_MAPPING)
                 )
                 .logoutSuccessUrl(LOGIN_MAPPING);
-        defineAuthoritiesMapping(http);
+//        defineAuthoritiesMapping(http);
     }
 
     private void defineAuthoritiesMapping(final HttpSecurity http) throws Exception {

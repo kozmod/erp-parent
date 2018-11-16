@@ -18,13 +18,13 @@
                             <a th:case="false"
                                href="#"
                                th:text="${uiChildNode.name()}">
-                                CHILD_MODULE_TEXT
+                                -------CHILD_MODULE_TEXT-------
                             </a>
                             <a th:case="true"
                                href="#"
                                th:onclick="getFragmentAndChangeDiv('#content',[[${uiChildNode.mapping().orElse('#')}]]);"
                                th:text="${uiChildNode.name()}">
-                                LAST_CHILD_MODULE_TEXT
+                                -------LAST_CHILD_MODULE_TEXT-------
                             </a>
                             <ul th:replace="this::fragment_node(${uiChildNode})"></ul>
                         </li>

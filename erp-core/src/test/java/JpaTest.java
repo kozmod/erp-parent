@@ -81,7 +81,7 @@ public class JpaTest {
 
     private DbUser newDbUser() {
         return DbUser.builder()
-                .withUsername("y")
+                .withUsername("z")
                 .withPassword(new BCryptPasswordEncoder().encode("y"))
                 .withFirstName("Иванов")
                 .withSurname("Иван")

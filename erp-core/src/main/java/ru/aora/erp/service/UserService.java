@@ -82,14 +82,6 @@ public class UserService implements UserDetailsService {
 //    }
 //
 
-    public User emptyUser() {
-        return User.builder()
-                .withAccountNonExpired(true)
-                .withAccountNonLocked(true)
-                .withCredentialsNonExpired(true)
-                .withEnabled(true)
-                .build();
-    }
 
     private void encodeUserPassword(User user) {
         user.setPassword(

@@ -7,6 +7,9 @@ import java.util.StringJoiner;
 public final class UsersDto {
     private List<User> users;
 
+    public UsersDto() {
+    }
+
     private UsersDto(List<User> users) {
         this.users = users;
     }
@@ -25,6 +28,10 @@ public final class UsersDto {
 
     public void addUser(User user) {
         this.users.add(user);
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

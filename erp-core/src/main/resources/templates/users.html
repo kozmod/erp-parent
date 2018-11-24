@@ -150,45 +150,49 @@
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-                                    <form class="edit_basic" method="get">
+                                    <form class="edit_basic"
+                                          id ="form_update_user"
+                                          action="#"
+                                          th:object="${user}"
+                                          method="post" >
                                         <label class="fld filler">
                                             <em>Фамилия</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" th:value="*{users[__${userStat.index}__].getSurname()}"/>
+                                            <input type="text" class="inp"  th:id ="'user_first_name_'+*{id}"  name="userFirstName"  th:value="*{firstName}" />
                                         </label>
                                         <label class="fld filler">
                                             <em>Имя</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" th:id ="'user_surname_'+*{id}" name="userSurname" th:value="*{surname}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Отчество</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" name="userPatronymic" th:value="*{patronymic}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Должность</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" name="userEmployeePosition" th:value="*{employeePosition}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Email</em>
                                             <div class="sign"><i class="fas fa-envelope"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" name="userMail" th:value="*{mail}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Телефон</em>
                                             <div class="sign"><i class="fas fa-phone"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" name="userPhoneNumber" th:value="*{phoneNumber}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Пароль</em>
                                             <div class="sign"><i class="fas fa-key"></i></div>
-                                            <input type="password" class="inp" name="somename" />
+                                            <input type="password" class="inp" name="userPassword" th:value="*{password}" />
                                         </label>
                                         <div class="clear_after">
-                                            <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
-                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}">Закрыть</a>
+                                            <button type="submit" name="update_user" value="update_user" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
+                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'user_edit_'+${user.id}">Закрыть</a>
                                         </div>
                                     </form>
                                 </div>

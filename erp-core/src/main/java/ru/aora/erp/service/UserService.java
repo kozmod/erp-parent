@@ -55,14 +55,14 @@ public class UserService implements UserDetailsService {
 //                    user.setId(target.getId());
 //                    if(user.getPassword().isEmpty()) user.setPassword(target.getPassword());
 //                    else encodeUserPassword(user);
-//                    userRepository.save(user);
+//                    userRepository.create(user);
 //                    return new ActionResult(
 //                            ActionResult.Result.SUCCESS,
 //                            "User updated"
 //                    );
 //                }).orElseGet(() -> {
 //                    encodeUserPassword(user);
-//                    userRepository.save(user);
+//                    userRepository.create(user);
 //                    return new ActionResult(
 //                            ActionResult.Result.SUCCESS,
 //                            "User created"

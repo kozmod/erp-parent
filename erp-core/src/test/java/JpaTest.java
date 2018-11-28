@@ -70,7 +70,7 @@ public class JpaTest {
 //    @Transactional("userTransactionManager")
     public void shouldSaveDbUser() {
         var dbUser = newDbUser();
-        userRepository.save(dbUser);
+        userRepository.create(dbUser);
         System.out.println(
                 "\n_______________________________________\n" +
                         dbUser +

@@ -3,7 +3,7 @@
  * @param divId
  * @param reference
  */
-function getFragmentAndChangeDiv(divId,reference) {
+function getFragmentAndChangeDiv(divId, reference) {
     $.ajax({
         headers: {
             Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
@@ -28,75 +28,52 @@ function getFragmentAndChangeDiv(divId,reference) {
 }
 
 
-function call_XXX() {
-    $.ajax({
-        headers: {
-            Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
-        },
-        url: "/xxx",
-        method: "POST",
-        data: {
-            name : "AAAAAAA",
-        },
-        success: function (data, textStatus, response) {
-            alert("SUCC");
+function updateUserRequest(userId) {
+        var JSONObject= {
+            id: userId,
+            firstName:
+                $("#user_first_name_".concat(userId)).val(),
+            surname:
+                $("#user_surname_".concat(userId)).val(),
+            patronymic:
+                $("#user_patronymic_".concat(userId)).val(),
+            employeePosition:
+                $("#user_employee_position_".concat(userId)).val(),
+            mail:
+                $("#user_mail_".concat(userId)).val(),
+            password:
+                $("#user_password_".concat(userId)).val()
+        };
 
-        },
-        error: function (response) {
-            alert("ERR");
-            // terminate the script
-        }
-    });
-
+        $.ajax({
+            type: 'PUT',
+            url:  '/xxx',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(JSONObject),
+            dataType: 'json',
+            async: true,
+            success: function(result) {
+                alert('At ' + result.time
+                    + ': ' + result.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        });
 }
 
-// function updateUserPost(userId) {
-//
-//     var formUserId = "#form_update_user_".concat(userId);
-//
-//     // SUBMIT FORM
-//     $(formUserId).submit(function(event) {
-//         // Prevent the form from submitting via the browser.
-//         event.preventDefault();
-//         ajaxUserUpdatePost();
-//     });
-//
-//
-//     function ajaxUserUpdatePost(){
-//
-//         // PREPARE FORM DATA
-//         var formData = {
-//             id : userId,
-//             firstName : $("#user_first_name_".concat(userId)).val(),
-//             surname :  $("#user_surname_".concat(userId)).val()
-//         }
-//
-//         // DO POST
-//         $.ajax({
-//             type : "POST",
-//             contentType : "application/json",
-//             url : window.location + "api/customer/save",
-//             data : JSON.stringify(formData),
-//             dataType : 'json',
-//             success : function(result) {
-//                 if(result.status == "Done"){
-//                     $("#postResultDiv").html("<p style='background-color:#7FA7B0; color:white; padding:20px 20px 20px 20px'>" +
-//                         "Post Successfully! <br>" +
-//                         "---> Customer's Info: FirstName = " +
-//                         result.data.firstname + " ,LastName = " + result.data.lastname + "</p>");
-//                 }else{
-//                     $("#postResultDiv").html("<strong>Error</strong>");
-//                 }
-//                 console.log(result);
-//             },
-//             error : function(e) {
-//                 alert("Error!")
-//                 console.log("ERROR: ", e);
-//             }
-//         });
-//
-//         // Reset FormData after Posting
-//         resetData();
-//
-//     }
-// }
+function deleteUser(userId) {
+    $.ajax({
+        type: 'DELETE',
+        url:  '/xxx/'.concat(userId),
+        dataType: 'json',
+        async: true,
+        success: function(result) {
+            alert('At ' + result.time
+                + ': ' + result.message);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
+}

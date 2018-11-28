@@ -82,16 +82,16 @@
                     <!-- todo -->
                     <div th:each="user, userStat : *{users}"
                          class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150" >
-                        <div  class="row">
+                        <div  class="row" th:object="${user}">
                             <div class="col_xxs_10 col_xs_10 col_s_10 col_m_10 col_l_10">
                                 <div class="row">
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
                                         <div class="details name size_is height_equal">
                                             <div>
-                                                <strong th:text="*{users[__${userStat.index}__].getUsername()}" >
+                                                <strong th:text="*{username}" >
                                                     ------ USER NAME -----
                                                 </strong>
-                                                <span th:text="'ID '+*{users[__${userStat.index}__].getId()}">
+                                                <span th:text="'ID '+*{id}">
                                                     ----- ID 414 - Бухгалтер -----
                                                 </span>
 
@@ -105,10 +105,10 @@
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
                                         <div class="details meta size_is height_equal">
                                             <div>
-                                                <span th:text="*{users[__${userStat.index}__].getMail()}">
+                                                <span th:text="*{mail}">
                                                     ----- USER_MAIL@MAIL.COM -----
                                                 </span>
-                                                <span th:text="*{users[__${userStat.index}__].getPhoneNumber()}">
+                                                <span th:text="*{phoneNumber}">
                                                     +3 (449) 12062527
                                                 </span>
                                             </div>
@@ -120,41 +120,41 @@
                                 <div class="actions size_is height_equal">
                                     <a href="javascript:;"
                                        class="show_popover rds_full"
-                                       th:data-popover="'user_actions_'+*{users[__${userStat.index}__].getId()}"
+                                       th:data-popover="'user_actions_'+*{id}"
                                        data-popover-position="left"
                                     >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                 </div>
-                                <div class="hide_me">
-                                    <div th:id="'user_actions_'+*{users[__${userStat.index}__].getId()}">
+                                <div class="hide_me" th:object="${user}">
+                                    <div th:id="'user_actions_'+*{id}">
                                         <ul class="popover_menu">
-                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}"><i class="fas fa-key"></i> Права доступа</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_edit_'+*{id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_roles_'+*{id}"><i class="fas fa-key"></i> Права доступа</a></li>
                                             <li><a href="javascript:;"><i class="fas fa-ban"></i> Заблокировать</a></li>
-                                            <li><a href="javascript:;"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                            <li><a href="javascript:;" th:onclick="deleteUser([[*{id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div th:class="'user_edit_'+*{users[__${userStat.index}__].getId()}+' edit hide_me'">
+                        <div th:class="'user_edit_'+*{id}+' edit hide_me'" th:object="${user}">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                                    <a th:name="'user_edit_'+*{users[__${userStat.index}__].getId()}"></a>
+                                    <a th:name="'user_edit_'+*{id}"></a>
                                     <div class="edit_user">
                                         Изменение пользователя
                                         <span>Mignon Dempsey</span>
                                         <a href="javascript:;" class="toggle_cb"
-                                           th:data-toggle="'user_edit_'+*{users[__${userStat.index}__].getId()}"><i class="far fa-times-circle"></i></a>
+                                           th:data-toggle="'user_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-                                    <form class="edit_basic"
-                                          id ="form_update_user"
+                                    <!-- 'form' was here -->
+                                    <div class="edit_basic"
+                                          th:id ="'form_update_user_'+*{id}"
                                           action="#"
-                                          th:object="${user}"
-                                          method="post" >
+                                          th:object="${user}">
                                         <label class="fld filler">
                                             <em>Фамилия</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
@@ -168,46 +168,46 @@
                                         <label class="fld filler">
                                             <em>Отчество</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="userPatronymic" th:value="*{patronymic}"/>
+                                            <input type="text" class="inp" th:id ="'user_patronymic_'+*{id}" name="userPatronymic" th:value="*{patronymic}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Должность</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="userEmployeePosition" th:value="*{employeePosition}"/>
+                                            <input type="text" class="inp" th:id ="'user_employee_position_'+*{id}" name="userEmployeePosition" th:value="*{employeePosition}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Email</em>
                                             <div class="sign"><i class="fas fa-envelope"></i></div>
-                                            <input type="text" class="inp" name="userMail" th:value="*{mail}"/>
+                                            <input type="text" class="inp" th:id ="'user_mail_'+*{id}" name="userMail" th:value="*{mail}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Телефон</em>
                                             <div class="sign"><i class="fas fa-phone"></i></div>
-                                            <input type="text" class="inp" name="userPhoneNumber" th:value="*{phoneNumber}"/>
+                                            <input type="text" class="inp" th:id ="'user_phone_number_'+*{id}" name="userPhoneNumber" th:value="*{phoneNumber}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Пароль</em>
                                             <div class="sign"><i class="fas fa-key"></i></div>
-                                            <input type="password" class="inp" name="userPassword" th:value="*{password}" />
+                                            <input type="password" class="inp" th:id ="'user_password_'+*{id}" name="userPassword" th:value="*{password}" />
                                         </label>
                                         <div class="clear_after">
-                                            <button type="submit" name="update_user" value="update_user" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
+                                            <button th:onclick="updateUserRequest([[*{id}]])" name="update_user" value="update_user" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
                                             <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'user_edit_'+${user.id}">Закрыть</a>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div th:class="'user_roles_'+*{users[__${userStat.index}__].getId()}+' edit hide_me'">
+                        <div th:class="'user_roles_'+*{id}+' edit hide_me'" th:object="${user}">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
                                     <div class="edit_user">
-                                        <a th:name="'user_roles_'+*{users[__${userStat.index}__].getId()}"></a>
+                                        <a th:name="'user_roles_'+*{id}"></a>
 
                                         Управление правами пользователя
                                         <span>Mignon Dempsey</span>
                                         <a href="javascript:;" class="toggle_cb"
-                                           th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}"><i class="far fa-times-circle"></i></a>
+                                           th:data-toggle="'user_roles_'+*{id}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
@@ -407,7 +407,7 @@
 
                                             <a href="javascript:;"
                                                class="bttn bttn_40 right rds_5 toggle_cb"
-                                               th:data-toggle="'user_roles_'+*{users[__${userStat.index}__].getId()}">Закрыть</a>
+                                               th:data-toggle="'user_roles_'+*{id}">Закрыть</a>
                                         </div>
                                     </form>
                                 </div>

@@ -29,6 +29,11 @@ public class DbUserRepositoryTest {
     @Autowired
     private DbUserRepository userRepository;
 
+    @Test
+    public void shouldFindById() throws SQLException {
+        final Optional<DbUser> user = userRepository.findById(1L);
+        assertTrue(user.isPresent());
+    }
 
     @Test
     public void shouldCreateUserWithoutAuthorities() {

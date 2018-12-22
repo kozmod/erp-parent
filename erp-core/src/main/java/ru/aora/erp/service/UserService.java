@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.db.UserConverter;
 import ru.aora.erp.model.entity.user.User;
 import ru.aora.erp.repository.DbUserRepository;
@@ -47,6 +48,25 @@ public class UserService implements UserDetailsService {
                 .stream()
                 .map(userConverter::convert)
                 .collect(Collectors.toList());
+    }
+
+    public void updateUser(User user) {
+        try {
+            DbUser dbUser = userRepository.findById(user.getId())
+                    .orElseThrow(() -> new UsernameNotFoundException(Long.toString(user.getId())));
+            if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
+                userRepository.update(userConverter.convert(user));
+            } else {
+                encodeUserPassword(user);
+                userRepository.update(userConverter.convert(user));
+            }
+        } catch (Exception ex) {
+            throw new UsernameNotFoundException(String.join("User not found by id"), ex);
+        }
+    }
+
+    public void deleteUser(long userId) {
+        userRepository.delete(userId);
     }
 
     //    public ActionResult updateOrCreate(final User user) {

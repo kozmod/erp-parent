@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
 public class UserConverter {
@@ -39,14 +40,16 @@ public class UserConverter {
         user.setDel(dbUser.isDel());
 
         final List<IdAuthority> authorities = new ArrayList<>();
-        for (var module : dbUser.getAuthorities()) {
-            for (var roleName : module.getModuleRoles()) {
-                tryFindAuthorities(module.getName(), roleName.getName())
-                        .ifPresent(authority -> {
-                            authority.setModuleId(module.getId());
-                            authority.setRuleId(roleName.getId());
-                            authorities.add(authority);
-                        });
+        if (nonNull(dbUser.getAuthorities())) {
+            for (var module : dbUser.getAuthorities()) {
+                for (var roleName : module.getModuleRoles()) {
+                    tryFindAuthorities(module.getName(), roleName.getName())
+                            .ifPresent(authority -> {
+                                authority.setModuleId(module.getId());
+                                authority.setRuleId(roleName.getId());
+                                authorities.add(authority);
+                            });
+                }
             }
         }
         user.setAuthorities(authorities);
@@ -65,41 +68,49 @@ public class UserConverter {
     public DbUser convert(User user) {
         requireNonNull(user, "DbUser should not be null");
         final var dbUser = new DbUser();
-        dbUser.setId(dbUser.getId());
-        dbUser.setUsername(dbUser.getUsername());
-        dbUser.setPassword(dbUser.getPassword());
-        dbUser.setEnabled(dbUser.isEnabled());
-        dbUser.setDel(dbUser.isDel());
-        dbUser.setAccountNonExpired(dbUser.isAccountNonExpired());
-        dbUser.setAccountNonLocked(dbUser.isAccountNonLocked());
-        dbUser.setCredentialsNonExpired(dbUser.isCredentialsNonExpired());
+        dbUser.setId(user.getId());
+        dbUser.setUsername(user.getUsername());
+        dbUser.setPassword(user.getPassword());
+        dbUser.setFirstName(user.getFirstName());
+        dbUser.setSurname(user.getSurname());
+        dbUser.setPatronymic(user.getPatronymic());
+        dbUser.setPhoneNumber(user.getPhoneNumber());
+        dbUser.setMail(user.getMail());
+        dbUser.setEmployeePosition(user.getEmployeePosition());
+        dbUser.setEnabled(user.isEnabled());
+        dbUser.setDel(user.isDel());
+        dbUser.setAccountNonExpired(user.isAccountNonExpired());
+        dbUser.setAccountNonLocked(user.isAccountNonLocked());
+        dbUser.setCredentialsNonExpired(user.isCredentialsNonExpired());
 
         final Set<DbModule> modules = new HashSet<>();
-        for (IdAuthority authority : user.getAuthorities()) {
-            tryFindModule(authority.getClass().getSimpleName(), modules)
-                    .ifPresentOrElse(
-                            dbModule ->
-                                    dbModule.getModuleRoles().add(
-                                            DbModuleRule.builder()
-                                                    .withId(authority.getRuleId())
-                                                    .withName(authority.getAuthority())
-                                                    .build()
-                                    )
-                            , () ->
-                                    modules.add(
-                                            DbModule.builder()
-                                                    .withId(authority.getModuleId())
-                                                    .withName(authority.getClass().getSimpleName())
-                                                    .withModuleRoles(
-                                                            Set.of(
-                                                                    DbModuleRule.builder()
-                                                                            .withId(authority.getRuleId())
-                                                                            .withName(authority.getAuthority())
-                                                                            .build()
-                                                            )
-                                                    ).build()
-                                    )
-                    );
+        if (nonNull(user.getAuthorities())) {
+            for (IdAuthority authority : user.getAuthorities()) {
+                tryFindModule(authority.getClass().getSimpleName(), modules)
+                        .ifPresentOrElse(
+                                dbModule ->
+                                        dbModule.getModuleRoles().add(
+                                                DbModuleRule.builder()
+                                                        .withId(authority.getRuleId())
+                                                        .withName(authority.getAuthority())
+                                                        .build()
+                                        )
+                                , () ->
+                                        modules.add(
+                                                DbModule.builder()
+                                                        .withId(authority.getModuleId())
+                                                        .withName(authority.getClass().getSimpleName())
+                                                        .withModuleRoles(
+                                                                Set.of(
+                                                                        DbModuleRule.builder()
+                                                                                .withId(authority.getRuleId())
+                                                                                .withName(authority.getAuthority())
+                                                                                .build()
+                                                                )
+                                                        ).build()
+                                        )
+                        );
+            }
         }
         dbUser.setAuthorities(modules);
         return dbUser;

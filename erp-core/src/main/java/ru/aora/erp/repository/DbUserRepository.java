@@ -27,6 +27,8 @@ public class DbUserRepository {
 
     private static final String SELECT_USER_BY_NAME_JOIN_QUERY = SELECT_ALL_USERS + " WHERE U.user_name = ? ";
 
+    private static final String SELECT_USER_BY_ID_QUERY = SELECT_ALL_USERS + " WHERE U.id = ? ";
+
     private static final String INSERT_USER =
             "INSERT INTO Users (user_name,password,first_name,surname,patronymic,phone_number,mail,employee_position,account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
@@ -37,7 +39,7 @@ public class DbUserRepository {
                     " VALUES (?, ?, ?) ";
 
     private static final String UPDATE_USER =
-            "UPDATE Users  SET user_name=?, password=?, first_name=?, surname=?, patronymic=?, phone_number=?, mail=?, employee_position=?, account_non_expired=?,account_non_locked=?,credentials_non_expired=?,enabled=? " +
+            "UPDATE Users  SET password=?, first_name=?, surname=?, patronymic=?, phone_number=?, mail=?, employee_position=?, account_non_expired=?,account_non_locked=?,credentials_non_expired=?,enabled=? " +
                     " WHERE id = ? ";
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM Users WHERE id=?";
@@ -59,15 +61,22 @@ public class DbUserRepository {
                 new Object[]{name}, new int[]{Types.VARCHAR},
                 new DbUserExtractor()
         );
-        if (Objects.isNull(users) || users.isEmpty()) {
-            return Optional.empty();
-        } else if (users.size() > 1) {
-            throw new SQLException(
-                    String.format("Incorrect query result. Fot user_name=[%s] was found [%s] users", name, users.size())
-            );
-        } else {
-            return Optional.ofNullable(users.iterator().next());
-        }
+        return checkSearchResult(
+                users,
+                String.format("Incorrect query result. Fot user_name=[%s] was found [%s] users", name, users.size())
+        );
+    }
+
+    public Optional<DbUser> findById(long id) throws SQLException {
+        final Collection<DbUser> users = jdbcTemplate.query(
+                SELECT_USER_BY_ID_QUERY,
+                new Object[]{id}, new int[]{Types.BIGINT},
+                new DbUserExtractor()
+        );
+        return checkSearchResult(
+                users,
+                String.format("Incorrect query result. Fot user_id=[%s] was found [%s] users", id, users.size())
+        );
     }
 
     public long create(DbUser user) {
@@ -116,7 +125,6 @@ public class DbUserRepository {
     public void update(DbUser user) {
         jdbcTemplate.update(
                 UPDATE_USER,
-                user.getUsername(),
                 user.getPassword(),
                 user.getFirstName(),
                 user.getSurname(),
@@ -134,5 +142,15 @@ public class DbUserRepository {
 
     public void delete(long userId) {
         jdbcTemplate.update(DELETE_USER_BY_ID, userId);
+    }
+
+    private Optional<DbUser> checkSearchResult(Collection<DbUser> users, String exText) throws SQLException {
+        if (Objects.isNull(users) || users.isEmpty()) {
+            return Optional.empty();
+        } else if (users.size() > 1) {
+            throw new SQLException(exText);
+        } else {
+            return Optional.ofNullable(users.iterator().next());
+        }
     }
 }

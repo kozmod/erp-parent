@@ -42,7 +42,9 @@ function updateUserRequest(userId) {
             mail:
                 $("#user_mail_".concat(userId)).val(),
             password:
-                $("#user_password_".concat(userId)).val()
+                $("#user_password_".concat(userId)).val(),
+            phoneNumber:
+                $("#user_phone_number_".concat(userId)).val()
         };
 
         $.ajax({

@@ -52,27 +52,6 @@ public class UserController {
         return USERS_MAPPING;
     }
 
-////    @RequestMapping("/xxx")
-////            ( params = "update_user=update_user")
-////    public String add( @RequestBody UserX customer, BindingResult bindingResult) {
-//    public String add(Map<String, Object> model) {
-////    public String add(@ModelAttribute UsersDto usersDto, BindingResult bindingResult) {
-////        userService.updateOrCreate(user);
-//        System.out.println(
-//                "\n_______________________________________\n" +
-//                        "xxxx" +
-//                        "\n_______________________________________\n"
-//        );
-//        return redirectTo(USERS_MAPPING);
-//    }
-
-//    @PostMapping(params = "action=Delete selected users")
-//    public String deleteSelectedUsers(@ModelAttribute UsersDto dto) {
-//        userService.deleteAllBySelected(dto);
-//        return REDIRECT.applyTo(USERS_MANAGE_MAPPING);
-//    }
-
-
     private User emptyUser() {
         return User.builder()
                 .withAccountNonExpired(true)

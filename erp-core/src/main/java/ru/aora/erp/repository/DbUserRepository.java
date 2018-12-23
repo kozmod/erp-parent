@@ -33,7 +33,6 @@ public class DbUserRepository {
             "INSERT INTO Users (user_name,password,first_name,surname,patronymic,phone_number,mail,employee_position,account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
-
     private static final String INSERT_USER_LINK =
             "INSERT INTO j_Users_Modules_Rule (id_User, id_Module, id_Rule) " +
                     " VALUES (?, ?, ?) ";
@@ -61,10 +60,15 @@ public class DbUserRepository {
                 new Object[]{name}, new int[]{Types.VARCHAR},
                 new DbUserExtractor()
         );
-        return checkSearchResult(
-                users,
-                String.format("Incorrect query result. Fot user_name=[%s] was found [%s] users", name, users.size())
-        );
+        if (Objects.isNull(users) || users.isEmpty()) {
+            return Optional.empty();
+        } else if (users.size() > 1) {
+            throw new SQLException(
+                    String.format("Incorrect query result. Fot user_name=[%s] was found [%s] users", name, users.size())
+            );
+        } else {
+            return Optional.ofNullable(users.iterator().next());
+        }
     }
 
     public Optional<DbUser> findById(long id) throws SQLException {
@@ -73,10 +77,9 @@ public class DbUserRepository {
                 new Object[]{id}, new int[]{Types.BIGINT},
                 new DbUserExtractor()
         );
-        return checkSearchResult(
-                users,
-                String.format("Incorrect query result. Fot user_id=[%s] was found [%s] users", id, users.size())
-        );
+        return Objects.isNull(users) || users.isEmpty()
+                ? Optional.empty()
+                : Optional.ofNullable(users.iterator().next());
     }
 
     public long create(DbUser user) {
@@ -142,15 +145,5 @@ public class DbUserRepository {
 
     public void delete(long userId) {
         jdbcTemplate.update(DELETE_USER_BY_ID, userId);
-    }
-
-    private Optional<DbUser> checkSearchResult(Collection<DbUser> users, String exText) throws SQLException {
-        if (Objects.isNull(users) || users.isEmpty()) {
-            return Optional.empty();
-        } else if (users.size() > 1) {
-            throw new SQLException(exText);
-        } else {
-            return Optional.ofNullable(users.iterator().next());
-        }
     }
 }

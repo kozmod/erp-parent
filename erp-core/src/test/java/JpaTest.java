@@ -11,7 +11,7 @@ import ru.aora.erp.config.UserDataBaseConfig;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
-import ru.aora.erp.model.entity.db.UserConverter;
+import ru.aora.erp.model.entity.converter.UserConverter;
 import ru.aora.erp.repository.DbUserRepository;
 
 

@@ -1,6 +1,9 @@
-package ru.aora.erp.model.entity.db;
+package ru.aora.erp.model.entity.converter;
 
 import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.db.DbModule;
+import ru.aora.erp.model.entity.db.DbModuleRule;
+import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.user.User;
 
 

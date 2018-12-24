@@ -18,7 +18,7 @@ import java.util.Set;
 @Component
 public class TestIdentifierSidebar implements SidebarModuleIdentifier {
 
-    private final String CHILD_MAPPING = "/users";
+    private final String CHILD_MAPPING = "/user";
 
     private UiChaneNode firstUiChaneNode;
     private Map<String, IdAuthority> mappingAuthorities;

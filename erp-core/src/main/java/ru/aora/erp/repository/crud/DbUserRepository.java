@@ -1,4 +1,4 @@
-package ru.aora.erp.repository;
+package ru.aora.erp.repository.crud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
-public class DbUserRepository {
+public class DbUserRepository implements CrudRepository<DbUser> {
 
     private static final String SELECT_ALL_USERS =
             "SELECT U.*, J.id_Module, M.name as name_Module, J.id_Rule, R.name as name_Rule FROM dbo.[Users] U (nolock) " +
@@ -71,7 +71,8 @@ public class DbUserRepository {
         }
     }
 
-    public Optional<DbUser> findById(long id) throws SQLException {
+    @Override
+    public Optional<DbUser> findById(long id) {
         final Collection<DbUser> users = jdbcTemplate.query(
                 SELECT_USER_BY_ID_QUERY,
                 new Object[]{id}, new int[]{Types.BIGINT},
@@ -82,6 +83,7 @@ public class DbUserRepository {
                 : Optional.ofNullable(users.iterator().next());
     }
 
+    @Override
     public long create(DbUser user) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         final int affectedRow = jdbcTemplate.update(
@@ -125,6 +127,7 @@ public class DbUserRepository {
         return newDbUserId;
     }
 
+    @Override
     public void update(DbUser user) {
         jdbcTemplate.update(
                 UPDATE_USER,
@@ -143,6 +146,7 @@ public class DbUserRepository {
         );
     }
 
+    @Override
     public void delete(long userId) {
         jdbcTemplate.update(DELETE_USER_BY_ID, userId);
     }

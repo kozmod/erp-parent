@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.converter.UserConverter;
 import ru.aora.erp.model.entity.user.User;
-import ru.aora.erp.repository.DbUserRepository;
+import ru.aora.erp.repository.crud.DbUserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,6 +69,12 @@ public class UserService implements UserDetailsService {
         userRepository.delete(userId);
     }
 
+    private void encodeUserPassword(User user) {
+        user.setPassword(
+                passwordEncoder.encode(user.getPassword())
+        );
+    }
+
     //    public ActionResult updateOrCreate(final User user) {
 //        return userRepository.findByName(user.getUsername())
 //                .map(target -> {
@@ -101,12 +107,13 @@ public class UserService implements UserDetailsService {
 //        }
 //    }
 //
-
-
-    private void encodeUserPassword(User user) {
-        user.setPassword(
-                passwordEncoder.encode(user.getPassword())
-        );
-    }
-
+//
+//    private User emptyUser() {
+//        return User.builder()
+//                .withAccountNonExpired(true)
+//                .withAccountNonLocked(true)
+//                .withCredentialsNonExpired(true)
+//                .withEnabled(true)
+//                .build();
+//    }
 }

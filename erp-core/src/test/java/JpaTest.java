@@ -12,7 +12,7 @@ import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.converter.UserConverter;
-import ru.aora.erp.repository.DbUserRepository;
+import ru.aora.erp.repository.crud.DbUserRepository;
 
 
 import java.sql.SQLException;

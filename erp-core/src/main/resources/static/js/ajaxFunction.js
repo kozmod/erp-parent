@@ -49,7 +49,7 @@ function updateUserRequest(userId) {
 
         $.ajax({
             type: 'PUT',
-            url:  '/xxx',
+            url:  '/user',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(JSONObject),
             dataType: 'json',
@@ -67,7 +67,7 @@ function updateUserRequest(userId) {
 function deleteUser(userId) {
     $.ajax({
         type: 'DELETE',
-        url:  '/xxx/'.concat(userId),
+        url:  '/user/'.concat(userId),
         dataType: 'json',
         async: true,
         success: function(result) {

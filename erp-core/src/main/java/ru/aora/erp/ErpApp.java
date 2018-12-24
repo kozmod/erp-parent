@@ -20,7 +20,7 @@ import ru.aora.erp.config.UserDataBaseConfig;
 })
 public class ErpApp {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(ErpApp.class, args);
     }
 }

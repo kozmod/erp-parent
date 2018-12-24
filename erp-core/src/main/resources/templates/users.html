@@ -205,7 +205,9 @@
                                         <a th:name="'user_roles_'+*{id}"></a>
 
                                         Управление правами пользователя
-                                        <span>Mignon Dempsey</span>
+                                        <span th:text="*{username}">
+                                            --- USER NAME ---
+                                        </span>
                                         <a href="javascript:;" class="toggle_cb"
                                            th:data-toggle="'user_roles_'+*{id}"><i class="far fa-times-circle"></i></a>
                                     </div>

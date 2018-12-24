@@ -1,11 +1,23 @@
 package ru.aora.erp.model.entity.db;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.StringJoiner;
 
+@Entity
+@Table(name = "Modules_Access_Rules")
 public class DbModuleRule implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
+    @Column(name = "name")
     private String name;
 
     public long getId() {

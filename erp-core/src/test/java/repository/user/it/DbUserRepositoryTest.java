@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.aora.erp.config.UserDataBaseConfig;
+import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbUser;
-import ru.aora.erp.repository.DbUserRepository;
+import ru.aora.erp.repository.crud.DbUserRepository;
+import ru.aora.erp.repository.jpa.DbModuleRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,13 +24,15 @@ import static org.junit.Assert.assertTrue;
 import static repository.user.it.DbUserUtils.newDbUserWithOutAuthorities;
 import static repository.user.it.TestUtils.newRandomString;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {UserDataBaseConfig.class})
 public class DbUserRepositoryTest {
 
     @Autowired
     private DbUserRepository userRepository;
+    @Autowired
+    private DbModuleRepository moduleRepository;
 
     @Test
     public void shouldFindById() throws SQLException {

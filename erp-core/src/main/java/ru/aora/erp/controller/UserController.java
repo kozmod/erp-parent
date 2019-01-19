@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PutMapping
-    public @ResponseBody String putMyData(@RequestBody User md) {
+    public @ResponseBody String putUser(@RequestBody User md) {
         userService.updateUser(md);
         return "update";
     }

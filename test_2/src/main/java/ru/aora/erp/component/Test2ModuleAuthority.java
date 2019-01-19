@@ -2,11 +2,11 @@ package ru.aora.erp.component;
 
 import ru.aora.erp.model.entity.IdAuthority;
 
-public enum CoreModuleAuthority implements IdAuthority {
+public enum Test2ModuleAuthority implements IdAuthority{
 
-    GET_USERS("Получение пользователей");
+    ADD("Добавить"), DELETE("Удалить");
 
-    CoreModuleAuthority(String ruleName) {
+    Test2ModuleAuthority(String ruleName) {
         this.ruleName = ruleName;
     }
 
@@ -22,7 +22,7 @@ public enum CoreModuleAuthority implements IdAuthority {
 
     @Override
     public void setModuleId(long moduleId) {
-        this.moduleId = moduleId;
+        Test2ModuleAuthority.moduleId = moduleId;
     }
 
     @Override
@@ -45,8 +45,8 @@ public enum CoreModuleAuthority implements IdAuthority {
         return ruleName;
     }
 
-    private long moduleId;
+    private static long moduleId;
+    private static final String name = "TEST_2";
     private long ruleId;
-    private static final String name = "CORE";
     private String ruleName;
 }

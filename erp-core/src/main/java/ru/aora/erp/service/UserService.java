@@ -74,46 +74,4 @@ public class UserService implements UserDetailsService {
                 passwordEncoder.encode(user.getPassword())
         );
     }
-
-    //    public ActionResult updateOrCreate(final User user) {
-//        return userRepository.findByName(user.getUsername())
-//                .map(target -> {
-//                    user.setId(target.getId());
-//                    if(user.getPassword().isEmpty()) user.setPassword(target.getPassword());
-//                    else encodeUserPassword(user);
-//                    userRepository.create(user);
-//                    return new ActionResult(
-//                            ActionResult.Result.SUCCESS,
-//                            "User updated"
-//                    );
-//                }).orElseGet(() -> {
-//                    encodeUserPassword(user);
-//                    userRepository.create(user);
-//                    return new ActionResult(
-//                            ActionResult.Result.SUCCESS,
-//                            "User created"
-//                    );
-//                });
-//    }
-//
-//    public void deleteAllBySelected(final UsersDto userDto) {
-//        if(Objects.nonNull(userDto)){
-//           List<User> usersToDelete = userDto.getUsers().stream()
-//                    .filter(User::isDel)
-//                    .collect(Collectors.toList());
-//           if(!usersToDelete.isEmpty()){
-//               userRepository.deleteAll(usersToDelete);
-//           }
-//        }
-//    }
-//
-//
-//    private User emptyUser() {
-//        return User.builder()
-//                .withAccountNonExpired(true)
-//                .withAccountNonLocked(true)
-//                .withCredentialsNonExpired(true)
-//                .withEnabled(true)
-//                .build();
-//    }
 }

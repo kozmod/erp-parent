@@ -4,7 +4,11 @@ import ru.aora.erp.model.entity.IdAuthority;
 
 public enum TestModuleAuthority implements IdAuthority{
 
-    ADD, DELETE;
+    ADD("Добавить"), DELETE("Удалить");
+
+    TestModuleAuthority(String ruleName) {
+        this.ruleName = ruleName;
+    }
 
     @Override
     public String getAuthority() {
@@ -31,6 +35,18 @@ public enum TestModuleAuthority implements IdAuthority{
         this.ruleId = ruleId;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getRuleName() {
+        return ruleName;
+    }
+
     private static long moduleId;
+    private static final String name = "TEST";
     private long ruleId;
+    private String ruleName;
 }

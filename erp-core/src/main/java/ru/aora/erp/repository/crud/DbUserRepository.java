@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
@@ -17,6 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class DbUserRepository implements CrudRepository<DbUser> {
 
     private static final String SELECT_ALL_USERS =

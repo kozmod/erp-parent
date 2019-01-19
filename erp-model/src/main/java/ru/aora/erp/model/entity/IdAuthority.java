@@ -12,4 +12,7 @@ public interface IdAuthority extends GrantedAuthority {
 
     void setRuleId(long ruleId);
 
+    String getName();
+
+    String getRuleName();
 }

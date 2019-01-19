@@ -9,11 +9,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.aora.erp.config.UserDataBaseConfig;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbUser;
+import ru.aora.erp.repository.DbModuleRepository;
 import ru.aora.erp.repository.crud.DbUserRepository;
-import ru.aora.erp.repository.jpa.DbModuleRepository;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 

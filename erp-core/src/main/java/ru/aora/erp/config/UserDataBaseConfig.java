@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import java.util.Objects;
         transactionManagerRef = "userTransactionManager"
 )
 @ComponentScan("ru.aora.erp.repository")
+@EnableTransactionManagement
 public class UserDataBaseConfig {
 
     private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.db"};

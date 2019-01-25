@@ -36,22 +36,14 @@ public class UserController {
         this.authorityModulesIdentifiersService = authorityModulesIdentifiersService;
     }
 
-
     @GetMapping
     public String userForm(Map<String, Object> model, Principal principal) {
         model.put(
                 USERS_DTO_MODEL,
                 UsersDto.of(userService.loadAll())
         );
-        System.err.println(authorityModulesIdentifiersService.modulesAuthorities());
-        model.put(
-                MODULES_MAPPING, authorityModulesIdentifiersService.modulesAuthorities()
-
-        );
-        model.put(
-                AUTHORITIES_MAPPING, authorityModulesIdentifiersService.modulesAuthorities()
-
-        );
+        model.put(MODULES_MAPPING, authorityModulesIdentifiersService.modulesAuthorities());
+        model.put(AUTHORITIES_MAPPING, authorityModulesIdentifiersService.modulesAuthorities());
         return USERS_MAPPING;
     }
 
@@ -66,4 +58,5 @@ public class UserController {
         userService.deleteUser(id);
         return "delete";
     }
+
 }

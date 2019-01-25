@@ -28,7 +28,7 @@ public class DbModuleRepository implements CrudRepository<DbModule> {
     private static final String SELECT_BY_ID = SELECT_ALL + " WHERE M.id = ? ";
     private static final String INSERT = "INSERT INTO dbo.[Modules] (name) VALUES (?) ";
     private static final String UPDATE = "UPDATE dbo.[Modules] SET name=? WHERE id = ? ";
-    private static final String DELETE_BY_ID = "DELETE FROM dbo.[Modules] WHERE id=?";
+    private static final String DELETE_BY_ID = "DELETE FROM dbo.[Modules] WHERE id= ?";
 
     private JdbcTemplate jdbcTemplate;
 

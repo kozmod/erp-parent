@@ -35,15 +35,19 @@ public class DbUserRepository implements CrudRepository<DbUser> {
             "INSERT INTO Users (user_name,password,first_name,surname,patronymic,phone_number,mail,employee_position,account_non_expired,account_non_locked,credentials_non_expired,enabled) " +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
-    private static final String INSERT_USER_LINK =
+    private static final String INSERT_USER_MODULE_LINK =
             "INSERT INTO j_Users_Modules_Rule (id_User, id_Module, id_Rule) " +
                     " VALUES (?, ?, ?) ";
+
+    private static final String DELETE_USER_MODULE_LINK = "DELETE FROM j_Users_Modules_Rule WHERE id_User= ? ";
 
     private static final String UPDATE_USER =
             "UPDATE Users  SET password=?, first_name=?, surname=?, patronymic=?, phone_number=?, mail=?, employee_position=?, account_non_expired=?,account_non_locked=?,credentials_non_expired=?,enabled=? " +
                     " WHERE id = ? ";
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM Users WHERE id=?";
+
+
 
     private JdbcTemplate jdbcTemplate;
 
@@ -118,7 +122,7 @@ public class DbUserRepository implements CrudRepository<DbUser> {
             for (DbModule module : user.getAuthorities()) {
                 for (DbModuleRule rule : module.getModuleRoles()) {
                     jdbcTemplate.update(
-                            INSERT_USER_LINK,
+                            INSERT_USER_MODULE_LINK,
                             newDbUserId,
                             module.getId(),
                             rule.getId()
@@ -150,6 +154,7 @@ public class DbUserRepository implements CrudRepository<DbUser> {
 
     @Override
     public void delete(long userId) {
+        jdbcTemplate.update(DELETE_USER_MODULE_LINK, userId);
         jdbcTemplate.update(DELETE_USER_BY_ID, userId);
     }
 }

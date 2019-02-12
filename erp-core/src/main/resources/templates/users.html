@@ -255,6 +255,13 @@
                                                 <!--</div>-->
                                             </div>
                                         </div>
+                                        <div class="clear_after">
+                                            <button th:onclick="updateUserRoleRequest()" name="update_user_roles" value="update_user_roles" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
+
+                                            <a href="javascript:;"
+                                               class="bttn bttn_40 right rds_5 toggle_cb"
+                                               th:data-toggle="'user_roles_'+*{id}">Закрыть</a>
+                                        </div>
                                         <!--<div class="edit_title toggle_acc">-->
                                             <!--<div class="icon rds_5">-->
                                                 <!--<i class="fas fa-ambulance"></i>-->

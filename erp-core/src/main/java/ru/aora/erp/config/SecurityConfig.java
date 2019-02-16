@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.aora.erp.model.entity.IdAuthority;
@@ -79,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private void defineAuthoritiesMapping(final HttpSecurity http) throws Exception {
-        for (ModuleIdentifier moduleIdentifier : authorityModulesIdentifiersService.moduleIdentifiers()) {
+        for (ModuleIdentifier moduleIdentifier : authorityModulesIdentifiersService.loadAll()) {
             for (Map.Entry<String, IdAuthority> entry : moduleIdentifier.moduleMapping().entrySet()) {
                 http.authorizeRequests()
                         .antMatchers(entry.getKey())

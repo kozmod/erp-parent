@@ -47,6 +47,6 @@ public enum CoreModuleAuthority implements IdAuthority {
 
     private long moduleId;
     private long ruleId;
-    private static final String name = "CORE";
+    private static final String name = "Core";
     private String ruleName;
 }

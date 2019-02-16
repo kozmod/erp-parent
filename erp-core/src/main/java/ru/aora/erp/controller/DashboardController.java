@@ -28,7 +28,7 @@ public class DashboardController {
     public String dashboard(Map<String, Object> model) {
         model.put(
                 UI_CHANE_NODE_MODEL,
-                modulesIdentifiersService.modulesReferenceChaneElements()
+                modulesIdentifiersService.loadAll()
         );
         return DASHBOARD_TEMPLATE;
     }

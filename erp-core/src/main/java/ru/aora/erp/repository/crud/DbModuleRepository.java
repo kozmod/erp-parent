@@ -1,21 +1,23 @@
-package ru.aora.erp.repository;
+package ru.aora.erp.repository.crud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbModule;
-import ru.aora.erp.repository.crud.CrudRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -84,6 +86,15 @@ public class DbModuleRepository implements CrudRepository<DbModule> {
     @Override
     public void delete(long id) {
         jdbcTemplate.update(DELETE_BY_ID, id);
+    }
+
+    @Transactional
+    public void deleteBatch(List<DbModule> modules) {
+        List<long[]> batch = new ArrayList<>();
+        for (DbModule module : modules) {
+            batch.add(new long[] {module.getId()});
+        }
+        jdbcTemplate.update(DELETE_BY_ID, batch);
     }
 
     private static class DbModuleExtractor implements ResultSetExtractor<Collection<DbModule>> {

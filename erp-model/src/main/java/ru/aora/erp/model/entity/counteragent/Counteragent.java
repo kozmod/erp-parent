@@ -22,149 +22,81 @@ public class Counteragent {
         return id;
     }
 
-    public void setId(String id) {
+    public Counteragent setId(String id) {
         this.id = id;
+        return this;
     }
 
-    //@Override
     public String getCounteragentName() {
         return counteragentName;
     }
 
-    public void setCounteragentName(String counteragentName) {
+    public Counteragent setCounteragentName(String counteragentName) {
         this.counteragentName = counteragentName;
+        return this;
     }
 
     public String getGroupName() {
         return groupName;
     }
 
-    public void setGroupName(String groupName) {
+    public Counteragent setGroupName(String groupName) {
         this.groupName = groupName;
+        return this;
     }
 
     public String getDirectorFirstName() {
         return directorFirstName;
     }
 
-    public void setDirectorFirstName(String directorFirstName) {
+    public Counteragent setDirectorFirstName(String directorFirstName) {
         this.directorFirstName = directorFirstName;
+        return this;
     }
 
-    public String getDirectorSurname() { return directorSurname; }
+    public String getDirectorSurname() {
+        return directorSurname;
+    }
 
-    public void setDirectorSurname(String directorSurname) {
+    public Counteragent setDirectorSurname(String directorSurname) {
         this.directorSurname = directorSurname;
+        return this;
     }
 
     public String getDirectorPatronymic() {
         return directorPatronymic;
     }
 
-    public void setDirectorPatronymic(String directorPatronymic) {
+    public Counteragent setDirectorPatronymic(String directorPatronymic) {
         this.directorPatronymic = directorPatronymic;
+        return this;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public Counteragent setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public Counteragent setMail(String mail) {
         this.mail = mail;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public Counteragent setAddress(String address) {
         this.address = address;
-    }
-
-    public static ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder builder() {
-        return new ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder();
-    }
-
-    public static class counteragentBuilder {
-        private String id;
-        private String counteragentName;
-        private String groupName;
-        private String directorFirstName;
-        private String directorSurname;
-        private String directorPatronymic;
-        private String phoneNumber;
-        private String mail;
-        private String address;
-
-        private counteragentBuilder() {
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withCounteragentName(String counteragentName) {
-            this.counteragentName = counteragentName;
-            return this;
-        }
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withGroupName(String groupName) {
-            this.groupName = groupName;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withFirstName(String directorFirstName) {
-            this.directorFirstName = directorFirstName;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withSurname(String directorSurname) {
-            this.directorSurname = directorSurname;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withPatronymic(String directorPatronymic) {
-            this.directorPatronymic = directorPatronymic;
-            return this;
-        }
-
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withMail(String mail) {
-            this.mail = mail;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent.counteragentBuilder withAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public ru.aora.erp.model.entity.counteragent.Counteragent build() {
-            ru.aora.erp.model.entity.counteragent.Counteragent counteragent = new ru.aora.erp.model.entity.counteragent.Counteragent();
-            counteragent.setId(id);
-            counteragent.setCounteragentName(counteragentName);
-            counteragent.setGroupName(groupName);
-            counteragent.setDirectorFirstName(directorFirstName);
-            counteragent.setDirectorSurname(directorSurname);
-            counteragent.setDirectorPatronymic(directorPatronymic);
-            counteragent.setPhoneNumber(phoneNumber);
-            counteragent.setMail(mail);
-            counteragent.setAddress(address);
-            return counteragent;
-        }
+        return this;
     }
 
     @Override

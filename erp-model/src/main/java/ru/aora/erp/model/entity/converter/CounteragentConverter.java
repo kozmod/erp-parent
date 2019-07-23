@@ -13,38 +13,30 @@ public class CounteragentConverter {
 
     public Counteragent convert(DbCounteragent dbCounteragent) {
         requireNonNull(dbCounteragent, "DbCounteragent should not be null");
-        final var counteragent = new Counteragent();
-        counteragent.setId(dbCounteragent.getId());
-        counteragent.setCounteragentName(dbCounteragent.getCounteragentName());
-        counteragent.setGroupName(dbCounteragent.getGroupName());
-        counteragent.setDirectorFirstName(dbCounteragent.getDirectorFirstName());
-        counteragent.setDirectorSurname(dbCounteragent.getDirectorSurname());
-        counteragent.setDirectorPatronymic(dbCounteragent.getDirectorPatronymic());
-        counteragent.setPhoneNumber(dbCounteragent.getPhoneNumber());
-        counteragent.setMail(dbCounteragent.getMail());
-        counteragent.setAddress(dbCounteragent.getAddress());
-
-        return counteragent;
+        return new Counteragent()
+                .setId(dbCounteragent.getId())
+                .setCounteragentName(dbCounteragent.getCounteragentName())
+                .setGroupName(dbCounteragent.getGroupName())
+                .setDirectorFirstName(dbCounteragent.getDirectorFirstName())
+                .setDirectorSurname(dbCounteragent.getDirectorSurname())
+                .setDirectorPatronymic(dbCounteragent.getDirectorPatronymic())
+                .setPhoneNumber(dbCounteragent.getPhoneNumber())
+                .setMail(dbCounteragent.getMail())
+                .setAddress(dbCounteragent.getAddress());
     }
 
 
     public DbCounteragent convert(Counteragent counteragent) {
-        requireNonNull(counteragent, "DbCounteragent should not be null");
-        final var dbCounteragent = new DbCounteragent();
-        dbCounteragent.setId(counteragent.getId());
-        dbCounteragent.setCounteragentName(counteragent.getCounteragentName());
-        dbCounteragent.setGroupName(counteragent.getGroupName());
-        dbCounteragent.setDirectorFirstName(counteragent.getDirectorFirstName());
-        dbCounteragent.setDirectorSurname(counteragent.getDirectorSurname());
-        dbCounteragent.setDirectorPatronymic(counteragent.getDirectorPatronymic());
-        dbCounteragent.setPhoneNumber(counteragent.getPhoneNumber());
-        dbCounteragent.setMail(counteragent.getMail());
-        dbCounteragent.setAddress(counteragent.getAddress());
-
-        return dbCounteragent;
+        requireNonNull(counteragent, "Counteragent should not be null");
+        return new DbCounteragent()
+                .setId(counteragent.getId())
+                .setCounteragentName(counteragent.getCounteragentName())
+                .setGroupName(counteragent.getGroupName())
+                .setDirectorFirstName(counteragent.getDirectorFirstName())
+                .setDirectorSurname(counteragent.getDirectorSurname())
+                .setDirectorPatronymic(counteragent.getDirectorPatronymic())
+                .setPhoneNumber(counteragent.getPhoneNumber())
+                .setMail(counteragent.getMail())
+                .setAddress(counteragent.getAddress());
     }
-
-
-
-
 }

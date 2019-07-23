@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.user;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;

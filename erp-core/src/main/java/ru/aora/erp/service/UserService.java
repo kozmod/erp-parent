@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.converter.UserConverter;
 import ru.aora.erp.model.entity.user.User;
-import ru.aora.erp.repository.crud.DbUserRepository;
+import ru.aora.erp.repository.crud.user.DbUserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

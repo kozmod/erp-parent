@@ -14,103 +14,54 @@ public class DbContract {
         return id;
     }
 
-    public void setId(String id) {
+    public DbContract setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getCounteragentId() {
         return counteragentId;
     }
 
-    public void setCounteragentId(String counteragentId) {
+    public DbContract setCounteragentId(String counteragentId) {
         this.counteragentId = counteragentId;
+        return this;
     }
 
-    //@Override
     public int getContractType() {
         return contractType;
     }
 
-    public void setContractType(int contractType) {
+    public DbContract setContractType(int contractType) {
         this.contractType = contractType;
+        return this;
     }
 
     public String getContractDate() {
         return contractDate;
     }
 
-    public void setContractDate(String contractDate) {
+    public DbContract setContractDate(String contractDate) {
         this.contractDate = contractDate;
+        return this;
     }
 
     public String getContractNumber() {
         return contractNumber;
     }
 
-    public void setContractNumber(String contractNumber) {
+    public DbContract setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
+        return this;
     }
 
-    public String getContractSubject() { return contractSubject; }
+    public String getContractSubject() {
+        return contractSubject;
+    }
 
-    public void setContractSubject(String contractSubject) {
+    public DbContract setContractSubject(String contractSubject) {
         this.contractSubject = contractSubject;
-    }
-
-    public static DbContract.contractBuilder builder() {
-        return new DbContract.contractBuilder();
-    }
-
-    public static class contractBuilder {
-        private String id;
-        private String counteragentId;
-        private int contractType;
-        private String contractDate;
-        private String contractNumber;
-        private String contractSubject;
-
-        private contractBuilder() {
-        }
-
-        public DbContract.contractBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public DbContract.contractBuilder withCounteragentId(String counteragentId) {
-            this.counteragentId = counteragentId;
-            return this;
-        }
-
-        public DbContract.contractBuilder withContractType(int contractType) {
-            this.contractType = contractType;
-            return this;
-        }
-        public DbContract.contractBuilder withContractDate(String contractDate) {
-            this.contractDate = contractDate;
-            return this;
-        }
-
-        public DbContract.contractBuilder withContractNumber(String contractNumber) {
-            this.contractNumber = contractNumber;
-            return this;
-        }
-
-        public DbContract.contractBuilder withContractSubject(String contractSubject) {
-            this.contractSubject = contractSubject;
-            return this;
-        }
-
-        public DbContract build() {
-            DbContract contract = new DbContract();
-            contract.setId(id);
-            contract.setCounteragentId(counteragentId);
-            contract.setContractType(contractType);
-            contract.setContractDate(contractDate);
-            contract.setContractNumber(contractNumber);
-            contract.setContractSubject(contractSubject);
-            return contract;
-        }
+        return this;
     }
 
     @Override

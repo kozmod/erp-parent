@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.converter.ContractConverter;
 import ru.aora.erp.model.entity.contract.Contract;
-import ru.aora.erp.repository.crud.DbContractRepository;
+import ru.aora.erp.repository.crud.contract.DbContractRepository;
 import ru.aora.erp.service.ContractService;
 
 import java.util.List;

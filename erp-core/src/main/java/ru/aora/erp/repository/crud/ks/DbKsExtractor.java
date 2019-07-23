@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.ks;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -19,26 +19,20 @@ public class DbKsExtractor implements ResultSetExtractor<Collection<DbKs>> {
 
         while (rs.next()) {
             final String id = rs.getString("id_KS");
-            final var ks = kss.getOrDefault(
-                    id,
-                    kss.put(id, newKs(rs))
-            );
-
+            final var ks = kss.getOrDefault(id, kss.put(id, newKs(rs)));
         }
         return kss.values();
     }
 
     private DbKs newKs(ResultSet rs) throws SQLException {
-        return DbKs
-                .builder()
-                .withId(rs.getString("id_KS"))
-                .withContractId(rs.getString("id_contract"))
-                .withKsDate(rs.getString("KS_date"))
-                .withKsNumber(rs.getString("KS_number"))
-                .withKsSum(rs.getBigDecimal("KS_sum"))
-                .withGarantSum(rs.getBigDecimal("Garant_sum"))
-                .withGarantDate(rs.getString("Garant_date"))
-                .build();
+        return new DbKs()
+                .setId(rs.getString("id_KS"))
+                .setContractId(rs.getString("id_contract"))
+                .setKsDate(rs.getString("KS_date"))
+                .setKsNumber(rs.getString("KS_number"))
+                .setKsSum(rs.getBigDecimal("KS_sum"))
+                .setGarantSum(rs.getBigDecimal("Garant_sum"))
+                .setGarantDate(rs.getString("Garant_date"));
     }
 
     private Optional<DbModule> tryFindModule(long id, String moduleName, Collection<DbModule> modules) {

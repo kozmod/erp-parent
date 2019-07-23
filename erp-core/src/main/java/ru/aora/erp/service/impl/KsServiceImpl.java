@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.Ks.Ks;
 import ru.aora.erp.model.entity.converter.KsConverter;
-import ru.aora.erp.repository.crud.DbKsRepository;
+import ru.aora.erp.repository.crud.ks.DbKsRepository;
 import ru.aora.erp.service.KsService;
 
 import java.util.List;

@@ -1,29 +1,20 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.counteragent;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbCounteragent;
-import ru.aora.erp.config.UserDataBaseConfig;
+import ru.aora.erp.repository.crud.CrudRepositorynew;
 
 
-import javax.annotation.Nullable;
-import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
 import java.sql.*;
 import java.util.*;
-
-import static org.hibernate.cfg.AvailableSettings.*;
 
 @Repository
 @Transactional

@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.counteragent;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -29,18 +29,16 @@ public class DbCounteragentExtractor implements ResultSetExtractor<Collection<Db
     }
 
     private DbCounteragent newCounteragent(ResultSet rs) throws SQLException {
-        return DbCounteragent
-                .builder()
-                .withId(rs.getString("id_counteragent"))
-                .withCounteragentName(rs.getString("counteragent_name"))
-                .withGroupName(rs.getString("group_name"))
-                .withFirstName(rs.getString("first_name"))
-                .withSurname(rs.getString("surname"))
-                .withPatronymic(rs.getString("patronymic"))
-                .withPhoneNumber(rs.getString("phone_number"))
-                .withMail(rs.getString("mail"))
-                .withAddress(rs.getString("address"))
-                .build();
+        return new DbCounteragent()
+                .setId(rs.getString("id_counteragent"))
+                .setCounteragentName(rs.getString("counteragent_name"))
+                .setGroupName(rs.getString("group_name"))
+                .setDirectorFirstName(rs.getString("first_name"))
+                .setDirectorSurname(rs.getString("surname"))
+                .setDirectorPatronymic(rs.getString("patronymic"))
+                .setPhoneNumber(rs.getString("phone_number"))
+                .setMail(rs.getString("mail"))
+                .setAddress(rs.getString("address"));
     }
 
     private Optional<DbModule> tryFindModule(long id, String moduleName, Collection<DbModule> modules) {

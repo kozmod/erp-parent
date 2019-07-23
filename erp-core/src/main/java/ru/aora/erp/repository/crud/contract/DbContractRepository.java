@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.contract;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -8,6 +8,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbContract;
+import ru.aora.erp.repository.crud.CrudRepositorynew;
+import ru.aora.erp.repository.crud.contract.DbContractExtractor;
 
 import java.io.FileInputStream;
 import java.io.IOException;

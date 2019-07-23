@@ -14,34 +14,26 @@ public class KsConverter {
 
     public Ks convert(DbKs dbKs) {
         requireNonNull(dbKs, "DbKs should not be null");
-        final var ks = new Ks();
-        ks.setId(dbKs.getId());
-        ks.setContractId(dbKs.getContractId());
-        ks.setKsDate(dbKs.getKsDate());
-        ks.setKsNumber(dbKs.getKsNumber());
-        ks.setKsSum(dbKs.getKsSum());
-        ks.setGarantDate(dbKs.getGarantDate());
-        ks.setGarantSum(dbKs.getGarantSum());
-
-        return ks;
+        return new Ks()
+                .setId(dbKs.getId())
+                .setContractId(dbKs.getContractId())
+                .setKsDate(dbKs.getKsDate())
+                .setKsNumber(dbKs.getKsNumber())
+                .setKsSum(dbKs.getKsSum())
+                .setGarantDate(dbKs.getGarantDate())
+                .setGarantSum(dbKs.getGarantSum());
     }
 
 
     public DbKs convert(Ks ks) {
         requireNonNull(ks, "DbKs should not be null");
-        final var dbKs = new DbKs();
-        dbKs.setId(ks.getId());
-        dbKs.setContractId(ks.getContractId());
-        dbKs.setKsDate(ks.getKsDate());
-        dbKs.setKsNumber(ks.getKsNumber());
-        dbKs.setKsSum(ks.getKsSum());
-        dbKs.setGarantDate(ks.getGarantDate());
-        dbKs.setGarantSum(ks.getGarantSum());
-
-        return dbKs;
+        return new DbKs()
+                .setId(ks.getId())
+                .setContractId(ks.getContractId())
+                .setKsDate(ks.getKsDate())
+                .setKsNumber(ks.getKsNumber())
+                .setKsSum(ks.getKsSum())
+                .setGarantDate(ks.getGarantDate())
+                .setGarantSum(ks.getGarantSum());
     }
-
-
-
-
 }

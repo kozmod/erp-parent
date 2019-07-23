@@ -18,118 +18,63 @@ public class DbKs {
         return id;
     }
 
-    public void setId(String id) {
+    public DbKs setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getContractId() {
         return contractId;
     }
 
-    public void setContractId(String contractId) {
+    public DbKs setContractId(String contractId) {
         this.contractId = contractId;
+        return this;
     }
 
-    //@Override
     public String getKsDate() {
         return ksDate;
     }
 
-    public void setKsDate(String ksDate) {
+    public DbKs setKsDate(String ksDate) {
         this.ksDate = ksDate;
+        return this;
     }
 
     public String getKsNumber() {
         return ksNumber;
     }
 
-    public void setKsNumber(String ksNumber) {
+    public DbKs setKsNumber(String ksNumber) {
         this.ksNumber = ksNumber;
+        return this;
     }
 
     public BigDecimal getKsSum() {
         return ksSum;
     }
 
-    public void setKsSum(BigDecimal ksSum) {
+    public DbKs setKsSum(BigDecimal ksSum) {
         this.ksSum = ksSum;
+        return this;
     }
 
-    public String getGarantDate() { return garantDate; }
+    public String getGarantDate() {
+        return garantDate;
+    }
 
-    public void setGarantDate(String garantDate) {
+    public DbKs setGarantDate(String garantDate) {
         this.garantDate = garantDate;
+        return this;
     }
 
     public BigDecimal getGarantSum() {
         return garantSum;
     }
 
-    public void setGarantSum(BigDecimal garantSum) {
+    public DbKs setGarantSum(BigDecimal garantSum) {
         this.garantSum = garantSum;
-    }
-
-    public static DbKs.contractBuilder builder() {
-        return new DbKs.contractBuilder();
-    }
-
-    public static class contractBuilder {
-        private String id;
-        private String contractId;
-        private String ksDate;
-        private String ksNumber;
-        private BigDecimal ksSum;
-        private String garantDate;
-        private BigDecimal garantSum;
-
-        private contractBuilder() {
-        }
-
-        public DbKs.contractBuilder withId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public DbKs.contractBuilder withContractId(String contractId) {
-            this.contractId = contractId;
-            return this;
-        }
-
-        public DbKs.contractBuilder withKsDate(String ksDate) {
-            this.ksDate = ksDate;
-            return this;
-        }
-        public DbKs.contractBuilder withKsNumber(String ksNumber) {
-            this.ksNumber = ksNumber;
-            return this;
-        }
-
-        public DbKs.contractBuilder withKsSum(BigDecimal ksSum) {
-            this.ksSum = ksSum;
-            return this;
-        }
-
-        public DbKs.contractBuilder withGarantDate(String garantDate) {
-            this.garantDate = garantDate;
-            return this;
-        }
-
-        public DbKs.contractBuilder withGarantSum(BigDecimal garantSum) {
-            this.garantSum = garantSum;
-            return this;
-        }
-
-        public DbKs build() {
-            DbKs ks = new DbKs();
-            ks.setId(id);
-            ks.setContractId(contractId);
-            ks.setKsDate(ksDate);
-            ks.setKsNumber(ksNumber);
-            ks.setKsSum(ksSum);
-            ks.setGarantDate(garantDate);
-            ks.setGarantSum(garantSum);
-            return ks;
-        }
+        return this;
     }
 
     @Override

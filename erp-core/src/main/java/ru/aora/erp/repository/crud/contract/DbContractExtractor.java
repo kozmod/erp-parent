@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.contract;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -29,15 +29,13 @@ public class DbContractExtractor implements ResultSetExtractor<Collection<DbCont
     }
 
     private DbContract newContract(ResultSet rs) throws SQLException {
-        return DbContract
-                .builder()
-                .withId(rs.getString("id_contract"))
-                .withCounteragentId(rs.getString("id_counteragent"))
-                .withContractType(rs.getInt("idTypeAgreement"))
-                .withContractDate(rs.getString("contract_date"))
-                .withContractNumber(rs.getString("contract_number"))
-                .withContractSubject(rs.getString("contract_subject"))
-                .build();
+        return new DbContract()
+                .setId(rs.getString("id_contract"))
+                .setCounteragentId(rs.getString("id_counteragent"))
+                .setContractType(rs.getInt("idTypeAgreement"))
+                .setContractDate(rs.getString("contract_date"))
+                .setContractNumber(rs.getString("contract_number"))
+                .setContractSubject(rs.getString("contract_subject"));
     }
 
     private Optional<DbModule> tryFindModule(long id, String moduleName, Collection<DbModule> modules) {

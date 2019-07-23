@@ -46,7 +46,7 @@ public enum GarantModuleAuthority implements IdAuthority{
     }
 
     private static long moduleId;
-    private static final String name = "TEST";
+    private static final String name = "Гарант";
     private long ruleId;
     private String ruleName;
 }

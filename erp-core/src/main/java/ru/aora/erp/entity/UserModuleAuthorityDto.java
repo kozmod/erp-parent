@@ -63,7 +63,7 @@ public final class UserModuleAuthorityDto {
         return userId;
     }
 
-    private Pair<List<IdAuthority>,List<IdAuthority>> convert(Map<String, Map<String, Boolean>> modules, List<IdAuthority> allAuthorities) {
+    /*private Pair<List<IdAuthority>,List<IdAuthority>> convert(Map<String, Map<String, Boolean>> modules, List<IdAuthority> allAuthorities) {
         final List<IdAuthority> toDelete = new ArrayList<>();
         final List<IdAuthority> toAdd = new ArrayList<>();
         modules.forEach((moduleName, ruleMap) ->
@@ -80,7 +80,7 @@ public final class UserModuleAuthorityDto {
                 )
         );
         return new Pair<>(toDelete,toAdd);
-    }
+    }*/
 
     public void setUserId(long userId) {
         this.userId = userId;

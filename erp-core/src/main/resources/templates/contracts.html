@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Container start-->
+<div id="container">
+<!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.UsersDto"*/-->
+    <div class="wrapper" th:fragment="contracts" th:object="${contractDto}" >
+        <div id="module">
+            <!--header options start-->
+            <div class="module_header size_is">
+                <div class="container">
+                    <div class="row">
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_8 col_l_8">
+                            <div class="module_title"><a href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" >Гарантийка</a> <i class="fal fa-arrow-right"></i> <strong th:text="${counteragent_name}"></strong> <i class="fal fa-arrow-right"></i> Все ДОГОВОРЫ</div>
+                        </div>
+
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_4 col_l_4">
+                            <div class="module_actions">
+                                <label class="switcher ttp_bt" title="Добавить в лаунчпад">
+                                    <input type="checkbox" class="www" />
+
+                                    <div class="signs">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--header options end-->
+            <!--general container options start-->
+
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                        <ul class="module_menu">
+                            <li class="sep_right">
+                                <a href="#" class="toggle_cb" th:data-toggle="'addcontract'">
+                                    <i class="fas fa-user-plus"></i> Добавить ДОГОВОР
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="module_menu">
+                            <form method="get">
+                                <li>
+                                    <div class="name">С отмеченными:</div>
+                                </li>
+
+                                <li>
+                                    <select name="someselect">
+                                        <option disabled>Выберите действие</option>
+                                        <option data-display="&lt;i class=&quot;fas fa-archive&quot;&gt;&lt;/i&gt; Архивировать">Архивировать</option>
+                                        <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt; Удалить">Удалить</option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="toggle_cb" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)">Применить</a>
+                                </li>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--general container options end-->
+
+            <!-- Add company menu-->
+            <div th:class="'addcontract edit hide_me'"  th:object="${contractDto}">
+                <div class="row no_gutter">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                        <a th:name="'addcontract'"></a>
+                        <div class="add_counteragent">
+                            <a href="javascript:;" class="toggle_cb"
+                               th:data-toggle="'addcontract'"><i class="far fa-times-circle"></i></a>
+                        </div>
+                    </div>
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                        <div class="add_basic"
+                             th:id ="'addcontract'" action="#" th:object="${contractDto}">
+                            <!--th:hidden="'false'"<form action="#" th:action="@{submitData}" class="saveForm" method="post" th:object="${counteragents}">-->
+                            <label class="fld filler">
+                                <em>Тип договора</em>
+                                <div class="sign"><i class="fas fa-user"></i></div>
+                                <input type="text" class="inp"  th:id ="'contract_type'"  name="contract_type"  th:value="'Договор подряда'" />
+                            </label>
+                            <label class="fld filler">
+                                <em>Дата договора</em>
+                                <div class="sign"><i class="fas fa-user"></i></div>
+                                <input type="date" class="inp" th:id ="'contract_date'" name="contract_date" th:value="''"/>
+                            </label>
+                            <label class="fld filler">
+                                <em>Номер договора</em>
+                                <div class="sign"><i class="fas fa-user"></i></div>
+                                <input type="text" class="inp" th:id ="'contract_number'" name="contract_number" th:value="''"/>
+                            </label>
+                            <label class="fld filler">
+                                <em>Предмет договора</em>
+                                <div class="sign"><i class="fas fa-user"></i></div>
+                                <input type="text" class="inp" th:id ="'contract_subject'" name="contract_subject" th:value="''"/>
+                            </label>
+                            <div class="clear_after">
+                                <button th:onclick="saveContractRequest([[${id_parent}]])" name="addcontract" value="addcontract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addcontract'" >Сохранить</button>
+                                <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'addcontract'">Закрыть</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--main cycle start-->
+
+            <div class="module_content module_guarantee">
+                <div class="container">
+                    <div class="row">
+
+                        <div  th:each="contract, iterstat : *{contracts}">
+                            <!-- If operator start-->
+
+                            <div th:switch="${contract.counteragentId}">
+                            <!-- Our company case-->
+
+                            <div th:case="${id_parent}">
+                                <div th:if="${contract.id==null}"></div>
+                                <div th:unless="${contract.id==null}">
+
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                    <div class="item clr_b2">
+                                        <div class="title">
+                                            <label class="radiocheck">
+                                                <input type="checkbox" class="www" />
+                                                <strong th:text="'Договор № '+${contract.contractNumber}" href="#" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_parent}]],[[${contract.id}]],[[${contract.contractNumber}]],[[${counteragent_name}]])"></strong>
+                                            </label>
+                                            <div class="more docs animate_150">
+                                                <a href="javascript:;"th:text="'Дата договора:'+ ${contract.contractDate}"></a>
+                                                <a href="javascript:;" class="toggle_cb" th:data-toggle="'details_'+${iterstat.index}">Показать детали</a>
+                                            </div>
+                                            <a href="javascript:;" class="bookmark rds_full">
+                                                <i class="far fa-bookmark"></i>
+                                            </a>
+                                            <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${iterstat.index}" data-popover-position="left">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+
+                                            <div class="hide_me">
+                                                <div th:id="'actions_'+${iterstat.index}">
+                                                    <ul class="popover_menu">
+                                                        <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="${contract.contractNumber}"></div></strong></a></li>
+                                                        <li><a href="#" class="toggle_cb" th:data-toggle="'contract_edit_'+${contract.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                                        <li><a href="javascript:;" th:onclick="deleteElement('/contract/',[[${contract.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div th:class="'details details_'+${iterstat.index}+' edit hide_me'">
+                                                <span th:text="'Предмет договора: '+${contract.contractSubject}"></span>
+
+                                            </div>
+                                            <!-- Edit contract start-->
+                                            <div th:class="'contract_edit_'+*{id}+' edit hide_me'" th:object="${contract}">
+                                                <div class="row no_gutter">
+                                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                                        <a th:name="'contract_edit_'+*{id}"></a>
+                                                        <div class="edit_user">
+                                                            Изменение договора
+                                                            <span th:text="*{contractNumber}"></span>
+                                                            <a href="javascript:;" class="toggle_cb"
+                                                               th:data-toggle="'contract_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
+                                                        </div>
+                                                    </div>
+                                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+
+                                                <div class="edit_basic"
+                                                     th:id ="'form_update_contract_'+*{id}"
+                                                     action="#"
+                                                     th:object="${contract}">
+                                                    <label class="fld filler">
+                                                        <em>Тип договора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp"  th:id ="'contract_type_'+*{id}"  name="contract_type"  th:value="'Договор подряда'" />
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Дата договора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'contract_date_'+*{id}" name="contract_date" th:value="*{contractDate}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Номер договора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'contract_number_'+*{id}" name="contract_number" th:value="*{contractNumber}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Предмет договора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'contract_subject_'+*{id}" name="contract_subject" th:value="*{contractSubject}"/>
+                                                    </label>
+                                                    <div class="clear_after" th:id ="'contract_id_'+*{id}" th:value="*{id}">
+                                                        <button th:onclick="updateContractRequest([[*{id}]],[[${id_parent}]])" name="update_contract" value="update_contract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'contract_edit_'+${contract.id}">Сохранить</button>
+                                                        <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'contract_edit_'+${contract.id}">Закрыть</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                            </div>
+                                            <!-- Edit contract END-->
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+                            </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+            </div>
+            <!--main cycle end-->
+
+    </div>
+
+
+
+<div class="shadow top animate_150"></div>
+<div class="shadow bot animate_150"></div>
+
+
+
+
+
+<!-- Container end -->
+</div>
+
+</div>

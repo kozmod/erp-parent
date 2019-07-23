@@ -28,7 +28,7 @@ public class Test2IdentifierSidebar implements SidebarModuleIdentifier {
 
     @PostConstruct
     private void init() {
-        final String PARENT_NAME = "TEST_2_MODULE";
+        final String PARENT_NAME = "ТЕСТОВЫЙ МОДУЛЬ 2";
         final String PARENT_CHILD_NAME = "TEST_2_PARENT_CHILD";
         final String PARENT_CHILD_CHILD_NAME = "TEST_2_PARENT_CHILD_CHILD";
 

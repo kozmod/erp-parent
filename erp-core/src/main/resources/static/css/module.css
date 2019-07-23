@@ -278,3 +278,94 @@
 #module .module_content.module_users .user .edit .bttn{
 	margin:20px 20px 20px 0;
 }
+
+/* Module settings */
+
+#module .module_content.module_settings .toggle_acc{
+	padding:20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	font-size:18px;
+}
+#module .module_content.module_settings .inner_acc{
+	padding:0 20px 20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Module guarantee */
+
+#module .module_content.module_guarantee .item{
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+#module .module_content.module_guarantee .item .title{
+	padding:10px 120px 10px 20px;
+	position:relative;
+}
+#module .module_content.module_guarantee .item .title .radiocheck strong{
+	display:block;
+	font-size: 18px;
+}
+#module .module_content.module_guarantee .item .title .more{
+	margin:5px 0 0 40px;
+	opacity:0;
+	font-size:14px;
+}
+#module .module_content.module_guarantee .item .title:hover .more,
+#module .module_content.module_guarantee .item .title .more.docs{
+	opacity:1;
+}
+#module .module_content.module_guarantee .item .title .more a{
+	display:inline-block;
+	text-decoration:underline;
+	margin-right:20px;
+}
+#module .module_content.module_guarantee .item .title .more .odd,
+#module .module_content.module_guarantee .item .title:hover .more .even{
+	display:none;
+}
+#module .module_content.module_guarantee .item .title:hover .more .odd{
+	display:block;
+}
+#module .module_content.module_guarantee .item .sub{
+	margin-left:40px;
+}
+#module .module_content.module_guarantee .item .sub .title{
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+#module .module_content.module_guarantee .item .details{
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	margin:20px 0 10px 40px;
+	position:relative;
+}
+#module .module_content.module_guarantee .item .details:before{
+	content:'';
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 10px 0 10px;
+	border-color: rgba(255, 255, 255, 0.2) transparent transparent transparent;
+	position:absolute;
+	top:0;
+	left:20px;
+}
+#module .module_content.module_guarantee .item .details span{
+	display:block;
+	padding-top:20px;
+}
+#module .module_content.module_guarantee .item .actions,
+#module .module_content.module_guarantee .item .bookmark{
+	display:block;
+	width:40px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	position:absolute;
+	top:10px;
+	right:20px;
+}
+#module .module_content.module_guarantee .item .bookmark{
+	right:60px;
+}
+#module .module_content.module_guarantee .item .actions:hover,
+#module .module_content.module_guarantee .item .bookmark:hover{
+	background:rgba(255, 255, 255, 0.2);
+}

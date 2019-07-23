@@ -12,7 +12,7 @@ import java.util.*;
 @Component
 public class GarantIdentifierSidebar implements SidebarModuleIdentifier {
 
-    private final String CHILD_MAPPING = "/user";
+    private final String CHILD_MAPPING = "/counteragent";
 
     private UiChaneNode firstUiChaneNode;
     private Map<String, IdAuthority> mappingAuthorities;
@@ -34,18 +34,19 @@ public class GarantIdentifierSidebar implements SidebarModuleIdentifier {
                 Collections.singletonList(
                         new SidebarChaneNode(
                                 PARENT_CHILD_NAME,
-                                Collections.singletonList(
-                                        new SidebarChaneNode(
-                                                PARENT_CHILD_CHILD_NAME,
-                                                Collections.singletonList(
-                                                        new SidebarChaneNode(
-                                                                PARENT_CHILD_CHILD_CHILD_NAME,
-                                                                CHILD_MAPPING
-                                                        )
-                                                )
-                                        )
+                                CHILD_MAPPING
+                                //Collections.singletonList(
+                                //        new SidebarChaneNode(
+                                //                PARENT_CHILD_CHILD_NAME,
+                                //                Collections.singletonList(
+                                //                        new SidebarChaneNode(
+                                //                                PARENT_CHILD_CHILD_CHILD_NAME,
+                                //
+                                //                        )
+                                //                )
+                                //        )
 
-                                )
+                                //)
                         )
                 )
         );

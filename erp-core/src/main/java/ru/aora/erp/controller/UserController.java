@@ -53,6 +53,7 @@ public class UserController {
 
     @PutMapping
     public @ResponseBody String putUser(@RequestBody User user) {
+        System.out.println("edited user " + user.getId());
         userService.updateUser(user);
         return "update";
     }

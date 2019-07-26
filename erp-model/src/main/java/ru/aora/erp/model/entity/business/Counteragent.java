@@ -1,6 +1,5 @@
-package ru.aora.erp.model.entity.counteragent;
+package ru.aora.erp.model.entity.business;
 import java.util.StringJoiner;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 
@@ -101,7 +100,7 @@ public class Counteragent {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", ru.aora.erp.model.entity.counteragent.Counteragent.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", Counteragent.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("counteragentName='" + counteragentName + "'")
                 .add("groupName='" + groupName + "'")

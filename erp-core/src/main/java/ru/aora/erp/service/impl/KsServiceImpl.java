@@ -3,8 +3,8 @@ package ru.aora.erp.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.aora.erp.model.entity.Ks.Ks;
-import ru.aora.erp.model.entity.converter.KsConverter;
+import ru.aora.erp.model.entity.business.Ks;
+import ru.aora.erp.model.entity.mapper.KsMapper;
 import ru.aora.erp.repository.crud.ks.DbKsRepository;
 import ru.aora.erp.service.KsService;
 
@@ -14,19 +14,18 @@ import java.util.stream.Collectors;
 @Service
 public class KsServiceImpl implements KsService {
     private final DbKsRepository KsRepository;
-    private final KsConverter KsConverter;
+    private final KsMapper ksMapper;
 
     @Autowired
     public KsServiceImpl(DbKsRepository KsRepository) {
         this.KsRepository = KsRepository;
-
-        this.KsConverter = new KsConverter();
+        this.ksMapper = KsMapper.INSTANCE;
     }
 
     public Ks getByName(String name) throws UsernameNotFoundException {
         try {
             return KsRepository.findByName(name)
-                    .map(KsConverter::convert)
+                    .map(ksMapper::toKs)
                     .orElseThrow(() -> new UsernameNotFoundException(name));
         } catch (Exception ex) {
             throw new UsernameNotFoundException(String.join("Ks not found by name: ", name), ex);
@@ -36,13 +35,13 @@ public class KsServiceImpl implements KsService {
     public List<Ks> loadAll() {
         return KsRepository.findAll()
                 .stream()
-                .map(KsConverter::convert)
+                .map(ksMapper::toKs)
                 .collect(Collectors.toList());
     }
 
     public void update(Ks ks) {
         try {
-            KsRepository.update(KsConverter.convert(ks));
+            KsRepository.update(ksMapper.toDbKs(ks));
         } catch (Exception ex) {
             throw new UsernameNotFoundException(String.join("Ks not found by id"), ex);
         }
@@ -50,7 +49,7 @@ public class KsServiceImpl implements KsService {
 
     public void create(Ks ks){
         System.out.println(ks);
-        try { KsRepository.create(KsConverter.convert(ks)); }
+        try { KsRepository.create(ksMapper.toDbKs(ks)); }
         catch (Exception ex) { throw new UsernameNotFoundException(String.join("Ks not found by id"), ex); }
     }
 

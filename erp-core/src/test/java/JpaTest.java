@@ -11,7 +11,7 @@ import ru.aora.erp.config.UserDataBaseConfig;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
-import ru.aora.erp.model.entity.converter.UserConverter;
+import ru.aora.erp.model.entity.mapper.UserMapper;
 import ru.aora.erp.repository.crud.user.DbUserRepository;
 
 
@@ -48,8 +48,11 @@ public class JpaTest {
     public void shouldConvertDbUser() throws SQLException {
         var dbUser = userRepository.findByName("z").get();
 
-        var userConverter = new UserConverter(Arrays.asList(CoreModuleAuthority.values()));
-        var user = userConverter.convert(dbUser);
+        var userMapper = UserMapper.INSTANCE;
+        var user = userMapper.toUser(
+                dbUser,
+                Arrays.asList(CoreModuleAuthority.values())
+        );
 
         System.out.println(
                 "\n_______________________________________\n" +
@@ -80,35 +83,32 @@ public class JpaTest {
 
 
     private DbUser newDbUser() {
-        return DbUser.builder()
-                .withUsername("z")
-                .withPassword(new BCryptPasswordEncoder().encode("y"))
-                .withFirstName("Иванов")
-                .withSurname("Иван")
-                .withPatronymic("Иванович")
-                .withAccountNonExpired(true)
-                .withAccountNonLocked(true)
-                .withCredentialsNonExpired(true)
-                .withEnabled(true)
-                .withMail("y-mail@gMail.com")
-                .withEmployeePosition("Слесарь")
-                .withPhoneNumber("+7(926)1057452")
-                .withAuthorities(
+        return new DbUser()
+                .setUsername("z")
+                .setPassword(new BCryptPasswordEncoder().encode("y"))
+                .setFirstName("Иванов")
+                .setSurname("Иван")
+                .setPatronymic("Иванович")
+                .setAccountNonExpired(true)
+                .setAccountNonLocked(true)
+                .setCredentialsNonExpired(true)
+                .setEnabled(true)
+                .setMail("y-mail@gMail.com")
+                .setEmployeePosition("Слесарь")
+                .setPhoneNumber("+7(926)1057452")
+                .setAuthorities(
                         Set.of(
-                                DbModule.builder()
-                                        .withId(1)
-                                        .withName("CoreModuleAuthority")
-                                        .withModuleRoles(
+                                new DbModule()
+                                        .setId(1)
+                                        .setName("CoreModuleAuthority")
+                                        .setModuleRoles(
                                                 Set.of(
-                                                        DbModuleRule.builder()
-                                                                .withId(1)
-                                                                .withName("GET_USERS")
-                                                                .build()
+                                                        new DbModuleRule()
+                                                                .setId(1)
+                                                                .setName("GET_USERS")
                                                 )
                                         )
-                                        .build()
                         )
-                )
-                .build();
+                );
     }
 }

@@ -1,6 +1,6 @@
 package ru.aora.erp.entity;
 
-import ru.aora.erp.model.entity.Ks.Ks;
+import ru.aora.erp.model.entity.business.Ks;
 
 import java.util.Arrays;
 import java.util.List;

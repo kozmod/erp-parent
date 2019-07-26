@@ -3,11 +3,10 @@ package ru.aora.erp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.aora.erp.entity.CounteragentDto;
-import ru.aora.erp.model.entity.counteragent.Counteragent;
+import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.impl.CounteragentServiceImpl;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.Map;
 

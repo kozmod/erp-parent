@@ -1,5 +1,5 @@
 package ru.aora.erp.service;
-import ru.aora.erp.model.entity.contract.Contract;
+import ru.aora.erp.model.entity.business.Contract;
 
 
 import java.util.List;

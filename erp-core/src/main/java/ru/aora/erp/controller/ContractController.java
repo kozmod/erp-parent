@@ -3,7 +3,7 @@ package ru.aora.erp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.aora.erp.entity.ContractDto;
-import ru.aora.erp.model.entity.contract.Contract;
+import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.service.impl.ContractServiceImpl;
 import java.security.Principal;
 import java.util.Map;

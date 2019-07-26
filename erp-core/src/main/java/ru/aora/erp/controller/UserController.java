@@ -9,15 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.aora.erp.entity.UserModuleAuthorityDto;
-import ru.aora.erp.model.entity.IdAuthority;
-import ru.aora.erp.model.entity.user.User;
+import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.entity.UsersDto;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
 
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 @Controller

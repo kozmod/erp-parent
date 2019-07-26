@@ -1,7 +1,7 @@
 package ru.aora.erp.service;
 
 
-import ru.aora.erp.model.entity.Ks.Ks;
+import ru.aora.erp.model.entity.business.Ks;
 
 import java.util.List;
 

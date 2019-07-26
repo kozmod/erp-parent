@@ -1,4 +1,4 @@
-package ru.aora.erp.model.entity.Ks;
+package ru.aora.erp.model.entity.business;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

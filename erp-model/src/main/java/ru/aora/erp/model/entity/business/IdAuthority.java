@@ -1,4 +1,4 @@
-package ru.aora.erp.model.entity;
+package ru.aora.erp.model.entity.business;
 
 import org.springframework.security.core.GrantedAuthority;
 

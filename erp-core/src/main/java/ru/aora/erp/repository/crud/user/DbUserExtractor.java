@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.user;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -40,25 +40,23 @@ public class DbUserExtractor implements ResultSetExtractor<Collection<DbUser>> {
                             mdbModule -> {
                                 if (tryFindRule(ruleId, ruleName, mdbModule.getModuleRoles()).isEmpty()) {
                                     mdbModule.getModuleRoles().add(
-                                            DbModuleRule.builder()
-                                                    .withId(ruleId)
-                                                    .withName(ruleName)
-                                                    .build()
+                                            new DbModuleRule()
+                                                    .setId(ruleId)
+                                                    .setName(ruleName)
                                     );
                                 }
                             }
                             , () -> user.getAuthorities().add(
-                                    DbModule.builder()
-                                            .withId(moduleId)
-                                            .withName(moduleName)
-                                            .withModuleRoles(
-                                                    Set.of(
-                                                            DbModuleRule.builder()
-                                                                    .withId(ruleId)
-                                                                    .withName(ruleName)
-                                                                    .build()
+                                    new DbModule()
+                                            .setId(moduleId)
+                                            .setName(moduleName)
+                                            .setModuleRoles(
+                                                   Set.of(
+                                                            new DbModuleRule()
+                                                                    .setId(ruleId)
+                                                                    .setName(ruleName)
                                                     )
-                                            ).build()
+                                            )
                             )
                     );
         }
@@ -66,23 +64,21 @@ public class DbUserExtractor implements ResultSetExtractor<Collection<DbUser>> {
     }
 
     private DbUser newUser(ResultSet rs) throws SQLException {
-        return DbUser
-                .builder()
-                .withId(rs.getLong("id"))
-                .withUsername(rs.getString("user_name"))
-                .withPassword(rs.getString("password"))
-                .withFirstName(rs.getString("first_name"))
-                .withSurname(rs.getString("surname"))
-                .withPatronymic(rs.getString("patronymic"))
-                .withPhoneNumber(rs.getString("phone_number"))
-                .withMail(rs.getString("mail"))
-                .withEmployeePosition(rs.getString("employee_position"))
-                .withAccountNonExpired(rs.getBoolean("account_non_expired"))
-                .withAccountNonLocked(rs.getBoolean("account_non_locked"))
-                .withCredentialsNonExpired(rs.getBoolean("credentials_non_expired"))
-                .withEnabled(rs.getBoolean("enabled"))
-                .withAuthorities(new HashSet<>())
-                .build();
+        return new DbUser()
+                .setId(rs.getLong("id"))
+                .setUsername(rs.getString("user_name"))
+                .setPassword(rs.getString("password"))
+                .setFirstName(rs.getString("first_name"))
+                .setSurname(rs.getString("surname"))
+                .setPatronymic(rs.getString("patronymic"))
+                .setPhoneNumber(rs.getString("phone_number"))
+                .setMail(rs.getString("mail"))
+                .setEmployeePosition(rs.getString("employee_position"))
+                .setAccountNonExpired(rs.getBoolean("account_non_expired"))
+                .setAccountNonLocked(rs.getBoolean("account_non_locked"))
+                .setCredentialsNonExpired(rs.getBoolean("credentials_non_expired"))
+                .setEnabled(rs.getBoolean("enabled"))
+                .setAuthorities(new HashSet<>());
     }
 
     private Optional<DbModule> tryFindModule(long id, String moduleName, Collection<DbModule> modules) {

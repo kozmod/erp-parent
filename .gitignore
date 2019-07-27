@@ -3,6 +3,7 @@
 
 ###Files###
 *.iml
+*.log
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml

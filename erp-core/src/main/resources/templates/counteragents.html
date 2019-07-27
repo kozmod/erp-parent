@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Container start-->
+<div id="container">
+    <!--/*@thymesVar id="counteragentDto" type="ru.aora.erp.entity.CounteragentDto"*/-->
+    <div class="wrapper" th:fragment="counteragents" th:object="${counteragentDto}" >
+        <div id="module">
+            <!--header options start-->
+            <div class="module_header size_is">
+                <div class="container">
+                    <div class="row">
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_8 col_l_8">
+                            <div class="module_title">Гарантийка <i class="fal fa-arrow-right"></i> Контрагенты</div>
+                        </div>
+
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_4 col_l_4">
+                            <div class="module_actions">
+                                <label class="switcher ttp_bt" title="Добавить в лаунчпад">
+                                    <input type="checkbox" class="www" />
+
+                                    <div class="signs">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--header options end-->
+            <!--general container options start-->
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                        <ul class="module_menu">
+                            <li class="sep_right">
+                                <a href="#" class="toggle_cb" th:data-toggle="'addcounteragent'">
+                                    <i class="fas fa-user-plus"></i> Добавить контрагента
+
+                                </a>
+                            </li>
+                        </ul>
+                                <ul class="module_menu">
+                                    <form method="get">
+                                        <li>
+                                            <div class="name">С отмеченными:</div>
+                                        </li>
+
+                                        <li>
+                                            <select name="someselect">
+                                                <option disabled>Выберите действие</option>
+                                                <option data-display="&lt;i class=&quot;fas fa-archive&quot;&gt;&lt;/i&gt; Архивировать">Архивировать</option>
+                                                <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt; Удалить">Удалить</option>
+                                            </select>
+                                        </li>
+
+                                        <li>
+                                            <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')">Применить</a>
+                                        </li>
+                                    </form>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--general container options end-->
+            <div class="module_content module_guarantee">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Add company menu-->
+                        <div th:class="'addcounteragent'+' edit hide_me'"  th:object="${counteragentDto}">
+                            <div class="row no_gutter">
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                    <a th:name="'addcounteragent'"></a>
+                                    <div class="add_counteragent">
+                                        <a href="javascript:;" class="toggle_cb"
+                                           th:data-toggle="'addcounteragent'"><i class="far fa-times-circle"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                                    <div class="add_basic"
+                                         th:id ="'addcounteragent'" action="#" th:object="${counteragentDto}">
+                                        <!--th:hidden="'false'"<form action="#" th:action="@{submitData}" class="saveForm" method="post" th:object="${counteragents}">-->
+                                        <label class="fld filler">
+                                            <em>Название контрагента</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp"  th:id ="'counteragent_name'"  name="counteragent_Name"  th:value="''" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Имя группы</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'group_name'" name="group_Name" th:value="''"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Фамилия директора</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'director_surname'" name="director_Surname" th:value="''"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Имя директора</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'director_first_name'" name="director_FirstName" th:value="''"/>
+                                        </label>
+
+                                        <label class="fld filler">
+                                            <em>Отчество директора</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'director_patronymic'" name="director_Patronymic" th:value="''" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Email</em>
+                                            <div class="sign"><i class="fas fa-envelope"></i></div>
+                                            <input type="text" class="inp" th:id ="'mail'" name="counteragent_mail" th:value="''"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Телефон</em>
+                                            <div class="sign"><i class="fas fa-phone"></i></div>
+                                            <input type="text" class="inp" th:id ="'phone_number'" name="counteragent_phone_Number" th:value="''"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Адрес</em>
+                                            <div class="sign"><i class="fas fa-envelope"></i></div>
+                                            <input type="text" class="inp" th:id ="'address'" name="counteragent_address" th:value="''"/>
+                                        </label>
+                                        <div class="clear_after">
+                                            <button th:onclick="saveCounteragentRequest()" name="addcounteragent" value="addcounteragent" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addcounteragent'" >Сохранить</button>
+                                            <a href="javascript:;" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'addcounteragent'">Закрыть</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Big company cycle start-->
+                        <div  th:each="counteragent,iterstat1 : *{counteragents}">
+
+
+                            <!-- If operator start-->
+                            <!--<div th:switch="${#lists.size(name[iterstat1.index])}">-->
+                            <!--<div th:switch="${counteragent.groupName}">-->
+                                <!-- Single company case-->
+
+                                <div th:if="${counteragent.groupName==null}">
+
+                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+
+                                        <div class="item clr_b2">
+
+                                            <div class="title">
+
+                                                <label class="radiocheck">
+                                                    <input type="checkbox" class="www" />
+                                                    <a ></a>
+
+                                                     <strong> <div th:text="${counteragent.counteragentName}" href="#" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${counteragent.id}]],[[${counteragent.id}]],[[${counteragent.counteragentName}]],[[${counteragent.counteragentName}]],0)">
+
+                                                      </div></strong>
+
+
+                                              </label>
+
+
+                                              <div class="more animate_150">
+
+                                                  <a>ИНН № </a>
+                                                  <a>7725104256</a>
+
+                                              </div>
+
+
+                                              <a href="javascript:;" class="bookmark rds_full">
+                                                  <i class="far fa-bookmark"></i>
+                                              </a>
+                                              <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${counteragent.id}" data-popover-position="left">
+                                                  <i class="fas fa-ellipsis-v"></i>
+                                              </a>
+                                              <div class="hide_me">
+                                                  <div th:id="'actions_'+${counteragent.id}">
+                                                      <ul class="popover_menu">
+                                                          <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="${counteragent.counteragentName}"></div></strong></a></li>
+                                                          <li><a href="#" class="toggle_cb" th:data-toggle="'counteragent_edit_'+${counteragent.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                                          <li><a href="javascript:;" th:onclick="deleteElement('/counteragent/',[[${counteragent.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                      </div>
+
+                                  </div>
+
+                                     <div th:class="'counteragent_edit_'+*{id}+' edit hide_me'" th:object="${counteragent}">
+                                         <div class="row no_gutter">
+                                             <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                                 <a th:name="'counteragent_edit_'+*{id}"></a>
+                                                 <div class="edit_user">
+                                                     Изменение контрагента
+                                                     <span th:text="*{counteragentName}"></span>
+                                                     <a href="javascript:;" class="toggle_cb"
+                                                        th:data-toggle="'counteragent_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
+                                                 </div>
+                                             </div>
+                                             <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                                                 <!-- 'form' was here-->
+                                                <div class="edit_basic"
+                                                     th:id ="'form_update_counteragent_'+*{id}"
+                                                     action="#"
+                                                     th:object="${counteragent}">
+                                                    <label class="fld filler">
+                                                        <em>Название контрагента</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp"  th:id ="'counteragent_name_'+*{id}"  name="counteragent_Name"  th:value="*{counteragentName}" />
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Имя группы</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'group_name_'+*{id}" name="group_Name" th:value="*{groupName}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Фамилия директора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'director_surname_'+*{id}" name="director_Surname" th:value="*{directorSurname}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Имя директора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'director_first_name_'+*{id}" name="director_FirstName" th:value="*{directorFirstName}"/>
+                                                    </label>
+
+                                                    <label class="fld filler">
+                                                        <em>Отчество директора</em>
+                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                        <input type="text" class="inp" th:id ="'director_patronymic_'+*{id}" name="director_Patronymic" th:value="*{directorPatronymic}" />
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Email</em>
+                                                        <div class="sign"><i class="fas fa-envelope"></i></div>
+                                                        <input type="text" class="inp" th:id ="'mail_'+*{id}" name="counteragent_mail" th:value="*{mail}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Телефон</em>
+                                                        <div class="sign"><i class="fas fa-phone"></i></div>
+                                                        <input type="text" class="inp" th:id ="'phone_number_'+*{id}" name="counteragent_phoneNumber" th:value="*{phoneNumber}"/>
+                                                    </label>
+                                                    <label class="fld filler">
+                                                        <em>Адрес</em>
+                                                        <div class="sign"><i class="fas fa-envelope"></i></div>
+                                                        <input type="text" class="inp" th:id ="'address_'+*{id}" name="counteragent_address" th:value="*{address}"/>
+                                                    </label>
+                                                    <div class="clear_after" th:id ="'counteragent_id_'+*{id}" th:value="*{id}">
+                                                        <button th:onclick="updateCounteragentRequest([[*{id}]])" name="update_user" value="update_user" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'counteragent_edit_'+${counteragent.id}">Сохранить</button>
+                                                        <a href="javascript:;" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'counteragent_edit_'+${counteragent.id}">Закрыть</a>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                             </div>
+
+                             <!-- End of case of single companies -->
+
+                            <div th:unless="${counteragent.groupName==null}">
+
+                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+
+                                        <div class="item">
+
+                                            <div class="title clr_b2">
+
+                                                <label class="radiocheck">
+
+                                                    <input type="radio" name="garantiyka" class="www" />
+                                                    <strong th:text="${counteragent.counteragentName}"></strong>
+
+                                                </label>
+
+                                                <div class="more animate_150">
+
+                                                    <a href="javascript:;" class="toggle_cb" th:data-toggle="'sub_'+${iterstat1.index}">
+                                                         <strong>
+                                                             <!--<div
+
+                                                                     th:text ="'И еще '+${#lists.size(counteragents.)}+' компании'">
+                                                               th:each="element : ${(counteragents.?[groupName == __${counteragent.groupName}__])}"
+                                                             th:text ="'И еще '+${#lists.size(name[iterstat1.index])}+' компании'"></div>-->
+
+                                                      </strong>
+                                             </a>
+
+
+                                         </div>
+
+                                         <a href="javascript:;" class="bookmark rds_full">
+                                             <i class="far fa-bookmark"></i>
+                                         </a>
+                                         <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${iterstat1.index}" data-popover-position="left">
+                                             <i class="fas fa-ellipsis-v"></i>
+                                         </a>
+
+
+                                         <div class="hide_me">
+
+                                             <div th:id="'actions_'+${iterstat1.index}">
+                                                 <ul class="popover_menu">
+                                                     <li><a href="javascript:;"><i class="fas fa-paw"></i> <div th:text="${counteragent.groupName}"></div></a></li>
+                                                     <li><a href="javascript:;"><i class="fas fa-paw"></i> Любые</a></li>
+                                                     <li><a href="javascript:;"><i class="fas fa-paw"></i> Действия</a></li>
+                                                     <li><a href="javascript:;"><i class="fas fa-paw"></i> В этом меню</a></li>
+                                                 </ul>
+                                             </div>
+
+                                         </div>
+
+                                     </div>
+
+                                     <div class="sub sub_58260 hide_me'">
+                                         <!-- <div th:class="'sub sub_'+${id}+'hide_me'">-->
+                                                <!-- Nested companies' inner cycle start
+
+                                                <div th:each="company_child, iterstat : ${company_name[iterstat1.index]}">
+
+
+                                                    <div class="title clr_b2">
+                                                        <label class="radiocheck">
+                                                            <input type="radio" name="garantiyka" class="www" />
+                                                            <strong th:text="${company_child}" ></strong>
+                                                        </label>
+
+                                                        <div class="more animate_150">
+                                                            <a>ИНН № </a>
+                                                            <a>7725104256</a>
+                                                        </div>
+
+                                                        <a href="javascript:;" class="bookmark rds_full">
+                                                            <i class="far fa-bookmark"></i>
+                                                        </a>
+                                                        <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${iterstat.index}" data-popover-position="left">
+                                                            <i class="fas fa-ellipsis-v"></i>
+                                                        </a>
+
+
+                                                        <div class="hide_me">
+                                                            <div th:id="'actions_'+${iterstat.index}">
+                                                                <ul class="popover_menu">
+                                                                    <li><a href="javascript:;"><i class="fas fa-paw"></i> <div th:text ="${company_child}"></div></a></li>
+                                                                    <li><a href="javascript:;"><i class="fas fa-paw"></i> Любые</a></li>
+                                                                    <li><a href="javascript:;"><i class="fas fa-paw"></i> Действия</a></li>
+                                                                    <li><a href="javascript:;"><i class="fas fa-paw"></i> В этом меню</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>-->
+                                                <!-- End of nested companies' inner cycle -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of case of nested companies -->
+
+                            <!-- End if -->
+                        </div>
+                        <!-- End of big companies cycle -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="shadow top animate_150"></div>
+        <div class="shadow bot animate_150"></div>
+
+    </div>
+
+
+
+    <!-- Container end -->
+
+</div>
+

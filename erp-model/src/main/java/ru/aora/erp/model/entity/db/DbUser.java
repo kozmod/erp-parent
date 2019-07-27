@@ -25,8 +25,9 @@ public class DbUser {
         return id;
     }
 
-    public void setId(long id) {
+    public DbUser setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getUsername() {
@@ -41,24 +42,27 @@ public class DbUser {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public DbUser setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public DbUser setSurname(String surname) {
         this.surname = surname;
+        return this;
     }
 
     public String getPatronymic() {
         return patronymic;
     }
 
-    public void setPatronymic(String patronymic) {
+    public DbUser setPatronymic(String patronymic) {
         this.patronymic = patronymic;
+        return this;
     }
 
     public Set<DbModule> getAuthorities() {
@@ -85,182 +89,73 @@ public class DbUser {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public DbUser setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public void setAuthorities(Set<DbModule> authorities) {
+    public DbUser setAuthorities(Set<DbModule> authorities) {
         this.authorities = authorities;
+        return this;
     }
 
-    public void setAccountNonExpired(boolean accountNonExpired) {
+    public DbUser setAccountNonExpired(boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
+        return this;
     }
 
-    public void setAccountNonLocked(boolean accountNonLocked) {
+    public DbUser setAccountNonLocked(boolean accountNonLocked) {
         this.accountNonLocked = accountNonLocked;
+        return this;
     }
 
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+    public DbUser setCredentialsNonExpired(boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
+        return this;
     }
 
-    public void setEnabled(boolean enabled) {
+    public DbUser setEnabled(boolean enabled) {
         this.enabled = enabled;
+        return this;
     }
 
-    public void setUsername(String username) {
+    public DbUser setUsername(String username) {
         this.username = username;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public DbUser setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public void setMail(String mail) {
+    public DbUser setMail(String mail) {
         this.mail = mail;
+        return this;
     }
 
     public String getEmployeePosition() {
         return employeePosition;
     }
 
-    public void setEmployeePosition(String employeePosition) {
+    public DbUser setEmployeePosition(String employeePosition) {
         this.employeePosition = employeePosition;
+        return this;
     }
 
     public boolean isDel() {
         return del;
     }
 
-    public void setDel(boolean del) {
+    public DbUser setDel(boolean del) {
         this.del = del;
+        return this;
     }
-
-    public static UserBuilder builder() {
-        return new UserBuilder();
-    }
-
-    public static class UserBuilder {
-        private long id;
-        private Set<DbModule> authorities;
-        private boolean accountNonExpired;
-        private boolean accountNonLocked;
-        private boolean credentialsNonExpired;
-        private boolean enabled;
-        private String username;
-        private String password;
-        private String firstName;
-        private String surname;
-        private String patronymic;
-        private String phoneNumber;
-        private String mail;
-        private String employeePosition;
-        private boolean del;
-
-        private UserBuilder() {
-        }
-
-        public UserBuilder withId(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public UserBuilder withAuthorities(Set<DbModule> authorities) {
-            this.authorities = authorities;
-            return this;
-        }
-
-        public UserBuilder withAccountNonExpired(boolean accountNonExpired) {
-            this.accountNonExpired = accountNonExpired;
-            return this;
-        }
-
-        public UserBuilder withAccountNonLocked(boolean accountNonLocked) {
-            this.accountNonLocked = accountNonLocked;
-            return this;
-        }
-
-        public UserBuilder withCredentialsNonExpired(boolean credentialsNonExpired) {
-            this.credentialsNonExpired = credentialsNonExpired;
-            return this;
-        }
-
-        public UserBuilder withEnabled(boolean enabled) {
-            this.enabled = enabled;
-            return this;
-        }
-
-        public UserBuilder withUsername(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public UserBuilder withPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public UserBuilder withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public UserBuilder withSurname(String surname) {
-            this.surname = surname;
-            return this;
-        }
-
-        public UserBuilder withPatronymic(String patronymic) {
-            this.patronymic = patronymic;
-            return this;
-        }
-
-        public UserBuilder withPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public UserBuilder withMail(String mail) {
-            this.mail = mail;
-            return this;
-        }
-
-        public UserBuilder withEmployeePosition(String employeePosition) {
-            this.employeePosition = employeePosition;
-            return this;
-        }
-
-        public UserBuilder withDel(boolean del) {
-            this.del = del;
-            return this;
-        }
-
-        public DbUser build() {
-            DbUser user = new DbUser();
-            user.setId(id);
-            user.setAuthorities(authorities);
-            user.setAccountNonExpired(accountNonExpired);
-            user.setAccountNonLocked(accountNonLocked);
-            user.setCredentialsNonExpired(credentialsNonExpired);
-            user.setEnabled(enabled);
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setFirstName(firstName);
-            user.setSurname(surname);
-            user.setPatronymic(patronymic);
-            user.setPhoneNumber(phoneNumber);
-            user.setMail(mail);
-            user.setEmployeePosition(employeePosition);
-            user.setDel(del);
-            return user;
-        }
-    }
-
+    
     @Override
     public String toString() {
         return new StringJoiner(", ", DbUser.class.getSimpleName() + "[", "]")

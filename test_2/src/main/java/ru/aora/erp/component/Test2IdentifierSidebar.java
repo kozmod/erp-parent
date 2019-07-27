@@ -1,7 +1,7 @@
 package ru.aora.erp.component;
 
 import org.springframework.stereotype.Component;
-import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
 import ru.aora.erp.model.identifier.chane.SidebarChaneNode;
 import ru.aora.erp.model.identifier.chane.UiChaneNode;
@@ -28,7 +28,7 @@ public class Test2IdentifierSidebar implements SidebarModuleIdentifier {
 
     @PostConstruct
     private void init() {
-        final String PARENT_NAME = "TEST_2_MODULE";
+        final String PARENT_NAME = "ТЕСТОВЫЙ МОДУЛЬ 2";
         final String PARENT_CHILD_NAME = "TEST_2_PARENT_CHILD";
         final String PARENT_CHILD_CHILD_NAME = "TEST_2_PARENT_CHILD_CHILD";
 

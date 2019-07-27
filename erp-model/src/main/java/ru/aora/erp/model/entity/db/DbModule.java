@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 public class DbModule {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
@@ -28,61 +28,27 @@ public class DbModule {
         return id;
     }
 
-    public void setId(long id) {
+    public DbModule setId(long id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public DbModule setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Set<DbModuleRule> getModuleRoles() {
         return moduleRoles;
     }
 
-    public void setModuleRoles(Set<DbModuleRule> moduleRoles) {
+    public DbModule setModuleRoles(Set<DbModuleRule> moduleRoles) {
         this.moduleRoles = moduleRoles;
-    }
-
-    public static DbModuleBuilder builder() {
-        return new DbModuleBuilder();
-    }
-
-    public final static class DbModuleBuilder {
-        private long id;
-        private String name;
-        private Set<DbModuleRule> moduleRoles;
-
-        private DbModuleBuilder() {
-        }
-
-
-        public DbModuleBuilder withId(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public DbModuleBuilder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public DbModuleBuilder withModuleRoles(Set<DbModuleRule> moduleRoles) {
-            this.moduleRoles = moduleRoles;
-            return this;
-        }
-
-        public DbModule build() {
-            DbModule dbModule = new DbModule();
-            dbModule.setId(id);
-            dbModule.setName(name);
-            dbModule.setModuleRoles(moduleRoles);
-            return dbModule;
-        }
+        return this;
     }
 
     @Override

@@ -1,6 +1,6 @@
 function loadOptions () {
-
-    ////////////////////////////////////
+	
+	////////////////////////////////////
 	// GENERAL
 	////////////////////////////////////
 	
@@ -95,7 +95,7 @@ function loadOptions () {
 	  
 		if ($this.next().hasClass('show')) {
 			$this.next().removeClass('show');
-			$this.next().slideUp(350);
+			$this.next().slideUp(300);
 		} else {
 			$this.parent().parent().find('.inner_acc').removeClass('show');
 			$this.parent().parent().find('.inner_acc').slideUp(300);
@@ -165,6 +165,12 @@ function loadOptions () {
 		var filler = $(this).find('em');
 		var input = $(this).find('.inp');
 		
+		if (input.val().length === 0) {
+			filler.removeClass('focus');
+		} else {
+			filler.addClass('focus');
+		}
+		
 		input.focus(function() {
 			filler.addClass('focus');
 		}).blur(function() {
@@ -172,6 +178,7 @@ function loadOptions () {
 				filler.removeClass('focus');
 			}
 		});
+		
 	});
 	
 	// Tooltips general
@@ -234,14 +241,14 @@ function loadOptions () {
 			}
 		});
 	});
-
-    // Toggle content block
-
+	
+	// Toggle content block
+	
     $('.toggle_cb').click(function() {
-        $(this).toggleClass('active');
-
-        var toggleContainer = $(this).data('toggle');
-        $('.' + toggleContainer).slideToggle(300);
+		$(this).toggleClass('active');
+		
+		var toggleContainer = $(this).data('toggle');
+		$('.' + toggleContainer).slideToggle(300);
     });
 	
 }
@@ -284,13 +291,9 @@ $(document).ready(function($) {
 	
 	$('.test_timer').startTimer({
 		onComplete: function(element) {
-			window.location.replace('login.php');
+			window.location.replace('login.html');
 		},
 	});
-	
-	
-	
-	
 	
 	loadOptions();
 	
@@ -298,20 +301,17 @@ $(document).ready(function($) {
 	
 	$('.load_content').each(function() {
 		$(this).click(function() {
-			
-			var contentPart = $(this).data('load');
+			var loadFrom = $(this).data('load-from');
+			var loadTo = $(this).data('load-to');
 			
 			$.ajax({
-				url:contentPart,
+				url:loadFrom,
 				success: function(response) {
-					$("#content").html($(response));
+					$('#' + loadTo).html($(response));
 					
-					loadOptions();
+					//loadOptions();
 				}
 			});
-			
-			//alert(contentPart);
-		
 		});
 	});
 	

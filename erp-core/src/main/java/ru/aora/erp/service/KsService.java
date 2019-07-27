@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 @Service
 @Transactional
 public class KsService {
@@ -29,6 +31,7 @@ public class KsService {
     }
 
     public void update(Ks ks) {
+        requireNonNull(ks.getId());
         KsRepository.save(ksMapper.toDbKs(ks));
     }
 

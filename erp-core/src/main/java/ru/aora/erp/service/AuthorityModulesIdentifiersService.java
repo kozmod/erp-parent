@@ -9,7 +9,6 @@ import ru.aora.erp.model.identifier.ModuleIdentifier;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class AuthorityModulesIdentifiersService {
 

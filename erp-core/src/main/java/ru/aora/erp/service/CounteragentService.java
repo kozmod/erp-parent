@@ -1,17 +1,16 @@
 package ru.aora.erp.service;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.aora.erp.model.entity.mapper.CounteragentMapper;
 import ru.aora.erp.model.entity.business.Counteragent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.repository.jpa.DbCounteragentRepository;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.requireNonNull;
 
 @Service
 @Transactional
@@ -24,13 +23,6 @@ public class CounteragentService {
         this.counteragentRepository = counteragentRepository;
     }
 
-    public Counteragent getByName(String name) throws UsernameNotFoundException {
-            return counteragentRepository.findByName(name)
-                    .map(Objects::requireNonNull)
-                    .map(counteragentMapper::toCounteragent)
-                    .orElseThrow(() -> new EntityNotFoundException(name));
-    }
-
     public List<Counteragent> loadAll() {
         return counteragentRepository.findAll()
                 .stream()
@@ -39,11 +31,12 @@ public class CounteragentService {
     }
 
     public void update(Counteragent counteragent) {
-            counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+        requireNonNull(counteragent.getId());
+        counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
     }
 
     public void create(Counteragent counteragent) {
-            counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+        counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
     }
 
     public void delete(String counteragentId) {

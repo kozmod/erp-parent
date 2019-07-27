@@ -19,22 +19,21 @@ public final class DbUserUtils {
     }
 
     public static DbUser newDbUserWithOutAuthorities(String userName) {
-        return DbUser.builder()
-                .withUsername(userName)
-                .withPassword(
+        return new DbUser()
+                .setUsername(userName)
+                .setPassword(
                         new BCryptPasswordEncoder().encode(userName)
                 )
-                .withFirstName("Иванов")
-                .withSurname("Иван")
-                .withPatronymic("Иванович")
-                .withAccountNonExpired(true)
-                .withAccountNonLocked(true)
-                .withCredentialsNonExpired(true)
-                .withEnabled(true)
-                .withMail("y-mail@gMail.com")
-                .withEmployeePosition("Слесарь")
-                .withPhoneNumber("+7(926)1057452")
-                .withAuthorities(Set.of())
-                .build();
+                .setFirstName("Иванов")
+                .setSurname("Иван")
+                .setPatronymic("Иванович")
+                .setAccountNonExpired(true)
+                .setAccountNonLocked(true)
+                .setCredentialsNonExpired(true)
+                .setEnabled(true)
+                .setMail("y-mail@gMail.com")
+                .setEmployeePosition("Слесарь")
+                .setPhoneNumber("+7(926)1057452")
+                .setAuthorities(Set.of());
     }
 }

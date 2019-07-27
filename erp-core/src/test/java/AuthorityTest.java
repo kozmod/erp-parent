@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
-import ru.aora.erp.component.TestModuleAuthority;
-import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.business.IdAuthority;
 
 import java.util.List;
 

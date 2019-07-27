@@ -1,6 +1,6 @@
 package ru.aora.erp.entity;
 
-import ru.aora.erp.model.entity.counteragent.Counteragent;
+import ru.aora.erp.model.entity.business.Counteragent;
 
 import java.util.Arrays;
 import java.util.List;

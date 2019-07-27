@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
+import ru.aora.erp.repository.crud.CrudRepository;
+import ru.aora.erp.repository.crud.user.DbUserExtractor;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

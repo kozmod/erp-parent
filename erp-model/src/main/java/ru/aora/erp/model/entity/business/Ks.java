@@ -1,48 +1,23 @@
-package ru.aora.erp.model.entity.db;
+package ru.aora.erp.model.entity.business;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
-@Entity
-@Table(name = "KS")
-public class DbKs {
+public class Ks {
 
-    @Id
-    @GenericGenerator(name = "generator", strategy = "guid")
-    @GeneratedValue(generator = "generator")
-    @Column(name = "id_KS", columnDefinition="uniqueidentifier")
     private String id;
-
-    @Column(name = "id_contract")
     private String contractId;
-
-    @Column(name = "KS_date")
     private String ksDate;
-
-    @Column(name = "KS_number")
     private String ksNumber;
-
-    @Column(name = "KS_sum")
     private BigDecimal ksSum;
-
-    @Column(name = "Garant_date")
     private String garantDate;
-
-    @Column(name = "Garant_sum")
     private BigDecimal garantSum;
 
     public String getId() {
         return id;
     }
 
-    public DbKs setId(String id) {
+    public Ks setId(String id) {
         this.id = id;
         return this;
     }
@@ -51,7 +26,7 @@ public class DbKs {
         return contractId;
     }
 
-    public DbKs setContractId(String contractId) {
+    public Ks setContractId(String contractId) {
         this.contractId = contractId;
         return this;
     }
@@ -60,7 +35,7 @@ public class DbKs {
         return ksDate;
     }
 
-    public DbKs setKsDate(String ksDate) {
+    public Ks setKsDate(String ksDate) {
         this.ksDate = ksDate;
         return this;
     }
@@ -69,7 +44,7 @@ public class DbKs {
         return ksNumber;
     }
 
-    public DbKs setKsNumber(String ksNumber) {
+    public Ks setKsNumber(String ksNumber) {
         this.ksNumber = ksNumber;
         return this;
     }
@@ -78,7 +53,7 @@ public class DbKs {
         return ksSum;
     }
 
-    public DbKs setKsSum(BigDecimal ksSum) {
+    public Ks setKsSum(BigDecimal ksSum) {
         this.ksSum = ksSum;
         return this;
     }
@@ -87,7 +62,7 @@ public class DbKs {
         return garantDate;
     }
 
-    public DbKs setGarantDate(String garantDate) {
+    public Ks setGarantDate(String garantDate) {
         this.garantDate = garantDate;
         return this;
     }
@@ -96,14 +71,14 @@ public class DbKs {
         return garantSum;
     }
 
-    public DbKs setGarantSum(BigDecimal garantSum) {
+    public Ks setGarantSum(BigDecimal garantSum) {
         this.garantSum = garantSum;
         return this;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", DbKs.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", Ks.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("contractId=" + contractId)
                 .add("ksDate='" + ksDate + "'")

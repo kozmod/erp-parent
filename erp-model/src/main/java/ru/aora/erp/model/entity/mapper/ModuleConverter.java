@@ -1,17 +1,9 @@
-package ru.aora.erp.model.entity.converter;
+package ru.aora.erp.model.entity.mapper;
 
-import ru.aora.erp.model.entity.IdAuthority;
-import ru.aora.erp.model.entity.db.DbModule;
-import ru.aora.erp.model.entity.db.DbModuleRule;
-import ru.aora.erp.model.entity.db.DbUser;
-import ru.aora.erp.model.entity.user.User;
+import ru.aora.erp.model.entity.business.IdAuthority;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import static java.util.Objects.nonNull;
 
 public class ModuleConverter {
 
@@ -21,7 +13,7 @@ public class ModuleConverter {
         this.allAuthorities = allAuthorities;
     }
 
-//    public DbModule convert(IdAuthority authority){
+//    public DbModule toDbCounteragent(IdAuthority authority){
 //        return DbModule.builder()
 //                .withId(authority.getModuleId())
 //                .withName(authority.getClass().getSimpleName())
@@ -35,7 +27,7 @@ public class ModuleConverter {
 //                ).build();
 //    }
 //
-//    public IdAuthority convert(DbModule dbModule){
+//    public IdAuthority toDbCounteragent(DbModule dbModule){
 //        for (var roleName : dbModule.getModuleRoles()) {
 //            tryFindAuthorities(dbModule.getName(), roleName.getName())
 //                    .ifPresent(authority -> {

@@ -1,10 +1,6 @@
 package ru.aora.erp.model.entity.business;
 import java.util.StringJoiner;
-import javax.persistence.*;
 
-
-@Entity
-@Table(name = "counteragent")
 public class Counteragent {
 
     private String id;

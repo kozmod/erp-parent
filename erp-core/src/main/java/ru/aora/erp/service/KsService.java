@@ -1,17 +1,45 @@
 package ru.aora.erp.service;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.business.Ks;
+import ru.aora.erp.model.entity.mapper.KsMapper;
+import ru.aora.erp.repository.jpa.DbKsRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface KsService {
+@Service
+@Transactional
+public class KsService {
+    private final DbKsRepository KsRepository;
+    private final KsMapper ksMapper = KsMapper.INSTANCE;
 
-    void delete(String id);
-    Ks getByName(String name);
-    void update(Ks ks);
-    void create(Ks ks);
+    @Autowired
+    public KsService(DbKsRepository KsRepository) {
+        this.KsRepository = KsRepository;
+    }
 
-    List<Ks> loadAll();
+    public List<Ks> loadAll() {
+        return KsRepository.findAll()
+                .stream()
+                .map(ksMapper::toKs)
+                .collect(Collectors.toList());
+    }
 
+    public void update(Ks ks) {
+        KsRepository.save(ksMapper.toDbKs(ks));
+    }
+
+    public void create(Ks ks) {
+        KsRepository.save(ksMapper.toDbKs(ks));
+    }
+
+    public void delete(String KsId) {
+        KsRepository.deleteById(KsId);
+    }
 }
+
+
+

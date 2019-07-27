@@ -15,7 +15,7 @@ public class TestAjaxController {
     @Autowired
     private AuthorityModulesIdentifiersService authorityModulesIdentifiersService;
 
-    @RequestMapping(value = "/updateUserRoles",method = RequestMethod.POST, consumes="application/json")
+    @RequestMapping(value = "/updateUserRoles", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
     String putUser(@RequestBody UserModuleAuthorityDto moduleAuthorityDto) {
         System.out.println(moduleAuthorityDto);

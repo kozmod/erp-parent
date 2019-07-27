@@ -1,16 +1,43 @@
 package ru.aora.erp.model.entity.db;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.StringJoiner;
 
+@Entity
+@Table(name = "Counteragents")
 public class DbCounteragent {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_counteragent")
     private String id;
+
+    @Column(name = "counteragent_name")
     private String counteragentName;
+
+    @Column(name = "group_name")
     private String groupName;
+
+    @Column(name = "first_name")
     private String directorFirstName;
+
+    @Column(name = "surname")
     private String directorSurname;
+
+    @Column(name = "patronymic")
     private String directorPatronymic;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "mail")
     private String mail;
+
+    @Column(name = "address")
     private String address;
 
     public String getId() {

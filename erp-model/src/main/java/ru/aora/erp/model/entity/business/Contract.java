@@ -1,12 +1,7 @@
 package ru.aora.erp.model.entity.business;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.StringJoiner;
 
-
-@Entity
-@Table(name = "contract")
 public class Contract {
 
     private String id;

@@ -1,5 +1,6 @@
 package ru.aora.erp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,14 +31,15 @@ public class UserController {
     private AuthorityModulesIdentifiersService authorityModulesIdentifiersService;
 
     public UserController(UserService userService,
-                          AuthorityModulesIdentifiersService authorityModulesIdentifiersService) {
+                          AuthorityModulesIdentifiersService authorityModulesIdentifiersService
+    ) {
         this.userService = userService;
         this.authorityModulesIdentifiersService = authorityModulesIdentifiersService;
     }
 
     @GetMapping
     public String userForm(Map<String, Object> model, Principal principal) {
-        final UsersDto usersDto =  UsersDto.of(userService.loadAll());
+        final UsersDto usersDto = UsersDto.of(userService.loadAll());
         final Collection<UserModuleAuthorityDto> userModuleAuthorityDtoList = UserModuleAuthorityDto.of(
                 usersDto.getUsers(),
                 authorityModulesIdentifiersService.modulesAuthorities()
@@ -50,18 +52,17 @@ public class UserController {
     }
 
     @PutMapping
-    public @ResponseBody String putUser(@RequestBody User user) {
+    public @ResponseBody
+    String putUser(@RequestBody User user) {
         System.out.println("edited user " + user.getId());
         userService.updateUser(user);
         return "update";
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody String deleteUser(@PathVariable long id) {
+    public @ResponseBody
+    String deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return "delete";
     }
-
-
-
 }

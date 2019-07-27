@@ -2,8 +2,6 @@ package ru.aora.erp.model.entity.business;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import static org.apache.logging.log4j.util.Strings.isBlank;
-
 public interface IdAuthority extends GrantedAuthority {
 
     long getModuleId();

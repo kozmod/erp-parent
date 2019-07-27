@@ -1,13 +1,8 @@
 package ru.aora.erp.model.entity.business;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
-
-@Entity
-@Table(name = "ks")
 public class Ks {
 
     private String id;

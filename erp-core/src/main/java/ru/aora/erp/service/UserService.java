@@ -7,11 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.DbUser;
-import ru.aora.erp.model.entity.converter.UserConverter;
-import ru.aora.erp.model.entity.user.User;
+import ru.aora.erp.model.entity.mapper.UserMapper;
+import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.repository.crud.user.DbUserRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +20,8 @@ public class UserService implements UserDetailsService {
 
     private final DbUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserConverter userConverter;
+    private final AuthorityModulesIdentifiersService authorityService;
+    private final UserMapper userMapper = UserMapper.INSTANCE;
 
     @Autowired
     public UserService(
@@ -29,14 +31,15 @@ public class UserService implements UserDetailsService {
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userConverter = new UserConverter(authorityModulesIdentifiersService.modulesAuthorities());
+        this.authorityService = authorityModulesIdentifiersService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         try {
             return userRepository.findByName(name)
-                    .map(userConverter::convert)
+                    .map(Objects::requireNonNull)
+                    .map(dbUser -> userMapper.toUser(dbUser, authorityService.modulesAuthorities()))
                     .orElseThrow(() -> new UsernameNotFoundException(name));
         } catch (Exception ex) {
             throw new UsernameNotFoundException(String.join("User not found by name: ", name), ex);
@@ -46,7 +49,8 @@ public class UserService implements UserDetailsService {
     public List<User> loadAll() {
         return userRepository.findAll()
                 .stream()
-                .map(userConverter::convert)
+                .map(Objects::requireNonNull)
+                .map(dbUser -> userMapper.toUser(dbUser, authorityService.modulesAuthorities()))
                 .collect(Collectors.toList());
     }
 
@@ -55,10 +59,11 @@ public class UserService implements UserDetailsService {
             DbUser dbUser = userRepository.findById(user.getId())
                     .orElseThrow(() -> new UsernameNotFoundException(Long.toString(user.getId())));
             if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-                userRepository.update(userConverter.convert(user));
+                userRepository.update(userMapper.toDbUser(user));
             } else {
                 encodeUserPassword(user);
-                userRepository.update(userConverter.convert(user));
+                userRepository.update(userMapper.toDbUser(user)
+                );
             }
         } catch (Exception ex) {
             throw new UsernameNotFoundException(String.join("User not found by id"), ex);

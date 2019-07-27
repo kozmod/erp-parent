@@ -1,12 +1,14 @@
-package ru.aora.erp.model.entity.db;
+package ru.aora.erp.model.entity.business;
 
-import java.util.Set;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.StringJoiner;
 
-public class DbUser {
+public class User implements UserDetails {
 
     private long id;
-    private Set<DbModule> authorities;
+    private Collection<IdAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -25,24 +27,36 @@ public class DbUser {
         return id;
     }
 
-    public DbUser setId(long id) {
+    public User setId(long id) {
         this.id = id;
         return this;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    public User setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public DbUser setFirstName(String firstName) {
+    public User setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -51,7 +65,7 @@ public class DbUser {
         return surname;
     }
 
-    public DbUser setSurname(String surname) {
+    public User setSurname(String surname) {
         this.surname = surname;
         return this;
     }
@@ -60,36 +74,66 @@ public class DbUser {
         return patronymic;
     }
 
-    public DbUser setPatronymic(String patronymic) {
+    public User setPatronymic(String patronymic) {
         this.patronymic = patronymic;
         return this;
     }
 
-    public Set<DbModule> getAuthorities() {
+    @Override
+    public Collection<IdAuthority> getAuthorities() {
         return authorities;
     }
 
+    public User setAuthorities(Collection<IdAuthority> authorities) {
+        this.authorities = authorities;
+        return this;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
 
+    public User setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+        return this;
+    }
+
+    @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
+    public User setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+        return this;
+    }
+
+    @Override
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
+    public User setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+        return this;
+    }
+
+    @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public User setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public DbUser setPhoneNumber(String phoneNumber) {
+    public User setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -98,42 +142,7 @@ public class DbUser {
         return mail;
     }
 
-    public DbUser setAuthorities(Set<DbModule> authorities) {
-        this.authorities = authorities;
-        return this;
-    }
-
-    public DbUser setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-        return this;
-    }
-
-    public DbUser setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-        return this;
-    }
-
-    public DbUser setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-        return this;
-    }
-
-    public DbUser setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
-    public DbUser setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public DbUser setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public DbUser setMail(String mail) {
+    public User setMail(String mail) {
         this.mail = mail;
         return this;
     }
@@ -142,7 +151,7 @@ public class DbUser {
         return employeePosition;
     }
 
-    public DbUser setEmployeePosition(String employeePosition) {
+    public User setEmployeePosition(String employeePosition) {
         this.employeePosition = employeePosition;
         return this;
     }
@@ -151,14 +160,14 @@ public class DbUser {
         return del;
     }
 
-    public DbUser setDel(boolean del) {
+    public User setDel(boolean del) {
         this.del = del;
         return this;
     }
-    
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", DbUser.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("authorities=" + authorities)
                 .add("accountNonExpired=" + accountNonExpired)

@@ -1,14 +1,12 @@
 package ru.aora.erp.entity;
 
-import org.springframework.data.util.Pair;
-import ru.aora.erp.model.entity.IdAuthority;
-import ru.aora.erp.model.entity.user.User;
+import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.business.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -63,7 +61,7 @@ public final class UserModuleAuthorityDto {
         return userId;
     }
 
-    /*private Pair<List<IdAuthority>,List<IdAuthority>> convert(Map<String, Map<String, Boolean>> modules, List<IdAuthority> allAuthorities) {
+    /*private Pair<List<IdAuthority>,List<IdAuthority>> toDbCounteragent(Map<String, Map<String, Boolean>> modules, List<IdAuthority> allAuthorities) {
         final List<IdAuthority> toDelete = new ArrayList<>();
         final List<IdAuthority> toAdd = new ArrayList<>();
         modules.forEach((moduleName, ruleMap) ->

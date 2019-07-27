@@ -1,16 +1,51 @@
 package ru.aora.erp.service;
-import ru.aora.erp.model.entity.contract.Contract;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.aora.erp.model.entity.mapper.ContractMapper;
+import ru.aora.erp.model.entity.business.Contract;
+import ru.aora.erp.repository.jpa.DbContractRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public interface ContractService {
+import static java.util.Objects.requireNonNull;
 
-    void delete(String id);
-    Contract getByName(String name);
-    void update(Contract contract);
-    void create(Contract contract);
+@Service
+@Transactional
+public class ContractService {
+    private final DbContractRepository contractRepository;
+    private final ContractMapper contractMapper = ContractMapper.INSTANCE;
 
-    List<Contract> loadAll();
+    @Autowired
+    public ContractService(DbContractRepository contractRepository) {
+        this.contractRepository = contractRepository;
+    }
 
+    public List<Contract> loadAll() {
+        return contractRepository.findAll()
+                .stream()
+                .map(contractMapper::toContract)
+                .collect(Collectors.toList());
+    }
+
+    public void update(Contract contract) {
+        contractRepository.save(
+                contractMapper.toDbContract(requireNonNull(contract))
+        );
+    }
+
+    public void create(Contract contract) {
+        contractRepository.save(
+                contractMapper.toDbContract(requireNonNull(contract))
+        );
+    }
+
+    public void delete(String contractId) {
+        contractRepository.deleteById(requireNonNull(contractId));
+    }
 }
+
+
+

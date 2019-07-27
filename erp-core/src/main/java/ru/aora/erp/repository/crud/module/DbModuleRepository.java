@@ -1,4 +1,4 @@
-package ru.aora.erp.repository.crud;
+package ru.aora.erp.repository.crud.module;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.model.entity.db.DbModule;
+import ru.aora.erp.repository.crud.CrudRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

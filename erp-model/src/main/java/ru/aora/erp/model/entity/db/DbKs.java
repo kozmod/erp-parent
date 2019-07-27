@@ -1,17 +1,39 @@
 package ru.aora.erp.model.entity.db;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.StringJoiner;
 
-
+@Entity
+@Table(name = "KS")
 public class DbKs {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_KS")
     private String id;
+
+    @Column(name = "id_contract")
     private String contractId;
+
+    @Column(name = "KS_date")
     private String ksDate;
+
+    @Column(name = "KS_number")
     private String ksNumber;
+
+    @Column(name = "KS_sum")
     private BigDecimal ksSum;
+
+    @Column(name = "Garant_date")
     private String garantDate;
+
+    @Column(name = "Garant_sum")
     private BigDecimal garantSum;
 
     public String getId() {

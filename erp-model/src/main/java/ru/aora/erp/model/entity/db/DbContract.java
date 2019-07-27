@@ -1,13 +1,34 @@
 package ru.aora.erp.model.entity.db;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.StringJoiner;
 
+@Entity
+@Table(name = "Contract")
 public class DbContract {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_contract")
     private String id;
+
+    @Column(name = "id_counteragent")
     private String counteragentId;
+
+    @Column(name = "idTypeAgreement")
     private int contractType;
+
+    @Column(name = "contract_date")
     private String contractDate;
+
+    @Column(name = "contract_number")
     private String contractNumber;
+
+    @Column(name = "contract_subject")
     private String contractSubject;
 
     public String getId() {

@@ -1,10 +1,10 @@
 package ru.aora.erp.entity.dto.compose;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
-import ru.aora.erp.utils.CommonUtils;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;

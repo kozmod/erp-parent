@@ -1,4 +1,4 @@
-package repository.user.it;
+package ru.aora.erp.repository.crud.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.aora.erp.model.entity.db.DbModule;

@@ -1,7 +1,7 @@
 package ru.aora.erp.component;
 
 import org.springframework.stereotype.Component;
-import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
 import ru.aora.erp.model.identifier.chane.SidebarChaneNode;
 import ru.aora.erp.model.identifier.chane.UiChaneNode;

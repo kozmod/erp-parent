@@ -13,5 +13,4 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface DbContractRepository extends JpaRepository<DbContract, Object> {
-
 }

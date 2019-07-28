@@ -1,4 +1,5 @@
 package ru.aora.erp.model.entity.business;
+
 import java.util.StringJoiner;
 
 public class Counteragent {

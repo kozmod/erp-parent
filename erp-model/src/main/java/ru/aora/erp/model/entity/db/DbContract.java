@@ -1,4 +1,5 @@
 package ru.aora.erp.model.entity.db;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ public class DbContract {
     @Id
     @GenericGenerator(name = "generator", strategy = "guid")
     @GeneratedValue(generator = "generator")
-    @Column(name = "id_contract", columnDefinition="uniqueidentifier")
+    @Column(name = "id_contract", columnDefinition = "uniqueidentifier")
     private String id;
 
     @Column(name = "id_counteragent")

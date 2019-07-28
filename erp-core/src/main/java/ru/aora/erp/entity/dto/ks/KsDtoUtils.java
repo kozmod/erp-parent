@@ -1,8 +1,8 @@
 package ru.aora.erp.entity.dto.ks;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 import ru.aora.erp.model.entity.business.Ks;
-import ru.aora.erp.utils.CommonUtils;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public final class KsDtoUtils {
 
     public static List<KsDto> toKsDtoList(List<Ks> kss) {
         final List<KsDto> dtos = new ArrayList<>(kss.size());
-        if (CollectionUtils.isNotEmpty(kss)) {
+        if (!CollectionUtils.isEmpty(kss)) {
             for (Ks ks : kss) {
                 dtos.add(toKsDto(ks));
             }
@@ -47,7 +47,7 @@ public final class KsDtoUtils {
 
     public static List<Ks> toKsList(List<KsDto> dtos) {
         final List<Ks> kss = new ArrayList<>(dtos.size());
-        if (CollectionUtils.isNotEmpty(dtos)) {
+        if (!CollectionUtils.isEmpty(dtos)) {
             for (KsDto ksDto : dtos) {
                 kss.add(toKs(ksDto));
             }

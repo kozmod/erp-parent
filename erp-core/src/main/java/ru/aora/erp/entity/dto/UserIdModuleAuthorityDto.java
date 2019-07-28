@@ -1,6 +1,6 @@
 package ru.aora.erp.entity.dto;
 
-import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.entity.business.User;
 
 import java.util.ArrayList;

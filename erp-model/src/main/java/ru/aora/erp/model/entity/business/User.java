@@ -1,6 +1,7 @@
 package ru.aora.erp.model.entity.business;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import ru.aora.erp.model.entity.IdAuthority;
 
 import java.util.Collection;
 import java.util.StringJoiner;

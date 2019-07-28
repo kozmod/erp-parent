@@ -1,7 +1,7 @@
 package ru.aora.erp.model.action;
 
 public class ActionResult {
-    public enum Result{
+    public enum Result {
         ERROR,
         WARNING,
         SUCCESS

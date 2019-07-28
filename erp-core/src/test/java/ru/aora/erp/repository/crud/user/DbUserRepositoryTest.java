@@ -1,5 +1,6 @@
-package repository.user.it;
+package ru.aora.erp.repository.crud.user;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,12 @@ import ru.aora.erp.repository.crud.CrudRepository;
 import java.util.Optional;
 
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static repository.user.it.DbUserUtils.newDbUserWithOutAuthorities;
-import static repository.user.it.TestUtils.newRandomString;
+import static ru.aora.erp.repository.crud.user.DbUserUtils.newDbUserWithOutAuthorities;
+import static ru.aora.erp.repository.crud.user.TestUtils.newRandomString;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {UserDataBaseConfig.class})
 public class DbUserRepositoryTest {

@@ -16,7 +16,7 @@ public class SidebarChaneNode implements UiChaneNode {
     }
 
     public SidebarChaneNode(String name, List<UiChaneNode> nextElements) {
-        this(name,null, nextElements);
+        this(name, null, nextElements);
     }
 
     public SidebarChaneNode(String name, String mapping, List<UiChaneNode> nextElements) {

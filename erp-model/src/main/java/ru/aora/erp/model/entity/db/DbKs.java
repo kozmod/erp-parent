@@ -18,7 +18,7 @@ public class DbKs {
     @Id
     @GenericGenerator(name = "generator", strategy = "guid")
     @GeneratedValue(generator = "generator")
-    @Column(name = "id_KS", columnDefinition="uniqueidentifier")
+    @Column(name = "id_KS", columnDefinition = "uniqueidentifier")
     private String id;
 
     @Column(name = "id_contract")

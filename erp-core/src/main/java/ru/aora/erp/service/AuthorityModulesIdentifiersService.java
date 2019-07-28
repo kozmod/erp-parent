@@ -3,7 +3,7 @@ package ru.aora.erp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 
 import java.util.ArrayList;

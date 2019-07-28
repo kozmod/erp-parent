@@ -2,11 +2,10 @@ package ru.aora.erp.model.entity.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import ru.aora.erp.model.entity.business.IdAuthority;
+import org.springframework.util.CollectionUtils;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
@@ -33,7 +32,7 @@ public interface UserMapper {
     default User toUser(DbUser dbUser, List<IdAuthority> allAuthorities) {
         final var user = toUserWithoutAuthorities(dbUser);
         final List<IdAuthority> authorities = new ArrayList<>();
-        if (nonNull(dbUser.getAuthorities())) {
+        if (!CollectionUtils.isEmpty((dbUser.getAuthorities()))) {
             for (var module : dbUser.getAuthorities()) {
                 for (var roleName : module.getModuleRoles()) {
                     tryFindAuthorities(module.getName(), roleName.getName(), allAuthorities)
@@ -67,7 +66,7 @@ public interface UserMapper {
     default DbUser toDbUser(User user) {
         final var dbUser = toDbUserWithoutModules(user);
         final Set<DbModule> modules = new HashSet<>();
-        if (nonNull(user.getAuthorities())) {
+        if (!CollectionUtils.isEmpty(user.getAuthorities())) {
             for (IdAuthority authority : user.getAuthorities()) {
                 tryFindModule(authority.getClass().getSimpleName(), modules)
                         .ifPresentOrElse(

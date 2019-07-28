@@ -1,4 +1,4 @@
-package ru.aora.erp.utils;
+package ru.aora.erp.utils.common;
 
 import org.junit.Test;
 

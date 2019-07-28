@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;

@@ -1,6 +1,6 @@
 package ru.aora.erp.component;
 
-import ru.aora.erp.model.entity.business.IdAuthority;
+import ru.aora.erp.model.entity.IdAuthority;
 
 public enum Test2ModuleAuthority implements IdAuthority{
 

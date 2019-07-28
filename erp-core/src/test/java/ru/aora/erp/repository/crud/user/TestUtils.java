@@ -1,4 +1,4 @@
-package repository.user.it;
+package ru.aora.erp.repository.crud.user;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Random;

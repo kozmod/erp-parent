@@ -1,4 +1,4 @@
-package ru.aora.erp.entity;
+package ru.aora.erp.entity.dto;
 
 import java.util.Map;
 import java.util.StringJoiner;

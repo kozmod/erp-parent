@@ -1,4 +1,4 @@
-package ru.aora.erp.entity;
+package ru.aora.erp.entity.dto;
 
 import ru.aora.erp.model.entity.business.User;
 

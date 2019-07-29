@@ -1,4 +1,4 @@
-package ru.aora.erp.model.mappring;
+package ru.aora.erp.model.controller;
 
 public final class HttpUtils {
     private static final String REDIRECT_PREFIX = "redirect:";

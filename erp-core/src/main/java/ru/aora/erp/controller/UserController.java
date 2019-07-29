@@ -1,6 +1,5 @@
 package ru.aora.erp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +8,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.aora.erp.entity.UserModuleAuthorityDto;
+import ru.aora.erp.entity.dto.UserModuleAuthorityDto;
 import ru.aora.erp.model.entity.business.User;
-import ru.aora.erp.entity.UsersDto;
+import ru.aora.erp.entity.dto.UsersDto;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
 

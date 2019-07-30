@@ -7,6 +7,7 @@ import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,12 @@ import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
 
-public final class DtoUtils {
+public final class KsContractCounteragentDtoUtils {
+
+    static final Comparator<KsContractCounteragentDto> KS_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
+            KsContractCounteragentDto::getKsDate,
+            Comparator.nullsLast(Comparator.naturalOrder())
+    ));
 
     public static List<KsContractCounteragentDto> toKsContractCounteragentDtoList(List<Ks> ksList, List<Contract> contracts, List<Counteragent> counteragents) {
         final Map<String, Contract> contractById = hashMapByBusinessKey(contracts, Contract::getId);
@@ -39,6 +45,13 @@ public final class DtoUtils {
             }
         }
         return resultList;
+    }
+
+    public static List<KsContractCounteragentDto> sortByKsDateNaturalOrder(List<KsContractCounteragentDto> list) {
+        if (CollectionUtils.isNotEmpty(list)) {
+            list.sort(KS_DATE_NATURAL_ORDER_COMPARATOR);
+        }
+        return list;
     }
 
     static KsContractCounteragentDto asKsContractCounteragentDto(Ks ks) {

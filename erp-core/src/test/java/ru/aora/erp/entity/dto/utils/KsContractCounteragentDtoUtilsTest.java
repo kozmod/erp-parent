@@ -7,20 +7,23 @@ import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public final class DtoUtilsTest {
+public final class KsContractCounteragentDtoUtilsTest {
 
     @Test
     public void shouldMapToKsContractCounteragentDto() {
         final Ks ks = new Ks()
                 .setId("KS_ID_123")
                 .setGarantSum(BigDecimal.TEN)
-                .setKsDate("2019-1-1")
+                .setKsDate(LocalDate.parse("2019-1-1"))
                 .setKsNumber("KsNumber_123456")
                 .setContractId("CONTRACT_ID_2414124512");
         final Contract contract = new Contract()
@@ -31,7 +34,7 @@ public final class DtoUtilsTest {
                 .setId(contract.getCounteragentId())
                 .setCounteragentName("COUNTERAGENT_NAME-AssfdaD");
 
-        List<KsContractCounteragentDto> dtoList = DtoUtils.toKsContractCounteragentDtoList(
+        List<KsContractCounteragentDto> dtoList = KsContractCounteragentDtoUtils.toKsContractCounteragentDtoList(
                 List.of(ks),
                 List.of(contract),
                 List.of(counteragent)
@@ -64,7 +67,7 @@ public final class DtoUtilsTest {
         final Ks ks = new Ks()
                 .setId("KS_ID_123")
                 .setGarantSum(BigDecimal.TEN)
-                .setKsDate("2019-1-1")
+                .setKsDate(LocalDate.parse("2019-1-1"))
                 .setKsNumber("KsNumber_123456")
                 .setContractId(null);
         final Contract contract = new Contract()
@@ -75,7 +78,7 @@ public final class DtoUtilsTest {
                 .setId(contract.getCounteragentId())
                 .setCounteragentName("COUNTERAGENT_NAME-AssfdaD");
 
-        List<KsContractCounteragentDto> dtoList = DtoUtils.toKsContractCounteragentDtoList(
+        List<KsContractCounteragentDto> dtoList = KsContractCounteragentDtoUtils.toKsContractCounteragentDtoList(
                 List.of(ks),
                 List.of(contract),
                 List.of(counteragent)
@@ -104,7 +107,7 @@ public final class DtoUtilsTest {
         final Ks ks = new Ks()
                 .setId("KS_ID_123")
                 .setGarantSum(BigDecimal.TEN)
-                .setKsDate("2019-1-1")
+                .setKsDate(LocalDate.parse("2019-1-1"))
                 .setKsNumber("KsNumber_123456")
                 .setContractId("CONTRACT_ID_111");
         final Contract contract = new Contract()
@@ -115,7 +118,7 @@ public final class DtoUtilsTest {
                 .setId(SOME_COUNTERAGENT_ID)
                 .setCounteragentName("COUNTERAGENT_NAME-AssfdaD");
 
-        List<KsContractCounteragentDto> dtoList = DtoUtils.toKsContractCounteragentDtoList(
+        List<KsContractCounteragentDto> dtoList = KsContractCounteragentDtoUtils.toKsContractCounteragentDtoList(
                 List.of(ks),
                 List.of(contract),
                 List.of(counteragent)
@@ -139,5 +142,30 @@ public final class DtoUtilsTest {
         assertEquals(ks.getGarantSum(), dtoList.get(0).getGarantSum());
         assertEquals(ks.getContractId(), dtoList.get(0).getContractId());
         assertEquals(contract.getContractNumber(), dtoList.get(0).getContractNumber());
+    }
+
+    @Test
+    public void shouldSortByKsDate_NaturalOrder() {
+        final LocalDate NOW = LocalDate.now();
+        final LocalDate PAST = NOW.minusDays(111);
+        final String KS_ID_NOW = "123";
+        final String KS_ID_PAST = "456";
+        final String KS_ID_NULL_DATE = "789";
+
+        final List<KsContractCounteragentDto> dtos = Arrays.asList(
+                new KsContractCounteragentDto().setKsId(KS_ID_PAST).setKsDate(PAST),
+                new KsContractCounteragentDto().setKsId(KS_ID_NULL_DATE).setKsDate(null),
+                new KsContractCounteragentDto().setKsId(KS_ID_NOW).setKsDate(NOW),
+                null
+        );
+
+        Collections.shuffle(dtos);
+        KsContractCounteragentDtoUtils.sortByKsDateNaturalOrder(dtos);
+
+        assertEquals(4,dtos.size());
+        assertEquals(KS_ID_PAST,dtos.get(0).getKsId());
+        assertEquals(KS_ID_NOW,dtos.get(1).getKsId());
+        assertEquals(KS_ID_NULL_DATE,dtos.get(2).getKsId());
+        assertNull(KS_ID_NULL_DATE,dtos.get(3));
     }
 }

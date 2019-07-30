@@ -1,13 +1,14 @@
 package ru.aora.erp.model.entity.business;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class Ks {
 
     private String id;
     private String contractId;
-    private String ksDate;
+    private LocalDate ksDate;
     private String ksNumber;
     private BigDecimal ksSum;
     private String garantDate;
@@ -31,11 +32,11 @@ public class Ks {
         return this;
     }
 
-    public String getKsDate() {
+    public LocalDate getKsDate() {
         return ksDate;
     }
 
-    public Ks setKsDate(String ksDate) {
+    public Ks setKsDate(LocalDate ksDate) {
         this.ksDate = ksDate;
         return this;
     }

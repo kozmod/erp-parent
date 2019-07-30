@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 @Entity
@@ -26,7 +27,7 @@ public class DbContract {
     private int contractType;
 
     @Column(name = "contract_date")
-    private String contractDate;
+    private LocalDate contractDate;
 
     @Column(name = "contract_number")
     private String contractNumber;
@@ -61,11 +62,11 @@ public class DbContract {
         return this;
     }
 
-    public String getContractDate() {
+    public LocalDate getContractDate() {
         return contractDate;
     }
 
-    public DbContract setContractDate(String contractDate) {
+    public DbContract setContractDate(LocalDate contractDate) {
         this.contractDate = contractDate;
         return this;
     }

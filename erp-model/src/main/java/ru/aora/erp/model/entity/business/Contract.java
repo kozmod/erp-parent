@@ -1,5 +1,6 @@
 package ru.aora.erp.model.entity.business;
 
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class Contract {
@@ -7,7 +8,7 @@ public class Contract {
     private String id;
     private String counteragentId;
     private int contractType;
-    private String contractDate;
+    private LocalDate contractDate;
     private String contractNumber;
     private String contractSubject;
 
@@ -38,11 +39,11 @@ public class Contract {
         return this;
     }
 
-    public String getContractDate() {
+    public LocalDate getContractDate() {
         return contractDate;
     }
 
-    public Contract setContractDate(String contractDate) {
+    public Contract setContractDate(LocalDate contractDate) {
         this.contractDate = contractDate;
         return this;
     }

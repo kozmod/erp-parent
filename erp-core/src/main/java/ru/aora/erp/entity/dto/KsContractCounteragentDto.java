@@ -1,12 +1,13 @@
 package ru.aora.erp.entity.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 public class KsContractCounteragentDto {
 
     private String KsId;
-    private String ksDate;
+    private LocalDate ksDate;
     private String ksNumber;
     private BigDecimal garantSum;
     private String contractId;
@@ -23,11 +24,11 @@ public class KsContractCounteragentDto {
         return this;
     }
 
-    public String getKsDate() {
+    public LocalDate getKsDate() {
         return ksDate;
     }
 
-    public KsContractCounteragentDto setKsDate(String ksDate) {
+    public KsContractCounteragentDto setKsDate(LocalDate ksDate) {
         this.ksDate = ksDate;
         return this;
     }

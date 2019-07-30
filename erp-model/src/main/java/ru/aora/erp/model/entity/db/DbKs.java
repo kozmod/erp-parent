@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.StringJoiner;
 
 @Entity
@@ -24,7 +25,7 @@ public class DbKs {
     private String contractId;
 
     @Column(name = "KS_date")
-    private String ksDate;
+    private LocalDate ksDate;
 
     @Column(name = "KS_number")
     private String ksNumber;
@@ -56,11 +57,11 @@ public class DbKs {
         return this;
     }
 
-    public String getKsDate() {
+    public LocalDate getKsDate() {
         return ksDate;
     }
 
-    public DbKs setKsDate(String ksDate) {
+    public DbKs setKsDate(LocalDate ksDate) {
         this.ksDate = ksDate;
         return this;
     }

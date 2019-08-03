@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Entity
 @Table(name = "KS")
 public class DbKs {
@@ -34,10 +36,16 @@ public class DbKs {
     private BigDecimal ksSum;
 
     @Column(name = "Garant_date")
-    private String garantDate;
+    private LocalDate garantDate;
 
     @Column(name = "Garant_sum")
     private BigDecimal garantSum;
+
+    @Column(name = "payment_status")
+    private Boolean ksStatus;
+
+    @Column(name = "days_to_garant")
+    private long daysToGarantDate;
 
     public String getId() {
         return id;
@@ -84,11 +92,11 @@ public class DbKs {
         return this;
     }
 
-    public String getGarantDate() {
+    public LocalDate getGarantDate() {
         return garantDate;
     }
 
-    public DbKs setGarantDate(String garantDate) {
+    public DbKs setGarantDate(LocalDate garantDate) {
         this.garantDate = garantDate;
         return this;
     }
@@ -102,6 +110,24 @@ public class DbKs {
         return this;
     }
 
+    public Boolean getKsStatus() {
+        return ksStatus;
+    }
+
+    public DbKs setKsStatus(Boolean ksStatus) {
+        this.ksStatus = ksStatus;
+        return this;
+    }
+
+    public long getDaysToGarantDate() {
+        return daysToGarantDate;
+    }
+
+    public DbKs setDaysToGarantDate(long daysToGarantDate) {
+        this.daysToGarantDate = daysToGarantDate;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", DbKs.class.getSimpleName() + "[", "]")
@@ -112,6 +138,8 @@ public class DbKs {
                 .add("ksSum='" + ksSum + "'")
                 .add("garantDate='" + garantDate + "'")
                 .add("garantSum='" + garantSum + "'")
+                .add("ksStatus='" + ksStatus + "'")
+                //.add("daysToGarantDate='" + daysToGarantDate + "'")
                 .toString();
     }
 }

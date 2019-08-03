@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class Ks {
 
     private String id;
@@ -11,8 +13,10 @@ public class Ks {
     private LocalDate ksDate;
     private String ksNumber;
     private BigDecimal ksSum;
-    private String garantDate;
+    private LocalDate garantDate;
     private BigDecimal garantSum;
+    private Boolean ksStatus;
+    private long daysToGarantDate;
 
     public String getId() {
         return id;
@@ -59,11 +63,11 @@ public class Ks {
         return this;
     }
 
-    public String getGarantDate() {
+    public LocalDate getGarantDate() {
         return garantDate;
     }
 
-    public Ks setGarantDate(String garantDate) {
+    public Ks setGarantDate(LocalDate garantDate) {
         this.garantDate = garantDate;
         return this;
     }
@@ -77,6 +81,24 @@ public class Ks {
         return this;
     }
 
+    public Boolean getKsStatus() {
+        return ksStatus;
+    }
+
+    public Ks setKsStatus(Boolean ksStatus) {
+        this.ksStatus = ksStatus;
+        return this;
+    }
+
+    public long getDaysToGarantDate() {
+        return daysToGarantDate;
+    }
+
+    public Ks setDaysToGarantDate(long daysToGarantDate) {
+        this.daysToGarantDate = daysToGarantDate;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Ks.class.getSimpleName() + "[", "]")
@@ -87,6 +109,8 @@ public class Ks {
                 .add("ksSum='" + ksSum + "'")
                 .add("garantDate='" + garantDate + "'")
                 .add("garantSum='" + garantSum + "'")
+                .add("ksStatus='" + ksStatus + "'")
+                .add("daysToGarantDate='" + daysToGarantDate + "'")
                 .toString();
     }
 }

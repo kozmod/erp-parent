@@ -7,13 +7,15 @@ import java.util.StringJoiner;
 public class KsContractCounteragentDto {
 
     private String KsId;
-    private LocalDate ksDate;
+    private LocalDate garantDate;
     private String ksNumber;
     private BigDecimal garantSum;
+    private Boolean ksStatus;
     private String contractId;
     private String contractNumber;
     private String conteragentId;
     private String conteragentName;
+    private long daysToGarantDate;
 
     public String getKsId() {
         return KsId;
@@ -24,12 +26,12 @@ public class KsContractCounteragentDto {
         return this;
     }
 
-    public LocalDate getKsDate() {
-        return ksDate;
+    public LocalDate getGarantDate() {
+        return garantDate;
     }
 
-    public KsContractCounteragentDto setKsDate(LocalDate ksDate) {
-        this.ksDate = ksDate;
+    public KsContractCounteragentDto setGarantDate(LocalDate garantDate) {
+        this.garantDate = garantDate;
         return this;
     }
 
@@ -48,6 +50,15 @@ public class KsContractCounteragentDto {
 
     public KsContractCounteragentDto setGarantSum(BigDecimal garantSum) {
         this.garantSum = garantSum;
+        return this;
+    }
+
+    public Boolean getKsStatus() {
+        return ksStatus;
+    }
+
+    public KsContractCounteragentDto setKsStatus(Boolean ksStatus) {
+        this.ksStatus = ksStatus;
         return this;
     }
 
@@ -87,17 +98,28 @@ public class KsContractCounteragentDto {
         return this;
     }
 
+    public long getDaysToGarantDate() {
+        return daysToGarantDate;
+    }
+
+    public KsContractCounteragentDto setDaysToGarantDate(long daysToGarantDate) {
+        this.daysToGarantDate = daysToGarantDate;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", KsContractCounteragentDto.class.getSimpleName() + "[", "]")
                 .add("KsId='" + KsId + "'")
-                .add("ksDate='" + ksDate + "'")
+                .add("garantDate='" + garantDate + "'")
                 .add("ksNumber='" + ksNumber + "'")
                 .add("garantSum=" + garantSum)
+                .add("ksStatus='" + ksStatus + "'")
                 .add("contractId='" + contractId + "'")
                 .add("contractNumber='" + contractNumber + "'")
                 .add("conteragentId='" + conteragentId + "'")
                 .add("conteragentName='" + conteragentName + "'")
+                .add("daysToGarantDate='" + daysToGarantDate + "'")
                 .toString();
     }
 }

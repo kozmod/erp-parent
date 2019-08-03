@@ -54,7 +54,9 @@
                                         <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt; Удалить">Удалить</option>
                                     </select>
                                 </li>
-
+                                <li>
+                                    <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/Garantsort')">Список гарантиек к возврату</a>
+                                </li>
                                 <li>
                                     <a href="#" class="toggle_cb" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)">Применить</a>
                                 </li>

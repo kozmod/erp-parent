@@ -13,6 +13,7 @@
         <module>test</module>
         <module>test_2</module>
         <module>Garant</module>
+        <module>SortDate</module>
     </modules>
     <packaging>pom</packaging>
 

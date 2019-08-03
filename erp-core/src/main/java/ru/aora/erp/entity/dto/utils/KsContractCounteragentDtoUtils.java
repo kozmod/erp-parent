@@ -17,8 +17,8 @@ import static java.util.Objects.requireNonNull;
 
 public final class KsContractCounteragentDtoUtils {
 
-    static final Comparator<KsContractCounteragentDto> KS_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
-            KsContractCounteragentDto::getKsDate,
+    static final Comparator<KsContractCounteragentDto> GARANT_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
+            KsContractCounteragentDto::getGarantDate,
             Comparator.nullsLast(Comparator.naturalOrder())
     ));
 
@@ -47,9 +47,9 @@ public final class KsContractCounteragentDtoUtils {
         return resultList;
     }
 
-    public static List<KsContractCounteragentDto> sortByKsDateNaturalOrder(List<KsContractCounteragentDto> list) {
+    public static List<KsContractCounteragentDto> sortByGarantDateNaturalOrder(List<KsContractCounteragentDto> list) {
         if (CollectionUtils.isNotEmpty(list)) {
-            list.sort(KS_DATE_NATURAL_ORDER_COMPARATOR);
+            list.sort(GARANT_DATE_NATURAL_ORDER_COMPARATOR);
         }
         return list;
     }
@@ -57,9 +57,11 @@ public final class KsContractCounteragentDtoUtils {
     static KsContractCounteragentDto asKsContractCounteragentDto(Ks ks) {
         return new KsContractCounteragentDto()
                 .setKsId(ks.getId())
-                .setKsDate(ks.getKsDate())
+                .setGarantDate(ks.getGarantDate())
+                .setDaysToGarantDate(ks.getDaysToGarantDate())
                 .setKsNumber(ks.getKsNumber())
                 .setGarantSum(ks.getGarantSum())
+                .setKsStatus(ks.getKsStatus())
                 .setContractId(ks.getContractId());
     }
 

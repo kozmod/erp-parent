@@ -1,11 +1,15 @@
 package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.aora.erp.entity.dto.KsDto;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.service.KsService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -15,7 +19,7 @@ public class KsController {
     private static final String CONTROLLER_MAPPING = "kss";
     private static final String DTO_MODEL = "ksDto";
     private KsService ksService;
-
+    public String id;
     public KsController(KsService ksService) {
         this.ksService = ksService;
     }

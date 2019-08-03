@@ -1,10 +1,10 @@
-package ru.aora.erp.model.entity.business;
+package ru.aora.erp.entity.dto.ks;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
-public class Ks {
+public final class KsDto {
 
     private String id;
     private String contractId;
@@ -14,12 +14,13 @@ public class Ks {
     private LocalDate garantDate;
     private BigDecimal garantSum;
     private Boolean paymentStatus;
+    private Integer daysToGarantDate;
 
     public String getId() {
         return id;
     }
 
-    public Ks setId(String id) {
+    public KsDto setId(String id) {
         this.id = id;
         return this;
     }
@@ -28,7 +29,7 @@ public class Ks {
         return contractId;
     }
 
-    public Ks setContractId(String contractId) {
+    public KsDto setContractId(String contractId) {
         this.contractId = contractId;
         return this;
     }
@@ -37,7 +38,7 @@ public class Ks {
         return ksDate;
     }
 
-    public Ks setKsDate(LocalDate ksDate) {
+    public KsDto setKsDate(LocalDate ksDate) {
         this.ksDate = ksDate;
         return this;
     }
@@ -46,7 +47,7 @@ public class Ks {
         return ksNumber;
     }
 
-    public Ks setKsNumber(String ksNumber) {
+    public KsDto setKsNumber(String ksNumber) {
         this.ksNumber = ksNumber;
         return this;
     }
@@ -55,7 +56,7 @@ public class Ks {
         return ksSum;
     }
 
-    public Ks setKsSum(BigDecimal ksSum) {
+    public KsDto setKsSum(BigDecimal ksSum) {
         this.ksSum = ksSum;
         return this;
     }
@@ -64,7 +65,7 @@ public class Ks {
         return garantDate;
     }
 
-    public Ks setGarantDate(LocalDate garantDate) {
+    public KsDto setGarantDate(LocalDate garantDate) {
         this.garantDate = garantDate;
         return this;
     }
@@ -73,7 +74,7 @@ public class Ks {
         return garantSum;
     }
 
-    public Ks setGarantSum(BigDecimal garantSum) {
+    public KsDto setGarantSum(BigDecimal garantSum) {
         this.garantSum = garantSum;
         return this;
     }
@@ -82,22 +83,32 @@ public class Ks {
         return paymentStatus;
     }
 
-    public Ks setPaymentStatus(Boolean paymentStatus) {
+    public KsDto setPaymentStatus(Boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+        return this;
+    }
+
+    public Integer getDaysToGarantDate() {
+        return daysToGarantDate;
+    }
+
+    public KsDto setDaysToGarantDate(Integer daysToGarantDate) {
+        this.daysToGarantDate = daysToGarantDate;
         return this;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Ks.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("contractId=" + contractId)
-                .add("ksDate='" + ksDate + "'")
+        return new StringJoiner(", ", KsDto.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("contractId='" + contractId + "'")
+                .add("ksDate=" + ksDate)
                 .add("ksNumber='" + ksNumber + "'")
-                .add("ksSum='" + ksSum + "'")
-                .add("garantDate='" + garantDate + "'")
-                .add("garantSum='" + garantSum + "'")
-                .add("paymentStatus='" + paymentStatus + "'")
+                .add("ksSum=" + ksSum)
+                .add("garantDate=" + garantDate)
+                .add("garantSum=" + garantSum)
+                .add("paymentStatus=" + paymentStatus)
+                .add("daysToGarantDate=" + daysToGarantDate)
                 .toString();
     }
 }

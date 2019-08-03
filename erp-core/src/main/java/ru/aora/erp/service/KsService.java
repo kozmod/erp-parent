@@ -28,6 +28,7 @@ public class KsService {
                 .stream()
                 .map(ksMapper::toKs)
                 .collect(Collectors.toList());
+
     }
 
     public void update(Ks ks) {
@@ -36,7 +37,7 @@ public class KsService {
     }
 
     public void create(Ks ks) {
-        KsRepository.save(ksMapper.toDbKs(ks));
+            KsRepository.save(ksMapper.toDbKs(ks));
     }
 
     public void delete(String KsId) {

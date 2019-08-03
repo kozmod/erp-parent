@@ -92,8 +92,8 @@ var id_name=clicked_id;
     var JSONObject = {
         counteragentName:
             $("#counteragent_name").val(),
-        groupName:
-            $("#group_name").val(),
+        groupName:null,
+            //$("#group_name").val(),
         directorFirstName:
             $("#director_first_name").val(),
         directorSurname:
@@ -166,6 +166,8 @@ function saveKSRequest(contract_id) {
             $("#ks_date").val(),
         ksNumber:
             $("#ks_number").val(),
+        ksStatus:
+            $("#payment_switcher_add").val(),
         ksSum:
             $("#ks_sum").val(),
         garantSum:
@@ -208,7 +210,9 @@ function updateKSRequest(KSId, contractId) {
         garantSum:
             $("#garant_sum_".concat(KSId)).val(),
         garantDate:
-            $("#garant_date_".concat(KSId)).val()
+            $("#garant_date_".concat(KSId)).val(),
+        ksStatus:
+            $("#payment_switcher_".concat(KSId)).val()
     };
 
     $.ajax({
@@ -265,8 +269,8 @@ function updateCounteragentRequest(counteragentId) {
         id: counteragentId,
         counteragentName:
             $("#counteragent_name_".concat(counteragentId)).val(),
-        groupName:
-            $("#group_name_".concat(counteragentId)).val(),
+        groupName:null,
+            //$("#group_name_".concat(counteragentId)).val(),
         directorFirstName:
             $("#director_first_name_".concat(counteragentId)).val(),
         directorSurname:

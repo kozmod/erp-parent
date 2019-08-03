@@ -2,7 +2,8 @@ package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.aora.erp.entity.dto.KsDto;
+import ru.aora.erp.entity.dto.ks.KsDtoUtils;
+import ru.aora.erp.entity.dto.ks.KsListDto;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.service.KsService;
 
@@ -28,7 +29,9 @@ public class KsController {
             @RequestParam("grand_parent_name") String counteragent_name,
             Map<String, Object> model
     ) {
-        final KsDto ksDto = KsDto.of(ksService.loadAll());
+        final KsListDto ksDto = KsListDto.of(
+                KsDtoUtils.toKsDtoList(ksService.loadAll())
+        );
         model.put(DTO_MODEL, ksDto);
         model.put("id_parent", id_parent);
         model.put("id_grand_parent", id_grand_parent);
@@ -42,7 +45,7 @@ public class KsController {
     public @ResponseBody
     String putKs(@RequestBody Ks ks) {
         System.out.println(ks);
-        ksService.update(ks);
+        ksService.update(ks); //todo поменять на дто
         return "update";
     }
 
@@ -50,7 +53,7 @@ public class KsController {
     public @ResponseBody
     String postKs(@RequestBody Ks ks) {
         if (ks != null) {
-            ksService.create(ks);
+            ksService.create(ks); //todo поменять на дто
             System.out.println("starting " + ks);
         }
         return "create";

@@ -1,10 +1,10 @@
-package ru.aora.erp.entity.dto.utils;
+package ru.aora.erp.entity.dto.combine;
 
 import org.apache.commons.collections.CollectionUtils;
-import ru.aora.erp.entity.dto.KsContractCounteragentDto;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
+import ru.aora.erp.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,8 +17,8 @@ import static java.util.Objects.requireNonNull;
 
 public final class KsContractCounteragentDtoUtils {
 
-    static final Comparator<KsContractCounteragentDto> KS_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
-            KsContractCounteragentDto::getKsDate,
+    static final Comparator<KsContractCounteragentDto> GARANT_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
+            KsContractCounteragentDto::getGarantDate,
             Comparator.nullsLast(Comparator.naturalOrder())
     ));
 
@@ -29,7 +29,7 @@ public final class KsContractCounteragentDtoUtils {
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
                 if (ks != null) {
-                    final KsContractCounteragentDto dto = asKsContractCounteragentDto(ks);
+                    final KsContractCounteragentDto dto = updateDysToGarantDate(asKsContractCounteragentDto(ks));
                     final Contract contract = contractById.get(ks.getContractId());
                     if (contract != null) {
                         dto.setContractNumber(contract.getContractNumber());
@@ -47,9 +47,16 @@ public final class KsContractCounteragentDtoUtils {
         return resultList;
     }
 
-    public static List<KsContractCounteragentDto> sortByKsDateNaturalOrder(List<KsContractCounteragentDto> list) {
+    static KsContractCounteragentDto updateDysToGarantDate(KsContractCounteragentDto dto) {
+        if (dto != null) {
+            dto.setDaysToGarantDate(CommonUtils.daysToCurrentDate(dto.getGarantDate()));
+        }
+        return dto;
+    }
+
+    public static List<KsContractCounteragentDto> sortByGarantDateNaturalOrder(List<KsContractCounteragentDto> list) {
         if (CollectionUtils.isNotEmpty(list)) {
-            list.sort(KS_DATE_NATURAL_ORDER_COMPARATOR);
+            list.sort(GARANT_DATE_NATURAL_ORDER_COMPARATOR);
         }
         return list;
     }
@@ -57,9 +64,10 @@ public final class KsContractCounteragentDtoUtils {
     static KsContractCounteragentDto asKsContractCounteragentDto(Ks ks) {
         return new KsContractCounteragentDto()
                 .setKsId(ks.getId())
-                .setKsDate(ks.getKsDate())
+                .setGarantDate(ks.getGarantDate())
                 .setKsNumber(ks.getKsNumber())
                 .setGarantSum(ks.getGarantSum())
+                .setKsStatus(ks.getPaymentStatus())
                 .setContractId(ks.getContractId());
     }
 

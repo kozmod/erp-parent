@@ -34,10 +34,14 @@ public class DbKs {
     private BigDecimal ksSum;
 
     @Column(name = "Garant_date")
-    private String garantDate;
+    private LocalDate garantDate;
 
     @Column(name = "Garant_sum")
     private BigDecimal garantSum;
+
+    @Column(name = "payment_status")
+    private Boolean paymentStatus;
+
 
     public String getId() {
         return id;
@@ -84,11 +88,11 @@ public class DbKs {
         return this;
     }
 
-    public String getGarantDate() {
+    public LocalDate getGarantDate() {
         return garantDate;
     }
 
-    public DbKs setGarantDate(String garantDate) {
+    public DbKs setGarantDate(LocalDate garantDate) {
         this.garantDate = garantDate;
         return this;
     }
@@ -102,6 +106,15 @@ public class DbKs {
         return this;
     }
 
+    public Boolean getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public DbKs setPaymentStatus(Boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", DbKs.class.getSimpleName() + "[", "]")
@@ -112,6 +125,8 @@ public class DbKs {
                 .add("ksSum='" + ksSum + "'")
                 .add("garantDate='" + garantDate + "'")
                 .add("garantSum='" + garantSum + "'")
+                .add("paymentStatus='" + paymentStatus + "'")
+                //.add("daysToGarantDate='" + daysToGarantDate + "'")
                 .toString();
     }
 }

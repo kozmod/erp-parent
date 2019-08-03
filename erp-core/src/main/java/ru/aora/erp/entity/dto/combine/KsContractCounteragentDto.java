@@ -15,7 +15,7 @@ public class KsContractCounteragentDto {
     private String contractNumber;
     private String conteragentId;
     private String conteragentName;
-    private Integer daysToGarantDate;
+    private Long daysToGarantDate;
 
     public String getKsId() {
         return KsId;
@@ -98,11 +98,11 @@ public class KsContractCounteragentDto {
         return this;
     }
 
-    public Integer getDaysToGarantDate() {
+    public Long getDaysToGarantDate() {
         return daysToGarantDate;
     }
 
-    public KsContractCounteragentDto setDaysToGarantDate(Integer daysToGarantDate) {
+    public KsContractCounteragentDto setDaysToGarantDate(Long daysToGarantDate) {
         this.daysToGarantDate = daysToGarantDate;
         return this;
     }

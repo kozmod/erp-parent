@@ -29,7 +29,9 @@ public final class KsContractCounteragentDtoUtils {
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
                 if (ks != null) {
-                    final KsContractCounteragentDto dto = updateDysToGarantDate(asKsContractCounteragentDto(ks));
+                    final KsContractCounteragentDto dto = updateDysToGarantDate(
+                            asKsContractCounteragentDto(ks)
+                    );
                     final Contract contract = contractById.get(ks.getContractId());
                     if (contract != null) {
                         dto.setContractNumber(contract.getContractNumber());

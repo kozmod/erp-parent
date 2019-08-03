@@ -28,4 +28,14 @@ public final class CommonUtilsTest {
         assertNotNull(daysTuCurrentDate);
         assertEquals((-1 * daysTuCurrentDateValue), daysTuCurrentDate.longValue());
     }
+
+    @Test
+    public void shouldCountDaysToCurrentDate() {
+        final int daysToCurrentDateValue = 0;
+        LocalDate date = LocalDate.of(2022, 1, 13);
+        Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
+        System.out.println(daysTuCurrentDate);
+        //assertNotNull(daysTuCurrentDate);
+        //assertEquals(daysToCurrentDateValue, daysTuCurrentDate.intValue());
+    }
 }

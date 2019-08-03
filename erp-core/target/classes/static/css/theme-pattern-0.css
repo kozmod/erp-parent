@@ -1,0 +1,7 @@
+#background .pattern{
+	opacity: 0.8;
+	background-size:cover;
+    background-repeat: no-repeat;
+	background-position:bottom left;
+	background-image:url('../patterns/0.png');
+}

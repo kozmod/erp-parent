@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div>
+<p>__________________TEST TEXT __________</p>
+
+    <!--/*@thymesVar id="allAuthorities" type="java.util.List<ru.aora.erp.model.entity.business.IdAuthority>"*/-->
+    <!--/*@thymesVar id="allAuthority" type="ru.aora.erp.model.entity.business.IdAuthority"*/-->
+    <div th:each="allAuthority : ${allAuthorities}">
+        <div class="edit_title toggle_acc">
+            <div class="icon rds_5">
+                <i class="fas fa-ambulance"></i>
+            </div>
+            <span>Модуль</span>
+            <strong th:text="${allAuthority.getName()}">--- MODULE NAME ---</strong>
+            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+        </div>
+        <div class="inner_acc" >
+            <div class="edit_item">
+                <strong >Доступ к модулю</strong>
+
+                <label class="switcher">
+                    <input type="checkbox" class="www"/>
+                </label>
+            </div>
+            <!--<div class="edit_item">-->
+            <!--<strong>Добавлять данные</strong>-->
+
+            <!--<label class="switcher">-->
+            <!--<input type="checkbox" class="www"/>-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="edit_item">-->
+            <!--<strong>Изменять данные</strong>-->
+
+            <!--<label class="switcher">-->
+            <!--<input type="checkbox" class="www"/>-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="edit_item">-->
+            <!--<strong>Удалять данные</strong>-->
+            <!--<label class="switcher">-->
+            <!--<input type="checkbox" class="www"/>-->
+            <!--</label>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+</div>

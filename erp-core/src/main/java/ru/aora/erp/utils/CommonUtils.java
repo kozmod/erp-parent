@@ -1,13 +1,16 @@
 package ru.aora.erp.utils;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.Period;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public final class CommonUtils {
 
     public static Long daysToCurrentDate(LocalDate date) {
         return date != null
-                ? ChronoUnit.DAYS.between(date, LocalDate.now())
+        //        ? Math.abs(Period.between(date, LocalDate.now()).getDays())
+                ? (DAYS.between(date, LocalDate.now()))
                 : null;
     }
 }

@@ -1,7 +1,8 @@
 package ru.aora.erp.entity.dto.utils;
 
 import org.junit.Test;
-import ru.aora.erp.entity.dto.KsContractCounteragentDto;
+import ru.aora.erp.entity.dto.combine.KsContractCounteragentDto;
+import ru.aora.erp.entity.dto.combine.KsContractCounteragentDtoUtils;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;

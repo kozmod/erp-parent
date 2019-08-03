@@ -1,4 +1,4 @@
-package ru.aora.erp.entity.dto;
+package ru.aora.erp.entity.dto.combine;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class KsContractCounteragentDto {
     private String contractNumber;
     private String conteragentId;
     private String conteragentName;
-    private long daysToGarantDate;
+    private Integer daysToGarantDate;
 
     public String getKsId() {
         return KsId;
@@ -98,11 +98,11 @@ public class KsContractCounteragentDto {
         return this;
     }
 
-    public long getDaysToGarantDate() {
+    public Integer getDaysToGarantDate() {
         return daysToGarantDate;
     }
 
-    public KsContractCounteragentDto setDaysToGarantDate(long daysToGarantDate) {
+    public KsContractCounteragentDto setDaysToGarantDate(Integer daysToGarantDate) {
         this.daysToGarantDate = daysToGarantDate;
         return this;
     }

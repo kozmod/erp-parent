@@ -1,10 +1,10 @@
-package ru.aora.erp.entity.dto.utils;
+package ru.aora.erp.entity.dto.combine;
 
 import org.apache.commons.collections.CollectionUtils;
-import ru.aora.erp.entity.dto.KsContractCounteragentDto;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
+import ru.aora.erp.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,7 +29,7 @@ public final class KsContractCounteragentDtoUtils {
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
                 if (ks != null) {
-                    final KsContractCounteragentDto dto = asKsContractCounteragentDto(ks);
+                    final KsContractCounteragentDto dto = updateDysToGarantDate(asKsContractCounteragentDto(ks));
                     final Contract contract = contractById.get(ks.getContractId());
                     if (contract != null) {
                         dto.setContractNumber(contract.getContractNumber());
@@ -47,6 +47,13 @@ public final class KsContractCounteragentDtoUtils {
         return resultList;
     }
 
+    static KsContractCounteragentDto updateDysToGarantDate(KsContractCounteragentDto dto) {
+        if (dto != null) {
+            dto.setDaysToGarantDate(CommonUtils.daysToCurrentDate(dto.getGarantDate()));
+        }
+        return dto;
+    }
+
     public static List<KsContractCounteragentDto> sortByGarantDateNaturalOrder(List<KsContractCounteragentDto> list) {
         if (CollectionUtils.isNotEmpty(list)) {
             list.sort(GARANT_DATE_NATURAL_ORDER_COMPARATOR);
@@ -58,10 +65,9 @@ public final class KsContractCounteragentDtoUtils {
         return new KsContractCounteragentDto()
                 .setKsId(ks.getId())
                 .setGarantDate(ks.getGarantDate())
-                .setDaysToGarantDate(ks.getDaysToGarantDate())
                 .setKsNumber(ks.getKsNumber())
                 .setGarantSum(ks.getGarantSum())
-                .setKsStatus(ks.getKsStatus())
+                .setKsStatus(ks.getPaymentStatus())
                 .setContractId(ks.getContractId());
     }
 

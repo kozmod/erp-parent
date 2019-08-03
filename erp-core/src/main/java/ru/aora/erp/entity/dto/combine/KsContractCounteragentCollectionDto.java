@@ -1,16 +1,16 @@
-package ru.aora.erp.entity.dto;
+package ru.aora.erp.entity.dto.combine;
 
 import java.util.Collection;
 import java.util.StringJoiner;
 
 public final class KsContractCounteragentCollectionDto {
-    private Collection<KsContractCounteragentCollectionDto> ksContractConteragents;
+    private Collection<KsContractCounteragentDto> ksContractConteragents;
 
-    public Collection<KsContractCounteragentCollectionDto> getKsContractConteragents() {
+    public Collection<KsContractCounteragentDto> getKsContractConteragents() {
         return ksContractConteragents;
     }
 
-    public KsContractCounteragentCollectionDto setKsContractConteragents(Collection<KsContractCounteragentCollectionDto> ksContractConteragents) {
+    public KsContractCounteragentCollectionDto setKsContractConteragents(Collection<KsContractCounteragentDto> ksContractConteragents) {
         this.ksContractConteragents = ksContractConteragents;
         return this;
     }

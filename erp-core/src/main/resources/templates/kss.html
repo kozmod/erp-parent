@@ -139,7 +139,7 @@
                 <div class="container">
                     <div class="row">
 
-                        <div  th:each="ks, iterstat : ${ksDto.getKs()}">
+                        <div  th:each="ks, iterstat : ${ksDto.getKsDto()}">
                             <!-- If operator start-->
 
                             <div th:switch="${ks.contractId}">
@@ -187,7 +187,7 @@
                                         <span><strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong></span>
 
                                         <span><strong th:text="'Срок погашения гарантийного платежа '+${ks.garantDate}+'. Осталось дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
-                                        <div th:switch="${ks.ksStatus}">
+                                        <div th:switch="${ks.paymentStatus}">
                                             <div th:case="false">
                                                 <span><strong>Статус гарантийного платежа: НЕ ПОГАШЕН</strong></span>
                                             </div>
@@ -245,7 +245,7 @@
                                                           th:action="@{/getPaymentStatusRadio}"
                                                           th:object="${ksDto}" method="put">
                                                     <em>Статус гарантийного платежа</em>
-                                                    <div th:switch="${ks.ksStatus}">
+                                                    <div th:switch="${ks.paymentStatus}">
                                                        <div th:case="false">
                                                             <label class="radiocheck">
                                                                 <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'true'" th:value="'false'"/>

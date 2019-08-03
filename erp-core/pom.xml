@@ -32,11 +32,6 @@
             <artifactId>Garant</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>ru.aora.erp</groupId>
-            <artifactId>SortDate</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
 

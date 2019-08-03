@@ -16,7 +16,7 @@ public final class CommonUtilsTest {
     public void shouldCountDaysToCurrentDateFromPast() {
         final int daysToCurrentDateValue = 10;
         LocalDate date = LocalDate.now().minusDays(daysToCurrentDateValue);
-        Integer daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
+        Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
 
         assertNotNull(daysTuCurrentDate);
         assertEquals(daysToCurrentDateValue, daysTuCurrentDate.intValue());
@@ -26,9 +26,19 @@ public final class CommonUtilsTest {
     public void shouldCountDaysToCurrentDateFromFuture() {
         final int daysTuCurrentDateValue = 10;
         LocalDate date = LocalDate.now().plusDays(daysTuCurrentDateValue);
-        Integer daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
+        Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
 
         assertNotNull(daysTuCurrentDate);
         assertEquals(daysTuCurrentDateValue, daysTuCurrentDate.intValue());
+    }
+
+    @Test
+    public void shouldCountDaysToCurrentDate() {
+        final int daysToCurrentDateValue = 0;
+        LocalDate date = LocalDate.of(2022, 1, 13);
+        Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
+        System.out.println(daysTuCurrentDate);
+        //assertNotNull(daysTuCurrentDate);
+        //assertEquals(daysToCurrentDateValue, daysTuCurrentDate.intValue());
     }
 }

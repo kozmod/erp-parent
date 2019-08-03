@@ -2,6 +2,7 @@ package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.aora.erp.entity.dto.ks.KsDto;
 import ru.aora.erp.entity.dto.ks.KsDtoUtils;
 import ru.aora.erp.entity.dto.ks.KsListDto;
 import ru.aora.erp.model.entity.business.Ks;

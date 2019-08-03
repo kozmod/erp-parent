@@ -14,7 +14,7 @@ public final class KsDto {
     private LocalDate garantDate;
     private BigDecimal garantSum;
     private Boolean paymentStatus;
-    private Integer daysToGarantDate;
+    private Long daysToGarantDate;
 
     public String getId() {
         return id;
@@ -88,11 +88,11 @@ public final class KsDto {
         return this;
     }
 
-    public Integer getDaysToGarantDate() {
+    public Long getDaysToGarantDate() {
         return daysToGarantDate;
     }
 
-    public KsDto setDaysToGarantDate(Integer daysToGarantDate) {
+    public KsDto setDaysToGarantDate(Long daysToGarantDate) {
         this.daysToGarantDate = daysToGarantDate;
         return this;
     }

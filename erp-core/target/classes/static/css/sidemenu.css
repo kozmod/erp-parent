@@ -1,0 +1,132 @@
+/* Core */
+
+.slinky-menu {
+	overflow: hidden;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+.slinky-menu>ul {
+	left: 0;
+	position: relative;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}
+.slinky-menu ul,
+.slinky-menu li {
+	list-style: none;
+	margin: 0;
+}
+.slinky-menu ul {
+	width: 100%;
+}
+.slinky-menu a {
+	align-items: center;
+}
+.slinky-menu li ul {
+	display: none;
+	left: 100%;
+	position: absolute;
+	top: 0;
+}
+.slinky-menu .header {
+}
+.slinky-menu .header .title {
+}
+	
+/* Submenu theme */
+	
+.slinky_sidemenu {
+	display: block;
+	width: 100%;
+	font-size:14px;
+	position:relative;
+	border-top:1px solid rgba(255, 255, 255, 0.2);
+	border-bottom:1px solid rgba(255, 255, 255, 0.2);
+}
+.slinky_sidemenu li li {
+	border-bottom:1px solid rgba(255, 255, 255, 0.2);
+}
+.slinky_sidemenu li li:last-child {
+	border-bottom:0;
+}
+.slinky_sidemenu li a {
+	display: block;
+	position:relative;
+	min-height:50px;
+	padding:15px 25px 15px 60px;
+	line-height:20px;
+	color:#ffffff;
+}
+.slinky_sidemenu li a.back {
+	padding:15px 15px 15px 40px;
+	color:rgba(255, 255, 255, 0.4);
+}
+.slinky_sidemenu li a:hover {
+	background:rgba(0, 0, 0, 0.2);
+}
+.slinky_sidemenu li a.back:hover {
+	background:transparent;
+	color:rgba(255, 255, 255, 0.8);
+}
+.slinky_sidemenu li li a {
+	padding:15px 20px;
+}
+.slinky_sidemenu li a:after{
+	position: absolute;
+	content:'';
+	height:1px;
+	left:60px;
+	right:0;
+	bottom:0;
+	background:rgba(255, 255, 255, 0.2);
+}
+.slinky_sidemenu li a:hover:after,
+.slinky_sidemenu li li a:after,
+.slinky_sidemenu li:last-child a:after{
+	background:transparent !important;
+}
+.slinky_sidemenu li a span.symbol{
+	position: absolute;
+	top:50%;
+	left:10px;
+	display:block;
+	width:30px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	margin-top:-15px;
+	color:#ffffff;
+	font-size:18px;
+}
+.slinky_sidemenu li a span.symbol.clr_1{
+	background: #3a79f0;
+}
+.slinky_sidemenu li a span.symbol.clr_2{
+	background: #df415a;
+}
+.slinky_sidemenu li a span.symbol.clr_3{
+	background: #0bd6b0;
+}
+.slinky_sidemenu li a span.symbol.clr_4{
+	background: #86858b;
+}
+.slinky_sidemenu li a.back span.symbol{
+	background:transparent;
+	font-size:30px;
+	color:rgba(255, 255, 255, 0.4);
+}
+.slinky_sidemenu li a.back:hover span.symbol{
+	color:rgba(255, 255, 255, 0.8);
+}
+.slinky_sidemenu li a span.arrow{
+	display:block;
+	width:20px;
+	height:20px;
+	line-height:20px;
+	position: absolute;
+	top:50%;
+	right:0;
+	margin-top:-10px;
+	color:rgba(255, 255, 255, 0.4);
+	font-size:16px;
+}

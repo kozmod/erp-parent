@@ -55,7 +55,7 @@ public final class KsDtoUtils {
         return kss;
     }
 
-    static Integer toDaysToGarantDate(LocalDate date) {
+    static Long toDaysToGarantDate(LocalDate date) {
         return date != null
                 ? CommonUtils.daysToCurrentDate(date)
                 : null;

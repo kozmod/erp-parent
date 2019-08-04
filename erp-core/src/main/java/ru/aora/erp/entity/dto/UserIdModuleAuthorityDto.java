@@ -10,23 +10,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 
-/**
- * Inner DTO-class: contains "module name" and "active/inactive user roles" map.
- */
-public final class UserModuleAuthorityDto {
+public final class UserIdModuleAuthorityDto {
     private long userId;
     private Collection<ModuleAuthorityDto> moduleAuthorityDtoList;
 
-    public UserModuleAuthorityDto(long userId, Collection<ModuleAuthorityDto> moduleAuthorityDtoList) {
+    public UserIdModuleAuthorityDto(long userId, Collection<ModuleAuthorityDto> moduleAuthorityDtoList) {
         this.userId = userId;
         this.moduleAuthorityDtoList = moduleAuthorityDtoList;
     }
 
-    public static Collection<UserModuleAuthorityDto> of(Collection<User> users, Collection<IdAuthority> allAuthorities) {
-        final Collection<UserModuleAuthorityDto> collection = new ArrayList<>(users.size());
+    public static Collection<UserIdModuleAuthorityDto> of(Collection<User> users, Collection<IdAuthority> allAuthorities) {
+        final Collection<UserIdModuleAuthorityDto> collection = new ArrayList<>(users.size());
         for (User user : users) {
             collection.add(
-                    UserModuleAuthorityDto.of(
+                    UserIdModuleAuthorityDto.of(
                             user.getId(),
                             user.getAuthorities(),
                             allAuthorities
@@ -36,46 +33,29 @@ public final class UserModuleAuthorityDto {
         return collection;
     }
 
-    public static UserModuleAuthorityDto of(long userId, Collection<IdAuthority> userAuthorities, Collection<IdAuthority> allAuthorities) {
+    public static UserIdModuleAuthorityDto of(long userId, Collection<IdAuthority> userAuthorities, Collection<IdAuthority> allAuthorities) {
         final Map<String, ModuleAuthorityDto> map = new LinkedHashMap<>(allAuthorities.size(), 1.1f);
         for (IdAuthority allAuthority : allAuthorities) {
             final String moduleName = allAuthority.getName();
             ModuleAuthorityDto moduleAuthorityDto = map.get(moduleName);
-            if (moduleAuthorityDto == null)
+            if (moduleAuthorityDto == null) {
                 map.put(
                         moduleName,
                         (moduleAuthorityDto = new ModuleAuthorityDto(moduleName, new HashMap<>()))
                 );
-            if (userAuthorities.contains(allAuthority))
+            }
+            if (userAuthorities.contains(allAuthority)) {
                 moduleAuthorityDto.moduleMap.put(allAuthority.getRuleName(), true);
-            else
+            } else {
                 moduleAuthorityDto.moduleMap.put(allAuthority.getRuleName(), false);
+            }
         }
-        return new UserModuleAuthorityDto(userId, map.values());
+        return new UserIdModuleAuthorityDto(userId, map.values());
     }
 
     public long getUserId() {
         return userId;
     }
-
-    /*private Pair<List<IdAuthority>,List<IdAuthority>> toDbCounteragent(Map<String, Map<String, Boolean>> modules, List<IdAuthority> allAuthorities) {
-        final List<IdAuthority> toDelete = new ArrayList<>();
-        final List<IdAuthority> toAdd = new ArrayList<>();
-        modules.forEach((moduleName, ruleMap) ->
-                allAuthorities.forEach(idAuthority ->
-                        ruleMap.forEach((roleName, isSelected) -> {
-                            if (idAuthority.getName().equals(moduleName) && idAuthority.getRuleName().equals(roleName)) {
-                                if (isSelected) {
-                                    toAdd.add(idAuthority);
-                                } else {
-                                    toDelete.add(idAuthority);
-                                }
-                            }
-                        })
-                )
-        );
-        return new Pair<>(toDelete,toAdd);
-    }*/
 
     public void setUserId(long userId) {
         this.userId = userId;
@@ -91,7 +71,7 @@ public final class UserModuleAuthorityDto {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", UserModuleAuthorityDto.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", UserIdModuleAuthorityDto.class.getSimpleName() + "[", "]")
                 .add("userId=" + userId)
                 .add("moduleAuthorityDtoList=" + moduleAuthorityDtoList)
                 .toString();

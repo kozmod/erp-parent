@@ -93,7 +93,7 @@ public class DbModuleRepository implements CrudRepository<DbModule> {
     public void deleteBatch(List<DbModule> modules) {
         List<long[]> batch = new ArrayList<>();
         for (DbModule module : modules) {
-            batch.add(new long[] {module.getId()});
+            batch.add(new long[]{module.getId()});
         }
         jdbcTemplate.update(DELETE_BY_ID, batch);
     }

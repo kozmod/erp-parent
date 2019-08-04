@@ -10,13 +10,15 @@ public final class KsListDto {
     public KsListDto() {
     }
 
-    private KsListDto(List<KsDto> kss) { this.kss = kss; }
+    private KsListDto(List<KsDto> kss) {
+        this.kss = kss;
+    }
 
-    public static KsListDto of(List<KsDto> kss){
+    public static KsListDto of(List<KsDto> kss) {
         return new KsListDto(kss);
     }
 
-    public static KsListDto of(KsDto ... kss){
+    public static KsListDto of(KsDto... kss) {
         return new KsListDto(Arrays.asList(kss));
     }
 
@@ -24,7 +26,9 @@ public final class KsListDto {
         return kss;
     }
 
-    public void setKsDto(List<KsDto> kss) { this.kss = kss; }
+    public void setKsDto(List<KsDto> kss) {
+        this.kss = kss;
+    }
 
     @Override
     public String toString() {

@@ -7,9 +7,6 @@ public final class ModuleAuthorityDto {
     private String moduleName;
     Map<String, Boolean> moduleMap;
 
-    public ModuleAuthorityDto() {
-    }
-
     public ModuleAuthorityDto(String moduleName, Map<String, Boolean> moduleMap) {
         this.moduleName = moduleName;
         this.moduleMap = moduleMap;

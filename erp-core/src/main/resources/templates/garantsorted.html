@@ -3,7 +3,7 @@
 <!-- Container start-->
 <div id="container">
     <!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.dto.UsersDto"*/-->
-    <div class="wrapper" th:fragment="garantsort" th:object="${ksSortDto}" >
+    <div class="wrapper" th:fragment="garantsorted" th:object="${ksSortDto}" >
         <div id="module">
             <!--header options start-->
             <div class="module_header size_is">
@@ -54,7 +54,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/Garantsort')">Применить</a>
+                                    <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/garantsorted')">Применить</a>
                                 </li>
                             </form>
                         </ul>

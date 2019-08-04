@@ -37,7 +37,7 @@ public class KsService {
     }
 
     public void create(Ks ks) {
-            KsRepository.save(ksMapper.toDbKs(ks));
+        KsRepository.save(ksMapper.toDbKs(ks));
     }
 
     public void delete(String KsId) {

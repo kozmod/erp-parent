@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.aora.erp.entity.dto.UserModuleAuthorityDto;
+import ru.aora.erp.entity.dto.UserIdModuleAuthorityDto;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 
 @Controller
@@ -17,12 +17,12 @@ public class TestAjaxController {
 
     @RequestMapping(value = "/updateUserRoles", method = RequestMethod.POST, consumes = "application/json")
     public @ResponseBody
-    String putUser(@RequestBody UserModuleAuthorityDto moduleAuthorityDto) {
+    String putUser(@RequestBody UserIdModuleAuthorityDto moduleAuthorityDto) {
         System.out.println(moduleAuthorityDto);
         return "update";
     }
 
-//    private List<IdAuthority> conwertModules(UserModuleAuthorityDto dto){
+//    private List<IdAuthority> conwertModules(UserIdModuleAuthorityDto dto){
 //        authorityModulesIdentifiersService.loadAll();
 //    }
 //

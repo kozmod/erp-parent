@@ -1,6 +1,10 @@
 spring:
+  main:
+    banner-mode: log
   application:
     name: App
+  profiles:
+    active: DEV
 #  thymeleaf:
 #    cache: false
 #    check-template: true

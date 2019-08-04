@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/contract")
-public class ContractController {
+public final class ContractController {
 
     private static final String CONTROLLER_MAPPING = "contracts";
     private static final String DTO_MODEL = "contractDto";

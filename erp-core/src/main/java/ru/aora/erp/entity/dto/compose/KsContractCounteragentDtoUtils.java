@@ -1,4 +1,4 @@
-package ru.aora.erp.entity.dto.combine;
+package ru.aora.erp.entity.dto.compose;
 
 import org.apache.commons.collections.CollectionUtils;
 import ru.aora.erp.model.entity.business.Contract;
@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
 public final class KsContractCounteragentDtoUtils {
 
-    static final Comparator<KsContractCounteragentDto> GARANT_DATE_NATURAL_ORDER_COMPARATOR = Comparator.nullsLast(Comparator.comparing(
+    static final Supplier<Comparator<KsContractCounteragentDto>> GARANT_DATE_NATURAL_ORDER_COMPARATOR = () -> Comparator.nullsLast(Comparator.comparing(
             KsContractCounteragentDto::getGarantDate,
             Comparator.nullsLast(Comparator.naturalOrder())
     ));
@@ -29,7 +30,7 @@ public final class KsContractCounteragentDtoUtils {
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
                 if (ks != null) {
-                    final KsContractCounteragentDto dto = updateDysToGarantDate(
+                    final KsContractCounteragentDto dto = updateDaysToGarantDate(
                             asKsContractCounteragentDto(ks)
                     );
                     final Contract contract = contractById.get(ks.getContractId());
@@ -49,7 +50,7 @@ public final class KsContractCounteragentDtoUtils {
         return resultList;
     }
 
-    static KsContractCounteragentDto updateDysToGarantDate(KsContractCounteragentDto dto) {
+    static KsContractCounteragentDto updateDaysToGarantDate(KsContractCounteragentDto dto) {
         if (dto != null) {
             dto.setDaysToGarantDate(CommonUtils.daysToCurrentDate(dto.getGarantDate()));
         }
@@ -58,7 +59,7 @@ public final class KsContractCounteragentDtoUtils {
 
     public static List<KsContractCounteragentDto> sortByGarantDateNaturalOrder(List<KsContractCounteragentDto> list) {
         if (CollectionUtils.isNotEmpty(list)) {
-            list.sort(GARANT_DATE_NATURAL_ORDER_COMPARATOR);
+            list.sort(GARANT_DATE_NATURAL_ORDER_COMPARATOR.get());
         }
         return list;
     }

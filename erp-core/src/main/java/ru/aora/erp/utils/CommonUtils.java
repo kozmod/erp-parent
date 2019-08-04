@@ -7,7 +7,7 @@ public final class CommonUtils {
 
     public static Long daysToCurrentDate(LocalDate date) {
         return date != null
-                ? ChronoUnit.DAYS.between(date, LocalDate.now())
+                ? ChronoUnit.DAYS.between(LocalDate.now(), date)
                 : null;
     }
 }

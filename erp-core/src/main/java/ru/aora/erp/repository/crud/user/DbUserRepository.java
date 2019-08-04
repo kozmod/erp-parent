@@ -50,7 +50,6 @@ public class DbUserRepository implements CrudRepository<DbUser> {
     private static final String DELETE_USER_BY_ID = "DELETE FROM Users WHERE id=?";
 
 
-
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

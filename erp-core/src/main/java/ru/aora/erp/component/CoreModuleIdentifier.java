@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class CoreModuleIdentifier implements ModuleIdentifier {
+public final class CoreModuleIdentifier implements ModuleIdentifier {
 
     public static final String DASHBOARD_MAPPING = "/dashboard";
 

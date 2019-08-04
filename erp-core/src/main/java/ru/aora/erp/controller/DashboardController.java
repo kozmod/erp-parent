@@ -12,7 +12,7 @@ import static ru.aora.erp.component.CoreModuleIdentifier.ROOT_MAPPING;
 import static ru.aora.erp.model.controller.HttpUtils.redirectTo;
 
 @Controller
-public class DashboardController {
+public final class DashboardController {
 
     private static final String DASHBOARD_TEMPLATE = "dashboard";
     private static final String UI_CHANE_NODE_MODEL = "uiChaneNodeModel";

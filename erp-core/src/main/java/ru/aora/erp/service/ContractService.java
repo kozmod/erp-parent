@@ -31,7 +31,6 @@ public class ContractService {
     }
 
     public void update(Contract contract) {
-        requireNonNull(contract.getId());
         contractRepository.save(
                 contractMapper.toDbContract(requireNonNull(contract))
         );

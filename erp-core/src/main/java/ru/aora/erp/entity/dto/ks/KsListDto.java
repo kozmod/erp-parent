@@ -7,12 +7,7 @@ import java.util.StringJoiner;
 public final class KsListDto {
     private List<KsDto> kss;
 
-    public KsListDto() {
-    }
-
-    private KsListDto(List<KsDto> kss) {
-        this.kss = kss;
-    }
+    private KsListDto(List<KsDto> kss) { this.kss = kss; }
 
     public static KsListDto of(List<KsDto> kss) {
         return new KsListDto(kss);

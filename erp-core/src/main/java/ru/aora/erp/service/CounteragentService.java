@@ -31,7 +31,6 @@ public class CounteragentService {
     }
 
     public void update(Counteragent counteragent) {
-        requireNonNull(counteragent.getId());
         counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
     }
 

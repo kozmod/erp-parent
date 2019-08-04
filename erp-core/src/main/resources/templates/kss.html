@@ -148,146 +148,146 @@
                                 <div th:case="${id_parent}">
                                     <div th:if="${ks.id==null}"></div>
                                     <div th:unless="${ks.id==null}">
-                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                            <div class="item clr_b2">
-                                <div class="title">
-                                    <label class="radiocheck">
-                                        <input type="checkbox" class="www" />
+                                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                            <div class="item clr_b2">
+                                                <div class="title">
+                                                    <label class="radiocheck">
+                                                        <input type="checkbox" class="www" />
 
-                                        <strong th:text="'КС № '+${ks.ksNumber}"></strong>
-                                    </label>
-
-                                    <div class="more docs animate_150">
-                                        <a href="javascript:;" th:text="'От '+${ks.ksDate}"></a>
-                                        <a href="javascript:;" class="toggle_cb" th:data-toggle="'details_'+${ks.id}">Показать детали</a>
-                                    </div>
-
-                                    <a href="javascript:;" class="bookmark rds_full">
-                                        <i class="far fa-bookmark"></i>
-                                    </a>
-
-                                    <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${ks.id}" data-popover-position="left">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-
-                                    <div class="hide_me">
-                                        <div th:id="'actions_'+${ks.id}">
-                                            <ul class="popover_menu">
-                                                <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="'Справка КС-3 № '+${ks.ksNumber}"></div></strong></a></li>
-                                                <li><a href="#" class="toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                                <li><a href="javascript:;" th:onclick="deleteElement('/Ks/',[[${ks.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div th:class="'details details_'+${ks.id}+' edit hide_me'">
-
-                                        <span><strong th:text="'Сумма по КС-3 составляет '+${ks.ksSum}+' руб.'"></strong></span>
-
-                                        <span><strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong></span>
-
-                                        <span><strong th:text="'Срок погашения гарантийного платежа '+${ks.garantDate}+'. Осталось дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
-                                        <div th:switch="${ks.paymentStatus}">
-                                            <div th:case="false">
-                                                <span><strong>Статус гарантийного платежа: НЕ ПОГАШЕН</strong></span>
-                                            </div>
-                                            <div th:case="true">
-                                                <span><strong>Статус гарантийного платежа: ПОГАШЕН</strong></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Edit KS start-->
-                                    <div th:class="'KS_edit_'+*{id}+' edit hide_me'" th:object="${ks}">
-                                        <div class="row no_gutter">
-                                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                                                <a th:name="'KS_edit_'+*{id}"></a>
-                                                <div class="KS_edit">
-                                                    Изменение формы справки КС-3
-                                                    <span> <a th:text="*{ksNumber}"></a></span>
-                                                    <a href="javascript:;" class="toggle_cb"
-                                                       th:data-toggle="'KS_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-
-                                                <div class="edit_basic"
-                                                     th:id ="'form_KS_edit_'+*{id}"
-                                                     action="#"
-                                                     th:object="${ks}">
-                                                    <label class="fld filler">
-                                                        <em>Дата справки КС-3</em>
-                                                        <div class="sign"><i class="fas fa-user"></i></div>
-                                                        <input type="date" class="inp"  th:id ="'ks_date_'+*{id}"  name="ks_date"  th:value="*{ksDate}" />
+                                                        <strong th:text="'КС № '+${ks.ksNumber}"></strong>
                                                     </label>
-                                                    <label class="fld filler">
-                                                        <em>Номер справки КС-3</em>
-                                                        <div class="sign"><i class="fas fa-user"></i></div>
-                                                        <input type="text" class="inp" th:id ="'ks_number_'+*{id}" name="ks_number" th:value="*{ksNumber}"/>
-                                                    </label>
-                                                    <label class="fld filler">
-                                                        <em>Сумма по справке КС-3</em>
-                                                        <div class="sign"><i class="fas fa-user"></i></div>
-                                                        <input type="text" class="inp" th:id ="'ks_sum_'+*{id}" name="ks_sum" th:value="*{ksSum}"/>
-                                                    </label>
-                                                    <label class="fld filler">
-                                                        <em>Сумма гарантийного платежа</em>
-                                                        <div class="sign"><i class="fas fa-user"></i></div>
-                                                        <input type="text" class="inp" th:id ="'garant_sum_'+*{id}" name="garant_sum" th:value="*{garantSum}"/>
-                                                    </label>
-                                                    <label class="fld filler">
-                                                        <em>Дата возврата гарантийного платежа</em>
-                                                        <div class="sign"><i class="fas fa-user"></i></div>
-                                                        <input type="date" class="inp" th:id ="'garant_date_'+*{id}" name="garant_date" th:value="*{garantDate}"/>
-                                                    </label>
-                                                    <form action="#"
-                                                          th:action="@{/getPaymentStatusRadio}"
-                                                          th:object="${ksDto}" method="put">
-                                                    <em>Статус гарантийного платежа</em>
-                                                    <div th:switch="${ks.paymentStatus}">
-                                                       <div th:case="false">
-                                                            <label class="radiocheck">
-                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'true'" th:value="'false'"/>
-                                                                <strong>Не погашено</strong>
-                                                            </label>
 
-                                                            <label class="radiocheck">
-                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'false'" th:value="'true'"/>
-                                                                <strong>Погашено</strong>
-                                                            </label>
-                                                        </div>
-                                                        <div th:case="true">
-                                                            <label class="radiocheck">
-                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'false'" th:value="'false'"/>
-                                                                <strong>Не погашено</strong>
-                                                            </label>
-                                                            <label class="radiocheck">
-                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'true'" th:value="'true'"/>
-                                                                <strong>Погашено</strong>
-                                                            </label>
+                                                    <div class="more docs animate_150">
+                                                        <a href="javascript:;" th:text="'От '+${ks.ksDate}"></a>
+                                                        <a href="javascript:;" class="toggle_cb" th:data-toggle="'details_'+${ks.id}">Показать детали</a>
+                                                    </div>
+
+                                                    <a href="javascript:;" class="bookmark rds_full">
+                                                        <i class="far fa-bookmark"></i>
+                                                    </a>
+
+                                                    <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${ks.id}" data-popover-position="left">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+
+                                                    <div class="hide_me">
+                                                        <div th:id="'actions_'+${ks.id}">
+                                                            <ul class="popover_menu">
+                                                                <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="'Справка КС-3 № '+${ks.ksNumber}"></div></strong></a></li>
+                                                                <li><a href="#" class="toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                                                <li><a href="javascript:;" th:onclick="deleteElement('/Ks/',[[${ks.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                            </ul>
                                                         </div>
                                                     </div>
-                                                    </form>
 
-                                                    <div class="clear_after" th:id ="'KS_id_'+*{id}" th:value="*{id}">
-                                                        <button th:onclick="updateKSRequest([[*{id}]],[[${id_parent}]])" name="KS_edit" value="KS_edit" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'KS_edit_'+${ks.id}">Сохранить</button>
-                                                        <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}">Закрыть</a>
+                                                    <div th:class="'details details_'+${ks.id}+' edit hide_me'">
+
+                                                        <span><strong th:text="'Сумма по КС-3 составляет '+${ks.ksSum}+' руб.'"></strong></span>
+
+                                                        <span><strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong></span>
+
+                                                        <span><strong th:text="'Срок погашения гарантийного платежа '+${ks.garantDate}+'. Осталось дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
+                                                        <div th:switch="${ks.paymentStatus}">
+                                                            <div th:case="false">
+                                                                <span><strong>Статус гарантийного платежа: НЕ ПОГАШЕН</strong></span>
+                                                            </div>
+                                                            <div th:case="true">
+                                                                <span><strong>Статус гарантийного платежа: ПОГАШЕН</strong></span>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
+
+                                                    <!-- Edit KS start-->
+                                                    <div th:class="'KS_edit_'+*{id}+' edit hide_me'" th:object="${ks}">
+                                                        <div class="row no_gutter">
+                                                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                                                <a th:name="'KS_edit_'+*{id}"></a>
+                                                                <div class="KS_edit">
+                                                                    Изменение формы справки КС-3
+                                                                    <span> <a th:text="*{ksNumber}"></a></span>
+                                                                    <a href="javascript:;" class="toggle_cb"
+                                                                       th:data-toggle="'KS_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+
+                                                                <div class="edit_basic"
+                                                                     th:id ="'form_KS_edit_'+*{id}"
+                                                                     action="#"
+                                                                     th:object="${ks}">
+                                                                    <label class="fld filler">
+                                                                        <em>Дата справки КС-3</em>
+                                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                                        <input type="date" class="inp"  th:id ="'ks_date_'+*{id}"  name="ks_date"  th:value="*{ksDate}" />
+                                                                    </label>
+                                                                    <label class="fld filler">
+                                                                        <em>Номер справки КС-3</em>
+                                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                                        <input type="text" class="inp" th:id ="'ks_number_'+*{id}" name="ks_number" th:value="*{ksNumber}"/>
+                                                                    </label>
+                                                                    <label class="fld filler">
+                                                                        <em>Сумма по справке КС-3</em>
+                                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                                        <input type="text" class="inp" th:id ="'ks_sum_'+*{id}" name="ks_sum" th:value="*{ksSum}"/>
+                                                                    </label>
+                                                                    <label class="fld filler">
+                                                                        <em>Сумма гарантийного платежа</em>
+                                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                                        <input type="text" class="inp" th:id ="'garant_sum_'+*{id}" name="garant_sum" th:value="*{garantSum}"/>
+                                                                    </label>
+                                                                    <label class="fld filler">
+                                                                        <em>Дата возврата гарантийного платежа</em>
+                                                                        <div class="sign"><i class="fas fa-user"></i></div>
+                                                                        <input type="date" class="inp" th:id ="'garant_date_'+*{id}" name="garant_date" th:value="*{garantDate}"/>
+                                                                    </label>
+                                                                    <!--<form action="#"
+                                                                          th:action="@{/getPaymentStatusRadio}"
+                                                                          th:object="${ksDto}" method="put">-->
+                                                                    <em>Статус гарантийного платежа</em>
+                                                                    <div th:switch="${ks.paymentStatus}">
+                                                                        <div th:case="false">
+                                                                            <label class="radiocheck">
+                                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'true'" th:value="'false'"/>
+                                                                                <strong>Не погашено</strong>
+                                                                            </label>
+
+                                                                            <label class="radiocheck">
+                                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'false'" th:value="'true'"/>
+                                                                                <strong>Погашено</strong>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div th:case="true">
+                                                                            <label class="radiocheck">
+                                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'false'" th:value="'false'"/>
+                                                                                <strong>Не погашено</strong>
+                                                                            </label>
+                                                                            <label class="radiocheck">
+                                                                                <input th:type="radio" th:id="'payment_switcher_'+${ks.id}" th:name="'payment_switcher_'+${ks.id}" class="www" th:checked="'true'" th:value="'true'"/>
+                                                                                <strong>Погашено</strong>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="clear_after" th:id ="'KS_id_'+*{id}" th:value="*{id}">
+                                                                        <button th:onclick="updateKSRequest([[*{id}]],[[${id_parent}]])" name="KS_edit" value="KS_edit" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'KS_edit_'+${ks.id}">Сохранить</button>
+                                                                        <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}">Закрыть</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- Edit KS END-->
+
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <!-- Edit KS END-->
-
                                 </div>
                             </div>
                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
 
                     </div>
                 </div>
@@ -298,8 +298,8 @@
     </div>
 
 
-<div class="shadow top animate_150"></div>
-<div class="shadow bot animate_150"></div>
+    <div class="shadow top animate_150"></div>
+    <div class="shadow bot animate_150"></div>
 
 </div>
 

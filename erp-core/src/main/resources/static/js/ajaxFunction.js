@@ -50,8 +50,8 @@ function getFragmentParamAndChangeDiv(divId, reference, id_grand_parent, id_pare
                 return;
             }
             //setTimeout(function() {
-                console.log(text);
-                $(divId).html(text);
+            console.log(text);
+            $(divId).html(text);
             //}, delay);
 
             loadOptions();
@@ -82,18 +82,18 @@ function RefreshDiv(divId, reference) {
  */
 function reply_click(clicked_id)
 {
-var id_name=clicked_id;
+    var id_name=clicked_id;
     console.log(clicked_id);
     alert(clicked_id);
     return id_name;
 }
 
-    function saveCounteragentRequest() {
+function saveCounteragentRequest() {
     var JSONObject = {
         counteragentName:
             $("#counteragent_name").val(),
         groupName:null,
-            //$("#group_name").val(),
+        //$("#group_name").val(),
         directorFirstName:
             $("#director_first_name").val(),
         directorSurname:
@@ -127,7 +127,7 @@ var id_name=clicked_id;
 function saveContractRequest(counteragent_id) {
     var JSONObject = {
         counteragentId:
-              counteragent_id,
+        counteragent_id,
         contractType:
             '1',
         contractDate:
@@ -166,7 +166,7 @@ function saveKSRequest(contract_id) {
             $("#ks_date").val(),
         ksNumber:
             $("#ks_number").val(),
-        ksStatus:
+        paymentStatus:
             $("#payment_switcher_add").val(),
         ksSum:
             $("#ks_sum").val(),
@@ -211,7 +211,7 @@ function updateKSRequest(KSId, contractId) {
             $("#garant_sum_".concat(KSId)).val(),
         garantDate:
             $("#garant_date_".concat(KSId)).val(),
-        ksStatus:
+        paymentStatus:
             $("#payment_switcher_".concat(KSId)).val()
     };
 
@@ -270,7 +270,7 @@ function updateCounteragentRequest(counteragentId) {
         counteragentName:
             $("#counteragent_name_".concat(counteragentId)).val(),
         groupName:null,
-            //$("#group_name_".concat(counteragentId)).val(),
+        //$("#group_name_".concat(counteragentId)).val(),
         directorFirstName:
             $("#director_first_name_".concat(counteragentId)).val(),
         directorSurname:
@@ -294,7 +294,7 @@ function updateCounteragentRequest(counteragentId) {
         async: true,
         success: function (JSONCounteragent) {
             console.log("SUCCESS: ", JSONCounteragent);
-       },
+        },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
         }

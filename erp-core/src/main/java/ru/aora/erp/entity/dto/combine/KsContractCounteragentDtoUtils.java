@@ -29,7 +29,7 @@ public final class KsContractCounteragentDtoUtils {
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
                 if (ks != null) {
-                    final KsContractCounteragentDto dto = updateDysToGarantDate(
+                    final KsContractCounteragentDto dto = updateDaysToGarantDate(
                             asKsContractCounteragentDto(ks)
                     );
                     final Contract contract = contractById.get(ks.getContractId());
@@ -49,7 +49,7 @@ public final class KsContractCounteragentDtoUtils {
         return resultList;
     }
 
-    static KsContractCounteragentDto updateDysToGarantDate(KsContractCounteragentDto dto) {
+    static KsContractCounteragentDto updateDaysToGarantDate(KsContractCounteragentDto dto) {
         if (dto != null) {
             dto.setDaysToGarantDate(CommonUtils.daysToCurrentDate(dto.getGarantDate()));
         }

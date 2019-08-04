@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Container start-->
+<div id="container">
+    <!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.dto.UsersDto"*/-->
+    <div class="wrapper" th:fragment="garantsort" th:object="${ksSortDto}" >
+        <div id="module">
+            <!--header options start-->
+            <div class="module_header size_is">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_8 col_l_8">
+                            <div class="module_title">СПИСОК ГАРАНТИЙНЫХ ПЛАТЕЖЕЙ</div>
+                        </div>
+                        <div class="col_xxs_12 col_xs_12 col_s_12 col_m_4 col_l_4">
+                            <div class="module_actions">
+                                <label class="switcher ttp_bt" title="Добавить в лаунчпад">
+                                    <input type="checkbox" class="www" />
+
+                                    <div class="signs">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--header options end-->
+
+
+            <!--general container options start-->
+
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+
+
+                        <ul class="module_menu">
+                            <form method="get">
+                                <li>
+                                    <div class="name">С отмеченными:</div>
+                                </li>
+
+                                <li>
+                                    <select name="someselect">
+                                        <option disabled>Выберите действие</option>
+                                        <option data-display="&lt;i class=&quot;fas fa-archive&quot;&gt;&lt;/i&gt; Архивировать">Архивировать</option>
+                                        <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt; Удалить">Удалить</option>
+                                    </select>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/Garantsort')">Применить</a>
+                                </li>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--general container options end-->
+
+            <!--main cycle start-->
+
+            <div class="module_content module_guarantee">
+                <div class="container">
+                    <div class="row">
+
+                        <div  th:each="ks, iterstat : *{ksContractConteragents}">
+                            <!-- If operator start-->
+                            <div th:switch="${ks.ksStatus}">
+                                <div th:case="false">
+                                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                                        <div class="item clr_b2">
+                                            <div class="title">
+                                                <label class="radiocheck">
+                                                    <input type="checkbox" class="www" />
+
+                                                    <strong th:text="'Дата возврата '+${ks.garantDate}"></strong>
+                                                </label>
+
+                                                <div class="more docs animate_150">
+                                                    <a href="javascript:;" th:text="'КС № '+${ks.ksNumber}"></a>
+                                                    <a href="javascript:;" class="toggle_cb" th:data-toggle="'details_'+${ks.ksId}">Показать детали</a>
+                                                </div>
+
+                                                <!--<a href="javascript:;" class="bookmark rds_full">
+                                                    <i class="far fa-bookmark"></i>
+                                                </a>
+
+                                                <a href="javascript:;" class="actions show_popover rds_full" th:data-popover="'actions_'+${ks.ksId}" data-popover-position="left">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+
+                                                <div class="hide_me">
+                                                    <div th:id="'actions_'+${ks.ksId}">
+                                                        <ul class="popover_menu">
+                                                            <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="'Справка КС-3 № '+${ks.ksNumber}"></div></strong></a></li>
+                                                            <li><a href="#" class="toggle_cb" th:data-toggle="'KS_edit_'+${ks.ksId}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                                            <li><a href="javascript:;" th:onclick="deleteElement('/Ks/',[[${ks.ksId}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>-->
+
+                                                <div th:class="'details details_'+${ks.ksId}+' edit hide_me'">
+
+                                                    <span><strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong></span>
+
+                                                    <span><strong th:text="'Номер контракта '+${ks.contractNumber}"></strong></span>
+
+                                                    <span><strong th:text="'Контрагент: '+${ks.conteragentName}"></strong></span>
+
+                                                    <span><strong th:text="'Дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
+                                                    <label class="radiocheck">
+
+                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'true'" th:value="'true'" th:onclick="updateKSRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
+                                                        <strong>Не погашено</strong>
+                                                    </label>
+
+                                                    <label class="radiocheck">
+                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'false'" th:value="'false'" th:onclick="updateKSRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
+                                                        <strong>Погашено</strong>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:case="true">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--main cycle end-->
+        </div>
+
+    </div>
+
+
+    <div class="shadow top animate_150"></div>
+    <div class="shadow bot animate_150"></div>
+
+</div>
+
+
+
+<!-- Container end -->
+
+

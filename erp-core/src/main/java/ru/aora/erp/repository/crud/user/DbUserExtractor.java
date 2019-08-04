@@ -51,7 +51,7 @@ public class DbUserExtractor implements ResultSetExtractor<Collection<DbUser>> {
                                             .setId(moduleId)
                                             .setName(moduleName)
                                             .setModuleRoles(
-                                                   Set.of(
+                                                    Set.of(
                                                             new DbModuleRule()
                                                                     .setId(ruleId)
                                                                     .setName(ruleName)

@@ -16,16 +16,17 @@ public final class CommonUtilsTest {
         Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
 
         assertNotNull(daysTuCurrentDate);
-        assertEquals(daysToCurrentDateValue, daysTuCurrentDate.longValue());
+        assertEquals(-1 * daysToCurrentDateValue, daysTuCurrentDate.longValue());
     }
 
     @Test
     public void shouldCountDaysToCurrentDateFromFuture() {
-        final long daysTuCurrentDateValue = 730L;
-        LocalDate date = LocalDate.now().plusDays(daysTuCurrentDateValue);
-        Long daysTuCurrentDate = CommonUtils.daysToCurrentDate(date);
+        final long daysToCurrentDateValue = 730L;
+        LocalDate date = LocalDate.now().plusDays(daysToCurrentDateValue);
+        Long daysToCurrentDate = CommonUtils.daysToCurrentDate(date);
+        System.out.println(daysToCurrentDate);
 
-        assertNotNull(daysTuCurrentDate);
-        assertEquals((-1 * daysTuCurrentDateValue), daysTuCurrentDate.longValue());
+        assertNotNull(daysToCurrentDate);
+        assertEquals(daysToCurrentDateValue, daysToCurrentDate.longValue());
     }
 }

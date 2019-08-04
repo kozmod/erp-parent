@@ -1,8 +1,6 @@
-package ru.aora.erp.entity.dto.utils;
+package ru.aora.erp.entity.dto.compose;
 
 import org.junit.Test;
-import ru.aora.erp.entity.dto.combine.KsContractCounteragentDto;
-import ru.aora.erp.entity.dto.combine.KsContractCounteragentDtoUtils;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
@@ -104,7 +102,7 @@ public final class KsContractCounteragentDtoUtilsTest {
 
     @Test
     public void shouldNotMapCounteragent_ToKsContractCounteragentDto_WhencounteragenttIdIsNull() {
-        final String SOME_COUNTERAGENT_ID= " SOME_COUNTERAGENT_ID";
+        final String SOME_COUNTERAGENT_ID = " SOME_COUNTERAGENT_ID";
         final Ks ks = new Ks()
                 .setId("KS_ID_123")
                 .setGarantSum(BigDecimal.TEN)
@@ -161,12 +159,12 @@ public final class KsContractCounteragentDtoUtilsTest {
         );
 
         Collections.shuffle(dtos);
-        KsContractCounteragentDtoUtils.sortByGarantDateNaturalOrder(dtos);
+        dtos.sort(KsContractCounteragentDtoUtils.GARANT_DATE_NATURAL_ORDER_COMPARATOR.get());
 
-        assertEquals(4,dtos.size());
-        assertEquals(KS_ID_PAST,dtos.get(0).getKsId());
-        assertEquals(KS_ID_NOW,dtos.get(1).getKsId());
-        assertEquals(KS_ID_NULL_DATE,dtos.get(2).getKsId());
-        assertNull(KS_ID_NULL_DATE,dtos.get(3));
+        assertEquals(4, dtos.size());
+        assertEquals(KS_ID_PAST, dtos.get(0).getKsId());
+        assertEquals(KS_ID_NOW, dtos.get(1).getKsId());
+        assertEquals(KS_ID_NULL_DATE, dtos.get(2).getKsId());
+        assertNull(KS_ID_NULL_DATE, dtos.get(3));
     }
 }

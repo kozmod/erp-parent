@@ -1,4 +1,4 @@
-package ru.aora.erp.entity.dto.combine;
+package ru.aora.erp.entity.dto.compose;
 
 import java.util.Collection;
 import java.util.StringJoiner;
@@ -6,9 +6,11 @@ import java.util.StringJoiner;
 public final class KsContractCounteragentCollectionDto {
     private Collection<KsContractCounteragentDto> ksContractConteragents;
 
-    private KsContractCounteragentCollectionDto(Collection<KsContractCounteragentDto> ksContractConteragents) { this.ksContractConteragents = ksContractConteragents; }
+    private KsContractCounteragentCollectionDto(Collection<KsContractCounteragentDto> ksContractConteragents) {
+        this.ksContractConteragents = ksContractConteragents;
+    }
 
-    public static KsContractCounteragentCollectionDto of(Collection<KsContractCounteragentDto> ksContractConteragents){
+    public static KsContractCounteragentCollectionDto of(Collection<KsContractCounteragentDto> ksContractConteragents) {
         return new KsContractCounteragentCollectionDto(ksContractConteragents);
     }
 

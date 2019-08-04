@@ -1,4 +1,4 @@
-package ru.aora.erp.entity.dto.combine;
+package ru.aora.erp.entity.dto.compose;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

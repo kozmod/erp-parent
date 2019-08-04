@@ -17,9 +17,6 @@ public final class UserModuleAuthorityDto {
     private long userId;
     private Collection<ModuleAuthorityDto> moduleAuthorityDtoList;
 
-    public UserModuleAuthorityDto() {
-    }
-
     public UserModuleAuthorityDto(long userId, Collection<ModuleAuthorityDto> moduleAuthorityDtoList) {
         this.userId = userId;
         this.moduleAuthorityDtoList = moduleAuthorityDtoList;

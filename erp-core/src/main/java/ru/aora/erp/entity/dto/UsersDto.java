@@ -16,11 +16,11 @@ public final class UsersDto {
         this.users = users;
     }
 
-    public static UsersDto of(List<User> users){
+    public static UsersDto of(List<User> users) {
         return new UsersDto(users);
     }
 
-    public static UsersDto of(User ... users){
+    public static UsersDto of(User... users) {
         return new UsersDto(Arrays.asList(users));
     }
 

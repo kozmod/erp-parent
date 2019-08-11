@@ -126,7 +126,6 @@ public class DbKs {
                 .add("garantDate='" + garantDate + "'")
                 .add("garantSum='" + garantSum + "'")
                 .add("paymentStatus='" + paymentStatus + "'")
-                //.add("daysToGarantDate='" + daysToGarantDate + "'")
                 .toString();
     }
 }

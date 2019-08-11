@@ -1,7 +1,8 @@
 package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.aora.erp.entity.dto.compose.KsContractCounteragentCollectionDto;
 
 import ru.aora.erp.entity.dto.compose.KsContractCounteragentDto;

@@ -9,9 +9,7 @@ import java.util.StringJoiner;
 public final class CounteragentDto {
     private List<Counteragent> counteragents;
 
-    private CounteragentDto(List<Counteragent> counteragents) {
-        this.counteragents = counteragents;
-    }
+    private CounteragentDto(List<Counteragent> counteragents) { this.counteragents = counteragents; }
 
     public static CounteragentDto of(List<Counteragent> counteragents) {
         return new CounteragentDto(counteragents);

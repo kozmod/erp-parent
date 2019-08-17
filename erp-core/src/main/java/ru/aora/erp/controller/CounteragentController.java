@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/counteragent")
-public class CounteragentController {
+public final class CounteragentController {
 
     private static final String GARANT_MAPPING = "counteragents";
     private static final String CONTRACTOR_DTO_MODEL = "counteragentDto";

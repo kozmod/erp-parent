@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
 
-public class KsContractCounteragentDto {
+public final class KsContractCounteragentDto {
 
     private String KsId;
     private LocalDate garantDate;

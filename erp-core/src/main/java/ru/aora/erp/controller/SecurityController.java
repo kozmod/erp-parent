@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static ru.aora.erp.component.CoreModuleIdentifier.LOGIN_MAPPING;
 
 @Controller
-public class SecurityController {
+public final class SecurityController {
 
     private static final String LOGIN_TEMPLATE = "login";
 

@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/Ks")
-public class KsController {
+public final class KsController {
 
     private static final String CONTROLLER_MAPPING = "kss";
     private static final String DTO_MODEL = "ksDto";

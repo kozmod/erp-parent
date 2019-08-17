@@ -32,7 +32,6 @@ public class KsService {
     }
 
     public void update(Ks ks) {
-        requireNonNull(ks.getId());
         KsRepository.save(ksMapper.toDbKs(ks));
     }
 

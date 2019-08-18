@@ -1,7 +1,6 @@
-package ru.aora.erp.utils;
+package ru.aora.erp.utils.common;
 
 import org.junit.Test;
-import ru.aora.erp.utils.common.CommonUtils;
 
 import java.time.LocalDate;
 
@@ -30,4 +29,5 @@ public final class CommonUtilsTest {
         assertNotNull(daysToCurrentDate);
         assertEquals(daysToCurrentDateValue, daysToCurrentDate.longValue());
     }
+
 }

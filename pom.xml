@@ -10,6 +10,7 @@
     <modules>
         <module>erp-core</module>
         <module>erp-model</module>
+        <module>erp-utils</module>
         <module>test</module>
         <module>test_2</module>
         <module>Garant</module>

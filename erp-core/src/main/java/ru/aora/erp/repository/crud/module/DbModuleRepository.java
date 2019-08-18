@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.lang.NonNull;
@@ -18,14 +17,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
+
 @Repository
-public class DbModuleRepository implements CrudRepository<DbModule> {
+public class DbModuleRepository implements CrudRepository<DbModule,Long> {
 
     private static final String SELECT_ALL = "SELECT M.id,M.name FROM dbo.[Modules] M";
     private static final String SELECT_BY_ID = SELECT_ALL + " WHERE M.id = ? ";
@@ -59,7 +59,7 @@ public class DbModuleRepository implements CrudRepository<DbModule> {
     }
 
     @Override
-    public long create(DbModule entity) {
+    public DbModule create(DbModule entity) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -72,21 +72,25 @@ public class DbModuleRepository implements CrudRepository<DbModule> {
                 },
                 keyHolder
         );
-        return Objects.requireNonNull(keyHolder.getKey(), "New created DbModule [id] must not be null").longValue();
+        return entity.setId(
+                requireNonNull(keyHolder.getKey(), "New created DbModule [id] must not be null").longValue()
+        );
     }
 
     @Override
-    public void update(DbModule entity) {
+    public DbModule update(DbModule entity) {
         jdbcTemplate.update(
                 UPDATE,
                 entity.getName(),
                 entity.getId()
         );
+        return entity;
     }
 
     @Override
-    public void delete(long id) {
+    public Long delete(Long id) {
         jdbcTemplate.update(DELETE_BY_ID, id);
+        return id;
     }
 
     @Transactional

@@ -1,16 +1,16 @@
 package ru.aora.erp.service;
 
+import ru.aora.erp.model.entity.db.DbCounteragent;
 import ru.aora.erp.model.entity.mapper.CounteragentMapper;
 import ru.aora.erp.model.entity.business.Counteragent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.aora.erp.repository.jpa.DbCounteragentRepository;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Objects.requireNonNull;
 
 @Service
 @Transactional
@@ -30,16 +30,20 @@ public class CounteragentService {
                 .collect(Collectors.toList());
     }
 
-    public void update(Counteragent counteragent) {
-        counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+    public Counteragent update(Counteragent counteragent) {
+        DbCounteragent savedCounteragent = counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+        return counteragentMapper.toCounteragent(savedCounteragent);
     }
 
-    public void create(Counteragent counteragent) {
-        counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+    public Counteragent create(Counteragent counteragent) {
+        DbCounteragent savedCounteragent = counteragentRepository.save(counteragentMapper.toDbCounteragent(counteragent));
+        return counteragentMapper.toCounteragent(savedCounteragent);
     }
 
-    public void delete(String counteragentId) {
+    public String delete(String counteragentId) {
+        CommonUtils.requiedNotBlank(counteragentId);
         counteragentRepository.deleteById(counteragentId);
+        return counteragentId;
     }
 }
 

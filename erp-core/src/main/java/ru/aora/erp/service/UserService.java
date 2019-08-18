@@ -10,6 +10,7 @@ import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.model.entity.mapper.UserMapper;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.repository.crud.user.DbUserRepository;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,13 +37,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        CommonUtils.requiedNotBlank(name);
         try {
             return userRepository.findByName(name)
                     .map(Objects::requireNonNull)
                     .map(dbUser -> userMapper.toUser(dbUser, authorityService.modulesAuthorities()))
-                    .orElseThrow(() -> new UsernameNotFoundException(name));
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found by name: " + name));
         } catch (Exception ex) {
-            throw new UsernameNotFoundException(String.join("User not found by name: ", name), ex);
+            throw new RuntimeException(ex);
         }
     }
 
@@ -54,29 +56,24 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateUser(User user) {
-        try {
-            DbUser dbUser = userRepository.findById(user.getId())
-                    .orElseThrow(() -> new UsernameNotFoundException(Long.toString(user.getId())));
-            if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-                userRepository.update(userMapper.toDbUser(user));
-            } else {
-                encodeUserPassword(user);
-                userRepository.update(userMapper.toDbUser(user)
-                );
-            }
-        } catch (Exception ex) {
-            throw new UsernameNotFoundException(String.join("User not found by id"), ex);
+    public User updateUser(User user) {
+        Objects.requireNonNull(user);
+        DbUser dbUser = userRepository
+                .findById(user.getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found by id: " + user.getId()));
+        tryEncodeUserPassword(user, dbUser);
+        DbUser updatedUser = userRepository.update(userMapper.toDbUser(user));
+        return userMapper.toUser(updatedUser, authorityService.modulesAuthorities());
+    }
+
+    public Long deleteUser(Long userId) {
+        Objects.requireNonNull(userId);
+        return userRepository.delete(userId);
+    }
+
+    private void tryEncodeUserPassword(User user, DbUser dbUser) {
+        if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-    }
-
-    public void deleteUser(long userId) {
-        userRepository.delete(userId);
-    }
-
-    private void encodeUserPassword(User user) {
-        user.setPassword(
-                passwordEncoder.encode(user.getPassword())
-        );
     }
 }

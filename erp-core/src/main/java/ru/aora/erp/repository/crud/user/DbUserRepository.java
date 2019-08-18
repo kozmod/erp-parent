@@ -10,7 +10,6 @@ import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.repository.crud.CrudRepository;
-import ru.aora.erp.repository.crud.user.DbUserExtractor;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public class DbUserRepository implements CrudRepository<DbUser> {
+public class DbUserRepository implements CrudRepository<DbUser,Long> {
 
     private static final String SELECT_ALL_USERS =
             "SELECT U.*, J.id_Module, M.name as name_Module, J.id_Rule, R.name as name_Rule FROM dbo.[Users] U (nolock) " +
@@ -91,7 +90,7 @@ public class DbUserRepository implements CrudRepository<DbUser> {
     }
 
     @Override
-    public long create(DbUser user) {
+    public DbUser create(DbUser user) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
         final int affectedRow = jdbcTemplate.update(
                 connection -> {
@@ -131,11 +130,11 @@ public class DbUserRepository implements CrudRepository<DbUser> {
                 }
             }
         }
-        return newDbUserId;
+        return user.setId(newDbUserId);
     }
 
     @Override
-    public void update(DbUser user) {
+    public DbUser update(DbUser user) {
         jdbcTemplate.update(
                 UPDATE_USER,
                 user.getPassword(),
@@ -151,11 +150,13 @@ public class DbUserRepository implements CrudRepository<DbUser> {
                 user.isEnabled(),
                 user.getId()
         );
+        return user;
     }
 
     @Override
-    public void delete(long userId) {
+    public Long delete(Long userId) {
         jdbcTemplate.update(DELETE_USER_MODULE_LINK, userId);
         jdbcTemplate.update(DELETE_USER_BY_ID, userId);
+        return userId;
     }
 }

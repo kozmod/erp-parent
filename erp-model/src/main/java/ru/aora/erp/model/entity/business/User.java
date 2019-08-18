@@ -7,7 +7,7 @@ import java.util.StringJoiner;
 
 public class User implements UserDetails {
 
-    private long id;
+    private Long id;
     private Collection<IdAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -23,11 +23,11 @@ public class User implements UserDetails {
     private String employeePosition;
     private boolean del;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public User setId(long id) {
+    public User setId(Long id) {
         this.id = id;
         return this;
     }

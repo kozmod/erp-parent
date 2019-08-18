@@ -25,7 +25,7 @@ import static repository.user.it.TestUtils.newRandomString;
 public class DbUserRepositoryTest {
 
     @Autowired
-    private CrudRepository<DbUser> userRepository;
+    private CrudRepository<DbUser,Long> userRepository;
 
     @Test
     public void shouldFindById() {
@@ -36,7 +36,7 @@ public class DbUserRepositoryTest {
     @Test
     public void shouldCreateUserWithoutAuthorities() {
         final DbUser user = newDbUserWithOutAuthorities(newRandomString(7));
-        final long newUserId = userRepository.create(user);
+        final DbUser newUserId = userRepository.create(user);
         assertNotEquals(newUserId, 0L);
         //delete
 //        userRepository.delete(newUserId);

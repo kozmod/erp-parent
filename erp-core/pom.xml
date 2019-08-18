@@ -19,6 +19,11 @@
         </dependency>
         <dependency>
             <groupId>ru.aora.erp</groupId>
+            <artifactId>erp-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.aora.erp</groupId>
             <artifactId>test</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

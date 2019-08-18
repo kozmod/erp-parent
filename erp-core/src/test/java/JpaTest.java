@@ -99,7 +99,7 @@ public class JpaTest {
                 .setAuthorities(
                         Set.of(
                                 new DbModule()
-                                        .setId(1)
+                                        .setId(1L)
                                         .setName("CoreModuleAuthority")
                                         .setModuleRoles(
                                                 Set.of(

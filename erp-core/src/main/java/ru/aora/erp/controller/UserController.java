@@ -15,8 +15,11 @@ import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.entity.dto.UsersDto;
 import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
+import ru.aora.erp.utils.common.CommonUtils;
+import ru.aora.erp.utils.result.OperationResult;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,30 +44,36 @@ public final class UserController {
 
     @GetMapping
     public String userForm(Map<String, Object> model) {
-        final UsersDto usersDto = UsersDto.of(userService.loadAll());
-        final Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
-                usersDto.getUsers(),
-                authorityModulesIdentifiersService.modulesAuthorities()
-        );
-        LOGGER.info("Get UserIds and Authorities: " + userModuleAuthorityDtoList.toString());
-        LOGGER.info("All Authorities: " + authorityModulesIdentifiersService.modulesAuthorities());
-        model.put(USERS_DTO_MODEL, usersDto);
-        model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
+        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(() -> userService.loadAll()).get();
+        operationResult.getResult().ifPresent(result -> {
+            UsersDto usersDto = UsersDto.of(result);
+            Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
+                    usersDto.getUsers(),
+                    authorityModulesIdentifiersService.modulesAuthorities()
+            );
+            LOGGER.info("Get UserIds and Authorities: " + userModuleAuthorityDtoList.toString());
+            LOGGER.info("All Authorities: " + authorityModulesIdentifiersService.modulesAuthorities());
+            model.put(USERS_DTO_MODEL, usersDto);
+            model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
+        });
+        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
+
         return USERS_MAPPING;
     }
 
     @PutMapping
     public @ResponseBody
     String putUser(@RequestBody User user) {
-        System.out.println("edited user " + user.getId());
-        userService.updateUser(user);
+        OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
+        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
         return "update";
     }
 
     @DeleteMapping("/{id}")
     public @ResponseBody
     String deleteUser(@PathVariable long id) {
-        userService.deleteUser(id);
+        OperationResult<Long, Exception> operationResult = OperationResult.get(() -> userService.deleteUser(id));
+        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
         return "delete";
     }
 }

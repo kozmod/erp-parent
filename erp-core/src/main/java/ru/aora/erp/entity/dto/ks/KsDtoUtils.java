@@ -2,7 +2,7 @@ package ru.aora.erp.entity.dto.ks;
 
 import org.apache.commons.collections.CollectionUtils;
 import ru.aora.erp.model.entity.business.Ks;
-import ru.aora.erp.utils.CommonUtils;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

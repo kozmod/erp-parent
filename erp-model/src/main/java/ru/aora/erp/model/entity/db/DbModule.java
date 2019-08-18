@@ -17,18 +17,18 @@ public class DbModule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
     @Column(name = "name")
     private String name;
 
     @Transient
     private Set<DbModuleRule> moduleRoles;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public DbModule setId(long id) {
+    public DbModule setId(Long id) {
         this.id = id;
         return this;
     }

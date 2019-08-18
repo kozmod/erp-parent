@@ -3,15 +3,15 @@ package ru.aora.erp.repository.crud;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface CrudRepository<T> {
+public interface CrudRepository<E,ID> {
 
-    Collection<T> findAll();
+    Collection<E> findAll();
 
-    Optional<T> findById(long id);
+    Optional<E> findById(long id);
 
-    long create(T entity);
+    E create(E entity);
 
-    void update(T entity);
+    E update(E entity);
 
-    void delete(long id);
+    ID delete(ID id);
 }

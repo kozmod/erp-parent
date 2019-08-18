@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static ru.aora.erp.component.CoreModuleIdentifier.DASHBOARD_MAPPING;
 import static ru.aora.erp.component.CoreModuleIdentifier.ROOT_MAPPING;
-import static ru.aora.erp.model.controller.HttpUtils.redirectTo;
+import static ru.aora.erp.utils.mvc.MvcUtils.redirectTo;
 
 @Controller
 public final class DashboardController {

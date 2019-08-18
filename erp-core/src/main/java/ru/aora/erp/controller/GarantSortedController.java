@@ -27,10 +27,9 @@ public final class GarantSortedController {
     private ContractService contractService;
     private CounteragentService counteragentService;
 
-    public GarantSortedController(
-            KsService ksService,
-            ContractService contractService,
-            CounteragentService counteragentService
+    public GarantSortedController(KsService ksService,
+                                  ContractService contractService,
+                                  CounteragentService counteragentService
     ) {
         this.ksService = ksService;
         this.contractService = contractService;

@@ -182,7 +182,7 @@
                                                     <ul class="popover_menu">
                                                         <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="${counteragent.counteragentName}"></div></strong></a></li>
                                                         <li><a href="#" class="toggle_cb" th:data-toggle="'counteragent_edit_'+${counteragent.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                                        <li><a href="javascript:;" th:onclick="deleteElement('/counteragent/',[[${counteragent.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                        <li><a href="javascript:;" th:onclick="deleteCounteragent('/counteragent/',[[${counteragent.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

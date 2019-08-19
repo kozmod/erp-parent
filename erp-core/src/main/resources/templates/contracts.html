@@ -102,7 +102,7 @@
                                 <input type="text" class="inp" th:id ="'contract_subject'" name="contract_subject" th:value="''"/>
                             </label>
                             <div class="clear_after">
-                                <button th:onclick="saveContractRequest([[${id_parent}]])" name="addcontract" value="addcontract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addcontract'" >Сохранить</button>
+                                <button th:onclick="saveContractRequest([[${id_parent}]],[[${counteragent_name}]])" name="addcontract" value="addcontract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addcontract'" >Сохранить</button>
                                 <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'addcontract'">Закрыть</a>
                             </div>
 
@@ -132,7 +132,7 @@
                                                 <div class="title">
                                                     <label class="radiocheck">
                                                         <input type="checkbox" class="www" />
-                                                        <strong th:text="'Договор № '+${contract.contractNumber}" href="#" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_parent}]],[[${contract.id}]],[[${contract.contractNumber}]],[[${counteragent_name}]])"></strong>
+                                                        <strong th:text="'Договор № '+${contract.contractNumber}" href="#" th:onclick="getFragmentParamAndChangeDiv('#content','/ks',[[${id_parent}]],[[${contract.id}]],[[${contract.contractNumber}]],[[${counteragent_name}]])"></strong>
                                                     </label>
                                                     <div class="more docs animate_150">
                                                         <a href="javascript:;"th:text="'Дата договора:'+ ${contract.contractDate}"></a>
@@ -150,7 +150,7 @@
                                                             <ul class="popover_menu">
                                                                 <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="${contract.contractNumber}"></div></strong></a></li>
                                                                 <li><a href="#" class="toggle_cb" th:data-toggle="'contract_edit_'+${contract.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                                                <li><a href="javascript:;" th:onclick="deleteElement('/contract/',[[${contract.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                                <li><a href="javascript:;" th:onclick="deleteContract('/contract/',[[${contract.id}]],[[${id_parent}]],[[${counteragent_name}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -198,7 +198,7 @@
                                                                         <input type="text" class="inp" th:id ="'contract_subject_'+*{id}" name="contract_subject" th:value="*{contractSubject}"/>
                                                                     </label>
                                                                     <div class="clear_after" th:id ="'contract_id_'+*{id}" th:value="*{id}">
-                                                                        <button th:onclick="updateContractRequest([[*{id}]],[[${id_parent}]])" name="update_contract" value="update_contract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'contract_edit_'+${contract.id}">Сохранить</button>
+                                                                        <button th:onclick="updateContractRequest([[*{id}]],[[${id_parent}]],[[${counteragent_name}]])" name="update_contract" value="update_contract" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'contract_edit_'+${contract.id}">Сохранить</button>
                                                                         <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/contract',[[${id_parent}]],[[${id_parent}]],[[${counteragent_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'contract_edit_'+${contract.id}">Закрыть</a>
                                                                     </div>
                                                                 </div>

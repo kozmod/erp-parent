@@ -43,9 +43,9 @@ public final class OperationResult<R, F> {
     public static <T, R> Function<T, OperationResult<R, SourceExceptionPair<T>>> liftSource(CheckedFunction<T, R> func) {
         return t -> {
             try {
-                return OperationResult.result(func.apply(t));
+                return result(func.apply(t));
             } catch (Exception e) {
-                return OperationResult.failure(SourceExceptionPair.of(t, e));
+                return failure(SourceExceptionPair.of(t, e));
             }
         };
     }
@@ -53,9 +53,9 @@ public final class OperationResult<R, F> {
     public static <T, R> Function<T, OperationResult<R, Exception>> lift(CheckedFunction<T, R> func) {
         return t -> {
             try {
-                return OperationResult.result(func.apply(t));
+                return result(func.apply(t));
             } catch (Exception ex) {
-                return OperationResult.failure(ex);
+                return failure(ex);
             }
         };
     }
@@ -67,25 +67,24 @@ public final class OperationResult<R, F> {
     public static <T> Supplier<OperationResult<T, Exception>> lift(CheckedSupplier<T> supplier) {
         return () -> {
             try {
-                return OperationResult.result(supplier.get());
+                return result(supplier.get());
             } catch (Exception ex) {
-                return OperationResult.failure(ex);
+                return failure(ex);
             }
         };
     }
 
-    public static <L, R> OperationResult<L, R> result(L left) {
-        return OperationResult.of(left, null);
+    public static <R, F> OperationResult<R, F> result(R result) {
+        return of(result, null);
     }
 
-    public static <L, R> OperationResult<L, R> failure(R right) {
-        return OperationResult.of(null, right);
+    public static <R, F> OperationResult<R, F> failure(F failure) {
+        return of(null, failure);
     }
 
-    public static <L, R> OperationResult<L, R> of(L left, R right) {
-        return new OperationResult<>(left, right);
+    private static <R, F> OperationResult<R, F> of(R result, F failure) {
+        return new OperationResult<>(result, failure);
     }
-
 
     @Override
     public String toString() {

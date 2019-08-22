@@ -63,7 +63,7 @@
                                     <a href="#" class="toggle_cb" th:onclick="getFragmentAndChangeDiv('#content','/garantsorted')">Список гарантиек к возврату</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="toggle_cb" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)">Применить</a>
+                                    <a href="#" class="toggle_cb" th:onclick="getFragmentParamAndChangeDiv('#content','/ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)">Применить</a>
                                 </li>
 
 
@@ -123,8 +123,8 @@
                                 <strong>Погашено</strong>
                             </label>
                             <div class="clear_after">
-                                <button th:onclick="saveKSRequest([[${id_parent}]])" name="addKS" value="addKS" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addKS'" >Сохранить</button>
-                                <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'addKS'">Закрыть</a>
+                                <button th:onclick="saveKSRequest([[${id_parent}]],[[${id_grand_parent}]],[[${contract_name}]],[[${counteragent_name}]])" name="addKS" value="addKS" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'addKS'" >Сохранить</button>
+                                <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'addKS'">Закрыть</a>
                             </div>
 
                         </div>
@@ -175,7 +175,7 @@
                                                             <ul class="popover_menu">
                                                                 <li><a href="javascript:;"><i class="fas fa-paw"></i> <strong> <div th:text="'Справка КС-3 № '+${ks.ksNumber}"></div></strong></a></li>
                                                                 <li><a href="#" class="toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                                                <li><a href="javascript:;" th:onclick="deleteElement('/Ks/',[[${ks.id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                                                <li><a href="javascript:;" th:onclick="deleteKS('/ks/',[[${ks.id}]],[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -271,8 +271,8 @@
 
 
                                                                     <div class="clear_after" th:id ="'KS_id_'+*{id}" th:value="*{id}">
-                                                                        <button th:onclick="updateKSRequest([[*{id}]],[[${id_parent}]])" name="KS_edit" value="KS_edit" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'KS_edit_'+${ks.id}">Сохранить</button>
-                                                                        <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/Ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}">Закрыть</a>
+                                                                        <button th:onclick="updateKSRequest([[*{id}]],[[${id_parent}]],[[${id_grand_parent}]],[[${contract_name}]],[[${counteragent_name}]])" name="KS_edit" value="KS_edit" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'KS_edit_'+${ks.id}">Сохранить</button>
+                                                                        <a href="javascript:;" th:onclick="getFragmentParamAndChangeDiv('#content','/ks',[[${id_grand_parent}]],[[${id_parent}]],[[${contract_name}]],[[${counteragent_name}]],0)" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'KS_edit_'+${ks.id}">Закрыть</a>
                                                                     </div>
                                                                 </div>
                                                             </div>

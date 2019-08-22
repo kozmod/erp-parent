@@ -114,17 +114,20 @@ function saveCounteragentRequest() {
         contentType: 'application/json',
         data: JSON.stringify(JSONObject),
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function (JSONObject) {
+            console.log("SUCCESS: ", JSONObject);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentAndChangeDiv('#content','/counteragent');
         },
+
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
         }
     });
 }
 
-function saveContractRequest(counteragent_id) {
+function saveContractRequest(counteragent_id, counteragent_name) {
     var JSONObject = {
         counteragentId:
         counteragent_id,
@@ -144,9 +147,11 @@ function saveContractRequest(counteragent_id) {
         contentType: 'application/json',
         data: JSON.stringify(JSONObject),
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function (JSONObject) {
+            console.log("SUCCESS: ", JSONObject);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentParamAndChangeDiv('#content','/contract',counteragent_id,counteragent_id,counteragent_name,counteragent_name,0)
             //$("#content").html(data);
             //$("#content").replaceWith('/contract');
             //$("#content").load('/counteragent');
@@ -158,7 +163,7 @@ function saveContractRequest(counteragent_id) {
     });
 }
 
-function saveKSRequest(contract_id) {
+function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent_name) {
     var JSONObject = {
         contractId:
         contract_id,
@@ -177,13 +182,15 @@ function saveKSRequest(contract_id) {
     };
     $.ajax({
         type: 'POST',
-        url: '/Ks',
+        url: '/ks',
         contentType: 'application/json',
         data: JSON.stringify(JSONObject),
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function (JSONObject) {
+            console.log("SUCCESS: ", JSONObject);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0)
             //$("#content").html(data);
             //$("#content").replaceWith('/contract');
             //$("#content").load('/counteragent');
@@ -195,7 +202,7 @@ function saveKSRequest(contract_id) {
     });
 }
 
-function updateKSRequest(KSId, contractId) {
+function updateKSRequest(KSId, contractId, counteragent_id, contract_name, counteragent_name) {
     var JSONKS = {
         id:
         KSId,
@@ -217,13 +224,15 @@ function updateKSRequest(KSId, contractId) {
 
     $.ajax({
         type: 'PUT',
-        url: '/Ks',
+        url: '/ks',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(JSONKS),
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function (JSONKS) {
+            console.log("SUCCESS: ", JSONKS);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0)
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
@@ -231,7 +240,7 @@ function updateKSRequest(KSId, contractId) {
     });
 }
 
-function updateContractRequest(contractId, counteragentId) {
+function updateContractRequest(contractId, counteragentId, counteragentName) {
     var JSONContract = {
         id:
         contractId,
@@ -254,9 +263,11 @@ function updateContractRequest(contractId, counteragentId) {
         //accessControlAllowOrigin:"http://localhost:8080",
         data: JSON.stringify(JSONContract),
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function (JSONContract) {
+            console.log("SUCCESS: ", JSONContract);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentParamAndChangeDiv('#content','/contract',counteragentId,counteragentId,counteragentName,counteragentName,0)
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
@@ -294,6 +305,14 @@ function updateCounteragentRequest(counteragentId) {
         async: true,
         success: function (JSONCounteragent) {
             console.log("SUCCESS: ", JSONCounteragent);
+            //$(url).appendTo('#content');
+
+            getFragmentAndChangeDiv('#content','/counteragent');
+            //$('#content').load('/counteragent');
+            //$('#content').addClass('popover_menu');
+            //$('#content').addClass('module_menu');
+
+            //location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
@@ -411,18 +430,50 @@ function deleteUser(userId) {
     });
 }
 
-function deleteElement(url,Id) {
+function deleteKS(url,Id,counteragent_id,contract_id,contract_name,counteragent_name) {
     $.ajax({
         type: 'DELETE',
         url: url.concat(Id),
         dataType: 'json',
         async: true,
-        success: function (result) {
-            alert('At ' + result.time
-                + ': ' + result.message);
+        success: function () {
+            getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.status + ' ' + jqXHR.responseText);
+            //alert(jqXHR.status + ' МАМОЧКИ ' + jqXHR.responseText);
+            getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0);
+        }
+    });
+}
+
+function deleteContract(url,Id,counteragent_id,counteragent_name) {
+    $.ajax({
+        type: 'DELETE',
+        url: url.concat(Id),
+        dataType: 'json',
+        async: true,
+        success: function () {
+            getFragmentParamAndChangeDiv('#content','/contract',counteragent_id,counteragent_id,counteragent_name,counteragent_name,0);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            //alert(jqXHR.status + ' ' + jqXHR.responseText);
+            getFragmentParamAndChangeDiv('#content','/contract',counteragent_id,counteragent_id,counteragent_name,counteragent_name,0);
+        }
+    });
+}
+
+function deleteCounteragent(url,Id) {
+    $.ajax({
+        type: 'DELETE',
+        url: url.concat(Id),
+        dataType: 'json',
+        async: true,
+        success: function () {
+            getFragmentAndChangeDiv('#content','/counteragent');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            //alert(jqXHR.status + ' ' + jqXHR.responseText);
+            getFragmentAndChangeDiv('#content','/counteragent');
         }
     });
 }

@@ -18,8 +18,8 @@ import ru.aora.erp.service.KsService;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/Ks")
-public final class KsController {
+@RequestMapping("/ks")
+public class KsController {
 
     private static final String CONTROLLER_MAPPING = "kss";
     private static final String DTO_MODEL = "ksDto";

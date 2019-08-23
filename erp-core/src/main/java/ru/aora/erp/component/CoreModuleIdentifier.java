@@ -1,6 +1,5 @@
 package ru.aora.erp.component;
 
-import org.springframework.stereotype.Component;
 import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 
@@ -11,7 +10,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Component
 public final class CoreModuleIdentifier implements ModuleIdentifier {
 
     public static final String DASHBOARD_MAPPING = "/dashboard";

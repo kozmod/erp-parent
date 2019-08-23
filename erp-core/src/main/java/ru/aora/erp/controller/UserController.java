@@ -51,12 +51,10 @@ public final class UserController {
                     usersDto.getUsers(),
                     authorityModulesIdentifiersService.modulesAuthorities()
             );
-            LOGGER.info("Get UserIds and Authorities: " + userModuleAuthorityDtoList.toString());
-            LOGGER.info("All Authorities: " + authorityModulesIdentifiersService.modulesAuthorities());
             model.put(USERS_DTO_MODEL, usersDto);
             model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
         });
-        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
+        operationResult.getFailure().ifPresent(ex -> LOGGER.debug(CommonUtils.getStackTrace(ex)));
 
         return USERS_MAPPING;
     }
@@ -65,7 +63,7 @@ public final class UserController {
     public @ResponseBody
     String putUser(@RequestBody User user) {
         OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
-        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
+        operationResult.getFailure().ifPresent(ex -> LOGGER.debug(CommonUtils.getStackTrace(ex)));
         return "update";
     }
 
@@ -73,7 +71,7 @@ public final class UserController {
     public @ResponseBody
     String deleteUser(@PathVariable long id) {
         OperationResult<Long, Exception> operationResult = OperationResult.get(() -> userService.deleteUser(id));
-        operationResult.getFailure().ifPresent(ex -> LOGGER.info(CommonUtils.getStackTrace(ex)));
+        operationResult.getFailure().ifPresent(ex -> LOGGER.debug(CommonUtils.getStackTrace(ex)));
         return "delete";
     }
 }

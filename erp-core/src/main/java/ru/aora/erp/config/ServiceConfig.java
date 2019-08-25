@@ -1,6 +1,7 @@
 package ru.aora.erp.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,8 +10,9 @@ import ru.aora.erp.component.CoreModuleIdentifier;
 import ru.aora.erp.component.ServiceLoggingAspect;
 
 @Configuration
+@ComponentScan("ru.aora.erp.service")
 @EnableAspectJAutoProxy
-public class CoreConfig {
+public class ServiceConfig {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
@@ -27,7 +29,7 @@ public class CoreConfig {
         return new ServiceLoggingAspect();
     }
 
-//    @Bean
+//    @Bean //todo: используем или нет???
 //    public CommonsRequestLoggingFilter logFilter() {
 //        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
 //        filter.setIncludeQueryString(true);

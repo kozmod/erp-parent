@@ -23,29 +23,37 @@ public class KsController {
 
     private static final String CONTROLLER_MAPPING = "kss";
     private static final String DTO_MODEL = "ksDto";
+
+    private static final String ID_PAREN = "id_parent";
+    private static final String ID_GRAND_PARENT = "id_grand_parent";
+    private static final String PARENT_NAME = "parent_name";
+    private static final String GRAND_PARENT_NAME = "grand_parent_name";
+    private static final String CONTRACT_NAME = "contract_name";
+    private static final String COUNTERAGENT_NAME = "counteragent_name";
+
     private KsService ksService;
 
     public KsController(KsService ksService) {
         this.ksService = ksService;
     }
 
+    @SuppressWarnings("Duplicates")
     @GetMapping
     public String ksForm(
-            @RequestParam("id_parent") String id_parent,
-            @RequestParam("id_grand_parent") String id_grand_parent,
-            @RequestParam("parent_name") String contract_name,
-            @RequestParam("grand_parent_name") String counteragent_name,
+            @RequestParam(ID_PAREN) String id_parent,
+            @RequestParam(ID_GRAND_PARENT) String id_grand_parent,
+            @RequestParam(PARENT_NAME) String contract_name,
+            @RequestParam(GRAND_PARENT_NAME) String counteragent_name,
             Map<String, Object> model
     ) {
         final KsListDto ksDto = KsListDto.of(
                 KsDtoUtils.toKsDtoList(ksService.loadAll())
         );
         model.put(DTO_MODEL, ksDto);
-        model.put("id_parent", id_parent);
-        model.put("id_grand_parent", id_grand_parent);
-        model.put("contract_name", contract_name);
-        model.put("counteragent_name", counteragent_name);
-        System.out.println(id_parent);
+        model.put(ID_PAREN, id_parent);
+        model.put(ID_GRAND_PARENT, id_grand_parent);
+        model.put(CONTRACT_NAME, contract_name);
+        model.put(COUNTERAGENT_NAME, counteragent_name);
         return CONTROLLER_MAPPING;
     }
 
@@ -62,7 +70,6 @@ public class KsController {
     String postKs(@RequestBody Ks ks) {
         if (ks != null) {
             ksService.create(ks); //todo поменять на дто
-            System.out.println("starting " + ks);
         }
         return "create";
     }

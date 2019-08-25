@@ -22,7 +22,6 @@ public final class CounteragentController {
 
     private static final String GARANT_MAPPING = "counteragents";
     private static final String CONTRACTOR_DTO_MODEL = "counteragentDto";
-    private static final String MODULE_AUTHORITY_DTO_LIST_MODEL = "moduleAuthorityDtoList";
 
     private CounteragentService counteragentService;
 

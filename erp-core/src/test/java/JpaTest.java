@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aora.erp.component.CoreModuleAuthority;
-import ru.aora.erp.config.UserDataBaseConfig;
+import ru.aora.erp.config.RepositoryConfig;
 import ru.aora.erp.model.entity.db.DbModule;
 import ru.aora.erp.model.entity.db.DbModuleRule;
 import ru.aora.erp.model.entity.db.DbUser;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        UserDataBaseConfig.class})
+        RepositoryConfig.class})
 //@TransactionConfiguration
 public class JpaTest {
 

@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.aora.erp.config.UserDataBaseConfig;
+import ru.aora.erp.config.RepositoryConfig;
 import ru.aora.erp.model.entity.db.DbUser;
 import ru.aora.erp.repository.crud.CrudRepository;
 
@@ -21,7 +21,7 @@ import static repository.user.it.TestUtils.newRandomString;
 
 //@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {UserDataBaseConfig.class})
+@ContextConfiguration(classes = {RepositoryConfig.class})
 public class DbUserRepositoryTest {
 
     @Autowired

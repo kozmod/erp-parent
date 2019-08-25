@@ -30,7 +30,7 @@ import java.util.Objects;
 )
 @ComponentScan("ru.aora.erp.repository")
 @EnableTransactionManagement
-public class UserDataBaseConfig {
+public class RepositoryConfig {
 
     private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.db"};
     private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
@@ -43,7 +43,7 @@ public class UserDataBaseConfig {
     private final Environment env;
 
     @Autowired
-    public UserDataBaseConfig(Environment env) {
+    public RepositoryConfig(Environment env) {
         this.env = env;
     }
 

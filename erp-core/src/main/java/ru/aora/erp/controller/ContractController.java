@@ -23,6 +23,10 @@ public final class ContractController {
 
     private static final String CONTROLLER_MAPPING = "contracts";
     private static final String DTO_MODEL = "contractDto";
+
+    private static final String ID_PARENT = "id_parent";
+    private static final String PARENT_NAME = "parent_name";
+    private static final String COUNTERAGENT_NAME = "counteragent_name";
     private ContractService contractService;
 
     @Autowired
@@ -32,28 +36,25 @@ public final class ContractController {
 
     @GetMapping
     public String contractForm(
-            @RequestParam("id_parent") String id_parent,
-            @RequestParam("parent_name") String counteragent_name,
+            @RequestParam(ID_PARENT) String id_parent,
+            @RequestParam(PARENT_NAME) String counteragent_name,
             Map<String, Object> model
     ) {
         final ContractDto contractDto = ContractDto.of(contractService.loadAll());
         model.put(DTO_MODEL, contractDto);
-        model.put("id_parent", id_parent);
-        model.put("counteragent_name", counteragent_name);
-        System.out.println(id_parent);
+        model.put(ID_PARENT, id_parent);
+        model.put(COUNTERAGENT_NAME, counteragent_name);
         return CONTROLLER_MAPPING;
     }
 
     @PutMapping
-    public @ResponseBody
-    String putContract(@RequestBody Contract contract) {
+    public @ResponseBody String putContract(@RequestBody Contract contract) {
         contractService.update(contract);
         return "update";
     }
 
     @PostMapping
-    public @ResponseBody
-    String postContract(@RequestBody Contract contract) {
+    public @ResponseBody String postContract(@RequestBody Contract contract) {
         if (contract != null) {
             contractService.create(contract);
         }
@@ -61,8 +62,7 @@ public final class ContractController {
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    String deleteContract(@PathVariable String id) {
+    public @ResponseBody String deleteContract(@PathVariable String id) {
         contractService.delete(id);
         return "delete";
     }

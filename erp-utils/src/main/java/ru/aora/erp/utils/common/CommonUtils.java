@@ -13,7 +13,7 @@ public final class CommonUtils {
                 : null;
     }
 
-    public static String requiedNotBlank(String value) {
+    public static String requiredNotBlank(String value) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException("Value is blank: " + value);
         }

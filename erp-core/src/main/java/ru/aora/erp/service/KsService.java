@@ -43,7 +43,7 @@ public class KsService {
     }
 
     public String delete(String KsId) {
-        CommonUtils.requiedNotBlank(KsId);
+        CommonUtils.requiredNotBlank(KsId);
         KsRepository.deleteById(KsId);
         return KsId;
     }

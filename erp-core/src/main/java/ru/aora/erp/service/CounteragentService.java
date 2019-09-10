@@ -41,7 +41,7 @@ public class CounteragentService {
     }
 
     public String delete(String counteragentId) {
-        CommonUtils.requiedNotBlank(counteragentId);
+        CommonUtils.requiredNotBlank(counteragentId);
         counteragentRepository.deleteById(counteragentId);
         return counteragentId;
     }

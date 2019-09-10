@@ -26,6 +26,32 @@ function getFragmentAndChangeDiv(divId, reference) {
         }
     });
 }
+
+function RefreshFragmentChangeDiv() {
+    $.ajax({
+        headers: {
+            Accept: "text/plain; charset=utf-8", "Content-Type": "text/plain; charset=utf-8"
+        },
+        //url: reference,
+        method: "GET",
+        data: {},
+        success: function (data, textStatus, response) {
+            var text = response.responseText;
+            if (text === "") {
+                return;
+            }
+            // console.log(text);
+            window.location.reload(true);
+            //$(divId).load(window.location +"/dashboard#")
+            //$(divId).load(text)
+            loadOptions();
+        },
+        error: function (response) {
+            alert(response);
+            // terminate the script
+        }
+    });
+}
 /**
  * Sent "Get" request to  @param reference and  change div by id/ use @param divId and to use @param field as id
  * @param divId

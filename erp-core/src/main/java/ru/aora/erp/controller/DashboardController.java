@@ -10,6 +10,7 @@ import java.util.Map;
 import static ru.aora.erp.controller.SecurityController.ROOT_MAPPING;
 import static ru.aora.erp.utils.mvc.MvcUtils.redirectTo;
 
+
 @Controller
 public final class DashboardController {
 
@@ -38,5 +39,4 @@ public final class DashboardController {
     public String redirectToRoot() {
         return redirectTo(DASHBOARD_TEMPLATE);
     }
-
 }

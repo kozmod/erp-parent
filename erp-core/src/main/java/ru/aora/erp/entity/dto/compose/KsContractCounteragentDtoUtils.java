@@ -6,7 +6,9 @@ import ru.aora.erp.model.entity.business.Counteragent;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.utils.common.CommonUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -26,10 +28,11 @@ public final class KsContractCounteragentDtoUtils {
     public static List<KsContractCounteragentDto> toKsContractCounteragentDtoList(List<Ks> ksList, List<Contract> contracts, List<Counteragent> counteragents) {
         final Map<String, Contract> contractById = hashMapByBusinessKey(contracts, Contract::getId);
         final Map<String, Counteragent> counteragentById = hashMapByBusinessKey(counteragents, Counteragent::getId);
+        BigDecimal addBigDecimals = new BigDecimal(0);
         final List<KsContractCounteragentDto> resultList = new ArrayList<>(ksList.size());
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
-                if (ks != null) {
+                if (ks != null && !ks.getPaymentStatus()) {
                     final KsContractCounteragentDto dto = updateDaysToGarantDate(
                             asKsContractCounteragentDto(ks)
                     );
@@ -44,7 +47,6 @@ public final class KsContractCounteragentDtoUtils {
                     }
                     resultList.add(dto);
                 }
-
             }
         }
         return resultList;

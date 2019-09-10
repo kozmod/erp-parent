@@ -79,11 +79,11 @@
                                                 <label class="radiocheck">
                                                     <input type="checkbox" class="www" />
 
-                                                    <strong th:text="'Дата возврата '+${ks.garantDate}"></strong>
+                                                    <strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong>
                                                 </label>
 
                                                 <div class="more docs animate_150">
-                                                    <a href="javascript:;" th:text="'КС № '+${ks.ksNumber}"></a>
+                                                    <a href="javascript:;"  th:text="'Дата возврата '+${ks.garantDate}"></a>
                                                     <a href="javascript:;" class="toggle_cb" th:data-toggle="'details_'+${ks.ksId}">Показать детали</a>
                                                 </div>
 
@@ -107,13 +107,14 @@
 
                                                 <div th:class="'details details_'+${ks.ksId}+' edit hide_me'">
 
-                                                    <span><strong th:text="'Сумма гарантийного платежа составляет '+${ks.garantSum}+' руб.'"></strong></span>
+                                                    <span><strong th:text="'Контрагент: '+${ks.conteragentName}"></strong></span>
 
                                                     <span><strong th:text="'Номер контракта '+${ks.contractNumber}"></strong></span>
 
-                                                    <span><strong th:text="'Контрагент: '+${ks.conteragentName}"></strong></span>
+                                                    <span><strong th:text="'КС № '+${ks.ksNumber}"></strong></span>
 
                                                     <span><strong th:text="'Дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
+
                                                     <label class="radiocheck">
 
                                                         <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'true'" th:value="'true'" th:onclick="updateKSRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>

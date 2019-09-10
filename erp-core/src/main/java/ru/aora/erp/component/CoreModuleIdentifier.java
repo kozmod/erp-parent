@@ -12,15 +12,7 @@ import java.util.Set;
 
 public final class CoreModuleIdentifier implements ModuleIdentifier {
 
-    public static final String DASHBOARD_MAPPING = "/dashboard";
-
-    public static final String INCLUDE_ROOT_MAPPING = "/**";
-    public static final String LOGOUT_MAPPING = "/logout";
-    public static final String LOGIN_MAPPING = "/login";
-    public static final String ROOT_MAPPING = "/";
-
     private Map<String, IdAuthority> mappingAuthorities;
-
 
     public CoreModuleIdentifier() {
         this.mappingAuthorities = new HashMap<>();

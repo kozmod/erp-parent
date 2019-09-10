@@ -5,13 +5,13 @@ import ru.aora.erp.model.entity.business.IdAuthority;
 import java.util.List;
 
 public class AuthorityTest {
+
     @Test
     public void shouldEquals() {
         List<IdAuthority> firstAuthorities = List.of(TestAuthority.DELETE);
         List<IdAuthority> secondAuthorities = List.of(TestAuthority.DELETE);
 
         Assert.assertTrue(firstAuthorities.contains(secondAuthorities.get(0)));
-
     }
 
     private enum  TestAuthority implements IdAuthority {

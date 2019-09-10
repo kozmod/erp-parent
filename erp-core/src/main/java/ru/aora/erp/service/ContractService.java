@@ -43,7 +43,7 @@ public class ContractService {
     }
 
     public String delete(String contractId) {
-        CommonUtils.requiedNotBlank(contractId);
+        CommonUtils.requiredNotBlank(contractId);
         contractRepository.deleteById(requireNonNull(contractId));
         return contractId;
     }

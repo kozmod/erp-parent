@@ -12,6 +12,7 @@ import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.repository.crud.user.DbUserRepository;
 import ru.aora.erp.utils.common.CommonUtils;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -37,14 +38,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        CommonUtils.requiedNotBlank(name);
+        CommonUtils.requiredNotBlank(name);
         try {
             return userRepository.findByName(name)
-                    .map(Objects::requireNonNull)
                     .map(dbUser -> userMapper.toUser(dbUser, authorityService.modulesAuthorities()))
                     .orElseThrow(() -> new UsernameNotFoundException("User not found by name: " + name));
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException ex) {
+            throw new UsernameNotFoundException("User not found. SQLException occurred. ", ex);
         }
     }
 

@@ -1,4 +1,4 @@
-package repository.user.it;
+package ru.aora.erp.service;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static repository.user.it.TestUtils.newRandomString;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepositoryConfig.class})
-public class DbUserRepositoryTest {
+public class DbUserServiceTest {
 
     @Autowired
     private CrudRepository<DbUser,Long> userRepository;

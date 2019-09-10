@@ -35,8 +35,9 @@ public final class UserController {
     private UserService userService;
     private AuthorityModulesIdentifiersService authorityModulesIdentifiersService;
 
-    public UserController(UserService userService,
-                          AuthorityModulesIdentifiersService authorityModulesIdentifiersService
+    public UserController(
+            UserService userService,
+            AuthorityModulesIdentifiersService authorityModulesIdentifiersService
     ) {
         this.userService = userService;
         this.authorityModulesIdentifiersService = authorityModulesIdentifiersService;

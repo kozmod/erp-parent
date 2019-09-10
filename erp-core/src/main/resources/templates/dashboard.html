@@ -1,70 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragment/header :: header"/>
-<body>
+<body th:onload="getFragmentAndChangeDiv('#content','/garantresult')">
 <div th:replace="fragment/header :: preloader"/>
 <!-- Container start -->
 <div id="container" class="animate_300">
     <!-- Container start -->
     <div th:replace="fragment/topbar :: topbar"/>
     <div id="content" class="animate_300">
-        <div id="wrapper" class="wrapper" th:fragment="dashboard" th:object="${ksSortDto}">
-            <div id="module">
-
-            <div class="module_content module_guarantee">
-                <div class="container">
-                    <div class="row">
-        <div  th:each="ks, iterstat : *{ksContractConteragents}">
-            <!-- If operator start-->
-            <div th:switch="${ks.ksStatus}">
-                <div th:case="false">
-                    <div th:switch="${iterstat.index}">
-                        <div th:case="0">
-                            <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                                <div class="item clr_b2">
-                                    <div class="title">
-                                        <label class="radiocheck" href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')">
-                                            <a ></a>
-
-                                            <strong th:text="'ВОЗВРАТЫ ГАРАНТИЙНЫХ ПЛАТЕЖЕЙ'">
-                                            </strong>
-                                        </label>
-
-                                        <div th:class="'details details_ edit'">
-                                            <span href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" th:text="'Дней до ближайшего возврата платежа '+${ks.daysToGarantDate}"></span>
-                                            <span href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" th:text="'Общая сумма к возврату '+${ks.totalSum}+' руб.'"></span>
-
-                                        </div>
-
-
-
-
-                                    </div>
-
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div th:case="true">
-                    </div>
-                </div>
-            </div>
-        </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-            <!-- TEST USE ONLY -->
-
-        </div>
-        </div>
-
         <div class="shadow top animate_150"></div>
         <div class="shadow bot animate_150"></div>
     </div>

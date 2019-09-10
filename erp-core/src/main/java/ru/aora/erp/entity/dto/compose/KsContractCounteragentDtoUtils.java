@@ -8,6 +8,7 @@ import ru.aora.erp.utils.common.CommonUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -31,33 +32,21 @@ public final class KsContractCounteragentDtoUtils {
         final List<KsContractCounteragentDto> resultList = new ArrayList<>(ksList.size());
         if (CollectionUtils.isNotEmpty(ksList)) {
             for (Ks ks : ksList) {
-                if (ks != null) {
-                    if (ks.getPaymentStatus().equals(false)) {
-                        addBigDecimals=addBigDecimals.add(ks.getGarantSum());
-                    }
-                }
-            }
-
-            for (Ks ks : ksList) {
-                if (ks != null) {
-                    if(ks.getPaymentStatus().equals(false)) {
-
-                        final KsContractCounteragentDto dto = setSumOfKs(updateDaysToGarantDate(
-                                asKsContractCounteragentDto(ks)), addBigDecimals
-                        );
-                        final Contract contract = contractById.get(ks.getContractId());
-                        if (contract != null) {
-                            dto.setContractNumber(contract.getContractNumber());
-                            dto.setConteragentId(contract.getCounteragentId());
-                            final Counteragent counteragent = counteragentById.get(contract.getCounteragentId());
-                            if (counteragent != null) {
-                                dto.setConteragentName(counteragent.getCounteragentName());
-                            }
+                if (ks != null && !ks.getPaymentStatus()) {
+                    final KsContractCounteragentDto dto = updateDaysToGarantDate(
+                            asKsContractCounteragentDto(ks)
+                    );
+                    final Contract contract = contractById.get(ks.getContractId());
+                    if (contract != null) {
+                        dto.setContractNumber(contract.getContractNumber());
+                        dto.setConteragentId(contract.getCounteragentId());
+                        final Counteragent counteragent = counteragentById.get(contract.getCounteragentId());
+                        if (counteragent != null) {
+                            dto.setConteragentName(counteragent.getCounteragentName());
                         }
-                        resultList.add(dto);
                     }
-                    }
-
+                    resultList.add(dto);
+                }
             }
         }
         return resultList;
@@ -66,13 +55,6 @@ public final class KsContractCounteragentDtoUtils {
     static KsContractCounteragentDto updateDaysToGarantDate(KsContractCounteragentDto dto) {
         if (dto != null) {
             dto.setDaysToGarantDate(CommonUtils.daysToCurrentDate(dto.getGarantDate()));
-        }
-        return dto;
-    }
-
-    static KsContractCounteragentDto setSumOfKs(KsContractCounteragentDto dto, BigDecimal addBigDecimals) {
-        if (dto != null) {
-            dto.setTotalSum(addBigDecimals);
         }
         return dto;
     }
@@ -93,7 +75,6 @@ public final class KsContractCounteragentDtoUtils {
                 .setKsStatus(ks.getPaymentStatus())
                 .setContractId(ks.getContractId());
     }
-
 
     static <K, V> Map<K, V> hashMapByBusinessKey(List<V> list, Function<V, K> keyFunc) {
         requireNonNull(keyFunc);

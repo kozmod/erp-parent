@@ -10,7 +10,6 @@ public final class KsContractCounteragentDto {
     private LocalDate garantDate;
     private String ksNumber;
     private BigDecimal garantSum;
-    private BigDecimal totalSum;
     private Boolean ksStatus;
     private String contractId;
     private String contractNumber;
@@ -52,14 +51,6 @@ public final class KsContractCounteragentDto {
     public KsContractCounteragentDto setGarantSum(BigDecimal garantSum) {
         this.garantSum = garantSum;
         return this;
-    }
-
-    public BigDecimal getTotalSum() {
-        return totalSum;
-    }
-
-    public void setTotalSum(BigDecimal totalSum) {
-        this.totalSum = totalSum;
     }
 
     public Boolean getKsStatus() {
@@ -123,7 +114,6 @@ public final class KsContractCounteragentDto {
                 .add("garantDate='" + garantDate + "'")
                 .add("ksNumber='" + ksNumber + "'")
                 .add("garantSum=" + garantSum)
-                .add("totalSum=" + totalSum)
                 .add("ksStatus='" + ksStatus + "'")
                 .add("contractId='" + contractId + "'")
                 .add("contractNumber='" + contractNumber + "'")

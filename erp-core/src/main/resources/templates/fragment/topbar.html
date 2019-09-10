@@ -2,8 +2,8 @@
 <div id="topbar" class="animate_150 clr_b2" th:fragment="topbar">
 	<a href="javascript:;" class="toggle_sidebar button left"><i class="fas fa-bars"></i></a>
 	<!--<a href="#" class="toggle_sidebar button size_is hide_xs hide_s hide_m hide_l left"><i class="fas fa-home"></i></a>-->
-
-	<div class="logo left">LOGO</div>
+	<!--<a href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')" >-->
+		<div class="logo left"> <a href="#" th:onclick="RefreshFragmentChangeDiv()" >ГАРАНТИЙКА</a></div>
     
     <form class="search left size_is hide_xs hide_xxs">
 		<label class="fld" id="top_search">

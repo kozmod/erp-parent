@@ -21,8 +21,8 @@ function getFragmentAndChangeDiv(divId, reference) {
             loadOptions();
         },
         error: function (response) {
-            alert(response);
-            // terminate the script
+            // run_error_popup_dialog();
+            change_and_run_error_popup(response);
         }
     });
 }
@@ -222,8 +222,7 @@ function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent
             //$("#content").load('/counteragent');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-
-            runtime_error_dialog();
+            run_error_popup_dialog();
             //var responseJSON = jQuery.parseJSON(jqXHR.responseText);
             //var errors=JSON.parse(responseJSON);
             //var error_message=responseJSON.message();
@@ -375,7 +374,18 @@ function error_dialog(error_message) {
         $('#dialog_wrapper .dialog_window.dialog_error_message').toggleClass('open');
     }, 300);
 }
-function runtime_error_dialog() {
+
+function change_and_run_error_popup(error_data) {
+    var text = error_data.responseText;
+    if (text === "") {
+        return;
+    }
+    $('#error_popup_window_content').html(text)
+    loadOptions();
+    run_error_popup_dialog();
+}
+
+function run_error_popup_dialog() {
     var dialogWindow = $(this).data('dialog');
     $('#container').toggleClass('blur_3');
     $('#content').toggleClass('locked');

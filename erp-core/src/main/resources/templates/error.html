@@ -7,69 +7,40 @@
             vertical-align: top;
             border: solid 1px #888;
             padding: 10px;
+            text-align: left;
         }
 
     </style>
 </head>
-<div id="wrapper" class="animate_150 clr_b2" th:fragment="error">
-    <!--<body>
-<h1>Server error occurred</h1>
-    <table>
-        <tr>
-            <td>Date</td>
-            <td th:text="${timestamp}"/>
-        </tr>
-        <tr>
-            <td>Path</td>
-            <td th:text="${path}"/>
-        </tr>
-        <tr>
-            <td>Error</td>
-            <td th:text="${error}"/>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td th:text="${status}"/>
-        </tr>
-        <tr>
-            <td>Message</td>
-            <td th:text="${message}"/>
-        </tr>
-        <tr>
-            <td>Trace</td>
-            <td>
-                <pre th:text="${trace}"/>
-            </td>
-        </tr>
-    </table>
-    </body>-->
-    <div id="module">
-        <div class="module_content module_guarantee">
-            <div class="container">
-                <div class="row">
-                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                        <div class="item clr_b2">
-                            <div class="title">
-                                <div th:class="'details details edit'">
-                                    <span th:text="'Дата: '+${timestamp}"></span>
-                                    <span th:text="'Путь: '+${path}"></span>
-                                    <span th:text="'Ошибка: '+${error}"></span>
-                                    <span th:text="'Статус: '+${status}"></span>
-                                    <span th:text="'Сообщение: '+${message}"></span>
-                                    <!--<span th:text="'След: '+${trace}"></span>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <ul class="actions clear_after">
-        <li><a href="javascript:;" class="toggle_dialog dialog_close bttn bttn_50 bttn_simple" data-dialog="runtime_error_message">Принять</a></li>
-        <li><a href="javascript:;" class="toggle_dialog dialog_close bttn bttn_50 bttn_simple" data-dialog="runtime_error_message">Закрыть</a></li>
-    </ul>
-</div>
-
-</div>
+<body>
+<h2>Server error occurred</h2>
+<table>
+    <tr>
+        <td>Date</td>
+        <td th:text="${timestamp}"/>
+    </tr>
+    <tr>
+        <td>Path</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>Error</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td th:text="${status}"/>
+    </tr>
+    <tr>
+        <td>Message</td>
+        <td th:text="${message}"/>
+    </tr>
+    <tr>
+        <td>Trace</td>
+        <td>
+            <pre th:text="${trace}"/>
+        </td>
+    </tr>
+</table>
+</body>
 </html>

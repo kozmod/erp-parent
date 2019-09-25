@@ -54,11 +54,16 @@ public final class GarantResultController {
         final GarantResultDto garantResult = new GarantResultDto();
         for (Ks ks : requireNonNull(ksList)) {
             if (ks != null && !ks.getPaymentStatus()) {
-                garantResult.notPaidKsTotalSum = garantResult.notPaidKsTotalSum.add(ks.getGarantSum());
-                garantResult.minDaysToGarantDate = minDaysToGarantDate(
-                        garantResult.minDaysToGarantDate,
-                        ks.getGarantDate()
-                );
+                if (ks.getGarantSum() != null) {
+                    garantResult.notPaidKsTotalSum = garantResult.notPaidKsTotalSum.add(ks.getGarantSum());
+                }
+                if (ks.getGarantDate() != null) {
+                    garantResult.minDaysToGarantDate = minDaysToGarantDate(
+                            garantResult.minDaysToGarantDate,
+                            ks.getGarantDate()
+                    );
+                }
+
             }
         }
         return garantResult;

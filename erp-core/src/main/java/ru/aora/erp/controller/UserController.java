@@ -40,20 +40,21 @@ public final class UserController {
 
     @GetMapping
     public String userForm(Map<String, Object> model) {
-        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(() -> userService.loadAll()).get();
-        operationResult.getResult()
-                .ifPresent(result -> {
-                    UsersDto usersDto = UsersDto.of(result);
-                    Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
-                            usersDto.getUsers(),
-                            authorityModulesIdentifiersService.modulesAuthorities()
-                    );
-                    model.put(USERS_DTO_MODEL, usersDto);
-                    model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
-                });
-        operationResult.getFailure()
-                .ifPresent(RuntimeException::new);
-        return USERS_TEMPLATE;
+        throw new RuntimeException("Неправильные данные кидаете в базочку"); //todo: пример (срабатывает при нажатии кнопки "пользователи")
+//        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(() -> userService.loadAll()).get();
+//        operationResult.getResult()
+//                .ifPresent(result -> {
+//                    UsersDto usersDto = UsersDto.of(result);
+//                    Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
+//                            usersDto.getUsers(),
+//                            authorityModulesIdentifiersService.modulesAuthorities()
+//                    );
+//                    model.put(USERS_DTO_MODEL, usersDto);
+//                    model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
+//                });
+//        operationResult.getFailure()
+//                .ifPresent(RuntimeException::new);
+//        return USERS_TEMPLATE;
     }
 
     @PutMapping

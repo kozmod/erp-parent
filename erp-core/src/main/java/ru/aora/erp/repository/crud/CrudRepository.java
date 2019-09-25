@@ -3,7 +3,7 @@ package ru.aora.erp.repository.crud;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface CrudRepository<E,ID> {
+public interface CrudRepository<E, ID> {
 
     Collection<E> findAll();
 

@@ -48,13 +48,15 @@ public final class ContractController {
     }
 
     @PutMapping
-    public @ResponseBody String putContract(@RequestBody Contract contract) {
+    public @ResponseBody
+    String putContract(@RequestBody Contract contract) {
         contractService.update(contract);
         return "update";
     }
 
     @PostMapping
-    public @ResponseBody String postContract(@RequestBody Contract contract) {
+    public @ResponseBody
+    String postContract(@RequestBody Contract contract) {
         if (contract != null) {
             contractService.create(contract);
         }
@@ -62,7 +64,8 @@ public final class ContractController {
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody String deleteContract(@PathVariable String id) {
+    public @ResponseBody
+    String deleteContract(@PathVariable String id) {
         contractService.delete(id);
         return "delete";
     }

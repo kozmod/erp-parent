@@ -38,6 +38,6 @@ public final class ServiceLoggingAspect {
 
     @AfterThrowing(pointcut = "callAllServiceInPackage()", throwing = "ex")
     public void logAfterThrownPackageMethod(JoinPoint jp, Exception ex) {
-        LOGGER.error("After throwing exception by service method: " + jp.toString() + ",\n exception:\n"+ CommonUtils.getStackTrace(ex));
+        LOGGER.error("After throwing exception by service method: " + jp.toString() + ",\n exception:\n" + CommonUtils.getStackTrace(ex));
     }
 }

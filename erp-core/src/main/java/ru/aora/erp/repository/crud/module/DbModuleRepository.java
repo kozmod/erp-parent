@@ -25,7 +25,7 @@ import java.util.Optional;
 import static java.util.Objects.requireNonNull;
 
 @Repository
-public class DbModuleRepository implements CrudRepository<DbModule,Long> {
+public class DbModuleRepository implements CrudRepository<DbModule, Long> {
 
     private static final String SELECT_ALL = "SELECT M.id,M.name FROM dbo.[Modules] M";
     private static final String SELECT_BY_ID = SELECT_ALL + " WHERE M.id = ? ";

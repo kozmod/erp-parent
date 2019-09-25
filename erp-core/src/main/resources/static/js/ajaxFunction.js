@@ -222,7 +222,13 @@ function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent
             //$("#content").load('/counteragent');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.status + ' ' + jqXHR.responseText);
+
+            runtime_error_dialog();
+            //var responseJSON = jQuery.parseJSON(jqXHR.responseText);
+            //var errors=JSON.parse(responseJSON);
+            //var error_message=responseJSON.message();
+            //alert(jqXHR.status + ' ' + error_message);
+            //error_dialog(jqXHR.responseText);
         }
 
     });
@@ -261,7 +267,7 @@ function updateKSRequest(KSId, contractId, counteragent_id, contract_name, count
             getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0)
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.status + ' ' + jqXHR.responseText);
+
         }
     });
 }
@@ -345,6 +351,45 @@ function updateCounteragentRequest(counteragentId) {
         }
     });
 }
+
+function error_dialog(error_message) {
+    var responseJSON = jQuery.parseJSON(error_message);
+    var error=JSON.parse(responseJSON);
+    var message=error.message;
+    //var responseText=error_message.message();
+    var dialogWindow = $(this).data('dialog');
+    $('#container').toggleClass('blur_3');
+    $('#content').toggleClass('locked');
+    $('#dialog_wrapper').fadeToggle(300);
+
+
+    document.getElementById('dialog_wrapper').style='display: block';
+    document.getElementById('id_error_message').innerHTML=error_message;
+    document.getElementById('id_error_message_title').innerHTML='Сообщение об ошибках';
+
+    setTimeout(function() {
+        $('#dialog_wrapper .dialog_window.dialog_error_message').toggleClass('hide_me');
+    }, 150);
+
+    setTimeout(function() {
+        $('#dialog_wrapper .dialog_window.dialog_error_message').toggleClass('open');
+    }, 300);
+}
+function runtime_error_dialog() {
+    var dialogWindow = $(this).data('dialog');
+    $('#container').toggleClass('blur_3');
+    $('#content').toggleClass('locked');
+    $('#dialog_wrapper').fadeToggle(300);
+    document.getElementById('dialog_wrapper').style='display: block';
+
+    setTimeout(function() {
+        $('#dialog_wrapper .dialog_window.dialog_runtime_error_message').toggleClass('hide_me');
+    }, 150);
+    setTimeout(function() {
+        $('#dialog_wrapper .dialog_window.dialog_runtime_error_message').toggleClass('open');
+    }, 300);
+}
+
 
 function updateUserRequest(userId) {
     var JSONObject = {

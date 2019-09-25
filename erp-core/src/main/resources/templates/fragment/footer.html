@@ -13,7 +13,62 @@
 			</div>
 		</div>
 	</div>
-    
+
+	<div class="dialog_window dialog_error_message animate_300 hide_me">
+		<div class="container">
+			<div class="row">
+				<div class="col_xxs_10 col_xs_8 col_s_6 col_m_6 col_l_4 push_l_4 push_m_3 push_s_3 push_xs_2 push_xxs_1">
+					<div class="dialog_actions">
+						<div class="inner">
+							<div class="title" id="id_error_message_title">Сообщение об ошибке</div>
+							<div class="text" id="id_error_message">
+								Любое сообщение по вкусу
+							</div>
+							<div th:class="'details details edit'">
+								<span th:text="'Дата '+${timestamp}"></span>
+								<span th:text="'Путь '+${path}"></span>
+								<span th:text="'Ошибка '+${error}"></span>
+								<span th:text="'Статус '+${status}"></span>
+								<span th:text="'Сообщение '+${message}"></span>
+								<span th:text="'След '+${trace}"></span>
+								</div>
+
+
+							<ul class="actions clear_after">
+								<li><a href="javascript:;" class="toggle_dialog dialog_close bttn bttn_50 bttn_simple" data-dialog="error_message">Закрыть</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="dialog_window dialog_runtime_error_message animate_300 hide_me">
+		<div class="container">
+			<div class="row">
+				<div class="col_xxs_10 col_xs_8 col_s_6 col_m_6 col_l_4 push_l_4 push_m_3 push_s_3 push_xs_2 push_xxs_1">
+					<div class="dialog_actions">
+						<div class="inner">
+							<div class="title">Сообщение об ошибке</div>
+							<div class="text" th:replace="fragment/error :: error"/>
+
+
+
+
+							<ul class="actions clear_after">
+								<li><a href="javascript:;" class="toggle_dialog dialog_close bttn bttn_50 bttn_simple" data-dialog="runtime_error_message">Принять</a></li>
+								<li><a href="javascript:;" class="toggle_dialog dialog_close bttn bttn_50 bttn_simple" data-dialog="runtime_error_message">Закрыть</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="dialog_window dialog_test_simple animate_300 hide_me">
 		<div class="container">
 			<div class="row">

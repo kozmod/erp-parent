@@ -38,5 +38,6 @@ public final class GlobalControllerExceptionHandler {
         mav.addObject(TRACE, CommonUtils.getStackTrace(ex));
         mav.setViewName(ERROR_TEMPLATE);
         return mav;
+
     }
 }

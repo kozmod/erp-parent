@@ -68,6 +68,7 @@ public final class KsController {
     @PostMapping
     public @ResponseBody
     String postKs(@RequestBody Ks ks) {
+        new RuntimeException("Неправильные данные кидаете в базочку");
         if (ks != null) {
             ksService.create(ks); //todo поменять на дто
         }

@@ -46,6 +46,7 @@ public final class KsController {
             @RequestParam(GRAND_PARENT_NAME) String counteragent_name,
             Map<String, Object> model
     ) {
+
         final KsListDto ksDto = KsListDto.of(
                 KsDtoUtils.toKsDtoList(ksService.loadAll())
         );
@@ -68,7 +69,6 @@ public final class KsController {
     @PostMapping
     public @ResponseBody
     String postKs(@RequestBody Ks ks) {
-        new RuntimeException("Неправильные данные кидаете в базочку");
         if (ks != null) {
             ksService.create(ks); //todo поменять на дто
         }

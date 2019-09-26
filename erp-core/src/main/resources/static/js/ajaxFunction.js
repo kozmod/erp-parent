@@ -19,9 +19,11 @@ function getFragmentAndChangeDiv(divId, reference) {
             // console.log(text);
             $(divId).html(text)
             loadOptions();
+
         },
         error: function (response) {
-            alert(response);
+            //alert(response);
+            change_and_run_error_popup(response);
             // terminate the script
         }
     });
@@ -83,7 +85,8 @@ function getFragmentParamAndChangeDiv(divId, reference, id_grand_parent, id_pare
             loadOptions();
         },
         error: function (response) {
-            alert(response);
+            //alert(response);
+            change_and_run_error_popup(response);
             // terminate the script
         }
     });
@@ -223,7 +226,7 @@ function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
-            runtime_error_dialog();
+
             //var responseJSON = jQuery.parseJSON(jqXHR.responseText);
             //var errors=JSON.parse(responseJSON);
             //var error_message=responseJSON.message();
@@ -375,11 +378,23 @@ function error_dialog(error_message) {
         $('#dialog_wrapper .dialog_window.dialog_error_message').toggleClass('open');
     }, 300);
 }
-function runtime_error_dialog() {
+function change_and_run_error_popup(error_data) {
+    var text = error_data.responseText;
+    if (text === "") {
+        return;
+    }
+    $('#error_content').html(text)
+    loadOptions();
+    run_error_popup_dialog();
+}
+
+function run_error_popup_dialog() {
+
     var dialogWindow = $(this).data('dialog');
     $('#container').toggleClass('blur_3');
     $('#content').toggleClass('locked');
     $('#dialog_wrapper').fadeToggle(300);
+
     document.getElementById('dialog_wrapper').style='display: block';
 
     setTimeout(function() {
@@ -388,6 +403,7 @@ function runtime_error_dialog() {
     setTimeout(function() {
         $('#dialog_wrapper .dialog_window.dialog_runtime_error_message').toggleClass('open');
     }, 300);
+
 }
 
 

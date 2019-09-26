@@ -46,7 +46,8 @@ public final class KsController {
             @RequestParam(GRAND_PARENT_NAME) String counteragent_name,
             Map<String, Object> model
     ) {
-        final KsListDto ksDto = KsListDto.of(
+        throw new RuntimeException("Неправильные данные кидаете в базочку");
+        /*final KsListDto ksDto = KsListDto.of(
                 KsDtoUtils.toKsDtoList(ksService.loadAll())
         );
         model.put(DTO_MODEL, ksDto);
@@ -54,7 +55,8 @@ public final class KsController {
         model.put(ID_GRAND_PARENT, id_grand_parent);
         model.put(CONTRACT_NAME, contract_name);
         model.put(COUNTERAGENT_NAME, counteragent_name);
-        return CONTROLLER_MAPPING;
+
+        return CONTROLLER_MAPPING;*/
     }
 
     @PutMapping
@@ -68,7 +70,6 @@ public final class KsController {
     @PostMapping
     public @ResponseBody
     String postKs(@RequestBody Ks ks) {
-        new RuntimeException("Неправильные данные кидаете в базочку");
         if (ks != null) {
             ksService.create(ks); //todo поменять на дто
         }

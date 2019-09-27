@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public class DbUserRepository implements CrudRepository<DbUser,Long> {
+public class DbUserRepository implements CrudRepository<DbUser, Long> {
 
     private static final String SELECT_ALL_USERS =
             "SELECT U.*, J.id_Module, M.name as name_Module, J.id_Rule, R.name as name_Rule FROM dbo.[Users] U (nolock) " +

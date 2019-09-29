@@ -51,8 +51,7 @@ public final class UserController {
                     model.put(USERS_DTO_MODEL, usersDto);
                     model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
                 });
-        operationResult.getFailure()
-                .ifPresent(RuntimeException::new);
+        operationResult.getFailure().ifPresent(RuntimeException::new);
         return USERS_TEMPLATE;
     }
 

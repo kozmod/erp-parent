@@ -1,6 +1,7 @@
 package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import ru.aora.erp.controller.util.ModelAndViewUtils;
+import ru.aora.erp.entity.dto.ks.KsDto;
 import ru.aora.erp.entity.dto.ks.KsDtoUtils;
 import ru.aora.erp.entity.dto.ks.KsListDto;
-import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.service.KsService;
 
+import javax.validation.Valid;
 import java.util.Map;
+
+import static ru.aora.erp.entity.dto.ks.KsDtoUtils.toKs;
 
 @Controller
 @RequestMapping("/ks")
@@ -58,20 +64,21 @@ public final class KsController {
     }
 
     @PutMapping
-    public @ResponseBody
-    String putKs(@RequestBody Ks ks) {
-        System.out.println(ks);
-        ksService.update(ks); //todo поменять на дто
-        return "update";
+    public @ResponseBody ModelAndView putKs(@Valid @RequestBody KsDto ks, BindingResult bindingResult) {
+        if (ks == null || bindingResult.hasErrors()) {
+            return ModelAndViewUtils.error(bindingResult);
+        }
+        ksService.update(toKs(ks));
+        return ModelAndViewUtils.error(bindingResult);
     }
 
     @PostMapping
-    public @ResponseBody
-    String postKs(@RequestBody Ks ks) {
-        if (ks != null) {
-            ksService.create(ks); //todo поменять на дто
+    public @ResponseBody ModelAndView postKs(@Valid @RequestBody KsDto ks, BindingResult bindingResult) {
+        if (ks == null || bindingResult.hasErrors()) {
+            return ModelAndViewUtils.error(bindingResult);
         }
-        return "create";
+        ksService.create(toKs(ks));
+        return ModelAndViewUtils.error(bindingResult);
     }
 
     @DeleteMapping("/{id}")

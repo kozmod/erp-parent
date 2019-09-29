@@ -19,7 +19,7 @@ public final class GlobalControllerExceptionHandler {
     private final static String MESSAGE = "message";
     private final static String TRACE = "trace";
 
-    private final static String ERROR_TEMPLATE = "error";
+    private final static String SERVICE_ERROR_TEMPLATE = "error";
 
     @ExceptionHandler(RuntimeException.class)
     public ModelAndView runtimeException(HttpServletRequest req, Exception ex) {
@@ -36,7 +36,7 @@ public final class GlobalControllerExceptionHandler {
         mav.addObject(MESSAGE, ex.getMessage());
         mav.addObject(STATUS, status.value());
         mav.addObject(TRACE, CommonUtils.getStackTrace(ex));
-        mav.setViewName(ERROR_TEMPLATE);
+        mav.setViewName(SERVICE_ERROR_TEMPLATE);
         return mav;
     }
 }

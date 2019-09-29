@@ -219,8 +219,8 @@ function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent
             //$("#content").replaceWith('/contract');
             //$("#content").load('/counteragent');
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-
+        error: function (response) {
+            change_and_run_error_popup(response);
 
             //var responseJSON = jQuery.parseJSON(jqXHR.responseText);
             //var errors=JSON.parse(responseJSON);

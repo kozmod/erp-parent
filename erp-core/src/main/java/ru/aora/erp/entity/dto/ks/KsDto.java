@@ -1,5 +1,8 @@
 package ru.aora.erp.entity.dto.ks;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.StringJoiner;
@@ -8,10 +11,17 @@ public final class KsDto {
 
     private String id;
     private String contractId;
+    @NotNull
     private LocalDate ksDate;
+    @NotNull
     private String ksNumber;
+    @NotNull
     private BigDecimal ksSum;
+    @NotNull
+    @Past
     private LocalDate garantDate;
+    @NotNull
+    @Positive
     private BigDecimal garantSum;
     private Boolean paymentStatus;
     private Long daysToGarantDate;

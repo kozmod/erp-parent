@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import ru.aora.erp.controller.util.ModelAndViewUtils;
+import ru.aora.erp.controller.exception.DtoValidationException;
 import ru.aora.erp.entity.dto.ks.KsDto;
-import ru.aora.erp.entity.dto.ks.KsDtoUtils;
+import ru.aora.erp.entity.dto.ks.KsDtoMapper;
 import ru.aora.erp.entity.dto.ks.KsListDto;
 import ru.aora.erp.service.KsService;
 
 import javax.validation.Valid;
 import java.util.Map;
 
-import static ru.aora.erp.entity.dto.ks.KsDtoUtils.toKs;
+import static ru.aora.erp.entity.dto.ks.KsDtoMapper.toKs;
 
 @Controller
 @RequestMapping("/ks")
@@ -53,7 +52,7 @@ public final class KsController {
             Map<String, Object> model
     ) {
         final KsListDto ksDto = KsListDto.of(
-                KsDtoUtils.toKsDtoList(ksService.loadAll())
+                KsDtoMapper.toKsDtoList(ksService.loadAll())
         );
         model.put(DTO_MODEL, ksDto);
         model.put(ID_PAREN, id_parent);
@@ -64,28 +63,23 @@ public final class KsController {
     }
 
     @PutMapping
-    public @ResponseBody ModelAndView putKs(@Valid @RequestBody KsDto ks, BindingResult bindingResult) {
-        if (ks == null || bindingResult.hasErrors()) {
-            return ModelAndViewUtils.error(bindingResult);
-        }
-        ksService.update(toKs(ks));
-        return ModelAndViewUtils.error(bindingResult);
+    public @ResponseBody String putKs(@Valid @RequestBody KsDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        ksService.update(toKs(dto));
+        return "Ks was updated";
     }
 
     @PostMapping
-    public @ResponseBody ModelAndView postKs(@Valid @RequestBody KsDto ks, BindingResult bindingResult) {
-        if (ks == null || bindingResult.hasErrors()) {
-            return ModelAndViewUtils.error(bindingResult);
-        }
-        ksService.create(toKs(ks));
-        return ModelAndViewUtils.error(bindingResult);
+    public @ResponseBody String postKs(@Valid @RequestBody KsDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        ksService.update(toKs(dto));
+        return "Ks was created";
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    String deleteKs(@PathVariable String id) {
+    public @ResponseBody String deleteKs(@PathVariable String id) {
         ksService.delete(id);
-        return "delete";
+        return "Ks was deleted";
     }
 
 }

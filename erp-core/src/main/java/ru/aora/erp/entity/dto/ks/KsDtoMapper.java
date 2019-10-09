@@ -1,14 +1,13 @@
 package ru.aora.erp.entity.dto.ks;
 
-import org.apache.commons.collections.CollectionUtils;
+import ru.aora.erp.entity.dto.utils.MapperUtils;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.utils.common.CommonUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-public final class KsDtoUtils {
+public final class KsDtoMapper {
 
     public static KsDto toKsDto(Ks ks) {
         return new KsDto()
@@ -36,23 +35,7 @@ public final class KsDtoUtils {
     }
 
     public static List<KsDto> toKsDtoList(List<Ks> kss) {
-        final List<KsDto> dtos = new ArrayList<>(kss.size());
-        if (CollectionUtils.isNotEmpty(kss)) {
-            for (Ks ks : kss) {
-                dtos.add(toKsDto(ks));
-            }
-        }
-        return dtos;
-    }
-
-    public static List<Ks> toKsList(List<KsDto> dtos) {
-        final List<Ks> kss = new ArrayList<>(dtos.size());
-        if (CollectionUtils.isNotEmpty(dtos)) {
-            for (KsDto ksDto : dtos) {
-                kss.add(toKs(ksDto));
-            }
-        }
-        return kss;
+        return MapperUtils.convert(kss, KsDtoMapper::toKsDto);
     }
 
     private static Long toDaysToGarantDate(LocalDate date) {

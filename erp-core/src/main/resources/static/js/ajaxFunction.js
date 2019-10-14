@@ -196,7 +196,7 @@ function saveKSRequest(contract_id, counteragent_id, contract_name, counteragent
         ksNumber:
             $("#ks_number").val(),
         paymentStatus:
-            $("#payment_switcher_add").val(),
+            $('input[name=payment_switcher_add]:checked').val(),
         ksSum:
             $("#ks_sum").val(),
         garantSum:

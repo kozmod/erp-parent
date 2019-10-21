@@ -56,16 +56,14 @@ public final class UserController {
     }
 
     @PutMapping
-    public @ResponseBody
-    String putUser(@RequestBody User user) {
+    public @ResponseBody String putUser(@RequestBody User user) {
         OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
         operationResult.getFailure().ifPresent(RuntimeException::new);
         return "update";
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    String deleteUser(@PathVariable long id) {
+    public @ResponseBody String deleteUser(@PathVariable long id) {
         OperationResult<Long, Exception> operationResult = OperationResult.get(() -> userService.deleteUser(id));
         operationResult.getFailure().ifPresent(RuntimeException::new);
         return "delete";

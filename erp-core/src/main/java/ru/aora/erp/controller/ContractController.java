@@ -2,6 +2,7 @@ package ru.aora.erp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.aora.erp.entity.dto.ContractDto;
-import ru.aora.erp.model.entity.business.Contract;
+import ru.aora.erp.controller.exception.DtoValidationException;
+import ru.aora.erp.entity.dto.contract.ContractDto;
+import ru.aora.erp.entity.dto.contract.ContractListDto;
 import ru.aora.erp.service.ContractService;
 
+import javax.validation.Valid;
 import java.util.Map;
+
+import static ru.aora.erp.entity.dto.contract.ContractDtoMapper.toContract;
+import static ru.aora.erp.entity.dto.contract.ContractDtoMapper.toListDto;
 
 @Controller
 @RequestMapping("/contract")
@@ -40,7 +46,7 @@ public final class ContractController {
             @RequestParam(PARENT_NAME) String counteragent_name,
             Map<String, Object> model
     ) {
-        final ContractDto contractDto = ContractDto.of(contractService.loadAll());
+        final ContractListDto contractDto = toListDto(contractService.loadAll());
         model.put(DTO_MODEL, contractDto);
         model.put(ID_PARENT, id_parent);
         model.put(COUNTERAGENT_NAME, counteragent_name);
@@ -48,25 +54,22 @@ public final class ContractController {
     }
 
     @PutMapping
-    public @ResponseBody
-    String putContract(@RequestBody Contract contract) {
-        contractService.update(contract);
-        return "update";
+    public @ResponseBody String putContract(@Valid @RequestBody ContractDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        contractService.update(toContract(dto));
+        return "Contract was updated";
     }
 
     @PostMapping
-    public @ResponseBody
-    String postContract(@RequestBody Contract contract) {
-        if (contract != null) {
-            contractService.create(contract);
-        }
-        return "create";
+    public @ResponseBody String postContract(@Valid @RequestBody ContractDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        contractService.create(toContract(dto));
+        return "Contract was created";
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    String deleteContract(@PathVariable String id) {
+    public @ResponseBody String deleteContract(@PathVariable String id) {
         contractService.delete(id);
-        return "delete";
+        return "Contract was deleted";
     }
 }

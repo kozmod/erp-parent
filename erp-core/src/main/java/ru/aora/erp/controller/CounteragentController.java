@@ -2,6 +2,7 @@ package ru.aora.erp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.aora.erp.entity.dto.CounteragentDto;
-import ru.aora.erp.model.entity.business.Counteragent;
+import ru.aora.erp.controller.exception.DtoValidationException;
+import ru.aora.erp.entity.dto.counteragent.CounteragentDto;
+import ru.aora.erp.entity.dto.counteragent.CounteragentDtoMapper;
+import ru.aora.erp.entity.dto.counteragent.CounteragentListDto;
 import ru.aora.erp.service.CounteragentService;
 
+import javax.validation.Valid;
 import java.util.Map;
+
+import static ru.aora.erp.entity.dto.counteragent.CounteragentDtoMapper.toCounteragent;
 
 @Controller
 @RequestMapping("/counteragent")
@@ -28,37 +34,32 @@ public final class CounteragentController {
     @Autowired
     public CounteragentController(CounteragentService counteragentService) {
         this.counteragentService = counteragentService;
-
     }
-
 
     @GetMapping
     public String counteragentForm(Map<String, Object> model) {
-        final CounteragentDto counteragentDto = CounteragentDto.of(counteragentService.loadAll());
-        model.put(CONTRACTOR_DTO_MODEL, counteragentDto);
+        final CounteragentListDto listDto = CounteragentDtoMapper.toListDto(counteragentService.loadAll());
+        model.put(CONTRACTOR_DTO_MODEL, listDto);
         return GARANT_MAPPING;
     }
 
     @PutMapping
-    public @ResponseBody
-    String putCounteragent(@RequestBody Counteragent counteragent) {
-        counteragentService.update(counteragent);
-        return "update";
+    public @ResponseBody String putCounteragent(@Valid @RequestBody CounteragentDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        counteragentService.update(toCounteragent(dto));
+        return "Counteragent was updated";
     }
 
     @PostMapping
-    public @ResponseBody
-    String postCounteragent(@RequestBody Counteragent counteragent) {
-        if (counteragent != null) {
-            counteragentService.create(counteragent);
-        }
-        return "create";
+    public @ResponseBody String postCounteragent(@Valid @RequestBody CounteragentDto dto, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        counteragentService.create(toCounteragent(dto));
+        return "Counteragent was created";
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody
-    String deleteCounteragent(@PathVariable String id) {
+    public @ResponseBody String deleteCounteragent(@PathVariable String id) {
         counteragentService.delete(id);
-        return "delete";
+        return "Counteragent was deleted";
     }
 }

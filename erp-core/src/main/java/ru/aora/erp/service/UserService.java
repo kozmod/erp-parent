@@ -66,6 +66,16 @@ public class UserService implements UserDetailsService {
         return userMapper.toUser(updatedUser, authorityService.modulesAuthorities());
     }
 
+    public User createUser(User user) {
+        Objects.requireNonNull(user);
+        //DbUser dbUser = userRepository
+        //        .findById(user.getId())
+        //        .orElseThrow(() -> new UsernameNotFoundException("User not found by id: " + user.getId()));
+        //tryEncodeUserPassword(user, dbUser);
+        DbUser createdUser = userRepository.create(userMapper.toDbUser(user));
+        return userMapper.toUserWithoutAuthorities(createdUser);
+    }
+
     public Long deleteUser(Long userId) {
         Objects.requireNonNull(userId);
         return userRepository.delete(userId);

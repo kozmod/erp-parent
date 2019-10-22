@@ -6,6 +6,7 @@
     <div class="wrapper" th:fragment="contracts" th:object="${contractDto}" >
         <div id="module">
             <!--header options start-->
+            <script>input_types();</script>
             <div class="module_header size_is">
                 <div class="container">
                     <div class="row">
@@ -89,7 +90,7 @@
                             <label class="fld filler">
                                 <em>Дата договора</em>
                                 <div class="sign"><i class="fas fa-user"></i></div>
-                                <input type="date" class="inp" th:id ="'contract_date'" name="contract_date" th:value="''"/>
+                                <input type="date" class="inp" th:id ="'contract_date'" name="date" th:value="''"/>
                             </label>
                             <label class="fld filler">
                                 <em>Номер договора</em>
@@ -185,7 +186,7 @@
                                                                     <label class="fld filler">
                                                                         <em>Дата договора</em>
                                                                         <div class="sign"><i class="fas fa-user"></i></div>
-                                                                        <input type="text" class="inp" th:id ="'contract_date_'+*{id}" name="contract_date" th:value="*{contractDate}"/>
+                                                                        <input type="text" class="inp" th:id ="'contract_date_'+*{id}" name="date" th:value="*{contractDate}"/>
                                                                     </label>
                                                                     <label class="fld filler">
                                                                         <em>Номер договора</em>

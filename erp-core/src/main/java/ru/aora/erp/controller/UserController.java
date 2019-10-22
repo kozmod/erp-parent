@@ -1,13 +1,9 @@
 package ru.aora.erp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ru.aora.erp.controller.exception.DtoValidationException;
 import ru.aora.erp.entity.dto.UserIdModuleAuthorityDto;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.entity.dto.UsersDto;
@@ -15,6 +11,7 @@ import ru.aora.erp.service.AuthorityModulesIdentifiersService;
 import ru.aora.erp.service.UserService;
 import ru.aora.erp.utils.result.OperationResult;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +52,12 @@ public final class UserController {
         return USERS_TEMPLATE;
     }
 
+    @PostMapping
+    public @ResponseBody String postUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        userService.createUser(user);
+        return "Ks was created";
+    }
     @PutMapping
     public @ResponseBody String putUser(@RequestBody User user) {
         OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));

@@ -116,13 +116,11 @@
                                                     <span><strong th:text="'Дней до погашения: '+${ks.daysToGarantDate}"></strong></span>
 
                                                     <label class="radiocheck">
-
-                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'true'" th:value="'true'" th:onclick="updateKSRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
+                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'true'" th:value="'true'" th:onclick="updateKSPaymentRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
                                                         <strong>Не погашено</strong>
                                                     </label>
-
                                                     <label class="radiocheck">
-                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'false'" th:value="'false'" th:onclick="updateKSRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
+                                                        <input th:type="radio" th:id="'payment_switcher_'+${ks.ksId}" th:name="'payment_switcher_'+${ks.ksId}" class="www" th:checked="'false'" th:value="'false'" th:onclick="updateKSPaymentRequest([[${ks.ksId}]],[[${ks.contractId}]])"/>
                                                         <strong>Погашено</strong>
                                                     </label>
 

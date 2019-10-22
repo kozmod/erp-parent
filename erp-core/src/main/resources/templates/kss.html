@@ -2,10 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- Container start-->
 <div id="container">
+
     <!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.dto.UsersDto"*/-->
     <div class="wrapper" th:fragment="kss" th:object="${ksDto}" >
+
         <div id="module">
             <!--header options start-->
+            <script>input_types();</script>
             <div class="module_header size_is">
                 <div class="container">
                     <div class="row">
@@ -91,7 +94,7 @@
                             <label class="fld filler">
                                 <em>Дата справки КС-3</em>
                                 <div class="sign"><i class="fas fa-user"></i></div>
-                                <input type="date" class="inp"  th:id ="'ks_date'"  name="ks_date"  th:value="''"/>
+                                <input type="date" class="inp"  th:id ="'ks_date'"  name="date"  th:value="''"/>
                             </label>
                             <label class="fld filler">
                                 <em>Номер справки КС-3</em>
@@ -111,7 +114,7 @@
                             <label class="fld filler">
                                 <em>Дата возврата гарантийного платежа</em>
                                 <div class="sign"><i class="fas fa-user"></i></div>
-                                <input type="date" class="inp" th:id ="'garant_date'" name="garant_date" th:value="''"/>
+                                <input type="date" class="inp" th:id ="'garant_date'" name="date" th:value="''"/>
                             </label>
                             <label class="radiocheck">
                                 <input th:type="radio" th:id="'payment_switcher_add'" th:name="'payment_switcher_add'" class="www" th:checked="'true'" th:value="'false'"/>
@@ -219,7 +222,7 @@
                                                                     <label class="fld filler">
                                                                         <em>Дата справки КС-3</em>
                                                                         <div class="sign"><i class="fas fa-user"></i></div>
-                                                                        <input type="date" class="inp"  th:id ="'ks_date_'+*{id}"  name="ks_date"  th:value="*{ksDate}" />
+                                                                        <input type="date" class="inp"  th:id ="'ks_date_'+*{id}"  name="date"  th:value="*{ksDate}" />
                                                                     </label>
                                                                     <label class="fld filler">
                                                                         <em>Номер справки КС-3</em>
@@ -239,7 +242,7 @@
                                                                     <label class="fld filler">
                                                                         <em>Дата возврата гарантийного платежа</em>
                                                                         <div class="sign"><i class="fas fa-user"></i></div>
-                                                                        <input type="date" class="inp" th:id ="'garant_date_'+*{id}" name="garant_date" th:value="*{garantDate}"/>
+                                                                        <input type="date" class="inp" th:id ="'garant_date_'+*{id}" name="date" th:value="*{garantDate}"/>
                                                                     </label>
                                                                     <!--<form action="#"
                                                                           th:action="@{/getPaymentStatusRadio}"

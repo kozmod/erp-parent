@@ -31,8 +31,8 @@
                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
                     <ul class="module_menu">
                         <li class="sep_right">
-                            <a href="javascript:;" class="toggle_dialog ttp_tp" data-dialog="adduser">
-                                <i class="fas fa-user-plus"></i> Добавить
+                            <a href="#" class="toggle_cb" th:data-toggle="'adduser'">
+                                <i class="fas fa-user-plus"></i> Добавить пользователя
                             </a>
                         </li>
                     </ul>
@@ -74,6 +74,70 @@
 
         <a name="testanchor"></a>
         <div id="testanchor"></div>
+
+        <!-- Add User menu-->
+        <div th:class="'adduser'+' edit hide_me'"  th:object="${usersDto}">
+            <div class="row no_gutter">
+                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                    <a th:name="'adduser'"></a>
+                    <div class="add_KS">
+                        <a href="javascript:;" class="toggle_cb"
+                           th:data-toggle="'adduser'"><i class="far fa-times-circle"></i></a>
+                    </div>
+                </div>
+                <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
+                    <div class="add_basic"
+                         th:id ="'adduser'" action="#" th:object="${usersDto}">
+                        <!--th:hidden="'false'"<form action="#" th:action="@{submitData}" class="saveForm" method="post" th:object="${counteragents}">-->
+                        <label class="fld filler">
+                            <em>Имя Пользователя</em>
+                            <div class="sign"><i class="fas fa-user"></i></div>
+                            <input type="date" class="inp"  th:id ="'user_name'"  name="date"  th:value="''"/>
+                        </label>
+                        <label class="fld filler">
+                            <em>Пароль</em>
+                            <div class="sign"><i class="fas fa-key"></i></div>
+                            <input type="password" class="inp" th:id ="'user_password'" name="userPassword" th:value="''" />
+                        </label>
+                        <label class="fld filler">
+                            <em>Фамилия</em>
+                            <div class="sign"><i class="fas fa-user"></i></div>
+                            <input type="text" class="inp"  th:id ="'user_first_name'"  name="userFirstName"  th:value="''" />
+                        </label>
+                        <label class="fld filler">
+                            <em>Имя</em>
+                            <div class="sign"><i class="fas fa-user"></i></div>
+                            <input type="text" class="inp" th:id ="'user_surname'" name="userSurname" th:value="''"/>
+                        </label>
+                        <label class="fld filler">
+                            <em>Отчество</em>
+                            <div class="sign"><i class="fas fa-user"></i></div>
+                            <input type="text" class="inp" th:id ="'user_patronymic'" name="userPatronymic" th:value="''"/>
+                        </label>
+                        <label class="fld filler">
+                            <em>Должность</em>
+                            <div class="sign"><i class="fas fa-user"></i></div>
+                            <input type="text" class="inp" th:id ="'user_employee_position'" name="userEmployeePosition" th:value="''"/>
+                        </label>
+                        <label class="fld filler">
+                            <em>Email</em>
+                            <div class="sign"><i class="fas fa-envelope"></i></div>
+                            <input type="text" class="inp" th:id ="'user_mail'" name="userMail" th:value="''"/>
+                        </label>
+                        <label class="fld filler">
+                            <em>Телефон</em>
+                            <div class="sign"><i class="fas fa-phone"></i></div>
+                            <input type="text" class="inp" th:id ="'user_phone_number'" name="userPhoneNumber" th:value="''"/>
+                        </label>
+                        <div class="clear_after">
+                            <button th:onclick="saveUserRequest()" name="adduser" value="adduser" class="bttn bttn_submit bttn_40 right rds_5" th:data-toggle="'adduser'" >Сохранить</button>
+                            <a href="javascript:;" th:onclick="getFragmentAndChangeDiv('#content','/user')" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'adduser'">Закрыть</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="module_content module_users">
             <div class="container">

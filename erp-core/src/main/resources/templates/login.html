@@ -28,8 +28,8 @@
 						
 						<div class="col_xxs_12 col_xs_12 col_s_5 col_m_5 col_l_5">
 							<form class="form height_equal" th:action="@{/login}" method="post" autocomplete="off">
-								<div class="text">
-									<i class="fal fa-lock-alt"></i> Вход
+								<div class="text" >
+									<i class="fal fa-lock-alt" ></i> Вход
 								</div>
 								
 								<label class="fld">
@@ -43,9 +43,10 @@
 								</label>
 								
 								<div class="sep"></div>
-								
-								<button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_20"><i class="fas fa-sign-in-alt"></i> Войти</button>
-								
+
+								<!--<button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_20"><i class="fas fa-sign-in-alt"></i> Войти</button>-->
+								<a class="bttn bttn_submit bttn_40 right rds_5"  data-dialog="login" th:href="@{/dashboard}"><i class="fas fa-sign-in-alt"></i>Войти</a>
+
 								<div class="clear"></div>
 								
 								<div class="join">

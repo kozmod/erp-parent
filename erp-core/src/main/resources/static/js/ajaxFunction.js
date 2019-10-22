@@ -112,6 +112,45 @@ function reply_click(clicked_id)
     return id_name;
 }
 
+function saveUserRequest() {
+    var JSONObject = {
+        username:
+            $("#user_name").val(),
+        firstName:
+            $("#user_first_name").val(),
+        surname:
+            $("#user_surname").val(),
+        patronymic:
+            $("#user_patronymic").val(),
+        employeePosition:
+            $("#user_employee_position").val(),
+        mail:
+            $("#user_mail").val(),
+        phoneNumber:
+            $("#user_phone_number").val(),
+        password:
+            $("#user_password").val()
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: '/user',
+        contentType: 'application/json',
+        data: JSON.stringify(JSONObject),
+        async: true,
+        success: function (JSONObject) {
+            console.log("SUCCESS: ", JSONObject);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            getFragmentAndChangeDiv('#content','/user');
+        },
+
+        error: function (response) {
+            change_and_run_error_popup(response);
+        }
+    });
+}
+
 function saveCounteragentRequest() {
     var JSONObject = {
         counteragentName:
@@ -249,7 +288,10 @@ function updateKSRequest(KSId, contractId, counteragent_id, contract_name, count
         garantDate:
             $("#garant_date_".concat(KSId)).val(),
         paymentStatus:
-            $("#payment_switcher_".concat(KSId)).val()
+        //    $("#payment_switcher_".concat(KSId)).val()
+            //$('payment_switcher_').attr('name', $('selector').attr('name') + value);
+            //$('input[name=choices'+ k +']').val();
+            $('input[name=payment_switcher_'+(KSId)+']:checked').val()
     };
 
     $.ajax({
@@ -263,6 +305,37 @@ function updateKSRequest(KSId, contractId, counteragent_id, contract_name, count
             //alert('At ' + result.time
             //    + ': ' + result.message);
             getFragmentParamAndChangeDiv('#content','/ks',counteragent_id,contract_id,contract_name,counteragent_name,0)
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+}
+
+function updateKSPaymentRequest(KSId, contractId) {
+    var JSONKS = {
+        id:
+        KSId,
+        contractId:
+        contractId,
+        paymentStatus:
+        //    $("#payment_switcher_".concat(KSId)).val()
+        //$('payment_switcher_').attr('name', $('selector').attr('name') + value);
+        //$('input[name=choices'+ k +']').val();
+            $('input[name=payment_switcher_'+(KSId)+']:checked').val()
+    };
+
+    $.ajax({
+        type: 'PUT',
+        url: '/ks',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(JSONKS),
+        async: true,
+        success: function (JSONKS) {
+            console.log("SUCCESS: ", JSONKS);
+            //alert('At ' + result.time
+            //    + ': ' + result.message);
+            //getFragmentAndChangeDiv('#content','/garantsorted')
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
@@ -574,4 +647,9 @@ function updateEventCount(url) {
             alert(jqXHR.status + ' ' + jqXHR.responseText);
         }
     });
+}
+
+function input_types() {
+    $("input[name=PhoneNumber]").mask("+7-999-999-99-99");
+    $("input[name=date]").mask("9999-99-99", {placeholder: "гггг-мм-дд" });
 }

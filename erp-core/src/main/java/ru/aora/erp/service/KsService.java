@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.model.entity.db.DbKs;
 import ru.aora.erp.model.entity.mapper.KsMapper;
-import ru.aora.erp.repository.jpa.DbKsRepository;
+import ru.aora.erp.repository.jpa.JpaKsRepository;
 import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class KsService {
-    private final DbKsRepository KsRepository;
+    private final JpaKsRepository KsRepository;
     private final KsMapper ksMapper = KsMapper.INSTANCE;
 
     @Autowired
-    public KsService(DbKsRepository KsRepository) {
+    public KsService(JpaKsRepository KsRepository) {
         this.KsRepository = KsRepository;
     }
 

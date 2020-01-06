@@ -20,7 +20,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "Users")
-public class DbUser implements Serializable {
+public class DbUser implements Serializable, TechnicalEntity<DbUser> {
 
     private static final long serialVersionUID = -8446608340994054062L;
 

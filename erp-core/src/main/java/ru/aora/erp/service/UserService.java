@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
     public User updateUser(User user) {
         Objects.requireNonNull(user);
         DbUser dbUser = userRepository
-                .findById(user.getId().toString())
+                .findById(user.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found by id: " + user.getId()));
         tryEncodeUserPassword(user, dbUser);
         DbUser updatedUser = userRepository.save(userMapper.toDbUser(user));

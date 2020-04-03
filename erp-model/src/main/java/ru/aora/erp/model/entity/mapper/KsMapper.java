@@ -18,8 +18,8 @@ public interface KsMapper {
 
     Ks toKs(DbKs dbKs);
 
-    @Mapping(target = "versionTimestamp", ignore = true)
-    @Mapping(target = "entityUuid", ignore = true)
-    @Mapping(target = "creationDate", ignore = true)
+//    @Mapping(target = "versionTimestamp", ignore = true)
+//    @Mapping(target = "entityUuid", ignore = true)
+//    @Mapping(target = "creationDate", ignore = true)
     DbKs toDbKs(Ks ks);
 }

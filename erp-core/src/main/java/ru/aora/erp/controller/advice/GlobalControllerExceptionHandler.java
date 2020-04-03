@@ -24,19 +24,19 @@ public final class GlobalControllerExceptionHandler {
     private final static String SERVICE_ERROR_TEMPLATE = "error";
     private final static String VALIDATION_ERROR_TEMPLATE = "validationerror";
 
-    @ExceptionHandler(RuntimeException.class)
-    public ModelAndView runtimeException(HttpServletRequest req, Exception ex) {
-        final ModelAndView mav = new ModelAndView();
-        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        mav.addObject(TIMESTAMP, LocalDateTime.now());
-        mav.addObject(PATH, req.getRequestURI());
-        mav.addObject(ERROR, ex.getClass());
-        mav.addObject(MESSAGE, ex.getMessage());
-        mav.addObject(STATUS, HttpStatus.INTERNAL_SERVER_ERROR.value());
-        mav.addObject(TRACE, CommonUtils.getStackTrace(ex));
-        mav.setViewName(SERVICE_ERROR_TEMPLATE);
-        return mav;
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ModelAndView runtimeException(HttpServletRequest req, Exception ex) {
+//        final ModelAndView mav = new ModelAndView();
+//        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+//        mav.addObject(TIMESTAMP, LocalDateTime.now());
+//        mav.addObject(PATH, req.getRequestURI());
+//        mav.addObject(ERROR, ex.getClass());
+//        mav.addObject(MESSAGE, ex.getMessage());
+//        mav.addObject(STATUS, HttpStatus.INTERNAL_SERVER_ERROR.value());
+//        mav.addObject(TRACE, CommonUtils.getStackTrace(ex));
+//        mav.setViewName(SERVICE_ERROR_TEMPLATE);
+//        return mav;
+//    }
 
     @ExceptionHandler(DtoValidationException.class)
     public ModelAndView validationError(DtoValidationException ex) {

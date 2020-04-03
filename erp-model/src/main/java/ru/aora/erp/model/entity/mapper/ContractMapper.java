@@ -17,8 +17,8 @@ public interface ContractMapper {
 
     Contract toContract(DbContract dbContract);
 
-    @Mapping(target = "versionTimestamp", ignore = true)
-    @Mapping(target = "entityUuid", ignore = true)
-    @Mapping(target = "creationDate", ignore = true)
+//    @Mapping(target = "versionTimestamp", ignore = true)
+//    @Mapping(target = "entityUuid", ignore = true)
+//    @Mapping(target = "creationDate", ignore = true)
     DbContract toDbContract(Contract contract);
 }

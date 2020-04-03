@@ -17,8 +17,8 @@ public interface CounteragentMapper {
 
     Counteragent toCounteragent(DbCounteragent dbCounteragent);
 
-    @Mapping(target = "versionTimestamp", ignore = true)
-    @Mapping(target = "creationDate", ignore = true)
-    @Mapping(target = "entityUuid", ignore = true)
+//    @Mapping(target = "versionTimestamp", ignore = true)
+//    @Mapping(target = "creationDate", ignore = true)
+//    @Mapping(target = "entityUuid", ignore = true)
     DbCounteragent toDbCounteragent(Counteragent counteragent);
 }

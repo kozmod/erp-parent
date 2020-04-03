@@ -19,9 +19,9 @@ public interface UserMapper {
     @Mapping(target = "authorities", ignore = true)
     User toUser(DbUser dbUser);
 
-    @Mapping(target = "versionTimestamp", ignore = true)
-    @Mapping(target = "entityUuid", ignore = true)
-    @Mapping(target = "creationDate", ignore = true)
-    @Mapping(target = "authorities", ignore = true)
+//    @Mapping(target = "versionTimestamp", ignore = true)
+//    @Mapping(target = "entityUuid", ignore = true)
+//    @Mapping(target = "creationDate", ignore = true)
+//    @Mapping(target = "authorities", ignore = true)
     DbUser toDbUser(User user);
 }

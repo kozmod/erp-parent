@@ -51,17 +51,17 @@ public class DbCounteragent implements Serializable {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+//    @Column(name = "creation_date")
+//    private LocalDateTime creationDate;
 
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
-    private String  versionTimestamp;
-
-    @Column(name = "entity_uuid", nullable = false)
-    private String entityUuid;
+//    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
+//    private String  versionTimestamp;
+//
+//    @Column(name = "entity_uuid", nullable = false)
+//    private String entityUuid;
 
     public String getId() {
         return id;
@@ -144,14 +144,14 @@ public class DbCounteragent implements Serializable {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public DbCounteragent setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-        return this;
-    }
+//    public LocalDateTime getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public DbCounteragent setCreationDate(LocalDateTime creationDate) {
+//        this.creationDate = creationDate;
+//        return this;
+//    }
 
     public LocalDateTime getDeactivationDate() {
         return deactivationDate;
@@ -162,23 +162,23 @@ public class DbCounteragent implements Serializable {
         return this;
     }
 
-    public String getEntityUuid() {
-        return entityUuid;
-    }
-
-    public DbCounteragent setEntityUuid(String entityUuid) {
-        this.entityUuid = entityUuid;
-        return this;
-    }
-
-    public String  getVersionTimestamp() {
-        return versionTimestamp;
-    }
-
-    public DbCounteragent setVersionTimestamp(String  versionTimestamp) {
-        this.versionTimestamp = versionTimestamp;
-        return this;
-    }
+//    public String getEntityUuid() {
+//        return entityUuid;
+//    }
+//
+//    public DbCounteragent setEntityUuid(String entityUuid) {
+//        this.entityUuid = entityUuid;
+//        return this;
+//    }
+//
+//    public String  getVersionTimestamp() {
+//        return versionTimestamp;
+//    }
+//
+//    public DbCounteragent setVersionTimestamp(String  versionTimestamp) {
+//        this.versionTimestamp = versionTimestamp;
+//        return this;
+//    }
 
     @Override
     public String toString() {
@@ -192,10 +192,10 @@ public class DbCounteragent implements Serializable {
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("address='" + address + "'")
-                .add("creationDate=" + creationDate)
+//                .add("creationDate=" + creationDate)
                 .add("deactivationDate=" + deactivationDate)
-                .add("versionTimestamp=" + versionTimestamp)
-                .add("entityUuid='" + entityUuid + "'")
+//                .add("versionTimestamp=" + versionTimestamp)
+//                .add("entityUuid='" + entityUuid + "'")
                 .toString();
     }
 }

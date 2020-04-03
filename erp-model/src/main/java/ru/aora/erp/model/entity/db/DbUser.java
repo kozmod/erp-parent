@@ -2,16 +2,7 @@ package ru.aora.erp.model.entity.db;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -20,7 +11,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "Users")
-public class DbUser implements Serializable, TechnicalEntity<DbUser> {
+public class DbUser implements Serializable {
 
     private static final long serialVersionUID = -8446608340994054062L;
 
@@ -66,24 +57,25 @@ public class DbUser implements Serializable, TechnicalEntity<DbUser> {
     @Column(name = "employee_position")
     private String employeePosition;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
+//    @Column(name = "creation_date")
+//    private LocalDateTime creationDate;
 
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
-    private String  versionTimestamp;
+//    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
+//    private String  versionTimestamp;
+//
+//    @Column(name = "entity_uuid", nullable = false)
+//    private String entityUuid;
 
-    @Column(name = "entity_uuid", nullable = false)
-    private String entityUuid;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "j_User_Authority",
-            joinColumns = {@JoinColumn(name = "id_user", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "id_authority", referencedColumnName = "id", unique = true)}
-    )
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "j_User_Authority",
+//            joinColumns = {@JoinColumn(name = "id_user", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "id_authority", referencedColumnName = "id", unique = true)}
+//    )
+    @Transient
     private final Set<DbUserAuthority> authorities = new HashSet<>();
 
     public String getId() {
@@ -203,14 +195,14 @@ public class DbUser implements Serializable, TechnicalEntity<DbUser> {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public DbUser setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-        return this;
-    }
+//    public LocalDateTime getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public DbUser setCreationDate(LocalDateTime creationDate) {
+//        this.creationDate = creationDate;
+//        return this;
+//    }
 
     public LocalDateTime getDeactivationDate() {
         return deactivationDate;
@@ -221,23 +213,23 @@ public class DbUser implements Serializable, TechnicalEntity<DbUser> {
         return this;
     }
 
-    public String getVersionTimestamp() {
-        return versionTimestamp;
-    }
+//    public String getVersionTimestamp() {
+//        return versionTimestamp;
+//    }
+//
+//    public DbUser setVersionTimestamp(String versionTimestamp) {
+//        this.versionTimestamp = versionTimestamp;
+//        return this;
+//    }
 
-    public DbUser setVersionTimestamp(String versionTimestamp) {
-        this.versionTimestamp = versionTimestamp;
-        return this;
-    }
-
-    public String getEntityUuid() {
-        return entityUuid;
-    }
-
-    public DbUser setEntityUuid(String entityUuid) {
-        this.entityUuid = entityUuid;
-        return this;
-    }
+//    public String getEntityUuid() {
+//        return entityUuid;
+//    }
+//
+//    public DbUser setEntityUuid(String entityUuid) {
+//        this.entityUuid = entityUuid;
+//        return this;
+//    }
 
     public Set<DbUserAuthority> getAuthorities() {
         return authorities;
@@ -259,11 +251,11 @@ public class DbUser implements Serializable, TechnicalEntity<DbUser> {
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("employeePosition='" + employeePosition + "'")
-                .add("creationDate=" + creationDate)
+//                .add("creationDate=" + creationDate)
                 .add("deactivationDate=" + deactivationDate)
-                .add("versionTimestamp='" + versionTimestamp + "'")
-                .add("entityUuid='" + entityUuid + "'")
-                .add("authorities=" + authorities)
+//                .add("versionTimestamp='" + versionTimestamp + "'")
+//                .add("entityUuid='" + entityUuid + "'")
+//                .add("authorities=" + authorities)
                 .toString();
     }
 }

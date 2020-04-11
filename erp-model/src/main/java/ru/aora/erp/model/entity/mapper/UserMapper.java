@@ -1,11 +1,15 @@
 package ru.aora.erp.model.entity.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import ru.aora.erp.model.entity.db.DbUser;
+import ru.aora.erp.model.entity.business.UserAuthority;
+import ru.aora.erp.model.entity.db.user.DbAuthority;
+import ru.aora.erp.model.entity.db.user.DbSubAuthority;
+import ru.aora.erp.model.entity.db.user.DbUser;
 import ru.aora.erp.model.entity.business.User;
+
+import java.util.*;
 
 
 @Mapper(
@@ -16,12 +20,44 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(target = "authorities", ignore = true)
     User toUser(DbUser dbUser);
 
-//    @Mapping(target = "versionTimestamp", ignore = true)
-//    @Mapping(target = "entityUuid", ignore = true)
-//    @Mapping(target = "creationDate", ignore = true)
-//    @Mapping(target = "authorities", ignore = true)
+    default Collection<UserAuthority> toAuthorities(Collection<DbAuthority> dbAuthorities) {
+        Collection<UserAuthority> authorities = new ArrayList<>();
+        for (DbAuthority dbAuthority : dbAuthorities) {
+            String rooName = dbAuthority.getName();
+            for (DbSubAuthority dbSubAuthority : dbAuthority.getSubAuthorities()) {
+                authorities.add(new UserAuthority(rooName, dbSubAuthority.getName()));
+            }
+        }
+        return authorities;
+    }
+
     DbUser toDbUser(User user);
+
+    default Collection<DbAuthority> toDbAuthorities(Collection<UserAuthority> authorities) {
+        Map<String, List<String>> authorityMap = new HashMap<>(authorities.size(), 1.0f);
+        for (UserAuthority authority : authorities) {
+            List<String> dbAuthorityName = authorityMap.computeIfAbsent(authority.getRootAuthority(), k -> new ArrayList<>());
+            dbAuthorityName.add(authority.getSubAuthority());
+        }
+        Collection<DbAuthority> dbAuthorities = new ArrayList<>(authorityMap.size());
+        for (Map.Entry<String, List<String>> entry : authorityMap.entrySet()) {
+            dbAuthorities.add(
+                    new DbAuthority()
+                            .setName(entry.getKey())
+                            .setSubAuthorities(toDbSubAuthority(entry.getValue()))
+            );
+        }
+        return dbAuthorities;
+
+    }
+
+    default Collection<DbSubAuthority> toDbSubAuthority(List<String> names) {
+        Collection<DbSubAuthority> subAuthorities = new ArrayList<>(names.size());
+        for (String name : names) {
+            subAuthorities.add(new DbSubAuthority().setName(name));
+        }
+        return subAuthorities;
+    }
 }

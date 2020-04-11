@@ -1,7 +1,6 @@
 package ru.aora.erp.model.entity.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import ru.aora.erp.model.entity.business.Contract;

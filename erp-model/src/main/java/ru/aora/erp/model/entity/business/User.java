@@ -11,7 +11,7 @@ public class User implements UserDetails {
     private static final long serialVersionUID = 78483832304536001L;
 
     private String id;
-    private Collection<IdAuthority> authorities;
+    private Collection<UserAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -83,11 +83,11 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<IdAuthority> getAuthorities() {
+    public Collection<UserAuthority> getAuthorities() {
         return authorities;
     }
 
-    public User setAuthorities(Collection<IdAuthority> authorities) {
+    public User setAuthorities(Collection<UserAuthority> authorities) {
         this.authorities = authorities;
         return this;
     }

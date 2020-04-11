@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Configuration
-@PropertySource({"db.properties"})
+@PropertySource("db.properties")
 @EnableJpaRepositories(
         basePackages = "ru.aora.erp.repository",
         entityManagerFactoryRef = "userEntityManager",
@@ -32,7 +32,11 @@ import java.util.Objects;
 @EnableTransactionManagement
 public class RepositoryConfig {
 
-    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{"ru.aora.erp.model.entity.db"};
+    private static final String[] BASE_PACKAGES_TO_ENTITY_SCAN = new String[]{
+            "ru.aora.erp.model.entity.db",
+            "ru.aora.erp.model.entity.db.authority",
+            "ru.aora.erp.repository.jpa.test"
+    };
     private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String JDBC_DRIVER_CLASS_NAME = "jdbc.driverClassName";

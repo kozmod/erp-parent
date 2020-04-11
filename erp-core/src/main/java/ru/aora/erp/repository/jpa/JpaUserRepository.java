@@ -3,7 +3,7 @@ package ru.aora.erp.repository.jpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.aora.erp.model.entity.db.DbUser;
+import ru.aora.erp.model.entity.db.user.DbUser;
 
 import javax.annotation.Nullable;
 import javax.transaction.Transactional;

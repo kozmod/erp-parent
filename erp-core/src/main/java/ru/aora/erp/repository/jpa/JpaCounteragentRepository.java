@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.aora.erp.model.entity.db.DbCounteragent;
-import ru.aora.erp.model.entity.db.DbKs;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -12,5 +11,8 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface DbKsRepository extends JpaRepository<DbKs, Object> {
+public interface JpaCounteragentRepository extends JpaRepository<DbCounteragent, String> {
+
+    @Query(value = "SELECT c FROM DbCounteragent c WHERE c.counteragentName = :name")
+    Optional<DbCounteragent> findByName(String name);
 }

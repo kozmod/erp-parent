@@ -5,7 +5,7 @@ import ru.aora.erp.model.entity.mapper.CounteragentMapper;
 import ru.aora.erp.model.entity.business.Counteragent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.aora.erp.repository.jpa.DbCounteragentRepository;
+import ru.aora.erp.repository.jpa.JpaCounteragentRepository;
 import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CounteragentService {
-    private final DbCounteragentRepository counteragentRepository;
+    private final JpaCounteragentRepository counteragentRepository;
     private final CounteragentMapper counteragentMapper = CounteragentMapper.INSTANCE;
 
     @Autowired
-    public CounteragentService(DbCounteragentRepository counteragentRepository) {
+    public CounteragentService(JpaCounteragentRepository counteragentRepository) {
         this.counteragentRepository = counteragentRepository;
     }
 

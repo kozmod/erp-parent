@@ -2,6 +2,7 @@ package ru.aora.erp.model.entity.business;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 public class Ks {
@@ -14,6 +15,7 @@ public class Ks {
     private LocalDate garantDate;
     private BigDecimal garantSum;
     private Boolean paymentStatus;
+    private LocalDateTime deactivationDate;
 
     public String getId() {
         return id;
@@ -87,17 +89,27 @@ public class Ks {
         return this;
     }
 
+    public LocalDateTime getDeactivationDate() {
+        return deactivationDate;
+    }
+
+    public Ks setDeactivationDate(LocalDateTime deactivationDate) {
+        this.deactivationDate = deactivationDate;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Ks.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("contractId=" + contractId)
-                .add("ksDate='" + ksDate + "'")
+                .add("id='" + id + "'")
+                .add("contractId='" + contractId + "'")
+                .add("ksDate=" + ksDate)
                 .add("ksNumber='" + ksNumber + "'")
-                .add("ksSum='" + ksSum + "'")
-                .add("garantDate='" + garantDate + "'")
-                .add("garantSum='" + garantSum + "'")
-                .add("paymentStatus='" + paymentStatus + "'")
+                .add("ksSum=" + ksSum)
+                .add("garantDate=" + garantDate)
+                .add("garantSum=" + garantSum)
+                .add("paymentStatus=" + paymentStatus)
+                .add("deactivationDate=" + deactivationDate)
                 .toString();
     }
 }

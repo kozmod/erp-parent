@@ -1,5 +1,6 @@
 package ru.aora.erp.entity.dto;
 
+import org.apache.commons.collections.CollectionUtils;
 import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.entity.business.User;
 
@@ -11,10 +12,10 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 public final class UserIdModuleAuthorityDto {
-    private long userId;
+    private String userId;
     private Collection<ModuleAuthorityDto> moduleAuthorityDtoList;
 
-    public UserIdModuleAuthorityDto(long userId, Collection<ModuleAuthorityDto> moduleAuthorityDtoList) {
+    public UserIdModuleAuthorityDto(String userId, Collection<ModuleAuthorityDto> moduleAuthorityDtoList) {
         this.userId = userId;
         this.moduleAuthorityDtoList = moduleAuthorityDtoList;
     }
@@ -33,7 +34,7 @@ public final class UserIdModuleAuthorityDto {
         return collection;
     }
 
-    public static UserIdModuleAuthorityDto of(long userId, Collection<IdAuthority> userAuthorities, Collection<IdAuthority> allAuthorities) {
+    public static UserIdModuleAuthorityDto of(String userId, Collection<IdAuthority> userAuthorities, Collection<IdAuthority> allAuthorities) {
         final Map<String, ModuleAuthorityDto> map = new LinkedHashMap<>(allAuthorities.size(), 1.1f);
         for (IdAuthority allAuthority : allAuthorities) {
             final String moduleName = allAuthority.getName();
@@ -44,7 +45,7 @@ public final class UserIdModuleAuthorityDto {
                         (moduleAuthorityDto = new ModuleAuthorityDto(moduleName, new HashMap<>()))
                 );
             }
-            if (userAuthorities.contains(allAuthority)) {
+            if (CollectionUtils.isNotEmpty(userAuthorities) && userAuthorities.contains(allAuthority)) {
                 moduleAuthorityDto.moduleMap.put(allAuthority.getRuleName(), true);
             } else {
                 moduleAuthorityDto.moduleMap.put(allAuthority.getRuleName(), false);
@@ -53,11 +54,11 @@ public final class UserIdModuleAuthorityDto {
         return new UserIdModuleAuthorityDto(userId, map.values());
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

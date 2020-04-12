@@ -2,12 +2,15 @@ package ru.aora.erp.model.entity.business;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.StringJoiner;
 
 public class User implements UserDetails {
 
-    private Long id;
+    private static final long serialVersionUID = 78483832304536001L;
+
+    private String id;
     private Collection<IdAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -21,13 +24,13 @@ public class User implements UserDetails {
     private String phoneNumber;
     private String mail;
     private String employeePosition;
-    private boolean del;
+    private LocalDateTime deactivationDate;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public User setId(Long id) {
+    public User setId(String id) {
         this.id = id;
         return this;
     }
@@ -156,19 +159,19 @@ public class User implements UserDetails {
         return this;
     }
 
-    public boolean isDel() {
-        return del;
+    public LocalDateTime getDeactivationDate() {
+        return deactivationDate;
     }
 
-    public User setDel(boolean del) {
-        this.del = del;
+    public User setDeactivationDate(LocalDateTime deactivationDate) {
+        this.deactivationDate = deactivationDate;
         return this;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
+                .add("id='" + id + "'")
                 .add("authorities=" + authorities)
                 .add("accountNonExpired=" + accountNonExpired)
                 .add("accountNonLocked=" + accountNonLocked)
@@ -182,7 +185,7 @@ public class User implements UserDetails {
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("employeePosition='" + employeePosition + "'")
-                .add("del=" + del)
+                .add("deactivationDate=" + deactivationDate)
                 .toString();
     }
 }

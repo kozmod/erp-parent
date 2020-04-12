@@ -464,21 +464,6 @@ function updateUserRoleRequest(userId) {
 
     };
 
-    //
-    // moduleAuthorityDtoList.push({
-    //     moduleName: "XXXX",
-    //     moduleMap: {
-    //         "AAAA": true
-    //     }
-    // })
-    //
-    //
-    // var userAuthorityDto = {
-    //     userId: 1,
-    //     moduleAuthorityDtoList: moduleAuthorityDtoList
-    //
-    // };
-
     $.ajax({
         type: 'POST',
         url: '/updateUserRoles',

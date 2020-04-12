@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.aora.erp.model.entity.db.DbContract;
 import ru.aora.erp.model.entity.mapper.ContractMapper;
 import ru.aora.erp.model.entity.business.Contract;
-import ru.aora.erp.repository.jpa.DbContractRepository;
+import ru.aora.erp.repository.jpa.JpaContractRepository;
 import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
@@ -17,11 +17,11 @@ import static java.util.Objects.requireNonNull;
 @Service
 @Transactional
 public class ContractService {
-    private final DbContractRepository contractRepository;
+    private final JpaContractRepository contractRepository;
     private final ContractMapper contractMapper = ContractMapper.INSTANCE;
 
     @Autowired
-    public ContractService(DbContractRepository contractRepository) {
+    public ContractService(JpaContractRepository contractRepository) {
         this.contractRepository = contractRepository;
     }
 

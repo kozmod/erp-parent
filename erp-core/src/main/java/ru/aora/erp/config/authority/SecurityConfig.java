@@ -18,9 +18,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import static ru.aora.erp.presentation.controller.DashboardController.DASHBOARD_MAPPING;
-import static ru.aora.erp.presentation.controller.SecurityController.INCLUDE_ROOT_MAPPING;
-import static ru.aora.erp.presentation.controller.SecurityController.LOGIN_MAPPING;
-import static ru.aora.erp.presentation.controller.SecurityController.LOGOUT_MAPPING;
+import static ru.aora.erp.presentation.controller.security.SecurityController.INCLUDE_ROOT_MAPPING;
+import static ru.aora.erp.presentation.controller.security.SecurityController.LOGIN_MAPPING;
+import static ru.aora.erp.presentation.controller.security.SecurityController.LOGOUT_MAPPING;
 
 
 @Configuration
@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserAuthorityCacheService authorityCache;
-    ;
 
     @Autowired
     public SecurityConfig(
@@ -74,7 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_MAPPING))
-                .logoutSuccessUrl(LOGIN_MAPPING);
+                .logoutSuccessUrl(LOGIN_MAPPING) //todo not exists: /@%7B/logout%7D - what ????
+                .permitAll();
     }
 
     private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry defineAuthoritiesMapping(

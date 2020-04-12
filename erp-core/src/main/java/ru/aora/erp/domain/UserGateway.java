@@ -11,6 +11,8 @@ public interface UserGateway {
 
     List<User> findAll();
 
+    User create(User user);
+
     Optional<User> update(User user);
 
     Optional<User> delete(User user);

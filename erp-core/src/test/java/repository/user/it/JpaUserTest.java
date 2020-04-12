@@ -14,7 +14,7 @@ import ru.aora.erp.repository.jpa.*;
 
 import java.util.*;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepositoryConfig.class})
 public class JpaUserTest {
@@ -30,8 +30,22 @@ public class JpaUserTest {
 
     //    @Transactional
     @Test
-    public void should_getUser() {
-        Optional<DbUser> user = userRepository.findByName("U2");
+    public void should_getUserListByname() {
+        List<DbUser> users = userRepository.findByName("U2");
+        for (DbUser user : users) {
+            user.getAuthorities().forEach(
+                    a -> {
+                        System.out.println(a.getName());
+                        a.getSubAuthorities().forEach(s -> System.out.println(s.getName()));
+                    }
+            );
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void should_getActiveUserByName() {
+        Optional<DbUser> user = userRepository.findActiveByName("U2");
         user.ifPresent(
                 u -> u.getAuthorities().forEach(
                         a -> {
@@ -46,17 +60,18 @@ public class JpaUserTest {
     //    @Transactional
     @Test
     public void should_saveUser() {
-        DbSubAuthority adminSubA
-                = createDbSubAuthorityIfNotFound("ADMIN");
-        DbSubAuthority userSubA
-                = createDbSubAuthorityIfNotFound("USER");
+//        DbSubAuthority adminSubA
+//                = createDbSubAuthorityIfNotFound("ADMIN");
+//        DbSubAuthority userSubA
+//                = createDbSubAuthorityIfNotFound("USER");
+//
+//        createAuthorityIfNotFound("CORE", Arrays.asList(adminSubA));
+//        createAuthorityIfNotFound("GARANT", Arrays.asList(userSubA));
 
-        createAuthorityIfNotFound("CORE", Arrays.asList(adminSubA));
-        createAuthorityIfNotFound("GARANT", Arrays.asList(userSubA));
-
-        DbAuthority adminRole = roleRepository.findByName("CORE").get();
+//        DbAuthority adminRole = roleRepository.findByName("CORE").get();
+        DbAuthority adminRole = new DbAuthority().setName("a");
         DbUser user = new DbUser();
-        user.setUsername("U2");
+        user.setUsername("U3");
         user.setFirstName("Test");
         user.setSurname("S-Test");
         user.setPatronymic("P-test");

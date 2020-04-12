@@ -12,10 +12,17 @@ import ru.aora.erp.repository.jpa.JpaSubAuthorityRepository;
 import ru.aora.erp.repository.jpa.JpaUserRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static ru.aora.erp.repository.gateway.GatewayUtils.DEACTIVATED_FLAG;
+import static ru.aora.erp.repository.gateway.GatewayUtils.groupFunctions;
 
 @Service
 @Transactional
@@ -25,6 +32,9 @@ public class DbUserGateway implements UserGateway {
     private final JpaAuthorityRepository authorityRepository;
     private final JpaSubAuthorityRepository subAuthorityRepository;
     private final UserMapper userMapper = UserMapper.INSTANCE;
+
+    private final Function<List<DbAuthority>, Map<String, DbAuthority>> gropeAuthorityByName = groupFunctions(DbAuthority::getName);
+    private final Function<List<DbSubAuthority>, Map<String, DbSubAuthority>> gropeSubAuthorityByName = groupFunctions(DbSubAuthority::getName);
 
     public DbUserGateway(
             JpaUserRepository userRepository,
@@ -36,10 +46,9 @@ public class DbUserGateway implements UserGateway {
     }
 
 
-
     @Override
     public Optional<User> findByName(String name) {
-        return userRepository.findByName(name)
+        return userRepository.findActiveByName(name)
                 .map(userMapper::toUser)
                 .or(Optional::empty);
     }
@@ -53,24 +62,68 @@ public class DbUserGateway implements UserGateway {
     }
 
     @Override
+    public User create(User user) {
+        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername());
+        if (target.isPresent()) {
+            throw new IllegalArgumentException(
+                    String.format("User with user name [%s] exists", user.getUsername())
+            );
+        }
+        DbUser source = userMapper.toDbUser(user);
+        tryCreateAuthoritiesAndSetId(source.getAuthorities());
+        DbUser res = userRepository.save(source);
+        return userMapper.toUser(res);
+    }
+
+
+    @Override
     public Optional<User> update(User user) {
-        return Optional.empty(); //todo new to discus
+        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername());
+        if (target.isPresent()) {
+            userRepository.save(setDeactivated(target.get()));
+            DbUser source = userMapper.toDbUser(user);
+            tryCreateAuthoritiesAndSetId(source.getAuthorities());
+            DbUser res = userRepository.save(source);
+            return Optional.of(userMapper.toUser(res));
+        }
+        return Optional.empty();
     }
 
     @Override
     public Optional<User> delete(User user) {
-        return Optional.empty(); //todo new to discus
+        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername());
+        if (target.isPresent()) {
+            DbUser res = userRepository.save(setDeactivated(target.get()));
+            return Optional.ofNullable(userMapper.toUser(res));
+        }
+        return Optional.empty();
     }
 
-
-    private DbSubAuthority createSubAuthorityIfNotFound(String name) {
-        return subAuthorityRepository.findByName(name)
-                .orElseGet(() -> subAuthorityRepository.save(new DbSubAuthority().setName(name)));
+    private DbUser setDeactivated(DbUser user) {
+        return Objects.requireNonNull(user)
+                .setDeactivated(DEACTIVATED_FLAG)
+                .setDeactivationDate(LocalDateTime.now());
     }
 
-    private DbAuthority createAuthorityIfNotFound(String name, Collection<DbSubAuthority> sub) {
-        return authorityRepository.findByName(name)
-                .orElseGet(() -> authorityRepository.save(new DbAuthority().setName(name).setSubAuthorities(sub)));
-    }
+    private void tryCreateAuthoritiesAndSetId(Collection<DbAuthority> authorities) {
+        Map<String, DbSubAuthority> existsSubAuthorities = gropeSubAuthorityByName
+                .apply(subAuthorityRepository.findAll());
+        Map<String, DbAuthority> existsAuthorities = gropeAuthorityByName
+                .apply(authorityRepository.findAll());
 
+        for (DbAuthority authority : authorities) {
+            for (DbSubAuthority subAuthority : authority.getSubAuthorities()) {
+                DbSubAuthority existsSub = existsSubAuthorities.computeIfAbsent(
+                        subAuthority.getName(),
+                        name -> subAuthorityRepository.save(subAuthority)
+                );
+                subAuthority.setId(existsSub.getName());
+            }
+            DbAuthority exists = existsAuthorities.computeIfAbsent(
+                    authority.getName(),
+                    name -> authorityRepository.save(authority)
+            );
+            authority.setId(exists.getId());
+        }
+    }
 }

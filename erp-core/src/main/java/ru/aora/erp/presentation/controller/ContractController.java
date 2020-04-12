@@ -33,7 +33,8 @@ public final class ContractController {
     private static final String ID_PARENT = "id_parent";
     private static final String PARENT_NAME = "parent_name";
     private static final String COUNTERAGENT_NAME = "counteragent_name";
-    private ContractService contractService;
+
+    private final ContractService contractService;
 
     @Autowired
     public ContractController(ContractService contractService) {

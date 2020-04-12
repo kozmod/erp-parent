@@ -1,6 +1,5 @@
 package ru.aora.erp.domain.service.user;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +9,7 @@ import ru.aora.erp.model.entity.business.UserAuthority;
 import ru.aora.erp.utils.common.CommonUtils;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class UserService implements UserDetailsService {
@@ -30,7 +30,7 @@ public final class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String name) throws UsernameNotFoundException {
+    public User loadUserByUsername(String name) {
         CommonUtils.requiredNotBlank(name);
         return gateway.findByName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found: " + name));
@@ -43,19 +43,30 @@ public final class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public User updateUser(User user) {
-        Objects.requireNonNull(user);
-        user.setAuthorities(removeIfNotExistsInCache(user.getAuthorities()));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        var dbUser = gateway.update(user)
-                .orElseThrow(() -> new UsernameNotFoundException("User was not updated: " + user));
-        dbUser.setPassword(null);
-        return dbUser;
+    public User createUser(User user) {
+        return prepareAndExect(user, gateway::create);
     }
 
-    public User deleteUser(User user) {
-        Objects.requireNonNull(user);
-        return gateway.delete(user).orElse(null); //todo think about
+    public User updateUser(User user) {
+        return prepareAndExect(
+                user,
+                u -> gateway.update(u)
+                        .orElseThrow(() -> new UsernameNotFoundException("User was not updated: " + user))
+        );
+    }
+
+//    public User deleteUser(User user) {
+//        Objects.requireNonNull(user);
+//        return gateway.delete(user).orElse(null); //todo think about
+//    }
+
+    private User prepareAndExect(User source, Function<User, User> func) {
+        Objects.requireNonNull(source);
+        source.setAuthorities(removeIfNotExistsInCache(source.getAuthorities()));
+        source.setPassword(passwordEncoder.encode(source.getPassword()));
+        User res = func.apply(source);
+        res.setPassword(null);
+        return res;
     }
 
     private Collection<UserAuthority> removeIfNotExistsInCache(Collection<UserAuthority> authorities) {

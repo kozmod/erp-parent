@@ -1,7 +1,7 @@
 package ru.aora.erp.config.authority;
 
 import ru.aora.erp.model.entity.business.UserAuthority;
-import ru.aora.erp.presentation.controller.SecurityController;
+import ru.aora.erp.presentation.controller.security.SecurityController;
 
 import java.util.Map;
 import java.util.Set;

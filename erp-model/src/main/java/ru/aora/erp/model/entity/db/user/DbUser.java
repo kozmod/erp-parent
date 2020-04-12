@@ -20,7 +20,7 @@ public class DbUser implements Serializable {
     @Column(name = "id", columnDefinition = "uniqueidentifier")
     private String id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -59,7 +59,10 @@ public class DbUser implements Serializable {
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @Column(name = "deactivated")
+    private Integer deactivated;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_user_authority",
             joinColumns = @JoinColumn(
@@ -211,6 +214,15 @@ public class DbUser implements Serializable {
         this.authorities = dbAuthorities;
     }
 
+    public Integer getDeactivated() {
+        return deactivated;
+    }
+
+    public DbUser setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", DbUser.class.getSimpleName() + "[", "]")
@@ -227,11 +239,9 @@ public class DbUser implements Serializable {
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("employeePosition='" + employeePosition + "'")
-//                .add("creationDate=" + creationDate)
-                .add("deactivationDate=" + deactivationDate)
-//                .add("versionTimestamp='" + versionTimestamp + "'")
-//                .add("entityUuid='" + entityUuid + "'")
                 .add("authorities=" + authorities)
+                .add("deactivationDate=" + deactivationDate)
+                .add("deactivated=" + deactivated)
                 .toString();
     }
 }

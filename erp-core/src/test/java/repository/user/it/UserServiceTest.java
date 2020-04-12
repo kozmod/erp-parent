@@ -11,6 +11,9 @@ import ru.aora.erp.config.RepositoryConfig;
 import ru.aora.erp.config.UserServiceConfig;
 import ru.aora.erp.domain.service.user.UserService;
 import ru.aora.erp.model.entity.business.User;
+import ru.aora.erp.model.entity.business.UserAuthority;
+
+import java.util.Collections;
 
 
 @Ignore
@@ -30,7 +33,6 @@ public class UserServiceTest {
     public void should_getUser() {
         User user = userService.loadUserByUsername("User");
         System.out.println(passwordEncoder.matches(user.getPassword(), "123456"));
-        System.out.println(passwordEncoder.encode("123456"));
         System.out.println(user.getPassword());
         user.getAuthorities().forEach(
                 a -> {
@@ -42,48 +44,22 @@ public class UserServiceTest {
     }
 
     //    @Transactional
-//    @Test
-//    public void should_saveUser() {
-//        DbSubAuthority adminSubA
-//                = createDbSubAuthorityIfNotFound("ADMIN");
-//        DbSubAuthority userSubA
-//                = createDbSubAuthorityIfNotFound("USER");
-//
-//        createAuthorityIfNotFound("CORE", Arrays.asList(adminSubA));
-//        createAuthorityIfNotFound("GARANT", Arrays.asList(userSubA));
-//
-//        DbAuthority adminRole = roleRepository.findByName("CORE").get();
-//        DbUser user = new DbUser();
-//        user.setUsername("U2");
-//        user.setFirstName("Test");
-//        user.setSurname("S-Test");
-//        user.setPatronymic("P-test");
-//        user.setPhoneNumber("123456");
-//
-//        user.setPassword("test");
-//        user.setAuthorities(Collections.singletonList(adminRole));
-//        user.setEnabled(true);
-//        userRepository.save(user);
-//    }
-//
-//    private DbSubAuthority createDbSubAuthorityIfNotFound(String name) {
-//        Optional<DbSubAuthority> subAuthority = privilegeRepository.findByName(name);
-//        if (subAuthority.isEmpty()) {
-//            DbSubAuthority newSub = new DbSubAuthority();
-//            newSub.setName(name);
-//            return privilegeRepository.save(newSub);
-//        }
-//        return subAuthority.get();
-//    }
-//
-//    private DbAuthority createAuthorityIfNotFound(String name, Collection<DbSubAuthority> privileges) {
-//        Optional<DbAuthority> authority = roleRepository.findByName(name);
-//        if (authority.isEmpty()) {
-//            DbAuthority newA = new DbAuthority();
-//            newA.setName(name);
-//            newA.setSubAuthorities(privileges);
-//            return roleRepository.save(newA);
-//        }
-//        return authority.get();
-//    }
+    @Test
+    public void should_saveUser() {
+        User user = new User();
+        user.setUsername("U1");
+        user.setFirstName("Test");
+        user.setSurname("S-Test");
+        user.setPatronymic("P-test");
+        user.setPhoneNumber("123456");
+
+        user.setPassword("test");
+        user.setAuthorities(Collections.singletonList(new UserAuthority("CORE","ADMIN")));
+        user.setEnabled(true);
+
+        User res = userService.createUser(user);
+
+        System.out.println(res);
+        System.out.println(res.getAuthorities());
+    }
 }

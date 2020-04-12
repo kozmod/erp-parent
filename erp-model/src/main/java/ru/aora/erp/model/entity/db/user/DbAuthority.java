@@ -15,7 +15,7 @@ public class DbAuthority {
     @Column(name = "id", columnDefinition = "uniqueidentifier")
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
 //    @ManyToMany(mappedBy = "authorities", fetch=FetchType.LAZY)

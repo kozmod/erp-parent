@@ -28,7 +28,7 @@ public final class GlobalControllerExceptionHandler {
     private final static String SERVICE_ERROR_TEMPLATE = "error";
     private final static String VALIDATION_ERROR_TEMPLATE = "validationerror";
 
-    @ExceptionHandler(RuntimeException.class) //todo add logger
+    @ExceptionHandler(RuntimeException.class)
     public ModelAndView runtimeException(HttpServletRequest req, Exception ex) {
         final ModelAndView mav = new ModelAndView();
         mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);

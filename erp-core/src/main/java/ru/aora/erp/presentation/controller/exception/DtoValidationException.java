@@ -2,7 +2,7 @@ package ru.aora.erp.presentation.controller.exception;
 
 import org.springframework.validation.BindingResult;
 
-public class DtoValidationException extends RuntimeException {
+public final class DtoValidationException extends RuntimeException {
 
     private final BindingResult bindingResult;
 

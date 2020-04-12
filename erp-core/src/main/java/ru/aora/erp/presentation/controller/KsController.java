@@ -36,7 +36,7 @@ public final class KsController {
     private static final String CONTRACT_NAME = "contract_name";
     private static final String COUNTERAGENT_NAME = "counteragent_name";
 
-    private KsService ksService;
+    private final KsService ksService;
 
     public KsController(KsService ksService) {
         this.ksService = ksService;

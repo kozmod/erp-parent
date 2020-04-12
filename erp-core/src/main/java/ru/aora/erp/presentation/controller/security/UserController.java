@@ -1,4 +1,4 @@
-package ru.aora.erp.presentation.controller;
+package ru.aora.erp.presentation.controller.security;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static ru.aora.erp.presentation.controller.UserController.MAPPING;
+import static ru.aora.erp.presentation.controller.security.UserController.MAPPING;
 
 @Controller
 @RequestMapping(MAPPING)
@@ -41,8 +41,8 @@ public final class UserController {
     }
 
     @GetMapping
-    public String userForm(Map<String, Object> model) {
-        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(() -> userService.loadAll()).get();
+    public String getUsers(Map<String, Object> model) {
+        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(userService::loadAll).get();
         operationResult.getResult()
                 .ifPresent(result -> {
                     UsersDto usersDto = UsersDto.of(result);
@@ -53,14 +53,14 @@ public final class UserController {
                     model.put(USERS_DTO_MODEL, usersDto);
                     model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
                 });
-        operationResult.getFailure().ifPresent(RuntimeException::new);
+        operationResult.getFailure().ifPresent(cause -> {throw new RuntimeException(cause);});
         return USERS_TEMPLATE;
     }
 
     @PutMapping
-    public @ResponseBody String putUser(@RequestBody User user) {
+    public @ResponseBody String updateUser(@RequestBody User user) {
         OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
-        operationResult.getFailure().ifPresent(RuntimeException::new);
+        operationResult.getFailure().ifPresent(cause -> {throw new RuntimeException(cause);});
         return "update";
     }
 

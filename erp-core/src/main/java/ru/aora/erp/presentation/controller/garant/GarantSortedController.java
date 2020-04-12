@@ -1,4 +1,4 @@
-package ru.aora.erp.presentation.controller;
+package ru.aora.erp.presentation.controller.garant;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ import static ru.aora.erp.presentation.entity.dto.compose.KsContractCounteragent
 @RequestMapping("/garantsorted")
 public final class GarantSortedController {
 
-    private static final String CONTROLLER_MAPPING = "garantsorted";
+    private static final String CONTROLLER_TEMPLATE = "garantsorted";
     private static final String DTO_MODEL = "ksSortDto";
 
     private final KsService ksService;
@@ -45,6 +45,6 @@ public final class GarantSortedController {
                         counteragentService.loadAll())
         );
         model.put(DTO_MODEL, KsContractCounteragentCollectionDto.of(ksDtoList));
-        return CONTROLLER_MAPPING;
+        return CONTROLLER_TEMPLATE;
     }
 }

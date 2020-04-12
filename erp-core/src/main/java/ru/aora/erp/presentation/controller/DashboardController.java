@@ -6,7 +6,7 @@ import ru.aora.erp.presentation.presenter.AllSidebarPresenter;
 
 import java.util.Map;
 
-import static ru.aora.erp.presentation.controller.SecurityController.ROOT_MAPPING;
+import static ru.aora.erp.presentation.controller.security.SecurityController.ROOT_MAPPING;
 import static ru.aora.erp.utils.mvc.MvcUtils.redirectTo;
 
 

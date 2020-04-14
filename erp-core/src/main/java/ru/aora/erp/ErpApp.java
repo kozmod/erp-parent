@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import ru.aora.erp.config.ControllerConfig;
 import ru.aora.erp.config.authority.SecurityConfig;
-import ru.aora.erp.config.UserServiceConfig;
+import ru.aora.erp.config.DomainServiceConfig;
 import ru.aora.erp.config.RepositoryConfig;
 
 @SpringBootApplication(scanBasePackages = {
@@ -14,7 +14,7 @@ import ru.aora.erp.config.RepositoryConfig;
 @Import({
         SecurityConfig.class,
         ControllerConfig.class,
-        UserServiceConfig.class,
+        DomainServiceConfig.class,
         RepositoryConfig.class
 })
 public class ErpApp {

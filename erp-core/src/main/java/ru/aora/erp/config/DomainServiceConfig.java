@@ -8,7 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.aspect.ServiceLoggingAspect;
 import ru.aora.erp.config.authority.CoreAuthorityConfigMap;
+import ru.aora.erp.domain.KsGateway;
 import ru.aora.erp.domain.UserGateway;
+import ru.aora.erp.domain.service.KsService;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
 import ru.aora.erp.domain.service.user.UserService;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Configuration
 @ComponentScan("ru.aora.erp.domain.service") //todo remove in the future
 @EnableAspectJAutoProxy
-public class UserServiceConfig {
+public class DomainServiceConfig {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
@@ -43,6 +45,11 @@ public class UserServiceConfig {
             UserAuthorityCacheService userAuthorityCacheService
     ){
         return new UserService(gateway,passwordEncoder,userAuthorityCacheService);
+    }
+
+    @Bean
+    public KsService ksService(KsGateway gateway){
+        return new KsService(gateway);
     }
 
 //    @Bean //todo: используем или нет???

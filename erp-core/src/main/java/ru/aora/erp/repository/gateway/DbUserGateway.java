@@ -21,8 +21,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ru.aora.erp.repository.gateway.GatewayUtils.DEACTIVATED_FLAG;
-import static ru.aora.erp.repository.gateway.GatewayUtils.groupFunctions;
+import static ru.aora.erp.repository.gateway.DbGatewayUtils.*;
 
 @Service
 @Transactional
@@ -39,7 +38,9 @@ public class DbUserGateway implements UserGateway {
     public DbUserGateway(
             JpaUserRepository userRepository,
             JpaAuthorityRepository authorityRepository,
-            JpaSubAuthorityRepository subAuthorityRepository) {
+            JpaSubAuthorityRepository subAuthorityRepository
+
+    ) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
         this.subAuthorityRepository = subAuthorityRepository;
@@ -49,6 +50,7 @@ public class DbUserGateway implements UserGateway {
     @Override
     public Optional<User> findByName(String name) {
         return userRepository.findActiveByName(name)
+                .filter(this::isActive)
                 .map(userMapper::toUser)
                 .or(Optional::empty);
     }
@@ -57,6 +59,7 @@ public class DbUserGateway implements UserGateway {
     public List<User> findAll() {
         return userRepository.findAll()
                 .stream()
+                .filter(this::isActive)
                 .map(userMapper::toUser)
                 .collect(Collectors.toList());
     }
@@ -78,9 +81,11 @@ public class DbUserGateway implements UserGateway {
 
     @Override
     public Optional<User> update(User user) {
-        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername());
+        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername())
+                .filter(this::isActive)
+                .map(this::setDeactivated);
         if (target.isPresent()) {
-            userRepository.save(setDeactivated(target.get()));
+            userRepository.save(target.get());
             DbUser source = userMapper.toDbUser(user);
             tryCreateAuthoritiesAndSetId(source.getAuthorities());
             DbUser res = userRepository.save(source);
@@ -99,9 +104,14 @@ public class DbUserGateway implements UserGateway {
         return Optional.empty();
     }
 
+    private boolean isActive(DbUser user) {
+        return ACTIVE_ENTITY_FLAG.equals(user.getDeactivated())
+                && user.getDeactivationDate() == null;
+    }
+
     private DbUser setDeactivated(DbUser user) {
         return Objects.requireNonNull(user)
-                .setDeactivated(DEACTIVATED_FLAG)
+                .setDeactivated(INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
     }
 

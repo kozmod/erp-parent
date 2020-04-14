@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public final class GatewayUtils {
+public final class DbGatewayUtils {
 
-    public static final Integer DEACTIVATED_FLAG = 1;
+    public static final Integer INACTIVE_ENTITY_FLAG = 1;
+    public static final Integer ACTIVE_ENTITY_FLAG = 0;
 
     static <K, V> Function<List<V>, Map<K, V>> groupFunctions(Function<V, K> keyExtractor) {
         return list -> {

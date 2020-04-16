@@ -39,17 +39,11 @@ public class DbContract implements Serializable {
     @Column(name = "contract_subject")
     private String contractSubject;
 
-//    @Column(name = "creation_date")
-//    private LocalDateTime creationDate;
-
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-//    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
-//    private String  versionTimestamp;
-
-    @Column(name = "entity_uuid", nullable = false)
-    private String entityUuid;
+    @Column(name = "deactivated")
+    private Integer deactivated;
 
     public String getId() {
         return id;
@@ -104,15 +98,6 @@ public class DbContract implements Serializable {
         this.contractSubject = contractSubject;
         return this;
     }
-//
-//    public LocalDateTime getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public DbContract setCreationDate(LocalDateTime creationDate) {
-//        this.creationDate = creationDate;
-//        return this;
-//    }
 
     public LocalDateTime getDeactivationDate() {
         return deactivationDate;
@@ -123,37 +108,26 @@ public class DbContract implements Serializable {
         return this;
     }
 
-    public String getEntityUuid() {
-        return entityUuid;
+    public Integer getDeactivated() {
+        return deactivated;
     }
 
-    public DbContract setEntityUuid(String entityUuid) {
-        this.entityUuid = entityUuid;
+    public DbContract setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
         return this;
     }
 
-//    public String getVersionTimestamp() {
-//        return versionTimestamp;
-//    }
-
-//    public DbContract setVersionTimestamp(String versionTimestamp) {
-//        this.versionTimestamp = versionTimestamp;
-//        return this;
-//    }
-
     @Override
     public String toString() {
-        return new StringJoiner(", ", DbContract.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentId='" + counteragentId + "'")
-                .add("contractType=" + contractType)
-                .add("contractDate=" + contractDate)
-                .add("contractNumber='" + contractNumber + "'")
-                .add("contractSubject='" + contractSubject + "'")
-//                .add("creationDate=" + creationDate)
-                .add("deactivationDate=" + deactivationDate)
-//                .add("versionTimestamp='" + versionTimestamp + "'")
-                .add("entityUuid='" + entityUuid + "'")
-                .toString();
+        return "DbContract{" +
+                "id='" + id + '\'' +
+                ", counteragentId='" + counteragentId + '\'' +
+                ", contractType=" + contractType +
+                ", contractDate=" + contractDate +
+                ", contractNumber='" + contractNumber + '\'' +
+                ", contractSubject='" + contractSubject + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + deactivated +
+                '}';
     }
 }

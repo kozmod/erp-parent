@@ -13,8 +13,8 @@ import ru.aora.erp.config.RepositoryConfig;
 })
 @Import({
         SecurityConfig.class,
-        ControllerConfig.class,
         DomainServiceConfig.class,
+        ControllerConfig.class,
         RepositoryConfig.class
 })
 public class ErpApp {

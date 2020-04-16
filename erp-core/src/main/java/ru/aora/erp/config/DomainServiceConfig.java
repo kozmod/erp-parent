@@ -8,11 +8,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.aspect.ServiceLoggingAspect;
 import ru.aora.erp.config.authority.CoreAuthorityConfigMap;
-import ru.aora.erp.domain.KsGateway;
 import ru.aora.erp.domain.UserGateway;
+import ru.aora.erp.domain.service.ContractService;
+import ru.aora.erp.domain.service.CounteragentService;
 import ru.aora.erp.domain.service.KsService;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
 import ru.aora.erp.domain.service.user.UserService;
+import ru.aora.erp.repository.gateway.DbContractGateway;
+import ru.aora.erp.repository.gateway.DbCounteragentGateway;
+import ru.aora.erp.repository.gateway.DbKsGateway;
 
 import java.util.List;
 
@@ -48,8 +52,18 @@ public class DomainServiceConfig {
     }
 
     @Bean
-    public KsService ksService(KsGateway gateway){
+    public KsService ksService(DbKsGateway gateway){
         return new KsService(gateway);
+    }
+
+    @Bean
+    public ContractService contractService(DbContractGateway gateway){
+        return new ContractService(gateway);
+    }
+
+    @Bean
+    public CounteragentService counteragentService(DbCounteragentGateway gateway){
+        return new CounteragentService(gateway);
     }
 
 //    @Bean //todo: используем или нет???

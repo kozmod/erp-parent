@@ -59,9 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_CSS_MAPPING).permitAll()
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
-                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(CoreAuthorityConfigMap.ADMIN.getAuthority())
 //                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(CoreAuthorityConfigMap.ADMIN.toString())
-//                .antMatchers(INCLUDE_ROOT_MAPPING).permitAll() //todo
+                .antMatchers(INCLUDE_ROOT_MAPPING).permitAll() //todo
 //                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(ADMIN.getAuthority())
 //                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
 //                .antMatchers(INCLUDE_ROOT_MAPPING).authenticated()

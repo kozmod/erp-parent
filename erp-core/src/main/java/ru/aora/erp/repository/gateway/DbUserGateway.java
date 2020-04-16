@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ru.aora.erp.repository.gateway.DbGatewayUtils.*;
+import static ru.aora.erp.repository.gateway.GatewayUtils.*;
 
 @Service
 @Transactional
@@ -45,7 +45,6 @@ public class DbUserGateway implements UserGateway {
         this.authorityRepository = authorityRepository;
         this.subAuthorityRepository = subAuthorityRepository;
     }
-
 
     @Override
     public Optional<User> findByName(String name) {

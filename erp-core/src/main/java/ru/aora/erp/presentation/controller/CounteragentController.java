@@ -1,6 +1,5 @@
 package ru.aora.erp.presentation.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +33,6 @@ public final class CounteragentController {
 
     private final CounteragentService counteragentService;
 
-    @Autowired
     public CounteragentController(CounteragentService counteragentService) {
         this.counteragentService = counteragentService;
     }

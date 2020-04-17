@@ -16,6 +16,7 @@ public class Ks {
     private BigDecimal garantSum;
     private Boolean paymentStatus;
     private LocalDateTime deactivationDate;
+    private Integer deactivated;
 
     public String getId() {
         return id;
@@ -98,18 +99,28 @@ public class Ks {
         return this;
     }
 
+    public Integer getDeactivated() {
+        return deactivated;
+    }
+
+    public Ks setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", Ks.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("contractId='" + contractId + "'")
-                .add("ksDate=" + ksDate)
-                .add("ksNumber='" + ksNumber + "'")
-                .add("ksSum=" + ksSum)
-                .add("garantDate=" + garantDate)
-                .add("garantSum=" + garantSum)
-                .add("paymentStatus=" + paymentStatus)
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "Ks{" +
+                "id='" + id + '\'' +
+                ", contractId='" + contractId + '\'' +
+                ", ksDate=" + ksDate +
+                ", ksNumber='" + ksNumber + '\'' +
+                ", ksSum=" + ksSum +
+                ", garantDate=" + garantDate +
+                ", garantSum=" + garantSum +
+                ", paymentStatus=" + paymentStatus +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + deactivated +
+                '}';
     }
 }

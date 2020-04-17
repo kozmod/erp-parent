@@ -14,7 +14,7 @@ import ru.aora.erp.repository.jpa.*;
 
 import java.util.*;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepositoryConfig.class})
 public class JpaUserTest {

@@ -47,14 +47,12 @@ public class DbKsGateway implements CrudGateway<Ks, String> {
 
     @Override
     public Ks create(Ks ks) {
-        Objects.requireNonNull(ks);
         DbKs res = repository.save(mapper.toDbKs(ks));
         return mapper.toKs(res);
     }
 
     @Override
     public Optional<Ks> update(Ks ks) {
-        Objects.requireNonNull(ks);
         Optional<DbKs> optionalTarget = repository.findById(ks.getId())
                 .filter(this::isActive)
                 .map(this::setDeactivated);

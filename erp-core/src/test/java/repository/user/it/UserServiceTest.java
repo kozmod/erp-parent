@@ -57,7 +57,7 @@ public class UserServiceTest {
         user.setAuthorities(Collections.singletonList(new UserAuthority("CORE","ADMIN")));
         user.setEnabled(true);
 
-        User res = userService.createUser(user);
+        User res = userService.create(user);
 
         System.out.println(res);
         System.out.println(res.getAuthorities());

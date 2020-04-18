@@ -94,8 +94,8 @@ public class DbUserGateway implements UserGateway {
     }
 
     @Override
-    public Optional<User> delete(User user) {
-        Optional<DbUser> target = userRepository.findActiveByName(user.getUsername());
+    public Optional<User> delete(String name) {
+        Optional<DbUser> target = userRepository.findActiveByName(name);
         if (target.isPresent()) {
             DbUser res = userRepository.save(setDeactivated(target.get()));
             return Optional.ofNullable(userMapper.toUser(res));

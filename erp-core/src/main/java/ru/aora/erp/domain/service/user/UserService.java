@@ -4,12 +4,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.domain.UserGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.model.entity.business.UserAuthority;
 import ru.aora.erp.utils.common.CommonUtils;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class UserService implements UserDetailsService {
@@ -43,30 +46,28 @@ public final class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public User createUser(User user) {
-        return prepareAndExec(user, gateway::create);
+    public User create(User user) {
+        return gateway.create(prepare(user)).setPassword(null);
     }
 
-    public User updateUser(User user) {
-        return prepareAndExec(
-                user,
-                u -> gateway.update(u)
-                        .orElseThrow(() -> new UsernameNotFoundException("User was not updated: " + user))
-        );
+    public MsgServiceResult update(User user) {
+        return gateway.update(prepare(user))
+                .map(u -> MsgServiceResult.success("User updated"))
+                .orElseGet(() -> MsgServiceResult.failed("User to update not found"));
     }
 
-//    public User deleteUser(User user) {
-//        Objects.requireNonNull(user);
-//        return gateway.delete(user).orElse(null); //todo think about
-//    }
+    public MsgServiceResult delete(String name) {
+        CommonUtils.requiredNotBlank(name);
+        return gateway.delete(name)
+                .map(u -> MsgServiceResult.success("User deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("User to delete not found"));
+    }
 
-    private User prepareAndExec(User source, Function<User, User> func) {
+    private User prepare(User source) {
         Objects.requireNonNull(source);
         source.setAuthorities(removeIfNotExistsInCache(source.getAuthorities()));
         source.setPassword(passwordEncoder.encode(source.getPassword()));
-        User res = func.apply(source);
-        res.setPassword(null);
-        return res;
+        return source;
     }
 
     private Collection<UserAuthority> removeIfNotExistsInCache(Collection<UserAuthority> authorities) {
@@ -79,11 +80,4 @@ public final class UserService implements UserDetailsService {
         }
         return res;
     }
-
-
-//    private void tryEncodeUserPassword(User user, DbUser dbUser) {
-//        if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        }
-//    }
 }

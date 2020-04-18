@@ -1,17 +1,14 @@
 package ru.aora.erp.presentation.controller.security;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
+import ru.aora.erp.presentation.controller.exception.DtoValidationException;
 import ru.aora.erp.presentation.entity.dto.user.UserIdModuleAuthorityDto;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.presentation.entity.dto.user.UsersDto;
 import ru.aora.erp.domain.service.user.UserService;
-import ru.aora.erp.utils.result.OperationResult;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,32 +39,36 @@ public final class UserController {
 
     @GetMapping
     public String getUsers(Map<String, Object> model) {
-        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(userService::loadAll).get();
-        operationResult.getResult()
-                .ifPresent(result -> {
-                    UsersDto usersDto = UsersDto.of(result);
-                    Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
-                            usersDto.getUsers(),
-                            authorityCache.allAuthorities()
-                    );
-                    model.put(USERS_DTO_MODEL, usersDto);
-                    model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
-                });
-        operationResult.getFailure().ifPresent(cause -> {throw new RuntimeException(cause);});
+        List<User> users = userService.loadAll();
+        UsersDto usersDto = UsersDto.of(users);
+        Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
+                usersDto.getUsers(),
+                authorityCache.allAuthorities()
+        );
+        model.put(USERS_DTO_MODEL, usersDto);
+        model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
         return USERS_TEMPLATE;
     }
 
     @PutMapping
-    public @ResponseBody String updateUser(@RequestBody User user) {
-        OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
-        operationResult.getFailure().ifPresent(cause -> {throw new RuntimeException(cause);});
-        return "update";
+    public @ResponseBody
+    String updateUser(@RequestBody User user, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        return userService.update(user).getMsg();
     }
 
-//    @DeleteMapping("/{id}") todo add
-//    public @ResponseBody String deleteUser(@PathVariable long id) {
-//        OperationResult<Long, Exception> operationResult = OperationResult.get(() -> userService.deleteUser(id));
-//        operationResult.getFailure().ifPresent(RuntimeException::new);
-//        return "delete";
-//    }
+    @PostMapping
+    public @ResponseBody
+    String createUser(@RequestBody User user, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        userService.create(user);
+        return "User created";
+    }
+
+    @DeleteMapping("/{name}")
+    public @ResponseBody
+    String deleteUser(@PathVariable String name, BindingResult bindingResult) {
+        DtoValidationException.throwIfHasErrors(bindingResult);
+        return userService.delete(name).getMsg();
+    }
 }

@@ -99,7 +99,7 @@ public class DbUserGatewayTest {
 
     @Test
     public void shouldDelete_ExistsActive() {
-        Optional<User> res = gateway.delete(active());
+        Optional<User> res = gateway.delete(ACTIVE_NAME);
         assertTrue(res.isPresent());
         assertEquals(ACTIVE_ID, res.get().getId());
         assertEquals(ACTIVE_NAME, res.get().getUsername());
@@ -110,13 +110,13 @@ public class DbUserGatewayTest {
 
     @Test
     public void shouldNotDelete_ExistsInactive() {
-        Optional<User> res = gateway.delete(inactive());
+        Optional<User> res = gateway.delete(INACTIVE_NAME);
         assertFalse(res.isPresent());
     }
 
     @Test
     public void shouldNotDelete_NotExists() {
-        Optional<User> res = gateway.delete(notExists());
+        Optional<User> res = gateway.delete(NOT_EXISTS_NAME);
         assertFalse(res.isPresent());
     }
 

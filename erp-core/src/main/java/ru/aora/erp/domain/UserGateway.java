@@ -15,7 +15,7 @@ public interface UserGateway {
 
     Optional<User> update(User user);
 
-    Optional<User> delete(User user);
+    Optional<User> delete(String name);
 
 }
 

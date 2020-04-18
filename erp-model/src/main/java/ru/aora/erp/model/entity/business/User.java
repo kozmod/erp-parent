@@ -25,6 +25,7 @@ public class User implements UserDetails {
     private String mail;
     private String employeePosition;
     private LocalDateTime deactivationDate;
+    private Integer deactivated;
 
     public String getId() {
         return id;
@@ -168,24 +169,34 @@ public class User implements UserDetails {
         return this;
     }
 
+    public Integer getDeactivated() {
+        return deactivated;
+    }
+
+    public User setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("authorities=" + authorities)
-                .add("accountNonExpired=" + accountNonExpired)
-                .add("accountNonLocked=" + accountNonLocked)
-                .add("credentialsNonExpired=" + credentialsNonExpired)
-                .add("enabled=" + enabled)
-                .add("username='" + username + "'")
-                .add("password='" + password + "'")
-                .add("firstName='" + firstName + "'")
-                .add("surname='" + surname + "'")
-                .add("patronymic='" + patronymic + "'")
-                .add("phoneNumber='" + phoneNumber + "'")
-                .add("mail='" + mail + "'")
-                .add("employeePosition='" + employeePosition + "'")
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "User{" +
+                "id='" + id + '\'' +
+                ", authorities=" + authorities +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                ", employeePosition='" + employeePosition + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + deactivated +
+                '}';
     }
 }

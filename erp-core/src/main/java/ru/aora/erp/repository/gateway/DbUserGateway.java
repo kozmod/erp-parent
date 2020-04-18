@@ -55,7 +55,7 @@ public class DbUserGateway implements UserGateway {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> loadAll() {
         return userRepository.findAll()
                 .stream()
                 .filter(this::isActive)
@@ -115,6 +115,9 @@ public class DbUserGateway implements UserGateway {
     }
 
     private void tryCreateAuthoritiesAndSetId(Collection<DbAuthority> authorities) {
+        if (authorities == null) {
+            return;
+        }
         Map<String, DbSubAuthority> existsSubAuthorities = gropeSubAuthorityByName
                 .apply(subAuthorityRepository.findAll());
         Map<String, DbAuthority> existsAuthorities = gropeAuthorityByName

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface CrudGateway<E, ID> {
 
-    List<E> loadAll();
+    List<E> loadAllActive();
 
     Optional<E> getById(ID id);
 

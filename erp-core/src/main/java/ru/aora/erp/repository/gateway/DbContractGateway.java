@@ -6,6 +6,7 @@ import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.db.DbContract;
 import ru.aora.erp.model.entity.mapper.ContractMapper;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
     }
 
     @Override
-    public List<Contract> loadAll() {
+    public List<Contract> loadAllActive() {
         return repository.findAll()
                 .stream()
                 .filter(this::isActive)
@@ -46,22 +47,21 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
     }
 
     @Override
-    public Contract create(Contract Contract) {
-        Objects.requireNonNull(Contract);
-        DbContract res = repository.save(mapper.toDbContract(Contract));
+    public Contract create(Contract contract) {
+        contract.setId(null);
+        DbContract res = repository.save(mapper.toDbContract(contract));
         return mapper.toContract(res);
     }
 
     @Override
-    public Optional<Contract> update(Contract Contract) {
-        Objects.requireNonNull(Contract);
-        Optional<DbContract> optionalTarget = repository.findById(Contract.getId())
+    public Optional<Contract> update(Contract contract) {
+        Optional<DbContract> optionalTarget = repository.findById(contract.getId())
                 .filter(this::isActive)
                 .map(this::setDeactivated);
         if (optionalTarget.isPresent()) {
             repository.save(optionalTarget.get());
-            Contract.setId(null);
-            DbContract res = repository.save(mapper.toDbContract(Contract));
+            contract.setId(null);
+            DbContract res = repository.save(mapper.toDbContract(contract));
             return Optional.ofNullable(mapper.toContract(res));
         }
         return Optional.empty();
@@ -69,6 +69,7 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
 
     @Override
     public Optional<Contract> delete(String id) {
+        CommonUtils.requiredNotBlank(id);
         return repository.findById(id)
                 .filter(this::isActive)
                 .map(this::setDeactivated)

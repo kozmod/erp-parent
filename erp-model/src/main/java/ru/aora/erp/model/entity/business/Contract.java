@@ -13,6 +13,7 @@ public class Contract {
     private String contractNumber;
     private String contractSubject;
     private LocalDateTime deactivationDate;
+    private Integer deactivated;
 
     public String getId() {
         return id;
@@ -77,16 +78,26 @@ public class Contract {
         return this;
     }
 
+    public Integer getDeactivated() {
+        return deactivated;
+    }
+
+    public Contract setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", Contract.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentId='" + counteragentId + "'")
-                .add("contractType=" + contractType)
-                .add("contractDate=" + contractDate)
-                .add("contractNumber='" + contractNumber + "'")
-                .add("contractSubject='" + contractSubject + "'")
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "Contract{" +
+                "id='" + id + '\'' +
+                ", counteragentId='" + counteragentId + '\'' +
+                ", contractType=" + contractType +
+                ", contractDate=" + contractDate +
+                ", contractNumber='" + contractNumber + '\'' +
+                ", contractSubject='" + contractSubject + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + deactivated +
+                '}';
     }
 }

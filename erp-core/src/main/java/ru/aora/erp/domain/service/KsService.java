@@ -15,7 +15,7 @@ public class KsService {
     }
 
     public List<Ks> loadAll() {
-        return gateway.loadAll();
+        return gateway.loadAllActive();
     }
 
     public Ks update(Ks ks) {

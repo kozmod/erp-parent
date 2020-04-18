@@ -14,6 +14,7 @@ public class Counteragent {
     private String mail;
     private String address;
     private LocalDateTime deactivationDate;
+    private Integer deactivated;
 
     public String getId() {
         return id;
@@ -105,19 +106,29 @@ public class Counteragent {
         return this;
     }
 
+    public Integer getDeactivated() {
+        return deactivated;
+    }
+
+    public Counteragent setDeactivated(Integer deactivated) {
+        this.deactivated = deactivated;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", Counteragent.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentName='" + counteragentName + "'")
-                .add("groupName='" + groupName + "'")
-                .add("directorFirstName='" + directorFirstName + "'")
-                .add("directorSurname='" + directorSurname + "'")
-                .add("directorPatronymic='" + directorPatronymic + "'")
-                .add("phoneNumber='" + phoneNumber + "'")
-                .add("mail='" + mail + "'")
-                .add("address='" + address + "'")
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "Counteragent{" +
+                "id='" + id + '\'' +
+                ", counteragentName='" + counteragentName + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", directorFirstName='" + directorFirstName + '\'' +
+                ", directorSurname='" + directorSurname + '\'' +
+                ", directorPatronymic='" + directorPatronymic + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                ", address='" + address + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + deactivated +
+                '}';
     }
 }

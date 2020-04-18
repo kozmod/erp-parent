@@ -16,7 +16,7 @@ import ru.aora.erp.model.entity.business.UserAuthority;
 import java.util.Collections;
 
 
-@Ignore
+@Ignore("Use only check real DB")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepositoryConfig.class, DomainServiceConfig.class})
 public class UserServiceTest {

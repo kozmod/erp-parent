@@ -9,7 +9,7 @@ public interface UserGateway {
 
     Optional<User> findByName(String name);
 
-    List<User> findAll();
+    List<User> loadAll();
 
     User create(User user);
 

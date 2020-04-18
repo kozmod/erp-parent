@@ -6,6 +6,7 @@ import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.model.entity.db.DbKs;
 import ru.aora.erp.model.entity.mapper.KsMapper;
+import ru.aora.erp.utils.common.CommonUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class DbKsGateway implements CrudGateway<Ks, String> {
     }
 
     @Override
-    public List<Ks> loadAll() {
+    public List<Ks> loadAllActive() {
         return repository.findAll()
                 .stream()
                 .filter(this::isActive)
@@ -47,6 +48,7 @@ public class DbKsGateway implements CrudGateway<Ks, String> {
 
     @Override
     public Ks create(Ks ks) {
+        ks.setId(null);
         DbKs res = repository.save(mapper.toDbKs(ks));
         return mapper.toKs(res);
     }
@@ -67,6 +69,7 @@ public class DbKsGateway implements CrudGateway<Ks, String> {
 
     @Override
     public Optional<Ks> delete(String id) {
+        CommonUtils.requiredNotBlank(id);
         return repository.findById(id)
                 .filter(this::isActive)
                 .map(this::setDeactivated)

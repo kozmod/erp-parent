@@ -37,7 +37,7 @@ public final class UserService implements UserDetailsService {
     }
 
     public List<User> loadAll() {
-        return gateway.findAll()
+        return gateway.loadAll()
                 .stream()
                 .map(Objects::requireNonNull)
                 .collect(Collectors.toList());

@@ -16,7 +16,7 @@ public class CounteragentService {
     }
 
     public List<Counteragent> loadAll() {
-        return gateway.loadAll();
+        return gateway.loadAllActive();
     }
 
     public Counteragent update(Counteragent counteragent) {

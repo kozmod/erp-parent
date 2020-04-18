@@ -29,7 +29,7 @@ public class DbCounteragentGateway implements CrudGateway<Counteragent, String> 
     }
 
     @Override
-    public List<Counteragent> loadAll() {
+    public List<Counteragent> loadAllActive() {
         return repository.findAll()
                 .stream()
                 .filter(this::isActive)
@@ -47,14 +47,13 @@ public class DbCounteragentGateway implements CrudGateway<Counteragent, String> 
 
     @Override
     public Counteragent create(Counteragent counteragent) {
-        Objects.requireNonNull(counteragent);
+        counteragent.setId(null);
         DbCounteragent res = repository.save(mapper.toDbCounteragent(counteragent));
         return mapper.toCounteragent(res);
     }
 
     @Override
     public Optional<Counteragent> update(Counteragent counteragent) {
-        Objects.requireNonNull(counteragent);
         Optional<DbCounteragent> optionalTarget = repository.findById(counteragent.getId())
                 .filter(this::isActive)
                 .map(this::setDeactivated);

@@ -8,26 +8,22 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.aora.erp.model.entity.business.Ks;
-import ru.aora.erp.model.entity.db.DbKs;
+import ru.aora.erp.model.entity.business.Counteragent;
+import ru.aora.erp.model.entity.db.DbCounteragent;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class DbKsGatewayTest {
+public class DbCounteragentGatewayTest {
 
     @InjectMocks
-    private DbKsGateway gateway;
+    private DbCounteragentGateway gateway;
 
     @Mock
-    private JpaRepository<DbKs, String> repo;
+    private JpaRepository<DbCounteragent, String> repo;
 
     private static final String ACTIVE_ID = "Some_active_id_2";
     private static final String INACTIVE_ID = "Some_inactive_id_1";
@@ -35,15 +31,16 @@ public class DbKsGatewayTest {
 
     @Before
     public void init() {
-        final DbKs active = new DbKs()
+        final DbCounteragent active = new DbCounteragent()
                 .setId(ACTIVE_ID)
                 .setDeactivated(GatewayUtils.ACTIVE_ENTITY_FLAG);
-        final DbKs inactive = new DbKs()
+        final DbCounteragent inactive = new DbCounteragent()
                 .setId(INACTIVE_ID)
                 .setDeactivated(GatewayUtils.INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
 
         MockitoAnnotations.initMocks(this);
+        gateway = new DbCounteragentGateway(repo);
         Mockito.when(repo.findAll()).thenReturn(List.of(active, inactive));
         Mockito.when(repo.getOne(ACTIVE_ID)).thenReturn(active);
         Mockito.when(repo.getOne(INACTIVE_ID)).thenReturn(inactive);
@@ -54,7 +51,7 @@ public class DbKsGatewayTest {
 
     @Test
     public void shouldFind_OnlyActive() {
-        List<Ks> res = gateway.loadAllActive();
+        List<Counteragent> res = gateway.loadAllActive();
         assertNotNull(res);
         assertEquals(1, res.size());
         assertEquals(ACTIVE_ID, res.get(0).getId());
@@ -64,14 +61,14 @@ public class DbKsGatewayTest {
 
     @Test
     public void shouldCreate() {
-        Ks res = gateway.create(active());
+        Counteragent res = gateway.create(active());
         assertNotNull(res);
         assertEquals(ACTIVE_ID, res.getId());
     }
 
     @Test
     public void shouldUpdate_ExistsActive() {
-        Optional<Ks> res = gateway.update(active());
+        Optional<Counteragent> res = gateway.update(active());
         res.ifPresentOrElse(
                 r -> assertEquals(ACTIVE_ID, r.getId()),
                 Assert::fail
@@ -80,19 +77,19 @@ public class DbKsGatewayTest {
 
     @Test
     public void shouldNotUpdate_ExistsInactive() {
-        Optional<Ks> res = gateway.update(inactive());
+        Optional<Counteragent> res = gateway.update(inactive());
         assertFalse(res.isPresent());
     }
 
     @Test
     public void shouldNotUpdate_NotExists() {
-        Optional<Ks> res = gateway.update(notExists());
+        Optional<Counteragent> res = gateway.update(notExists());
         assertFalse(res.isPresent());
     }
 
     @Test
     public void shouldDelete_ExistsActive() {
-        Optional<Ks> res = gateway.delete(ACTIVE_ID);
+        Optional<Counteragent> res = gateway.delete(ACTIVE_ID);
         assertTrue(res.isPresent());
         assertEquals(ACTIVE_ID, res.get().getId());
         assertNotNull(res.get().getDeactivationDate());
@@ -102,25 +99,25 @@ public class DbKsGatewayTest {
 
     @Test
     public void shouldNotDelete_ExistsInactive() {
-        Optional<Ks> res = gateway.delete(INACTIVE_ID);
+        Optional<Counteragent> res = gateway.delete(INACTIVE_ID);
         assertFalse(res.isPresent());
     }
 
     @Test
     public void shouldNotDelete_NotExists() {
-        Optional<Ks> res = gateway.delete(NOT_EXISTS_ID);
+        Optional<Counteragent> res = gateway.delete(NOT_EXISTS_ID);
         assertFalse(res.isPresent());
     }
 
-    private static Ks active() {
-        return new Ks().setId(ACTIVE_ID);
+    private static Counteragent active() {
+        return new Counteragent().setId(ACTIVE_ID);
     }
 
-    private static Ks inactive() {
-        return new Ks().setId(INACTIVE_ID);
+    private static Counteragent inactive() {
+        return new Counteragent().setId(INACTIVE_ID);
     }
 
-    private static Ks notExists() {
-        return new Ks().setId(NOT_EXISTS_ID);
+    private static Counteragent notExists() {
+        return new Counteragent().setId(NOT_EXISTS_ID);
     }
 }

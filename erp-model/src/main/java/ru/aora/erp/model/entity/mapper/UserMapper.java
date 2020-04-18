@@ -23,6 +23,9 @@ public interface UserMapper {
     User toUser(DbUser dbUser);
 
     default Collection<UserAuthority> toAuthorities(Collection<DbAuthority> dbAuthorities) {
+        if(dbAuthorities == null){
+            return null;
+        }
         Collection<UserAuthority> authorities = new ArrayList<>();
         for (DbAuthority dbAuthority : dbAuthorities) {
             String rooName = dbAuthority.getName();
@@ -36,7 +39,10 @@ public interface UserMapper {
     DbUser toDbUser(User user);
 
     default Collection<DbAuthority> toDbAuthorities(Collection<UserAuthority> authorities) {
-        Map<String, List<String>> authorityMap = new HashMap<>(authorities.size(), 1.0f);
+        if(authorities == null){
+            return null;
+        }
+        Map<String, List<String>> authorityMap = new HashMap<>(authorities.size(), 1.1f);
         for (UserAuthority authority : authorities) {
             List<String> dbAuthorityName = authorityMap.computeIfAbsent(authority.getRootAuthority(), k -> new ArrayList<>());
             dbAuthorityName.add(authority.getSubAuthority());
@@ -54,6 +60,9 @@ public interface UserMapper {
     }
 
     default Collection<DbSubAuthority> toDbSubAuthority(List<String> names) {
+        if(names == null){
+            return null;
+        }
         Collection<DbSubAuthority> subAuthorities = new ArrayList<>(names.size());
         for (String name : names) {
             subAuthorities.add(new DbSubAuthority().setName(name));

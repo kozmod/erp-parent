@@ -1,10 +1,8 @@
 package ru.aora.erp.domain.service;
 
-import org.springframework.stereotype.Service;
 import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Contract;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public class ContractService {
@@ -15,7 +13,7 @@ public class ContractService {
     }
 
     public List<Contract> loadAll() {
-        return gateway.loadAll();
+        return gateway.loadAllActive();
     }
 
     public Contract update(Contract contract) {

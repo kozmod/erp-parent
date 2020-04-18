@@ -1,6 +1,7 @@
 package ru.aora.erp.domain.service;
 
 import ru.aora.erp.domain.CrudGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.utils.common.CommonUtils;
 
@@ -18,9 +19,11 @@ public class KsService {
         return gateway.loadAllActive();
     }
 
-    public Ks update(Ks ks) {
+    public MsgServiceResult update(Ks ks) {
         Objects.requireNonNull(ks);
-        return gateway.update(ks).orElse(null);
+        return gateway.update(ks)
+                .map(c -> MsgServiceResult.success("Ks updated"))
+                .orElseGet(() -> MsgServiceResult.failed("Ks to update not found"));
     }
 
     public Ks create(Ks ks) {
@@ -28,9 +31,11 @@ public class KsService {
         return gateway.create(ks);
     }
 
-    public Ks delete(String id) {
+    public MsgServiceResult delete(String id) {
         CommonUtils.requiredNotBlank(id);
-        return gateway.delete(id).orElse(null);
+        return gateway.delete(id)
+                .map(c -> MsgServiceResult.success("Ks deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("Ks to delete not found"));
     }
 }
 

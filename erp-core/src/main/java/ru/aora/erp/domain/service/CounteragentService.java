@@ -1,11 +1,10 @@
 package ru.aora.erp.domain.service;
 
 import ru.aora.erp.domain.CrudGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.Counteragent;
-import ru.aora.erp.utils.common.CommonUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CounteragentService {
 
@@ -19,20 +18,23 @@ public class CounteragentService {
         return gateway.loadAllActive();
     }
 
-    public Counteragent update(Counteragent counteragent) {
-        Objects.requireNonNull(counteragent);
-        return gateway.update(counteragent).orElse(null);
+    public MsgServiceResult update(Counteragent counteragent) {
+        return gateway.update(counteragent)
+                .map(c -> MsgServiceResult.success("Counteragent updated"))
+                .orElseGet(() -> MsgServiceResult.failed("Counteragent to update not found"));
     }
 
     public Counteragent create(Counteragent counteragent) {
-        Objects.requireNonNull(counteragent);
         return gateway.create(counteragent);
     }
 
-    public Counteragent delete(String id) {
-        CommonUtils.requiredNotBlank(id);
-        return gateway.delete(id).orElse(null);
+    public MsgServiceResult delete(String id) {
+        return gateway.delete(id)
+                .map(c -> MsgServiceResult.success("Counteragent deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("Counteragent to delete not found"));
     }
+
+
 }
 
 

@@ -44,11 +44,11 @@ public final class UserService implements UserDetailsService {
     }
 
     public User createUser(User user) {
-        return prepareAndExect(user, gateway::create);
+        return prepareAndExec(user, gateway::create);
     }
 
     public User updateUser(User user) {
-        return prepareAndExect(
+        return prepareAndExec(
                 user,
                 u -> gateway.update(u)
                         .orElseThrow(() -> new UsernameNotFoundException("User was not updated: " + user))
@@ -60,7 +60,7 @@ public final class UserService implements UserDetailsService {
 //        return gateway.delete(user).orElse(null); //todo think about
 //    }
 
-    private User prepareAndExect(User source, Function<User, User> func) {
+    private User prepareAndExec(User source, Function<User, User> func) {
         Objects.requireNonNull(source);
         source.setAuthorities(removeIfNotExistsInCache(source.getAuthorities()));
         source.setPassword(passwordEncoder.encode(source.getPassword()));

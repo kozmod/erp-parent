@@ -47,8 +47,7 @@ public final class CounteragentController {
     @PutMapping
     public @ResponseBody String putCounteragent(@Valid @RequestBody CounteragentDto dto, BindingResult bindingResult) {
         DtoValidationException.throwIfHasErrors(bindingResult);
-        counteragentService.update(toCounteragent(dto));
-        return "Counteragent was updated";
+        return counteragentService.update(toCounteragent(dto)).getMsg();
     }
 
     @PostMapping
@@ -60,7 +59,6 @@ public final class CounteragentController {
 
     @DeleteMapping("/{id}")
     public @ResponseBody String deleteCounteragent(@PathVariable String id) {
-        counteragentService.delete(id);
-        return "Counteragent was deleted";
+        return counteragentService.delete(id).getMsg();
     }
 }

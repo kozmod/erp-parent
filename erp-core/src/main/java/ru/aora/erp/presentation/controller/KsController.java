@@ -65,21 +65,19 @@ public final class KsController {
     @PutMapping
     public @ResponseBody String putKs(@Valid @RequestBody KsDto dto, BindingResult bindingResult) {
         DtoValidationException.throwIfHasErrors(bindingResult);
-        ksService.update(toKs(dto));
-        return "Ks was updated";
+        return ksService.update(toKs(dto)).getMsg();
     }
 
     @PostMapping
     public @ResponseBody String postKs(@Valid @RequestBody KsDto dto, BindingResult bindingResult) {
         DtoValidationException.throwIfHasErrors(bindingResult);
-        ksService.update(toKs(dto));
+        ksService.create(toKs(dto));
         return "Ks was created";
     }
 
     @DeleteMapping("/{id}")
     public @ResponseBody String deleteKs(@PathVariable String id) {
-        ksService.delete(id);
-        return "Ks was deleted";
+        return ksService.delete(id).getMsg();
     }
 
 }

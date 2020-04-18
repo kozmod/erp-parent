@@ -57,8 +57,7 @@ public final class ContractController {
     @PutMapping
     public @ResponseBody String putContract(@Valid @RequestBody ContractDto dto, BindingResult bindingResult) {
         DtoValidationException.throwIfHasErrors(bindingResult);
-        contractService.update(toContract(dto));
-        return "Contract was updated";
+        return  contractService.update(toContract(dto)).getMsg();
     }
 
     @PostMapping
@@ -70,7 +69,6 @@ public final class ContractController {
 
     @DeleteMapping("/{id}")
     public @ResponseBody String deleteContract(@PathVariable String id) {
-        contractService.delete(id);
-        return "Contract was deleted";
+        return contractService.delete(id).getMsg();
     }
 }

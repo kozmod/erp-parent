@@ -3,12 +3,11 @@ package ru.aora.erp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class AuthorityModulesIdentifiersService {
@@ -20,7 +19,7 @@ public class AuthorityModulesIdentifiersService {
         this.moduleIdentifiers = moduleIdentifiers;
     }
 
-    public List<ModuleIdentifier> moduleIdentifiers() {
+    public List<ModuleIdentifier> loadAll() {
         return moduleIdentifiers;
     }
 
@@ -31,4 +30,5 @@ public class AuthorityModulesIdentifiersService {
         }
         return authorities;
     }
+
 }

@@ -1,55 +1,71 @@
 package ru.aora.erp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ru.aora.erp.entity.dto.UserIdModuleAuthorityDto;
+import ru.aora.erp.model.entity.business.User;
+import ru.aora.erp.entity.dto.UsersDto;
+import ru.aora.erp.service.AuthorityModulesIdentifiersService;
+import ru.aora.erp.service.UserService;
+import ru.aora.erp.utils.result.OperationResult;
 
-import java.security.Principal;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Controller
-public class UserController {
+@RequestMapping("/user")
+public final class UserController {
 
-//    public static final String USERS_MANAGE_MAPPING = "/users/manage";
-//    public static final String LOGIN_MAPPING = "/login";
-//    public static final String LOGOUT_MAPPING = "/logout";
-//
-//    private static final String USER_MODEL = "user";
-//    private static final String USERS_DTO_MODEL = "usersDto";
-//    private static final String USER_NAME_MODEL = "username";
-//    private static final String ROLES_MODEL = "roles";
-//
-//    private static final String USERS_TEMPLATE = "users";
-//
-//    private UserService userService;
-//
-//    @Autowired
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
+    private static final String USERS_TEMPLATE = "users";
+    private static final String USERS_DTO_MODEL = "usersDto";
+    private static final String MODULE_AUTHORITY_DTO_LIST_MODEL = "moduleAuthorityDtoList";
 
-//    @RequestMapping("/")
-//    public String userForm(Map<String, Object> model, Principal principal) {
-////        model.put(USER_MODEL, userService.emptyUser());
-////        model.put(USERS_DTO_MODEL, userService.usersDto());
-////        model.put(ROLES_MODEL, userService.allRoles());
-////        model.put(USER_NAME_MODEL, principal.getName());
-//        return "test";
-//    }
+    private UserService userService;
+    private AuthorityModulesIdentifiersService authorityModulesIdentifiersService;
 
-//    @PostMapping(params = "action=Update or Create")
-//    public String add(@ModelAttribute User user) {
-//        userService.updateOrCreate(user);
-//        return REDIRECT.applyTo(USERS_MANAGE_MAPPING);
-//    }
-//
-//    @PostMapping(params = "action=Delete selected users")
-//    public String deleteSelectedUsers(@ModelAttribute UsersDto dto) {
-//        userService.deleteAllBySelected(dto);
-//        return REDIRECT.applyTo(USERS_MANAGE_MAPPING);
-//    }
+    public UserController(
+            UserService userService,
+            AuthorityModulesIdentifiersService authorityModulesIdentifiersService
+    ) {
+        this.userService = userService;
+        this.authorityModulesIdentifiersService = authorityModulesIdentifiersService;
+    }
+
+    @GetMapping
+    public String userForm(Map<String, Object> model) {
+        OperationResult<List<User>, Exception> operationResult = OperationResult.lift(() -> userService.loadAll()).get();
+        operationResult.getResult()
+                .ifPresent(result -> {
+                    UsersDto usersDto = UsersDto.of(result);
+                    Collection<UserIdModuleAuthorityDto> userModuleAuthorityDtoList = UserIdModuleAuthorityDto.of(
+                            usersDto.getUsers(),
+                            authorityModulesIdentifiersService.modulesAuthorities()
+                    );
+                    model.put(USERS_DTO_MODEL, usersDto);
+                    model.put(MODULE_AUTHORITY_DTO_LIST_MODEL, userModuleAuthorityDtoList);
+                });
+        operationResult.getFailure().ifPresent(RuntimeException::new);
+        return USERS_TEMPLATE;
+    }
+
+    @PutMapping
+    public @ResponseBody String putUser(@RequestBody User user) {
+        OperationResult<User, Exception> operationResult = OperationResult.get(() -> userService.updateUser(user));
+        operationResult.getFailure().ifPresent(RuntimeException::new);
+        return "update";
+    }
+
+    @DeleteMapping("/{id}")
+    public @ResponseBody String deleteUser(@PathVariable long id) {
+        OperationResult<Long, Exception> operationResult = OperationResult.get(() -> userService.deleteUser(id));
+        operationResult.getFailure().ifPresent(RuntimeException::new);
+        return "delete";
+    }
 }

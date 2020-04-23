@@ -82,9 +82,38 @@
 			</ul>
 		</div>
 		
-		<div class="admin_menu">
-			<a href="users.php">Пользователи</a>
-			<a href="admin.php">Администрирование</a>
-		</div>
+		
+			<!-- TEST -->
+			<style>
+			  .test_timer, .timer-done, .timer-loop {
+				font-size: 20px;
+				color: black;
+				font-weight: bold;
+				padding: 10px;
+			  }
+			
+			  .jst-hours,
+			  .jst-minutes,
+			  .jst-seconds {
+				display:inline-block;
+			  }
+			  .jst-clearDiv {
+				clear: both;
+			  }
+			  .jst-timeout {
+				color: red;
+			  }
+			</style>
+			
+			<div class="test_timer" data-seconds-left="3000"></div>
+		
+		
 	</div>
+		
+		<ul class="admin_menu clr_b2">
+			<li><a href="settings.php" class="ttp_tp" title="Мои настройки"><i class="fas fa-sliders-h"></i></a></li>
+			<li><a href="users.php" class="ttp_tp" title="Пользователи"><i class="fas fa-users"></i></a></li>
+			<li><a href="sync.php" class="ttp_tp" title="Импорт / экспорт"><i class="fas fa-sync-alt"></i></a></li>
+			<li><a href="admin.php" class="ttp_tp" title="Администрирование"><i class="fas fa-cog"></i></a></li>
+		</ul>
 </div>

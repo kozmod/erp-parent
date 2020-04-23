@@ -3,6 +3,7 @@
 
 ###Files###
 *.iml
+*.log
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
@@ -13,4 +14,5 @@
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
+*/out/*
+*/target/*

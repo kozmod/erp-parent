@@ -1,216 +1,269 @@
 package ru.aora.erp.model.entity.db;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
 
-public class DbUser {
+@Entity
+@Table(name = "Users")
+public class DbUser implements Serializable {
 
-    private int id;
-    private Set<DbModule> authorities;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+    private static final long serialVersionUID = -8446608340994054062L;
+
+    @Id
+    @GenericGenerator(name = "generator", strategy = "guid")
+    @GeneratedValue(generator = "generator")
+    @Column(name = "id", columnDefinition = "uniqueidentifier")
+    private String id;
+
+    @Column(name = "user_name")
     private String username;
-    private String password;
-    private String phoneNumber;
-    private String mail;
-    private boolean del;
 
-    public int getId() {
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "account_non_expired")
+    private boolean accountNonExpired;
+
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked;
+
+    @Column(name = "credentials_non_expired")
+    private boolean credentialsNonExpired;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "patronymic")
+    private String patronymic;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "mail")
+    private String mail;
+
+    @Column(name = "employee_position")
+    private String employeePosition;
+
+    @Column(name = "creation_date")
+    private LocalDateTime creationDate;
+
+    @Column(name = "deactivation_date")
+    private LocalDateTime deactivationDate;
+
+    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
+    private String  versionTimestamp;
+
+    @Column(name = "entity_uuid", nullable = false)
+    private String entityUuid;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "j_User_Authority",
+            joinColumns = {@JoinColumn(name = "id_user", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "id_authority", referencedColumnName = "id", unique = true)}
+    )
+    private final Set<DbUserAuthority> authorities = new HashSet<>();
+
+    public String getId() {
         return id;
+    }
+
+    public DbUser setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
+    public DbUser setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public Set<DbModule> getAuthorities() {
-        return authorities;
+    public DbUser setPassword(String password) {
+        this.password = password;
+        return this;
     }
 
     public boolean isAccountNonExpired() {
         return accountNonExpired;
     }
 
+    public DbUser setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+        return this;
+    }
+
     public boolean isAccountNonLocked() {
         return accountNonLocked;
+    }
+
+    public DbUser setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+        return this;
     }
 
     public boolean isCredentialsNonExpired() {
         return credentialsNonExpired;
     }
 
+    public DbUser setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+        return this;
+    }
+
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public DbUser setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public DbUser setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public DbUser setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public DbUser setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+        return this;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public DbUser setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public String getMail() {
         return mail;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setAuthorities(Set<DbModule> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setMail(String mail) {
+    public DbUser setMail(String mail) {
         this.mail = mail;
+        return this;
     }
 
-    public boolean isDel() {
-        return del;
+    public String getEmployeePosition() {
+        return employeePosition;
     }
 
-    public void setDel(boolean del) {
-        this.del = del;
+    public DbUser setEmployeePosition(String employeePosition) {
+        this.employeePosition = employeePosition;
+        return this;
     }
 
-    public static UserBuilder builder() {
-        return new UserBuilder();
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public static class UserBuilder {
-        private int id;
-        private Set<DbModule> authorities;
-        private boolean accountNonExpired;
-        private boolean accountNonLocked;
-        private boolean credentialsNonExpired;
-        private boolean enabled;
-        private String username;
-        private String password;
-        private String phoneNumber;
-        private String mail;
-        private boolean del;
+    public DbUser setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
 
-        private UserBuilder() {
-        }
+    public LocalDateTime getDeactivationDate() {
+        return deactivationDate;
+    }
 
-        public UserBuilder withId(int id) {
-            this.id = id;
-            return this;
-        }
+    public DbUser setDeactivationDate(LocalDateTime deactivationDate) {
+        this.deactivationDate = deactivationDate;
+        return this;
+    }
 
-        public UserBuilder withAuthorities(Set<DbModule> authorities) {
-            this.authorities = authorities;
-            return this;
-        }
+    public String getVersionTimestamp() {
+        return versionTimestamp;
+    }
 
-        public UserBuilder withAccountNonExpired(boolean accountNonExpired) {
-            this.accountNonExpired = accountNonExpired;
-            return this;
-        }
+    public DbUser setVersionTimestamp(String versionTimestamp) {
+        this.versionTimestamp = versionTimestamp;
+        return this;
+    }
 
-        public UserBuilder withAccountNonLocked(boolean accountNonLocked) {
-            this.accountNonLocked = accountNonLocked;
-            return this;
-        }
+    public String getEntityUuid() {
+        return entityUuid;
+    }
 
-        public UserBuilder withCredentialsNonExpired(boolean credentialsNonExpired) {
-            this.credentialsNonExpired = credentialsNonExpired;
-            return this;
-        }
+    public DbUser setEntityUuid(String entityUuid) {
+        this.entityUuid = entityUuid;
+        return this;
+    }
 
-        public UserBuilder withEnabled(boolean enabled) {
-            this.enabled = enabled;
-            return this;
-        }
-
-        public UserBuilder withUsername(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public UserBuilder withPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public UserBuilder withPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public UserBuilder withMail(String mail) {
-            this.mail = mail;
-            return this;
-        }
-
-        public UserBuilder withDel(boolean del) {
-            this.del = del;
-            return this;
-        }
-
-        public DbUser build() {
-            DbUser user = new DbUser();
-            user.setId(id);
-            user.setAuthorities(authorities);
-            user.setAccountNonExpired(accountNonExpired);
-            user.setAccountNonLocked(accountNonLocked);
-            user.setCredentialsNonExpired(credentialsNonExpired);
-            user.setEnabled(enabled);
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setPhoneNumber(phoneNumber);
-            user.setMail(mail);
-            user.setDel(del);
-            return user;
-        }
+    public Set<DbUserAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", DbUser.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("authorities=" + authorities)
+                .add("id='" + id + "'")
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
                 .add("accountNonExpired=" + accountNonExpired)
                 .add("accountNonLocked=" + accountNonLocked)
                 .add("credentialsNonExpired=" + credentialsNonExpired)
                 .add("enabled=" + enabled)
-                .add("username='" + username + "'")
-                .add("password='" + password + "'")
+                .add("firstName='" + firstName + "'")
+                .add("surname='" + surname + "'")
+                .add("patronymic='" + patronymic + "'")
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
-                .add("del=" + del)
+                .add("employeePosition='" + employeePosition + "'")
+                .add("creationDate=" + creationDate)
+                .add("deactivationDate=" + deactivationDate)
+                .add("versionTimestamp='" + versionTimestamp + "'")
+                .add("entityUuid='" + entityUuid + "'")
+                .add("authorities=" + authorities)
                 .toString();
     }
 }

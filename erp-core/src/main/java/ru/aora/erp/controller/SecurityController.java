@@ -3,10 +3,13 @@ package ru.aora.erp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static ru.aora.erp.component.CoreModuleIdentifier.LOGIN_MAPPING;
-
 @Controller
-public class SecurityController {
+public final class SecurityController {
+
+    public static final String INCLUDE_ROOT_MAPPING = "/**";
+    public static final String LOGOUT_MAPPING = "/logout";
+    public static final String LOGIN_MAPPING = "/login";
+    public static final String ROOT_MAPPING = "/";
 
     private static final String LOGIN_TEMPLATE = "login";
 

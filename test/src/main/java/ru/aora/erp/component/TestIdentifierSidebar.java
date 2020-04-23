@@ -1,8 +1,7 @@
 package ru.aora.erp.component;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.identifier.SidebarModuleIdentifier;
 import ru.aora.erp.model.identifier.chane.SidebarChaneNode;
 import ru.aora.erp.model.identifier.chane.UiChaneNode;
@@ -18,7 +17,7 @@ import java.util.Set;
 @Component
 public class TestIdentifierSidebar implements SidebarModuleIdentifier {
 
-    private final String CHILD_MAPPING = "/xxx";
+    private final String CHILD_MAPPING = "/user";
 
     private UiChaneNode firstUiChaneNode;
     private Map<String, IdAuthority> mappingAuthorities;

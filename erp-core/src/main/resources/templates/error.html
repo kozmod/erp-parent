@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div id="wrapper" class="wrapper">
+    <div id="module">
+        <div class="module_content module_guarantee">
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                        <div class="title">
+                            <strong th:text="'СООБЩЕНИЕ ОБ ОШИБКЕ'"></strong>
+                        </div>
+                        <div class="text left">
+                            <ul th:align="left"><li><b th:text="'Дата: '"></b></li><li><span th:text="${timestamp}"></span></li></ul>
+                            <ul th:align="left"><li><b th:text="'Путь: '"></b></li><li><span th:text="${path}"></span></li></ul>
+                            <ul th:align="left"><li><b th:text="'Ошибка: '"></b></li><li><span th:text="${error}"></span></li></ul>
+                            <ul th:align="left"><li><b th:text="'Статус: '"></b></li><li><span th:text="${status}"></span></li></ul>
+                            <ul th:align="left"><li><b th:text="'Сообщение: '"></b></li><li><span th:text="${message}"></span></li></ul>
+                            <ul th:align="left"><li><b th:text="'Трассировка стека: '"></b></li><li><span th:text="${trace}"></span></li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shadow top animate_150"></div>
+    <div class="shadow bot animate_150"></div>
+</div>
+

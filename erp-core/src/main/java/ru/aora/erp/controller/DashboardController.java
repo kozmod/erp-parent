@@ -7,15 +7,16 @@ import ru.aora.erp.service.SidebarModulesIdentifiersService;
 
 import java.util.Map;
 
-import static ru.aora.erp.component.CoreModuleIdentifier.DASHBOARD_MAPPING;
-import static ru.aora.erp.component.CoreModuleIdentifier.ROOT_MAPPING;
-import static ru.aora.erp.model.mappring.HttpUtils.redirectTo;
+import static ru.aora.erp.controller.SecurityController.ROOT_MAPPING;
+import static ru.aora.erp.utils.mvc.MvcUtils.redirectTo;
+
 
 @Controller
-public class DashboardController {
+public final class DashboardController {
+
+    public static final String DASHBOARD_MAPPING = "/dashboard";
 
     private static final String DASHBOARD_TEMPLATE = "dashboard";
-
     private static final String UI_CHANE_NODE_MODEL = "uiChaneNodeModel";
 
     private final SidebarModulesIdentifiersService modulesIdentifiersService;
@@ -29,7 +30,7 @@ public class DashboardController {
     public String dashboard(Map<String, Object> model) {
         model.put(
                 UI_CHANE_NODE_MODEL,
-                modulesIdentifiersService.modulesReferenceChaneElements()
+                modulesIdentifiersService.loadAll()
         );
         return DASHBOARD_TEMPLATE;
     }
@@ -38,5 +39,4 @@ public class DashboardController {
     public String redirectToRoot() {
         return redirectTo(DASHBOARD_TEMPLATE);
     }
-
 }

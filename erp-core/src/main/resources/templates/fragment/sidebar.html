@@ -7,36 +7,39 @@
             <!--/*@thymesVar id="uiChildNode" type="ru.aora.erp.model.identifier.chane.UiChaneNode"*/-->
             <!--/*@thymesVar id="uiNode" type="ru.aora.erp.model.identifier.chane.UiChaneNode"*/-->
             <ul>
-                <li th:each="uiNode : ${uiChaneNodeModel}">
-                    <a href="#" th:text="${uiNode.name()}">
-                        MODULE_TEXT
-                    </a>
-                    <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
-                        <li th:each="uiChildNode : ${uiNode.next()}"
-                            th:inline="text"
-                            th:switch="${uiChildNode.isLast()}">
-                            <a th:case="false"
-                               href="#"
-                               th:text="${uiChildNode.name()}">
-                                CHILD_MODULE_TEXT
-                            </a>
-                            <a th:case="true"
-                               href="#"
-                               th:onclick="getFragmentAndChangeDiv('#content',[[${uiChildNode.mapping().orElse('#')}]]);"
-                               th:text="${uiChildNode.name()}">
-                                LAST_CHILD_MODULE_TEXT
-                            </a>
-                            <ul th:replace="this::fragment_node(${uiChildNode})"></ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <ul class="admin_menu clr_b2">
-        <li><a href="#" class="ttp_tp" title="Мои настройки"><i class="fas fa-sliders-h"></i></a></li>
-        <li><a href="#" class="ttp_tp" title="Пользователи"><i class="fas fa-users"></i></a></li>
-        <li><a href="#" class="ttp_tp" title="Импорт / экспорт"><i class="fas fa-sync-alt"></i></a></li>
-        <li><a href="#" class="ttp_tp" title="Администрирование"><i class="fas fa-cog"></i></a></li>
-    </ul>
-</div>
+                <li th:each="uiNode, iterstat : ${uiChaneNodeModel}">
+                     <a href="#"><span th:with="index=${iterstat.index+1}" th:class="'symbol clr_'+${index}+' rds_5'"><i class="fas fa-usd-circle"></i></span><strong th:text="${uiNode.name()}"></strong></a>
+                     <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
+                         <li th:each="uiChildNode : ${uiNode.next()}"
+                             th:inline="text"
+                             th:switch="${uiChildNode.isLast()}">
+                             <a th:case="false"
+                                href="#"
+                                th:text="${uiChildNode.name()}">
+                                 -------CHILD_MODULE_TEXT-------
+                             </a>
+                             <a th:case="true"
+                                href="#"
+                                th:onclick="getFragmentAndChangeDiv('#content',[[${uiChildNode.mapping().orElse('#')}]]);"
+                                th:text="${uiChildNode.name()}">
+                                 -------LAST_CHILD_MODULE_TEXT-------
+                             </a>
+                             <ul th:replace="this::fragment_node(${uiChildNode})"></ul>
+                         </li>
+                     </ul>
+                 </li>
+             </ul>
+         </div>
+     </div>
+     <ul class="admin_menu clr_b2">
+         <li><a href="#" class="ttp_tp" title="Мои настройки"><i class="fas fa-sliders-h"></i></a></li>
+         <li><a href="#"
+                th:onclick="getFragmentAndChangeDiv('#content','/user')"
+                class="ttp_tp"
+                title="Пользователи">
+             <i class="fas fa-users"></i></a>
+         </li>
+         <li><a href="#" class="ttp_tp" title="Импорт / экспорт"><i class="fas fa-sync-alt"></i></a></li>
+         <li><a href="#" class="ttp_tp" title="Администрирование"><i class="fas fa-cog"></i></a></li>
+     </ul>
+ </div>

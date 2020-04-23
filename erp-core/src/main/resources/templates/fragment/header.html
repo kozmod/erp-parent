@@ -1,9 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1"/>
 
     <title>%APPNAME%</title>
+
+    <link rel="stylesheet" th:href="@{css/general.css}"/>
+    <!--TODO: fix pattern & color - use user metadata--->
+    <link rel="stylesheet" th:href="@{css/theme-color-1.css}" th:id="'user_theme_color'"/>
+    <link rel="stylesheet" th:href="@{css/theme-pattern-1.css}" th:id="'user_theme_pattern'"/>
 
     <script type="text/javascript" th:src="@{js/ajaxFunction.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.js}"></script>
@@ -18,14 +23,9 @@
     <script type="text/javascript" th:src="@{js/options.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.sortable.js}"></script>
     <script type="text/javascript" th:src="@{js/jquery.sortable.min.js}"></script>
-
-    <link rel="stylesheet" th:href="@{css/general.css}" />
-    <!--TODO: fix pattern & color - use user metadata--->
-    <link rel="stylesheet" th:href="@{css/theme-color-1.css}" id="user_theme_color" />
-    <link rel="stylesheet" th:href="@{css/theme-pattern-1.css}" id="user_theme_pattern" />
 </head>
 
 
-<div  id="preloader" th:fragment="preloader" class="thm_grd full_size">
+<div id="preloader" th:fragment="preloader" class="thm_grd full_size">
     <div class="spinner rds_full"></div>
 </div>

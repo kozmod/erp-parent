@@ -83,20 +83,26 @@
 
 /* Submit button */
 
-@-moz-keyframes submit {
+@-moz-keyframes bttn {
   100% {
-    -moz-transform: rotateZ(60deg) translate(1em, -9em);
+    left:200%;
+    top:-200%;
+    opacity:1;
   }
 }
 
-@-webkit-keyframes submit {
+@-webkit-keyframes bttn {
   100% {
-    -webkit-transform: rotateZ(60deg) translate(1em, -9em);
+    left:200%;
+    top:-200%;
+    opacity:1;
   }
 }
 
-@keyframes submit {
+@keyframes bttn {
   100% {
-    transform: rotateZ(60deg) translate(1em, -9em);
+    left:200%;
+    top:-200%;
+    opacity:1;
   }
 }

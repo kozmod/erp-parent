@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Container start -->
+<!--/*@thymesVar id="grantResultDto" type="ru.aora.erp.controller.GarantResultController.GarantResultDto"*/-->
+<div id="wrapper" class="wrapper" th:object="${garantResultDto}">
+    <div id="module">
+        <div class="module_content module_guarantee">
+            <div class="container">
+                <div class="row">
+                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
+                        <div class="item clr_b2">
+                            <div class="title">
+                                <label class="radiocheck" href="#"
+                                       th:onclick="getFragmentAndChangeDiv('#content','/counteragent')">
+                                    <a></a>
+
+                                    <strong th:text="'ВОЗВРАТЫ ГАРАНТИЙНЫХ ПЛАТЕЖЕЙ'">
+                                    </strong>
+                                </label>
+                                <div th:class="'details details_ edit'">
+                                    <span href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')"
+                                          th:text="'Дней до ближайшего возврата платежа '+${garantResultDto.minDaysToGarantDate}"></span>
+                                    <span href="#" th:onclick="getFragmentAndChangeDiv('#content','/counteragent')"
+                                          th:text="'Общая сумма к возврату '+${garantResultDto.notPaidKsTotalSum}+' руб.'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow top animate_150"></div>
+    <div class="shadow bot animate_150"></div>
+</div>

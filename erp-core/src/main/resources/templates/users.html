@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <!-- Container start -->
-<div class="wrapper">
+<!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.dto.UsersDto"*/-->
+<div class="wrapper" th:fragment="users" th:object="${usersDto}">
     <div id="module">
         <div class="module_header size_is">
             <div class="container">
@@ -46,8 +49,7 @@
                                     <option data-display="&lt;i class=&quot;fas fa-minus-circle&quot;&gt;&lt;/i&gt; Заблокировать">
                                         Заблокировать
                                     </option>
-                                    <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt;
-     Удалить">Удалить
+                                    <option data-display="&lt;i class=&quot;fas fa-trash-alt&quot;&gt;&lt;/i&gt; Удалить">Удалить
                                     </option>
                                     <option disabled>Назначить роль</option>
                                     <option>Бухгалтер</option>
@@ -77,15 +79,20 @@
             <div class="container">
                 <div class="row no_gutter">
                     <!-- todo -->
-                    <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150">
-                        <div class="row">
+                    <div th:each="user, userStat : *{users}"
+                         class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12 clr_b2 user animate_150" >
+                        <div  class="row" th:object="${user}">
                             <div class="col_xxs_10 col_xs_10 col_s_10 col_m_10 col_l_10">
                                 <div class="row">
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_7 col_l_7">
                                         <div class="details name size_is height_equal">
                                             <div>
-                                                <strong>Mignon Dempsey</strong>
-                                                <span>ID 414 &bull; Бухгалтер</span>
+                                                <strong th:text="*{username}" >
+                                                    ------ USER NAME -----
+                                                </strong>
+                                                <span th:text="'ID '+*{id}">
+                                                    ----- ID 414 - Бухгалтер -----
+                                                </span>
 
                                                 <label class="radiocheck">
                                                     <input type="checkbox" class="www" />
@@ -97,8 +104,12 @@
                                     <div class="col_xxs_12 col_xs_12 col_s_12 col_m_5 col_l_5">
                                         <div class="details meta size_is height_equal">
                                             <div>
-                                                <span>mignondempsey@gmail.com</span>
-                                                <span>+3 (449) 12062527</span>
+                                                <span th:text="*{mail}">
+                                                    ----- USER_MAIL@MAIL.COM -----
+                                                </span>
+                                                <span th:text="*{phoneNumber}">
+                                                    +3 (449) 12062527
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -106,285 +117,142 @@
                             </div>
                             <div class="col_xxs_2 col_xs_2 col_s_2 col_m_2 col_l_2">
                                 <div class="actions size_is height_equal">
-                                    <a href="javascript:;" class="show_popover rds_full" data-popover="user_actions_414" data-popover-position="left">
+                                    <a href="javascript:;"
+                                       class="show_popover rds_full"
+                                       th:data-popover="'user_actions_'+*{id}"
+                                       data-popover-position="left"
+                                    >
                                         <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                 </div>
-                                <div class="hide_me">
-                                    <div id="user_actions_414">
+                                <div class="hide_me" th:object="${user}">
+                                    <div th:id="'user_actions_'+*{id}">
                                         <ul class="popover_menu">
-                                            <li><a href="#user_edit_414" class="toggle_cb" data-toggle="user_edit_414"><i class="fas fa-user-edit"></i> Изменить</a></li>
-                                            <li><a href="#user_roles_414" class="toggle_cb" data-toggle="user_roles_414"><i class="fas fa-key"></i> Права доступа</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_edit_'+*{id}"><i class="fas fa-user-edit"></i> Изменить</a></li>
+                                            <li><a href="#" class="toggle_cb" th:data-toggle="'user_roles_'+*{id}"><i class="fas fa-key"></i> Права доступа</a></li>
                                             <li><a href="javascript:;"><i class="fas fa-ban"></i> Заблокировать</a></li>
-                                            <li><a href="javascript:;"><i class="fas fa-trash-alt"></i> Удалить</a></li>
+                                            <li><a href="javascript:;" th:onclick="deleteUser([[*{id}]])"><i class="fas fa-trash-alt"></i> Удалить</a></li>
                                         </ul>
                                     </div>
-                                    <div class="actions_popover">1111</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_edit_414 edit hide_me">
+                        <div th:class="'user_edit_'+*{id}+' edit hide_me'" th:object="${user}">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
-                                    <a name="user_edit_414"></a>
+                                    <a th:name="'user_edit_'+*{id}"></a>
                                     <div class="edit_user">
                                         Изменение пользователя
                                         <span>Mignon Dempsey</span>
-                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_edit_414"><i class="far fa-times-circle"></i></a>
+                                        <a href="javascript:;" class="toggle_cb"
+                                           th:data-toggle="'user_edit_'+*{id}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-                                    <div class="edit_basic">
+                                    <!-- 'form' was here -->
+                                    <div class="edit_basic"
+                                          th:id ="'form_update_user_'+*{id}"
+                                          action="#"
+                                          th:object="${user}">
                                         <label class="fld filler">
-                                            <em>ФИО</em>
+                                            <em>Фамилия</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp"  th:id ="'user_first_name_'+*{id}"  name="userFirstName"  th:value="*{firstName}" />
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Имя</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'user_surname_'+*{id}" name="userSurname" th:value="*{surname}"/>
+                                        </label>
+                                        <label class="fld filler">
+                                            <em>Отчество</em>
+                                            <div class="sign"><i class="fas fa-user"></i></div>
+                                            <input type="text" class="inp" th:id ="'user_patronymic_'+*{id}" name="userPatronymic" th:value="*{patronymic}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Должность</em>
                                             <div class="sign"><i class="fas fa-user"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" th:id ="'user_employee_position_'+*{id}" name="userEmployeePosition" th:value="*{employeePosition}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Email</em>
                                             <div class="sign"><i class="fas fa-envelope"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" th:id ="'user_mail_'+*{id}" name="userMail" th:value="*{mail}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Телефон</em>
                                             <div class="sign"><i class="fas fa-phone"></i></div>
-                                            <input type="text" class="inp" name="somename" />
+                                            <input type="text" class="inp" th:id ="'user_phone_number_'+*{id}" name="userPhoneNumber" th:value="*{phoneNumber}"/>
                                         </label>
                                         <label class="fld filler">
                                             <em>Пароль</em>
                                             <div class="sign"><i class="fas fa-key"></i></div>
-                                            <input type="password" class="inp" name="somename" />
+                                            <input type="password" class="inp" th:id ="'user_password_'+*{id}" name="userPassword" th:value="*{password}" />
                                         </label>
                                         <div class="clear_after">
-                                            <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
-                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_edit_414">Закрыть</a>
+                                            <button th:onclick="updateUserRequest([[*{id}]])" name="update_user" value="update_user" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
+                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" th:data-toggle="'user_edit_'+${user.id}">Закрыть</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="user_roles_414 edit hide_me">
+                        <div th:class="'user_roles_'+*{id}+' edit hide_me'" th:object="${user}">
                             <div class="row no_gutter">
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_12 col_l_12">
                                     <div class="edit_user">
-                                        <a name="user_roles_414"></a>
+                                        <a th:name="'user_roles_'+*{id}"></a>
 
                                         Управление правами пользователя
-                                        <span>Mignon Dempsey</span>
-                                        <a href="javascript:;" class="toggle_cb" data-toggle="user_roles_414"><i class="far fa-times-circle"></i></a>
+                                        <span th:text="*{username}">
+                                            --- USER NAME ---
+                                        </span>
+                                        <a href="javascript:;" class="toggle_cb"
+                                           th:data-toggle="'user_roles_'+*{id}"><i class="far fa-times-circle"></i></a>
                                     </div>
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
-                                    <form class="accordion">
-                                        <div class="edit_title toggle_acc">
-                                            <div class="icon rds_5">
-                                                <i class="fas fa-ambulance"></i>
+                                    <form class="accordion" >
+                                        <!--/*@thymesVar id="userModuleAuthorityDto" type="ru.aora.erp.entity.dto.UserIdModuleAuthorityDto"*/-->
+                                        <!--/*@thymesVar id="moduleAuthorityDto" type="ru.aora.erp.entity.dto.ModuleAuthorityDto"*/-->
+                                        <div th:each="userModuleAuthorityDto : ${moduleAuthorityDtoList}">
+                                            <div th:each="moduleAuthorityDto : ${userModuleAuthorityDto.getModuleAuthorityDtoList()}">
+                                                <div class="edit_title toggle_acc" >
+                                                    <div class="icon rds_5">
+                                                        <i class="fas fa-ambulance"></i>
+                                                    </div>
+                                                    <span>Модуль</span>
+                                                    <strong th:class="'user_module_name_'+*{id}"
+                                                            th:value="${moduleAuthorityDto.getModuleName()}"
+                                                            th:text="${moduleAuthorityDto.getModuleName()}">--- MODULE NAME ---</strong>
+                                                    <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
+                                                    <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
+                                                </div>
+                                                <div class="inner_acc">
+                                                    <div class="edit_item" th:each="moduleRoleSet : ${moduleAuthorityDto.getModuleMap().entrySet()}">
+                                                        <strong th:class ="'user_module_role_name_'+*{id}+'_'+${moduleRoleSet.getKey()}"
+                                                                th:text="${moduleRoleSet.getKey()}">--- MODULE ROLE NAME ---</strong>
+                                                        <label class="switcher">
+                                                            <input type="checkbox" class="www"
+                                                                   th:id ="'user_module_role_value_'+*{id}+'_'+${moduleRoleSet.getKey()}"
+                                                                   th:value="${moduleRoleSet.getValue()}"/>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <span>Модуль</span>
-                                            <strong>Контрагенты</strong>
-                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
-                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
-                                        </div>
-                                        <div class="inner_acc">
-                                            <div class="edit_item">
-                                                <strong>Доступ к модулю</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Добавлять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Изменять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Удалять данные</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="edit_title toggle_acc">
-                                            <div class="icon rds_5">
-                                                <i class="fas fa-ambulance"></i>
-                                            </div>
-                                            <span>Модуль</span>
-                                            <strong>Финанализ</strong>
-                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
-                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
-                                        </div>
-                                        <div class="inner_acc">
-                                            <div class="edit_item">
-                                                <strong>Доступ к модулю</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Добавлять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Изменять данные</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Удалять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="edit_title toggle_acc">
-                                            <div class="icon rds_5">
-                                                <i class="fas fa-ambulance"></i>
-                                            </div>
-                                            <span>Модуль</span>
-                                            <strong>Строительство</strong>
-                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
-                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
-                                        </div>
-                                        <div class="inner_acc">
-                                            <div class="edit_item">
-                                                <strong>Доступ к модулю</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Добавлять данные</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Изменять данные</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Удалять данные</strong>
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="edit_title toggle_acc">
-                                            <div class="icon rds_5">
-                                                <i class="fas fa-ambulance"></i>
-                                            </div>
-                                            <span>Модуль</span>
-                                            <strong>Пользователи</strong>
-                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
-                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
-                                        </div>
-                                        <div class="inner_acc">
-                                            <div class="edit_item">
-                                                <strong>Доступ к модулю</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Добавлять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Изменять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Удалять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="edit_title toggle_acc">
-                                            <div class="icon rds_5">
-                                                <i class="fas fa-ambulance"></i>
-                                            </div>
-                                            <span>Система</span>
-                                            <strong>Доступ к настройкам</strong>
-                                            <div class="toggler open"><i class="fal fa-plus-circle"></i></div>
-                                            <div class="toggler close"><i class="fal fa-minus-circle"></i></div>
-                                        </div>
-                                        <div class="inner_acc">
-                                            <div class="edit_item">
-                                                <strong>Доступ к модулю</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Добавлять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Изменять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-                                            <div class="edit_item">
-                                                <strong>Удалять данные</strong>
-
-                                                <label class="switcher">
-                                                    <input type="checkbox" class="www" />
-                                                </label>
-                                            </div>
-
                                         </div>
                                         <div class="clear_after">
-                                            <button type="submit" name="submit" class="bttn bttn_submit bttn_40 right rds_5">Сохранить</button>
-
-                                            <a href="javascript:;" class="bttn bttn_40 right rds_5 toggle_cb" data-toggle="user_roles_414">Закрыть</a>
+                                            <button th:onclick="updateUserRoleRequest([[*{id}]])" name="update_user_roles" value="update_user_roles" class="bttn bttn_submit bttn_40 right rds_5" >Сохранить</button>
+                                            <a href="javascript:;"
+                                               class="bttn bttn_40 right rds_5 toggle_cb"
+                                               th:data-toggle="'user_roles_'+*{id}">Закрыть</a>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                     <!--?>-->
-
                     <!--<?php } ?>-->
                 </div>
             </div>

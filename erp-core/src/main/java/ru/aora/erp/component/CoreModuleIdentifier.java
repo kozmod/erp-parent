@@ -1,7 +1,6 @@
 package ru.aora.erp.component;
 
-import org.springframework.stereotype.Component;
-import ru.aora.erp.model.entity.IdAuthority;
+import ru.aora.erp.model.entity.business.IdAuthority;
 import ru.aora.erp.model.identifier.ModuleIdentifier;
 
 import javax.annotation.PostConstruct;
@@ -11,18 +10,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Component
-public class CoreModuleIdentifier implements ModuleIdentifier {
-
-    public static final String DASHBOARD_MAPPING = "/dashboard";
-
-    public static final String INCLUDE_ROOT_MAPPING = "/**";
-    public static final String LOGOUT_MAPPING = "/logout";
-    public static final String LOGIN_MAPPING = "/login";
-    public static final String ROOT_MAPPING = "/";
+public final class CoreModuleIdentifier implements ModuleIdentifier {
 
     private Map<String, IdAuthority> mappingAuthorities;
-
 
     public CoreModuleIdentifier() {
         this.mappingAuthorities = new HashMap<>();

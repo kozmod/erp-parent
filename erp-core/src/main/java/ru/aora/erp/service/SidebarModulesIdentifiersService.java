@@ -20,7 +20,7 @@ public class SidebarModulesIdentifiersService {
         this.sidebarModuleIdentifiers = sidebarModuleIdentifiers;
     }
 
-    public List<UiChaneNode> modulesReferenceChaneElements() {
+    public List<UiChaneNode> loadAll() {
         final List<UiChaneNode> list = new ArrayList<>();
         if (isNotEmpty(sidebarModuleIdentifiers)) {
             sidebarModuleIdentifiers.forEach(moduleIdentifier ->

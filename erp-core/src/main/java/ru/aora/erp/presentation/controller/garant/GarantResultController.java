@@ -17,7 +17,6 @@ import static java.util.Objects.requireNonNull;
 @Controller
 public final class GarantResultController {
 
-    public static final String GARANT_RESULT_MAPPING = "/garantresult";
     public static final String GARANT_RESULT_TEMPLATE = "garantresult";
     private static final String DTO_MODEL = "garantResultDto";
 
@@ -27,7 +26,7 @@ public final class GarantResultController {
         this.ksService = ksService;
     }
 
-    @RequestMapping(GARANT_RESULT_MAPPING)
+    @RequestMapping(GarantUrl.GARANT_RESULT)
     public String garantResult(Map<String, Object> model) {
         model.put(
                 DTO_MODEL,

@@ -10,22 +10,18 @@ import java.util.Set;
 
 public final class UserAuthorityCacheService {
 
-    private final Map<UserAuthority, Set<String>> urlAuthorityMap;
+    private final Map<UserAuthority, Set<String>> authorityUrls;
 
     public UserAuthorityCacheService(List<Map<UserAuthority, Set<String>>> maps) {
-        urlAuthorityMap = asOneMap(maps);
+        authorityUrls = asOneMap(maps);
     }
 
     public Collection<UserAuthority> allAuthorities() {
-        return Set.copyOf(urlAuthorityMap.keySet());
-    }
-
-    public Map<UserAuthority, Set<String>> urlAuthorityMap() {
-        return Map.copyOf(urlAuthorityMap);
+        return Set.copyOf(authorityUrls.keySet());
     }
 
     public boolean exists(UserAuthority authority){
-        return urlAuthorityMap.containsKey(authority);
+        return authorityUrls.containsKey(authority);
     }
 
     private <K, V> Map<K, V> asOneMap(List<Map<K, V>> sources) {

@@ -1,4 +1,4 @@
-package ru.aora.erp.presentation.controller;
+package ru.aora.erp.presentation.controller.contract;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import static ru.aora.erp.presentation.entity.dto.contract.ContractDtoMapper.toC
 import static ru.aora.erp.presentation.entity.dto.contract.ContractDtoMapper.toListDto;
 
 @Controller
-@RequestMapping("/contract")
+@RequestMapping(ContractUrl.MAPPING)
 public final class ContractController {
 
     private static final String CONTROLLER_MAPPING = "contracts";

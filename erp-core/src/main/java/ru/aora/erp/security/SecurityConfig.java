@@ -1,4 +1,4 @@
-package ru.aora.erp.config.authority;
+package ru.aora.erp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,15 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
 import ru.aora.erp.domain.service.user.UserService;
+import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
+import ru.aora.erp.presentation.controller.dashboard.DashboardUrl;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import static ru.aora.erp.presentation.controller.DashboardController.DASHBOARD_MAPPING;
-import static ru.aora.erp.presentation.controller.security.SecurityController.INCLUDE_ROOT_MAPPING;
-import static ru.aora.erp.presentation.controller.security.SecurityController.LOGIN_MAPPING;
-import static ru.aora.erp.presentation.controller.security.SecurityController.LOGOUT_MAPPING;
 
 
 @Configuration
@@ -48,31 +45,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+        auth.inMemoryAuthentication()
+                .withUser("a")
+                .password(passwordEncoder.encode("123456"))
+                .roles(DashboardAuthorityUrlMap.ADMIN.getAuthority())
+                .and()
+                .withUser("u")
+                .password(passwordEncoder.encode("123456"))
+                .roles(DashboardAuthorityUrlMap.USER.getAuthority());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-//        defineAuthoritiesMapping(http.authorizeRequests(), authorityCache.urlAuthorityMap())
-        http.authorizeRequests()
+        var urlRegistry = http.authorizeRequests()
                 .antMatchers(ALL_CSS_MAPPING).permitAll()
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
-//                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(CoreAuthorityConfigMap.ADMIN.toString())
-                .antMatchers(INCLUDE_ROOT_MAPPING).permitAll() //todo
-//                .antMatchers(INCLUDE_ROOT_MAPPING).hasAnyAuthority(ADMIN.getAuthority())
-//                .antMatchers(DASHBOARD_MAPPING).hasAnyAuthority(UserRole.USER.getAuthority(),UserRole.ADMIN.getAuthority())
-//                .antMatchers(INCLUDE_ROOT_MAPPING).authenticated()
-                .anyRequest().authenticated();
+                .antMatchers(DashboardUrl.LOGIN_MAPPING).permitAll()
+                .antMatchers(DashboardUrl.LOGOUT_MAPPING).permitAll();
+//        defineAuthoritiesMapping(urlRegistry, authorityCache.urlAuthorityMap()); //todo enable user security
+        urlRegistry.anyRequest().authenticated();
+
         http.formLogin()
-                .loginPage(LOGIN_MAPPING)
-                .defaultSuccessUrl(DASHBOARD_MAPPING)
-                .successForwardUrl(DASHBOARD_MAPPING)
+                .loginPage(DashboardUrl.LOGIN_MAPPING)
+                .defaultSuccessUrl(DashboardUrl.MAPPING)
+                .successForwardUrl(DashboardUrl.MAPPING)
                 .permitAll();
         http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT_MAPPING))
-                .logoutSuccessUrl(LOGIN_MAPPING) //todo not exists: /@%7B/logout%7D - what ????
+                .clearAuthentication(true)
+                .logoutUrl(DashboardUrl.LOGOUT_MAPPING)
+                .deleteCookies("JSESSIONID")
+                .logoutRequestMatcher(new AntPathRequestMatcher(DashboardUrl.LOGOUT_MAPPING))
+                .logoutSuccessUrl(DashboardUrl.LOGIN_MAPPING)
                 .permitAll();
     }
 
@@ -84,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             final var authority = entry.getKey();
             final var authorityVal = authority.getAuthority();
             for (var url : entry.getValue()) {
-                registry.antMatchers(url).hasAnyAuthority(authorityVal);
+                registry.antMatchers(url).hasRole(authorityVal);
             }
         }
         return registry;

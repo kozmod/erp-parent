@@ -1,4 +1,4 @@
-package ru.aora.erp.config;
+package ru.aora.erp.domain.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.aspect.ServiceLoggingAspect;
-import ru.aora.erp.config.authority.CoreAuthorityConfigMap;
+import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
 import ru.aora.erp.domain.UserGateway;
 import ru.aora.erp.domain.service.ContractService;
 import ru.aora.erp.domain.service.CounteragentService;
@@ -36,9 +36,9 @@ public class DomainServiceConfig {
     }
 
     @Bean
-    public UserAuthorityCacheService userAuthorityCacheService(){
+    public UserAuthorityCacheService userAuthorityCacheService(DashboardAuthorityUrlMap map){
         return new UserAuthorityCacheService(
-                List.of(CoreAuthorityConfigMap.urlAuthorityMap)
+                List.of(map.getAuthoritiesUrls())
         );
     }
 

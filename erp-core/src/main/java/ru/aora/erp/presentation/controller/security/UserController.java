@@ -14,13 +14,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static ru.aora.erp.presentation.controller.security.UserController.MAPPING;
-
 @Controller
-@RequestMapping(MAPPING)
+@RequestMapping(UserUrl.MAPPING)
 public final class UserController {
-
-    public static final String MAPPING = "/user";
 
     private static final String USERS_TEMPLATE = "users";
     private static final String USERS_DTO_MODEL = "usersDto";

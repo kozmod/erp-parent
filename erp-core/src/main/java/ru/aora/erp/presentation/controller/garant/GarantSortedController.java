@@ -17,7 +17,7 @@ import static ru.aora.erp.presentation.entity.dto.compose.KsContractCounteragent
 import static ru.aora.erp.presentation.entity.dto.compose.KsContractCounteragentDtoUtils.toKsContractCounteragentDtoList;
 
 @Controller
-@RequestMapping("/garantsorted")
+@RequestMapping(GarantUrl.GARANT_STORED)
 public final class GarantSortedController {
 
     private static final String CONTROLLER_TEMPLATE = "garantsorted";

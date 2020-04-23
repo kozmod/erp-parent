@@ -1,4 +1,4 @@
-package ru.aora.erp.presentation.controller;
+package ru.aora.erp.presentation.controller.counteragent;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,14 +19,11 @@ import ru.aora.erp.domain.service.CounteragentService;
 import javax.validation.Valid;
 import java.util.Map;
 
-import static ru.aora.erp.presentation.controller.CounteragentController.COUNTERAGENT_ROOT_MAPPING;
 import static ru.aora.erp.presentation.entity.dto.counteragent.CounteragentDtoMapper.toCounteragent;
 
 @Controller
-@RequestMapping(COUNTERAGENT_ROOT_MAPPING)
+@RequestMapping(CounteragentUrl.MAPPING)
 public final class CounteragentController {
-
-    public static final String COUNTERAGENT_ROOT_MAPPING = "/counteragent";
 
     private static final String GARANT_MAPPING = "counteragents";
     private static final String CONTRACTOR_DTO_MODEL = "counteragentDto";

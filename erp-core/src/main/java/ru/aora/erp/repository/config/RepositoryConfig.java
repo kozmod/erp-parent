@@ -1,4 +1,4 @@
-package ru.aora.erp.config;
+package ru.aora.erp.repository.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

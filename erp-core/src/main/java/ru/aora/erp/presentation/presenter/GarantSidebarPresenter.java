@@ -1,16 +1,15 @@
 package ru.aora.erp.presentation.presenter;
 
+import ru.aora.erp.presentation.controller.counteragent.CounteragentUrl;
 import ru.aora.erp.presentation.entity.dto.sidebar.SidebarPresenter;
 import ru.aora.erp.presentation.entity.dto.sidebar.SidebarChaneNodeDto;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
-
-import static ru.aora.erp.presentation.controller.CounteragentController.COUNTERAGENT_ROOT_MAPPING;
+import java.util.Collections;
 
 public final class GarantSidebarPresenter implements SidebarPresenter {
 
-    private static final String CHILD_MAPPING = COUNTERAGENT_ROOT_MAPPING;
+    private static final String CHILD_MAPPING = CounteragentUrl.MAPPING;
 
     private SidebarChaneNodeDto firstUiChaneNode;
 

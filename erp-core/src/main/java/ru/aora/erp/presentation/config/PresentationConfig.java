@@ -1,26 +1,20 @@
-package ru.aora.erp.config;
+package ru.aora.erp.presentation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import ru.aora.erp.domain.service.CounteragentService;
-import ru.aora.erp.presentation.controller.CounteragentController;
-import ru.aora.erp.presentation.controller.DashboardController;
+import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
 import ru.aora.erp.presentation.entity.dto.sidebar.SidebarPresenter;
 import ru.aora.erp.presentation.presenter.AllSidebarPresenter;
 import ru.aora.erp.presentation.presenter.GarantSidebarPresenter;
+import ru.aora.erp.presentation.presenter.TestSidebarPresenter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
 @ComponentScan("ru.aora.erp.presentation.controller")
-public class ControllerConfig {
-
-    @Bean
-    public GarantSidebarPresenter garantSidebarPresenter() {
-        return new GarantSidebarPresenter();
-    }
+public class PresentationConfig {
 
     @Bean
     public AllSidebarPresenter allSidebarPresenter(List<SidebarPresenter> presenters) {
@@ -33,6 +27,23 @@ public class ControllerConfig {
                         )
                 );
     }
+
+    @Bean
+    public DashboardAuthorityUrlMap coreAuthorityConfigMap(){
+        return new DashboardAuthorityUrlMap();
+    }
+
+    @Bean
+    public GarantSidebarPresenter garantSidebarPresenter() {
+        return new GarantSidebarPresenter();
+    }
+
+    @Bean
+    public TestSidebarPresenter testSidebarPresenter() {
+        return new TestSidebarPresenter();
+    }
+
+
 
 //    @Bean
 //    public CounteragentController counteragentController(CounteragentService counteragentService){

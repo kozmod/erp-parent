@@ -1,4 +1,4 @@
-package ru.aora.erp.presentation.controller;
+package ru.aora.erp.presentation.controller.ks;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,7 +23,7 @@ import java.util.Map;
 import static ru.aora.erp.presentation.entity.dto.ks.KsDtoMapper.toKs;
 
 @Controller
-@RequestMapping("/ks")
+@RequestMapping(KsUrl.MAPPING)
 public final class KsController {
 
     private static final String CONTROLLER_MAPPING = "kss";

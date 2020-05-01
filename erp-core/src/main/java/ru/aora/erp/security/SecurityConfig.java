@@ -15,10 +15,7 @@ import ru.aora.erp.domain.service.user.UserService;
 import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
 import ru.aora.erp.presentation.controller.dashboard.DashboardUrl;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
+import java.util.*;
 
 @Configuration
 @EnableWebSecurity
@@ -48,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(userService).passwordEncoder(passwordEncoder); //todo remove wen work DB
         auth.inMemoryAuthentication()
                 .withUser("a")
-                .password(passwordEncoder.encode("123456"))
+                .password(passwordEncoder.encode("a"))
                 .roles(DashboardAuthorityUrlMap.ADMIN.getAuthority())
                 .and()
                 .withUser("u")
-                .password(passwordEncoder.encode("123456"))
+                .password(passwordEncoder.encode("u"))
                 .roles(DashboardAuthorityUrlMap.USER.getAuthority());
     }
 
@@ -64,10 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
                 .antMatchers(DashboardUrl.LOGIN_MAPPING).permitAll()
-                .antMatchers(DashboardUrl.LOGIN_MAPPING).permitAll();
-        urlRegistry.antMatchers(DashboardUrl.INCLUDE_ROOT_MAPPING).permitAll();
-//        defineAuthoritiesMapping(urlRegistry, authorityCache.urlAuthorityMap()); //todo enable user security
-//        urlRegistry.anyRequest().authenticated(); //todo enable user security
+                .antMatchers(DashboardUrl.LOGOUT_MAPPING).permitAll();
+//        urlRegistry.antMatchers(DashboardUrl.INCLUDE_ROOT_MAPPING).permitAll();
+        defineAuthoritiesMapping(urlRegistry, authorityCache.urlAuthorityMap()); //todo enable user security
+        urlRegistry.anyRequest().authenticated(); //todo enable user security
 
         http.formLogin()
                 .loginPage(DashboardUrl.LOGIN_MAPPING)
@@ -83,17 +80,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-    private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry defineAuthoritiesMapping(
+    private void defineAuthoritiesMapping(
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry,
             Map<? extends GrantedAuthority, Set<String>> authoritySetMap
     ) {
-        for (var entry : Objects.requireNonNull(authoritySetMap.entrySet())) {
-            final var authority = entry.getKey();
-            final var authorityVal = authority.getAuthority();
+        Map<String, Set<String>> urlAuthorities = toUrlAuthorities(authoritySetMap);
+        for (var entry : Objects.requireNonNull(urlAuthorities.entrySet())) {
+            var url = entry.getKey();
+            var authorities = entry.getValue().toArray(new String[0]);
+            registry.antMatchers(url)
+                    .hasAnyRole(authorities);
+        }
+    }
+
+    private static Map<String, Set<String>> toUrlAuthorities(Map<? extends GrantedAuthority, Set<String>> authorityUrls) {
+        Map<String, Set<String>> urlAuthorities = new HashMap<>();
+        for (var entry : authorityUrls.entrySet()) {
             for (var url : entry.getValue()) {
-                registry.antMatchers(url).hasRole(authorityVal);
+                var authorities = urlAuthorities.computeIfAbsent(url, k -> new HashSet<>());
+                authorities.add(entry.getKey().getAuthority());
+                urlAuthorities.put(url, authorities);
             }
         }
-        return registry;
+        return urlAuthorities;
     }
 }

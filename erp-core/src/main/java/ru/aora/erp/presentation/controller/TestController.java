@@ -20,7 +20,7 @@ public class TestController {
 
     @GetMapping
     public @ResponseBody
-    String get(){
+    String get() {
         return "TEST get";
     }
 }

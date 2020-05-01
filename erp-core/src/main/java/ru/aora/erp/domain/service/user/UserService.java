@@ -71,13 +71,15 @@ public final class UserService implements UserDetailsService {
     }
 
     private Collection<UserAuthority> removeIfNotExistsInCache(Collection<UserAuthority> authorities) {
-        Objects.requireNonNull(authorities);
-        Collection<UserAuthority> res = new ArrayList<>(authorities.size());
-        for (UserAuthority authority : authorities) {
-            if (authorityCache.exists(authority)) {
-                res.add(authority);
+        if (authorities != null && !authorities.isEmpty()) {
+            Collection<UserAuthority> res = new ArrayList<>(authorities.size());
+            for (UserAuthority authority : authorities) {
+                if (authorityCache.exists(authority)) {
+                    res.add(authority);
+                }
             }
+            return res;
         }
-        return res;
+        throw new IllegalArgumentException("User must have at least one authorities");
     }
 }

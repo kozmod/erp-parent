@@ -20,6 +20,10 @@ public final class UserAuthorityCacheService {
         return Set.copyOf(authorityUrls.keySet());
     }
 
+    public Map<UserAuthority, Set<String>> urlAuthorityMap() {
+        return Map.copyOf(authorityUrls);
+    }
+
     public boolean exists(UserAuthority authority){
         return authorityUrls.containsKey(authority);
     }

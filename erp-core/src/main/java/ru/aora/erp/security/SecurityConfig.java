@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder); //todo remove wen work DB
         auth.inMemoryAuthentication()
                 .withUser("a")
                 .password(passwordEncoder.encode("123456"))
@@ -64,9 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALL_JS_MAPPING).permitAll()
                 .antMatchers(ALL_ICONS_MAPPING).permitAll()
                 .antMatchers(DashboardUrl.LOGIN_MAPPING).permitAll()
-                .antMatchers(DashboardUrl.LOGOUT_MAPPING).permitAll();
+                .antMatchers(DashboardUrl.LOGIN_MAPPING).permitAll();
+        urlRegistry.antMatchers(DashboardUrl.INCLUDE_ROOT_MAPPING).permitAll();
 //        defineAuthoritiesMapping(urlRegistry, authorityCache.urlAuthorityMap()); //todo enable user security
-        urlRegistry.anyRequest().authenticated();
+//        urlRegistry.anyRequest().authenticated(); //todo enable user security
 
         http.formLogin()
                 .loginPage(DashboardUrl.LOGIN_MAPPING)

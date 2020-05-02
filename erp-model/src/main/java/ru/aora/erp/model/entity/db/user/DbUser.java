@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.StringJoiner;
 
+import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
+
 @Entity
 @Table(name = "[user]")
 public class DbUser implements Serializable {
@@ -70,6 +72,13 @@ public class DbUser implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "authority_id", referencedColumnName = "id"))
     private Collection<DbAuthority> authorities;
+
+    @PrePersist
+    private void prePersist(){
+        if(deactivated == null){
+            deactivated = ACTIVE_ENTITY_FLAG;
+        }
+    }
 
     public String getId() {
         return id;

@@ -21,6 +21,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
+import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
 import static ru.aora.erp.repository.gateway.GatewayUtils.*;
 
 @Service

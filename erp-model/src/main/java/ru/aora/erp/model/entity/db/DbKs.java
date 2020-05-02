@@ -2,16 +2,14 @@ package ru.aora.erp.model.entity.db;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
+
+import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 
 @Entity
 @Table(name = "KS")
@@ -52,6 +50,12 @@ public class DbKs implements Serializable {
     @Column(name = "deactivated")
     private Integer deactivated;
 
+    @PrePersist
+    private void prePersist(){
+        if(deactivated == null){
+            deactivated = ACTIVE_ENTITY_FLAG;
+        }
+    }
 
     public String getId() {
         return id;

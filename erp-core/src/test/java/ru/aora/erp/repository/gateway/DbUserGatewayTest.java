@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
+import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
 
 public class DbUserGatewayTest {
 
@@ -37,11 +39,11 @@ public class DbUserGatewayTest {
         final DbUser active = new DbUser()
                 .setId(ACTIVE_ID)
                 .setUsername(ACTIVE_NAME)
-                .setDeactivated(GatewayUtils.ACTIVE_ENTITY_FLAG);
+                .setDeactivated(ACTIVE_ENTITY_FLAG);
         final DbUser inactive = new DbUser()
                 .setId(INACTIVE_ID)
                 .setUsername(INACTIVE_NAME)
-                .setDeactivated(GatewayUtils.INACTIVE_ENTITY_FLAG)
+                .setDeactivated(INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
 
         MockitoAnnotations.initMocks(this);
@@ -61,7 +63,7 @@ public class DbUserGatewayTest {
         assertNotNull(res);
         assertEquals(1, res.size());
         assertEquals(ACTIVE_ID, res.get(0).getId());
-        assertEquals(GatewayUtils.ACTIVE_ENTITY_FLAG, res.get(0).getDeactivated());
+        assertEquals(ACTIVE_ENTITY_FLAG, res.get(0).getDeactivated());
         assertNull(res.get(0).getDeactivationDate());
     }
 
@@ -105,7 +107,7 @@ public class DbUserGatewayTest {
         assertEquals(ACTIVE_NAME, res.get().getUsername());
         assertNotNull(res.get().getDeactivationDate());
         assertNotNull(res.get().getDeactivated());
-        assertEquals(GatewayUtils.INACTIVE_ENTITY_FLAG, res.get().getDeactivated());
+        assertEquals(INACTIVE_ENTITY_FLAG, res.get().getDeactivated());
     }
 
     @Test

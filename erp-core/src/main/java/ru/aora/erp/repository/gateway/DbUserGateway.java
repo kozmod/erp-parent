@@ -129,7 +129,7 @@ public class DbUserGateway implements UserGateway {
                         subAuthority.getName(),
                         name -> subAuthorityRepository.save(subAuthority)
                 );
-                subAuthority.setId(existsSub.getName());
+                subAuthority.setId(existsSub.getId());
             }
             DbAuthority exists = existsAuthorities.computeIfAbsent(
                     authority.getName(),

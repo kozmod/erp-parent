@@ -3,9 +3,11 @@ package ru.aora.erp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import ru.aora.erp.aspect.AspectConfig;
+import ru.aora.erp.domain.config.UserServiceConfig;
 import ru.aora.erp.presentation.config.PresentationConfig;
 import ru.aora.erp.security.SecurityConfig;
-import ru.aora.erp.domain.config.DomainServiceConfig;
+import ru.aora.erp.domain.config.GarantServiceConfig;
 import ru.aora.erp.repository.config.RepositoryConfig;
 
 @SpringBootApplication(scanBasePackages = {
@@ -13,9 +15,11 @@ import ru.aora.erp.repository.config.RepositoryConfig;
 })
 @Import({
         SecurityConfig.class,
-        DomainServiceConfig.class,
+        GarantServiceConfig.class,
         PresentationConfig.class,
-        RepositoryConfig.class
+        RepositoryConfig.class,
+        UserServiceConfig.class,
+        AspectConfig.class,
 })
 public class ErpApp {
 

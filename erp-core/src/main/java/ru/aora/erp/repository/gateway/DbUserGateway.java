@@ -1,6 +1,5 @@
 package ru.aora.erp.repository.gateway;
 
-import org.springframework.stereotype.Service;
 import ru.aora.erp.domain.UserGateway;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.model.entity.db.user.DbAuthority;
@@ -25,7 +24,6 @@ import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
 import static ru.aora.erp.repository.gateway.GatewayUtils.*;
 
-@Service
 @Transactional
 public class DbUserGateway implements UserGateway {
 

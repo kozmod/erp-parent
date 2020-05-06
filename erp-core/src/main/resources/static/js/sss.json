@@ -1,0 +1,20 @@
+{
+  "id": "17ACF058-09EA-432D-A515-56D94974940E",
+  "firstName": "Andrewс",
+  "surname": "Anno",
+  "patronymic": "Annohin",
+  "employeePosition": "",
+  "mail": "@mail.ru",
+  "password": "$2a$10$aAzCqSr338nPMEBsW3PKA.KIRSULDq6sCLkNIlmL.o3oub.ASK.0m",
+  "phoneNumber": "123",
+  "authorities":[
+    {
+      "rootAuthority": "X",
+      "subAuthority": "ADMIN",
+    },
+    {
+      "rootAuthority": "Y",
+      "subAuthority": "USER",
+    }
+  ]
+}

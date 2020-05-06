@@ -29,11 +29,6 @@ public class PresentationConfig {
     }
 
     @Bean
-    public DashboardAuthorityUrlMap coreAuthorityConfigMap(){
-        return new DashboardAuthorityUrlMap();
-    }
-
-    @Bean
     public GarantSidebarPresenter garantSidebarPresenter() {
         return new GarantSidebarPresenter();
     }

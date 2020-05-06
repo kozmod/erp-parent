@@ -1,7 +1,6 @@
 package ru.aora.erp.repository.gateway;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.db.DbContract;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
 
-@Service
 @Transactional
 public class DbContractGateway implements CrudGateway<Contract, String> {
 

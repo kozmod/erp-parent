@@ -42,15 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService).passwordEncoder(passwordEncoder); //todo remove wen work DB
-        auth.inMemoryAuthentication()
-                .withUser("a")
-                .password(passwordEncoder.encode("a"))
-                .roles(DashboardAuthorityUrlMap.ADMIN.getAuthority())
-                .and()
-                .withUser("u")
-                .password(passwordEncoder.encode("u"))
-                .roles(DashboardAuthorityUrlMap.USER.getAuthority());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder); //todo remove wen work DB
+//        auth.inMemoryAuthentication()
+//                .withUser("a")
+//                .password(passwordEncoder.encode("a"))
+//                .authorities(DashboardAuthorityUrlMap.ADMIN.getAuthority())
+//                .and()
+//                .withUser("u")
+//                .password(passwordEncoder.encode("u"))
+//                .authorities(DashboardAuthorityUrlMap.USER.getAuthority());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             var url = entry.getKey();
             var authorities = entry.getValue().toArray(new String[0]);
             registry.antMatchers(url)
-                    .hasAnyRole(authorities);
+                    .hasAnyAuthority(authorities);
         }
     }
 

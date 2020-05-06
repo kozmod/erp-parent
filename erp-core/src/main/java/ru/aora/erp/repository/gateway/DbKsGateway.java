@@ -1,7 +1,6 @@
 package ru.aora.erp.repository.gateway;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Ks;
 import ru.aora.erp.model.entity.db.DbKs;
@@ -19,7 +18,6 @@ import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
 
 
-@Service
 @Transactional
 public class DbKsGateway implements CrudGateway<Ks, String> {
 

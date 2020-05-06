@@ -28,7 +28,7 @@ import java.util.Objects;
         entityManagerFactoryRef = "userEntityManager",
         transactionManagerRef = "userTransactionManager"
 )
-@ComponentScan("ru.aora.erp.repository")
+@ComponentScan("ru.aora.erp.repository.jpa")
 @EnableTransactionManagement
 public class RepositoryConfig {
 

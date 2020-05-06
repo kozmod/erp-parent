@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.aora.erp.aspect.AspectConfig;
+import ru.aora.erp.domain.config.UserServiceConfig;
 import ru.aora.erp.repository.config.RepositoryConfig;
-import ru.aora.erp.domain.config.DomainServiceConfig;
 import ru.aora.erp.domain.service.user.UserService;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.model.entity.business.UserAuthority;
@@ -17,7 +18,7 @@ import java.util.Collections;
 
 //@Ignore("Use only check real DB")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {RepositoryConfig.class, DomainServiceConfig.class})
+@ContextConfiguration(classes = {RepositoryConfig.class, UserServiceConfig.class, AspectConfig.class})
 public class UserServiceTest {
 
     @Autowired
@@ -30,7 +31,7 @@ public class UserServiceTest {
     //    @Transactional
     @Test
     public void should_getUser() {
-        User user = userService.loadUserByUsername("User");
+        User user = userService.loadUserByUsername("user");
         System.out.println(passwordEncoder.matches(user.getPassword(), "123456"));
         System.out.println(user.getPassword());
         user.getAuthorities().forEach(
@@ -42,7 +43,6 @@ public class UserServiceTest {
         System.out.println(user);
     }
 
-    //    @Transactional
     @Test
     public void should_saveUser() {
         User user = new User();

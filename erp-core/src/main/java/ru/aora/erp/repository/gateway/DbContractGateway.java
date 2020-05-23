@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.aora.erp.domain.CrudGateway;
 import ru.aora.erp.model.entity.business.Contract;
 import ru.aora.erp.model.entity.db.DbContract;
+import ru.aora.erp.model.entity.db.Deactivatable;
 import ru.aora.erp.model.entity.mapper.ContractMapper;
 import ru.aora.erp.utils.common.CommonUtils;
 
@@ -14,8 +15,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
-import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
+import static ru.aora.erp.model.entity.db.Deactivatable.INACTIVE_ENTITY_FLAG;
 
 @Transactional
 public class DbContractGateway implements CrudGateway<Contract, String> {
@@ -31,7 +31,7 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
     public List<Contract> loadAllActive() {
         return repository.findAll()
                 .stream()
-                .filter(this::isActive)
+                .filter(Deactivatable::isActive)
                 .map(mapper::toContract)
                 .collect(Collectors.toList());
     }
@@ -54,7 +54,7 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
     @Override
     public Optional<Contract> update(Contract contract) {
         Optional<DbContract> optionalTarget = repository.findById(contract.getId())
-                .filter(this::isActive)
+                .filter(Deactivatable::isActive)
                 .map(this::setDeactivated);
         if (optionalTarget.isPresent()) {
             repository.save(optionalTarget.get());
@@ -69,7 +69,7 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
     public Optional<Contract> delete(String id) {
         CommonUtils.requiredNotBlank(id);
         return repository.findById(id)
-                .filter(this::isActive)
+                .filter(Deactivatable::isActive)
                 .map(this::setDeactivated)
                 .map(repository::save)
                 .map(mapper::toContract)
@@ -78,13 +78,8 @@ public class DbContractGateway implements CrudGateway<Contract, String> {
 
     private DbContract setDeactivated(DbContract contract) {
         return Objects.requireNonNull(contract)
-                .setDeactivated(INACTIVE_ENTITY_FLAG)
+                .setActiveStatus(INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
-    }
-
-    private boolean isActive(DbContract contract) {
-        return ACTIVE_ENTITY_FLAG.equals(contract.getDeactivated())
-                && contract.getDeactivationDate() == null;
     }
 
 }

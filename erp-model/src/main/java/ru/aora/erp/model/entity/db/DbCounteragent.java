@@ -1,17 +1,18 @@
 package ru.aora.erp.model.entity.db;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
-
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 
 @Entity
 @Table(name = "Counteragent")
-public class DbCounteragent implements Serializable {
+public class DbCounteragent implements Serializable,Deactivatable {
 
     private static final long serialVersionUID = 8481999979205249004L;
 
@@ -49,12 +50,12 @@ public class DbCounteragent implements Serializable {
     private LocalDateTime deactivationDate;
 
     @Column(name = "deactivated")
-    private Integer deactivated;
+    private Integer activeStatus;
 
     @PrePersist
     private void prePersist(){
-        if(deactivated == null){
-            deactivated = ACTIVE_ENTITY_FLAG;
+        if(activeStatus == null){
+            activeStatus = ACTIVE_ENTITY_FLAG;
         }
     }
 
@@ -148,12 +149,12 @@ public class DbCounteragent implements Serializable {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public DbCounteragent setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public DbCounteragent setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
         return this;
     }
 
@@ -170,7 +171,7 @@ public class DbCounteragent implements Serializable {
                 ", mail='" + mail + '\'' +
                 ", address='" + address + '\'' +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

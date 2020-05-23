@@ -14,25 +14,23 @@ public final class DashboardAuthorityUrlMap {
 
     public static final String MODULE_NAME = "CORE";
 
-    public static final UserAuthority ADMIN = asAuthority("ADMIN");
-    public static final UserAuthority USER = asAuthority("USER");
+    public static final UserAuthority ALL = asAuthority("ALL");
+    public static final UserAuthority SEE_TEST = asAuthority("TEST");
 
     private final Map<UserAuthority, Set<String>> authoritiesUrls = new ConcurrentHashMap<>();
 
     //todo add more mapping
     {
         authoritiesUrls.put(
-                ADMIN,
+                ALL,
                 Set.of(
                         DashboardUrl.INCLUDE_ROOT_MAPPING, TestController.MAPPING
                 )
         );
         authoritiesUrls.put(
-                USER, Set.of(
+                SEE_TEST, Set.of(
                         DashboardUrl.MAPPING,
                         DashboardUrl.ROOT_MAPPING,
-//                        GarantUrl.GARANT_RESULT,
-//                        DashboardUrl.INCLUDE_ROOT_MAPPING,
                         TestController.MAPPING
                 )
         );

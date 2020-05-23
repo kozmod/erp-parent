@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
-import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
+import static ru.aora.erp.model.entity.db.Deactivatable.ACTIVE_ENTITY_FLAG;
+import static ru.aora.erp.model.entity.db.Deactivatable.INACTIVE_ENTITY_FLAG;
 
 public class DbUserGatewayTest {
 
@@ -25,36 +25,41 @@ public class DbUserGatewayTest {
     private DbUserGateway gateway;
 
     @Mock
-    private JpaUserRepository repo;
+    private DbModuleRolePairGateway moduleRolePairGateway;
+
+    @Mock
+    private JpaUserRepository userRepo;
 
     private static final String ACTIVE_ID = "Some_active_id_2";
     private static final String ACTIVE_NAME = "Some_active_NAME";
     private static final String INACTIVE_ID = "Some_inactive_id_1";
     private static final String INACTIVE_NAME = "Some_inactive_NAME";
-    private static final String NOT_EXISTS_ID = "Some_id_not_exists";
     private static final String NOT_EXISTS_NAME = "Some_NAME_not_exists";
 
     @Before
-    public void init() {
+    public void initToActiveAndInactiveUserTest() {
         final DbUser active = new DbUser()
                 .setId(ACTIVE_ID)
                 .setUsername(ACTIVE_NAME)
-                .setDeactivated(ACTIVE_ENTITY_FLAG);
+                .setActiveStatus(ACTIVE_ENTITY_FLAG);
         final DbUser inactive = new DbUser()
                 .setId(INACTIVE_ID)
                 .setUsername(INACTIVE_NAME)
-                .setDeactivated(INACTIVE_ENTITY_FLAG)
+                .setActiveStatus(INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
 
         MockitoAnnotations.initMocks(this);
-        Mockito.when(repo.findByName(ACTIVE_NAME)).thenReturn(List.of(active, inactive));
-        Mockito.when(repo.findActiveByName(ACTIVE_NAME)).thenReturn(Optional.of(active));
-        Mockito.when(repo.findActiveByName(INACTIVE_NAME)).thenReturn(Optional.empty());
-        Mockito.when(repo.findActiveByName(NOT_EXISTS_NAME)).thenReturn(Optional.empty());
-        Mockito.when(repo.findAll()).thenReturn(List.of(active, inactive));
-        Mockito.when(repo.findById(ACTIVE_ID)).thenReturn(Optional.of(active));
-        Mockito.when(repo.findById(INACTIVE_ID)).thenReturn(Optional.of(inactive));
-        Mockito.when(repo.save(Mockito.any())).thenReturn(active);
+        Mockito.when(userRepo.findByName(ACTIVE_NAME)).thenReturn(List.of(active, inactive));
+        Mockito.when(userRepo.findActiveByName(ACTIVE_NAME)).thenReturn(Optional.of(active));
+        Mockito.when(userRepo.findActiveByName(INACTIVE_NAME)).thenReturn(Optional.empty());
+        Mockito.when(userRepo.findActiveByName(NOT_EXISTS_NAME)).thenReturn(Optional.empty());
+        Mockito.when(userRepo.findAll()).thenReturn(List.of(active, inactive));
+        Mockito.when(userRepo.findById(ACTIVE_ID)).thenReturn(Optional.of(active));
+        Mockito.when(userRepo.findById(INACTIVE_ID)).thenReturn(Optional.of(inactive));
+        Mockito.when(userRepo.save(Mockito.any())).thenReturn(active);
+        Mockito.when(moduleRolePairGateway.addModuleRoleNameByIdFunction()).thenReturn(c -> c);
+
+
     }
 
     @Test
@@ -63,7 +68,7 @@ public class DbUserGatewayTest {
         assertNotNull(res);
         assertEquals(1, res.size());
         assertEquals(ACTIVE_ID, res.get(0).getId());
-        assertEquals(ACTIVE_ENTITY_FLAG, res.get(0).getDeactivated());
+        assertEquals(ACTIVE_ENTITY_FLAG, res.get(0).getActiveStatus());
         assertNull(res.get(0).getDeactivationDate());
     }
 
@@ -106,8 +111,8 @@ public class DbUserGatewayTest {
         assertEquals(ACTIVE_ID, res.get().getId());
         assertEquals(ACTIVE_NAME, res.get().getUsername());
         assertNotNull(res.get().getDeactivationDate());
-        assertNotNull(res.get().getDeactivated());
-        assertEquals(INACTIVE_ENTITY_FLAG, res.get().getDeactivated());
+        assertNotNull(res.get().getActiveStatus());
+        assertEquals(INACTIVE_ENTITY_FLAG, res.get().getActiveStatus());
     }
 
     @Test

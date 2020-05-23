@@ -4,7 +4,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.StringJoiner;
 
 public class User implements UserDetails {
 
@@ -25,7 +24,7 @@ public class User implements UserDetails {
     private String mail;
     private String employeePosition;
     private LocalDateTime deactivationDate;
-    private Integer deactivated;
+    private Integer activeStatus;
 
     public String getId() {
         return id;
@@ -169,12 +168,12 @@ public class User implements UserDetails {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public User setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public User setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
         return this;
     }
 
@@ -196,7 +195,7 @@ public class User implements UserDetails {
                 ", mail='" + mail + '\'' +
                 ", employeePosition='" + employeePosition + '\'' +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

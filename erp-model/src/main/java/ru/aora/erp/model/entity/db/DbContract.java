@@ -2,17 +2,19 @@ package ru.aora.erp.model.entity.db;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
-
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 
 @Entity
 @Table(name = "Contract")
-public class DbContract implements Serializable {
+public class DbContract implements Serializable,Deactivatable {
 
     private static final long serialVersionUID = -255546718347516732L;
 
@@ -41,12 +43,12 @@ public class DbContract implements Serializable {
     private LocalDateTime deactivationDate;
 
     @Column(name = "deactivated")
-    private Integer deactivated;
+    private Integer activeStatus;
 
     @PrePersist
     private void prePersist(){
-        if(deactivated == null){
-            deactivated = ACTIVE_ENTITY_FLAG;
+        if(activeStatus == null){
+            activeStatus = ACTIVE_ENTITY_FLAG;
         }
     }
 
@@ -113,12 +115,12 @@ public class DbContract implements Serializable {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public DbContract setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public DbContract setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
         return this;
     }
 
@@ -132,7 +134,7 @@ public class DbContract implements Serializable {
                 ", contractNumber='" + contractNumber + '\'' +
                 ", contractSubject='" + contractSubject + '\'' +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

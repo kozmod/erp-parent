@@ -3,7 +3,6 @@ package ru.aora.erp.model.entity.business;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
 
 public class Ks {
 
@@ -16,7 +15,7 @@ public class Ks {
     private BigDecimal garantSum;
     private Boolean paymentStatus;
     private LocalDateTime deactivationDate;
-    private Integer deactivated;
+    private Integer activeStatus;
 
     public String getId() {
         return id;
@@ -99,12 +98,12 @@ public class Ks {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public Ks setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public Ks setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
         return this;
     }
 
@@ -120,7 +119,7 @@ public class Ks {
                 ", garantSum=" + garantSum +
                 ", paymentStatus=" + paymentStatus +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

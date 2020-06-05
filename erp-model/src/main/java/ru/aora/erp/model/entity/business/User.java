@@ -4,14 +4,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.StringJoiner;
 
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 78483832304536001L;
 
     private String id;
-    private Collection<IdAuthority> authorities;
+    private Collection<UserAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -25,6 +24,7 @@ public class User implements UserDetails {
     private String mail;
     private String employeePosition;
     private LocalDateTime deactivationDate;
+    private Integer activeStatus;
 
     public String getId() {
         return id;
@@ -83,11 +83,11 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<IdAuthority> getAuthorities() {
+    public Collection<UserAuthority> getAuthorities() {
         return authorities;
     }
 
-    public User setAuthorities(Collection<IdAuthority> authorities) {
+    public User setAuthorities(Collection<UserAuthority> authorities) {
         this.authorities = authorities;
         return this;
     }
@@ -168,24 +168,34 @@ public class User implements UserDetails {
         return this;
     }
 
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public User setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("authorities=" + authorities)
-                .add("accountNonExpired=" + accountNonExpired)
-                .add("accountNonLocked=" + accountNonLocked)
-                .add("credentialsNonExpired=" + credentialsNonExpired)
-                .add("enabled=" + enabled)
-                .add("username='" + username + "'")
-                .add("password='" + password + "'")
-                .add("firstName='" + firstName + "'")
-                .add("surname='" + surname + "'")
-                .add("patronymic='" + patronymic + "'")
-                .add("phoneNumber='" + phoneNumber + "'")
-                .add("mail='" + mail + "'")
-                .add("employeePosition='" + employeePosition + "'")
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "User{" +
+                "id='" + id + '\'' +
+                ", authorities=" + authorities +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                ", employeePosition='" + employeePosition + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + activeStatus +
+                '}';
     }
 }

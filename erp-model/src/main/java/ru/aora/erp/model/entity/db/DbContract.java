@@ -6,15 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
 
 @Entity
 @Table(name = "Contract")
-public class DbContract implements Serializable {
+public class DbContract implements Serializable,Deactivatable {
 
     private static final long serialVersionUID = -255546718347516732L;
 
@@ -39,17 +39,18 @@ public class DbContract implements Serializable {
     @Column(name = "contract_subject")
     private String contractSubject;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
-
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
-    private String  versionTimestamp;
+    @Column(name = "deactivated")
+    private Integer activeStatus;
 
-    @Column(name = "entity_uuid", nullable = false)
-    private String entityUuid;
+    @PrePersist
+    private void prePersist(){
+        if(activeStatus == null){
+            activeStatus = ACTIVE_ENTITY_FLAG;
+        }
+    }
 
     public String getId() {
         return id;
@@ -105,15 +106,6 @@ public class DbContract implements Serializable {
         return this;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public DbContract setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-        return this;
-    }
-
     public LocalDateTime getDeactivationDate() {
         return deactivationDate;
     }
@@ -123,37 +115,26 @@ public class DbContract implements Serializable {
         return this;
     }
 
-    public String getEntityUuid() {
-        return entityUuid;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public DbContract setEntityUuid(String entityUuid) {
-        this.entityUuid = entityUuid;
-        return this;
-    }
-
-    public String getVersionTimestamp() {
-        return versionTimestamp;
-    }
-
-    public DbContract setVersionTimestamp(String versionTimestamp) {
-        this.versionTimestamp = versionTimestamp;
+    public DbContract setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
         return this;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", DbContract.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentId='" + counteragentId + "'")
-                .add("contractType=" + contractType)
-                .add("contractDate=" + contractDate)
-                .add("contractNumber='" + contractNumber + "'")
-                .add("contractSubject='" + contractSubject + "'")
-                .add("creationDate=" + creationDate)
-                .add("deactivationDate=" + deactivationDate)
-                .add("versionTimestamp='" + versionTimestamp + "'")
-                .add("entityUuid='" + entityUuid + "'")
-                .toString();
+        return "DbContract{" +
+                "id='" + id + '\'' +
+                ", counteragentId='" + counteragentId + '\'' +
+                ", contractType=" + contractType +
+                ", contractDate=" + contractDate +
+                ", contractNumber='" + contractNumber + '\'' +
+                ", contractSubject='" + contractSubject + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + activeStatus +
+                '}';
     }
 }

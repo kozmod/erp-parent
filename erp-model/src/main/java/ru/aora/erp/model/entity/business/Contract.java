@@ -2,7 +2,6 @@ package ru.aora.erp.model.entity.business;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
 
 public class Contract {
 
@@ -13,6 +12,7 @@ public class Contract {
     private String contractNumber;
     private String contractSubject;
     private LocalDateTime deactivationDate;
+    private Integer activeStatus;
 
     public String getId() {
         return id;
@@ -77,16 +77,26 @@ public class Contract {
         return this;
     }
 
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public Contract setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", Contract.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentId='" + counteragentId + "'")
-                .add("contractType=" + contractType)
-                .add("contractDate=" + contractDate)
-                .add("contractNumber='" + contractNumber + "'")
-                .add("contractSubject='" + contractSubject + "'")
-                .add("deactivationDate=" + deactivationDate)
-                .toString();
+        return "Contract{" +
+                "id='" + id + '\'' +
+                ", counteragentId='" + counteragentId + '\'' +
+                ", contractType=" + contractType +
+                ", contractDate=" + contractDate +
+                ", contractNumber='" + contractNumber + '\'' +
+                ", contractSubject='" + contractSubject + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + activeStatus +
+                '}';
     }
 }

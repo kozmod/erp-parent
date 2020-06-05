@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- Container start -->
-<!--/*@thymesVar id="usersDto" type="ru.aora.erp.entity.dto.UsersDto"*/-->
+<!--/*@thymesVar id="usersDto" type="ru.aora.erp.presentation.entity.dto.user.UsersDto"*/-->
 <div class="wrapper" th:fragment="users" th:object="${usersDto}">
     <div id="module">
         <div class="module_header size_is">
@@ -213,8 +213,8 @@
                                 </div>
                                 <div class="col_xxs_12 col_xs_12 col_s_12 col_m_6 col_l_6 push_m_3 push_l_3">
                                     <form class="accordion" >
-                                        <!--/*@thymesVar id="userModuleAuthorityDto" type="ru.aora.erp.entity.dto.UserIdModuleAuthorityDto"*/-->
-                                        <!--/*@thymesVar id="moduleAuthorityDto" type="ru.aora.erp.entity.dto.ModuleAuthorityDto"*/-->
+                                        <!--/*@thymesVar id="userModuleAuthorityDto" type="ru.aora.erp.presentation.entity.dto.user.UserIdModuleAuthorityDto"*/-->
+                                        <!--/*@thymesVar id="moduleAuthorityDto" type="ru.aora.erp.presentation.entity.dto.user.ModuleAuthorityDto"*/-->
                                         <div th:each="userModuleAuthorityDto : ${moduleAuthorityDtoList}">
                                             <div th:each="moduleAuthorityDto : ${userModuleAuthorityDto.getModuleAuthorityDtoList()}">
                                                 <div class="edit_title toggle_acc" >

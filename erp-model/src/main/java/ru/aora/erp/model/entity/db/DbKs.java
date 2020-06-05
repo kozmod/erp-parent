@@ -2,18 +2,20 @@ package ru.aora.erp.model.entity.db;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
-
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
 
 @Entity
 @Table(name = "KS")
-public class DbKs implements Serializable {
+public class DbKs implements Serializable, Deactivatable {
 
     private static final long serialVersionUID = 6765412988706551918L;
 
@@ -48,12 +50,12 @@ public class DbKs implements Serializable {
     private LocalDateTime deactivationDate;
 
     @Column(name = "deactivated")
-    private Integer deactivated;
+    private Integer activeStatus;
 
     @PrePersist
-    private void prePersist(){
-        if(deactivated == null){
-            deactivated = ACTIVE_ENTITY_FLAG;
+    private void prePersist() {
+        if (activeStatus == null) {
+            activeStatus = ACTIVE_ENTITY_FLAG;
         }
     }
 
@@ -138,12 +140,12 @@ public class DbKs implements Serializable {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public DbKs setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public DbKs setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
         return this;
     }
 
@@ -159,7 +161,7 @@ public class DbKs implements Serializable {
                 ", garantSum=" + garantSum +
                 ", paymentStatus=" + paymentStatus +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

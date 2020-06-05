@@ -1,6 +1,5 @@
 package ru.aora.erp.model.entity.business;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
 
 public class Counteragent {
 
@@ -14,7 +13,7 @@ public class Counteragent {
     private String mail;
     private String address;
     private LocalDateTime deactivationDate;
-    private Integer deactivated;
+    private Integer activeStatus;
 
     public String getId() {
         return id;
@@ -106,12 +105,12 @@ public class Counteragent {
         return this;
     }
 
-    public Integer getDeactivated() {
-        return deactivated;
+    public Integer getActiveStatus() {
+        return activeStatus;
     }
 
-    public Counteragent setDeactivated(Integer deactivated) {
-        this.deactivated = deactivated;
+    public Counteragent setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
         return this;
     }
 
@@ -128,7 +127,7 @@ public class Counteragent {
                 ", mail='" + mail + '\'' +
                 ", address='" + address + '\'' +
                 ", deactivationDate=" + deactivationDate +
-                ", deactivated=" + deactivated +
+                ", deactivated=" + activeStatus +
                 '}';
     }
 }

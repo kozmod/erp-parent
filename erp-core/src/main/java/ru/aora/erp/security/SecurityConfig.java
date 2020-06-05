@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
 import ru.aora.erp.domain.service.user.UserService;
-import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
 import ru.aora.erp.presentation.controller.dashboard.DashboardUrl;
 
 import java.util.*;
@@ -42,15 +41,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder); //todo remove wen work DB
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
+//        String apass = passwordEncoder.encode("a");
+//        String upass = passwordEncoder.encode("u");
+//        System.out.println("a:\n" + apass + "\nu:\n"+upass);
+//
+//        var u = userService.loadUserByUsername("u");
+//        var a = userService.loadUserByUsername("a");
+//
+//        System.out.println(passwordEncoder.matches("a", a.getPassword()));
+//        System.out.println(passwordEncoder.matches("u", u.getPassword()));
 //        auth.inMemoryAuthentication()
 //                .withUser("a")
-//                .password(passwordEncoder.encode("a"))
-//                .authorities(DashboardAuthorityUrlMap.ADMIN.getAuthority())
+//                .password(apass)
+//                .authorities(DashboardAuthorityUrlMap.ALL.getAuthority())
 //                .and()
 //                .withUser("u")
-//                .password(passwordEncoder.encode("u"))
-//                .authorities(DashboardAuthorityUrlMap.USER.getAuthority());
+//                .password(upass)
+//                .authorities(DashboardAuthorityUrlMap.SEE_TEST.getAuthority());
     }
 
     @Override

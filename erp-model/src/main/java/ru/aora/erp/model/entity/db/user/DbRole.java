@@ -2,16 +2,20 @@ package ru.aora.erp.model.entity.db.user;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_sub_authority")
-public class DbSubAuthority {
+@Table(name = "user_role")
+public class DbRole {
 
     @Id
     @GenericGenerator(name = "generator", strategy = "guid")
     @GeneratedValue(generator = "generator")
-    @Column(name = "id", columnDefinition = "uniqueidentifier")
+    @Column(name = "id", columnDefinition = "uniqueidentifier", unique = true)
     private String id;
 
     @Column(name = "name", unique = true)
@@ -24,7 +28,7 @@ public class DbSubAuthority {
         return id;
     }
 
-    public DbSubAuthority setId(String id) {
+    public DbRole setId(String id) {
         this.id = id;
         return this;
     }
@@ -33,7 +37,7 @@ public class DbSubAuthority {
         return name;
     }
 
-    public DbSubAuthority setName(String name) {
+    public DbRole setName(String name) {
         this.name = name;
         return this;
     }

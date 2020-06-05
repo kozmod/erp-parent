@@ -7,9 +7,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.domain.UserGateway;
 import ru.aora.erp.domain.service.user.UserAuthorityCacheService;
 import ru.aora.erp.domain.service.user.UserService;
+import ru.aora.erp.repository.gateway.DbModuleRolePairGateway;
 import ru.aora.erp.repository.gateway.DbUserGateway;
-import ru.aora.erp.repository.jpa.JpaAuthorityRepository;
-import ru.aora.erp.repository.jpa.JpaSubAuthorityRepository;
+import ru.aora.erp.repository.jpa.JpaModuleRepository;
+import ru.aora.erp.repository.jpa.JpaModuleRolePairRepository;
+import ru.aora.erp.repository.jpa.JpaRoleRepository;
 import ru.aora.erp.repository.jpa.JpaUserRepository;
 import ru.aora.erp.security.map.DashboardAuthorityUrlMap;
 
@@ -36,12 +38,20 @@ public class UserServiceConfig {
     }
 
     @Bean
+    public DbModuleRolePairGateway dbModuleRolePairGateway(
+            JpaModuleRepository moduleRepository,
+            JpaRoleRepository roleRepository,
+            JpaModuleRolePairRepository moduleRolePairRepository
+    ) {
+        return new DbModuleRolePairGateway(moduleRepository, roleRepository, moduleRolePairRepository);
+    }
+
+    @Bean
     public DbUserGateway dbUserGateway(
             JpaUserRepository userRepository,
-            JpaAuthorityRepository authorityRepository,
-            JpaSubAuthorityRepository subAuthorityRepository
+            DbModuleRolePairGateway dbModuleRolePairGateway
     ) {
-        return new DbUserGateway(userRepository, authorityRepository, subAuthorityRepository);
+        return new DbUserGateway(userRepository, dbModuleRolePairGateway);
     }
 
     @Bean

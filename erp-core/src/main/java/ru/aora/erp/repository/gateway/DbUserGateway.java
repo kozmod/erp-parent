@@ -2,65 +2,59 @@ package ru.aora.erp.repository.gateway;
 
 import ru.aora.erp.domain.UserGateway;
 import ru.aora.erp.model.entity.business.User;
-import ru.aora.erp.model.entity.db.user.DbAuthority;
-import ru.aora.erp.model.entity.db.user.DbSubAuthority;
+import ru.aora.erp.model.entity.db.Deactivatable;
+import ru.aora.erp.model.entity.db.user.DbModuleRolePair;
 import ru.aora.erp.model.entity.db.user.DbUser;
 import ru.aora.erp.model.entity.mapper.UserMapper;
-import ru.aora.erp.repository.jpa.JpaAuthorityRepository;
-import ru.aora.erp.repository.jpa.JpaSubAuthorityRepository;
 import ru.aora.erp.repository.jpa.JpaUserRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.UnaryOperator;
 
-import static ru.aora.erp.model.entity.db.DbConstant.ACTIVE_ENTITY_FLAG;
-import static ru.aora.erp.model.entity.db.DbConstant.INACTIVE_ENTITY_FLAG;
-import static ru.aora.erp.repository.gateway.GatewayUtils.*;
+import static ru.aora.erp.model.entity.db.Deactivatable.INACTIVE_ENTITY_FLAG;
 
 @Transactional
 public class DbUserGateway implements UserGateway {
 
     private final JpaUserRepository userRepository;
-    private final JpaAuthorityRepository authorityRepository;
-    private final JpaSubAuthorityRepository subAuthorityRepository;
+    private final DbModuleRolePairGateway moduleRolePairGateway;
     private final UserMapper userMapper = UserMapper.INSTANCE;
-
-    private final Function<List<DbAuthority>, Map<String, DbAuthority>> gropeAuthorityByName = groupFunctions(DbAuthority::getName);
-    private final Function<List<DbSubAuthority>, Map<String, DbSubAuthority>> gropeSubAuthorityByName = groupFunctions(DbSubAuthority::getName);
 
     public DbUserGateway(
             JpaUserRepository userRepository,
-            JpaAuthorityRepository authorityRepository,
-            JpaSubAuthorityRepository subAuthorityRepository
-
-    ) {
+            DbModuleRolePairGateway moduleRolePairGateway) {
         this.userRepository = userRepository;
-        this.authorityRepository = authorityRepository;
-        this.subAuthorityRepository = subAuthorityRepository;
+        this.moduleRolePairGateway = moduleRolePairGateway;
     }
 
     @Override
     public Optional<User> findByName(String name) {
-        return userRepository.findActiveByName(name)
-                .filter(this::isActive)
-                .map(userMapper::toUser)
-                .or(Optional::empty);
+        Optional<DbUser> resOpt = userRepository.findActiveByName(name).filter(Deactivatable::isActive);
+        if (resOpt.isPresent()) {
+            var res = resOpt.get();
+            res.setAuthorities(
+                    moduleRolePairGateway.addModuleRoleNameByIdFunction().apply(res.getAuthorities())
+            );
+            return Optional.of(userMapper.toUser(res));
+        }
+        return Optional.empty();
     }
 
     @Override
     public List<User> loadAll() {
-        return userRepository.findAll()
-                .stream()
-                .filter(this::isActive)
-                .map(userMapper::toUser)
-                .collect(Collectors.toList());
+        List<User> res = new ArrayList<>();
+        UnaryOperator<Collection<DbModuleRolePair>> valueSetter = moduleRolePairGateway.addModuleRoleNameByIdFunction();
+        for (var dbUser : userRepository.findAll()) {
+            if (dbUser.isActive()) {
+                dbUser.setAuthorities(
+                        valueSetter.apply(dbUser.getAuthorities())
+                );
+                res.add(userMapper.toUser(dbUser));
+            }
+        }
+        return res;
     }
 
     @Override
@@ -71,9 +65,11 @@ public class DbUserGateway implements UserGateway {
                     String.format("User with user name [%s] exists", user.getUsername())
             );
         }
-        DbUser source = userMapper.toDbUser(user);
-        tryCreateAuthoritiesAndSetId(source.getAuthorities());
-        DbUser res = userRepository.save(source);
+        var source = userMapper.toDbUser(user);
+        source.setAuthorities(
+                moduleRolePairGateway.tryCreateAuthoritiesAndIds(source.getAuthorities())
+        );
+        var res = userRepository.save(source);
         return userMapper.toUser(res);
     }
 
@@ -81,12 +77,14 @@ public class DbUserGateway implements UserGateway {
     @Override
     public Optional<User> update(User user) {
         Optional<DbUser> target = userRepository.findActiveByName(user.getUsername())
-                .filter(this::isActive)
+                .filter(Deactivatable::isActive)
                 .map(this::setDeactivated);
         if (target.isPresent()) {
             userRepository.save(target.get());
             DbUser source = userMapper.toDbUser(user);
-            tryCreateAuthoritiesAndSetId(source.getAuthorities());
+            source.setAuthorities(
+                    moduleRolePairGateway.prepareRoleToUpdate(source.getAuthorities(), source.getId())
+            );
             DbUser res = userRepository.save(source);
             return Optional.of(userMapper.toUser(res));
         }
@@ -95,47 +93,22 @@ public class DbUserGateway implements UserGateway {
 
     @Override
     public Optional<User> delete(String name) {
-        Optional<DbUser> target = userRepository.findActiveByName(name);
-        if (target.isPresent()) {
-            DbUser res = userRepository.save(setDeactivated(target.get()));
+        Optional<DbUser> targetOpt = userRepository.findActiveByName(name);
+        if (targetOpt.isPresent()) {
+            var target = targetOpt.get();
+            setDeactivated(target);
+            target.setAuthorities(
+                    moduleRolePairGateway.deactivateAll(target.getAuthorities())
+            );
+            var res = userRepository.save(setDeactivated(target));
             return Optional.ofNullable(userMapper.toUser(res));
         }
         return Optional.empty();
     }
 
-    private boolean isActive(DbUser user) {
-        return ACTIVE_ENTITY_FLAG.equals(user.getDeactivated())
-                && user.getDeactivationDate() == null;
-    }
-
     private DbUser setDeactivated(DbUser user) {
         return Objects.requireNonNull(user)
-                .setDeactivated(INACTIVE_ENTITY_FLAG)
+                .setActiveStatus(INACTIVE_ENTITY_FLAG)
                 .setDeactivationDate(LocalDateTime.now());
-    }
-
-    private void tryCreateAuthoritiesAndSetId(Collection<DbAuthority> authorities) {
-        if (authorities == null) {
-            return;
-        }
-        Map<String, DbSubAuthority> existsSubAuthorities = gropeSubAuthorityByName
-                .apply(subAuthorityRepository.findAll());
-        Map<String, DbAuthority> existsAuthorities = gropeAuthorityByName
-                .apply(authorityRepository.findAll());
-
-        for (DbAuthority authority : authorities) {
-            for (DbSubAuthority subAuthority : authority.getSubAuthorities()) {
-                DbSubAuthority existsSub = existsSubAuthorities.computeIfAbsent(
-                        subAuthority.getName(),
-                        name -> subAuthorityRepository.save(subAuthority)
-                );
-                subAuthority.setId(existsSub.getId());
-            }
-            DbAuthority exists = existsAuthorities.computeIfAbsent(
-                    authority.getName(),
-                    name -> authorityRepository.save(authority)
-            );
-            authority.setId(exists.getId());
-        }
     }
 }

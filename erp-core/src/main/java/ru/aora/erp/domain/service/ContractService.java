@@ -1,51 +1,36 @@
 package ru.aora.erp.domain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.aora.erp.model.entity.db.DbContract;
-import ru.aora.erp.model.entity.mapper.ContractMapper;
+import ru.aora.erp.domain.CrudGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.Contract;
-import ru.aora.erp.repository.jpa.JpaContractRepository;
-import ru.aora.erp.utils.common.CommonUtils;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.Objects.requireNonNull;
-
-@Service
-@Transactional
 public class ContractService {
-    private final JpaContractRepository contractRepository;
-    private final ContractMapper contractMapper = ContractMapper.INSTANCE;
+    private final CrudGateway<Contract, String> gateway;
 
-    @Autowired
-    public ContractService(JpaContractRepository contractRepository) {
-        this.contractRepository = contractRepository;
+    public ContractService(CrudGateway<Contract, String> gateway) {
+        this.gateway = gateway;
     }
 
     public List<Contract> loadAll() {
-        return contractRepository.findAll()
-                .stream()
-                .map(contractMapper::toContract)
-                .collect(Collectors.toList());
+        return gateway.loadAllActive();
     }
 
-    public Contract update(Contract contract) {
-        DbContract savedContract = contractRepository.save(contractMapper.toDbContract(requireNonNull(contract)));
-        return contractMapper.toContract(savedContract);
+    public MsgServiceResult update(Contract contract) {
+        return gateway.update(contract)
+                .map(c -> MsgServiceResult.success("Contract updated"))
+                .orElseGet(() -> MsgServiceResult.failed("Contract to update not found"));
     }
 
     public Contract create(Contract contract) {
-        DbContract savedContract = contractRepository.save(contractMapper.toDbContract(requireNonNull(contract)));
-        return contractMapper.toContract(savedContract);
+        return gateway.create(contract);
     }
 
-    public String delete(String contractId) {
-        CommonUtils.requiredNotBlank(contractId);
-        contractRepository.deleteById(requireNonNull(contractId));
-        return contractId;
+    public MsgServiceResult delete(String id) {
+        return gateway.delete(id)
+                .map(c -> MsgServiceResult.success("Contract deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("Contract to delete not found"));
     }
 }
 

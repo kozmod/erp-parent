@@ -8,7 +8,12 @@
             <!--/*@thymesVar id="uiNode" type="ru.aora.erp.model.identifier.chane.UiChaneNode"*/-->
             <ul>
                 <li th:each="uiNode, iterstat : ${uiChaneNodeModel}">
-                     <a href="#"><span th:with="index=${iterstat.index+1}" th:class="'symbol clr_'+${index}+' rds_5'"><i class="fas fa-usd-circle"></i></span><strong th:text="${uiNode.name()}"></strong></a>
+                     <a href="#" th:attr="onclick=${uiNode.isLast() ? 'getFragmentAndChangeDiv(&quot;#content&quot;,&quot;'+uiNode.mapping().orElse('#')+'&quot;)' : null}">
+                         <span th:with="index=${iterstat.index+1}" th:class="'symbol clr_'+${index}+' rds_5'">
+                             <i class="fas fa-usd-circle"></i>
+                         </span>
+                         <strong th:text="${uiNode.name()}"></strong>
+                     </a>
                      <ul th:fragment="fragment_node(uiNode)" th:unless="${#lists.isEmpty(uiNode.next())}">
                          <li th:each="uiChildNode : ${uiNode.next()}"
                              th:inline="text"

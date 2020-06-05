@@ -1,6 +1,8 @@
 package ru.aora.erp.model.entity.db.user;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
+import ru.aora.erp.model.entity.db.Deactivatable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.StringJoiner;
 
 @Entity
 @Table(name = "[user]")
-public class DbUser implements Serializable {
+public class DbUser implements Serializable, Deactivatable {
 
     private static final long serialVersionUID = -8446608340994054062L;
 
@@ -20,7 +22,7 @@ public class DbUser implements Serializable {
     @Column(name = "id", columnDefinition = "uniqueidentifier")
     private String id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -59,14 +61,20 @@ public class DbUser implements Serializable {
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
-            name = "user_user_authority",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "authority_id", referencedColumnName = "id"))
-    private Collection<DbAuthority> authorities;
+    @Column(name = "active_status")
+    private Integer activeStatus;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @Where(clause = "deactivation_date is NULL" )
+    private Collection<DbModuleRolePair> authorities;
+
+    @PrePersist
+    private void prePersist(){
+        if(activeStatus == null){
+            activeStatus = ACTIVE_ENTITY_FLAG;
+        }
+    }
 
     public String getId() {
         return id;
@@ -203,12 +211,21 @@ public class DbUser implements Serializable {
         return this;
     }
 
-    public Collection<DbAuthority> getAuthorities() {
+    public Collection<DbModuleRolePair> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<DbAuthority> dbAuthorities) {
+    public void setAuthorities(Collection<DbModuleRolePair> dbAuthorities) {
         this.authorities = dbAuthorities;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public DbUser setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
+        return this;
     }
 
     @Override
@@ -227,11 +244,9 @@ public class DbUser implements Serializable {
                 .add("phoneNumber='" + phoneNumber + "'")
                 .add("mail='" + mail + "'")
                 .add("employeePosition='" + employeePosition + "'")
-//                .add("creationDate=" + creationDate)
-                .add("deactivationDate=" + deactivationDate)
-//                .add("versionTimestamp='" + versionTimestamp + "'")
-//                .add("entityUuid='" + entityUuid + "'")
                 .add("authorities=" + authorities)
+                .add("deactivationDate=" + deactivationDate)
+                .add("deactivated=" + activeStatus)
                 .toString();
     }
 }

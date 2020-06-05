@@ -1,15 +1,18 @@
 package ru.aora.erp.domain.service.user;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aora.erp.domain.UserGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.User;
 import ru.aora.erp.model.entity.business.UserAuthority;
 import ru.aora.erp.utils.common.CommonUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public final class UserService implements UserDetailsService {
@@ -30,49 +33,53 @@ public final class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String name) throws UsernameNotFoundException {
+    public User loadUserByUsername(String name) {
         CommonUtils.requiredNotBlank(name);
         return gateway.findByName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found: " + name));
     }
 
     public List<User> loadAll() {
-        return gateway.findAll()
+        return gateway.loadAll()
                 .stream()
                 .map(Objects::requireNonNull)
                 .collect(Collectors.toList());
     }
 
-    public User updateUser(User user) {
-        Objects.requireNonNull(user);
-        user.setAuthorities(removeIfNotExistsInCache(user.getAuthorities()));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        var dbUser = gateway.update(user)
-                .orElseThrow(() -> new UsernameNotFoundException("User was not updated: " + user));
-        dbUser.setPassword(null);
-        return dbUser;
+    public User create(User user) {
+        return gateway.create(prepare(user)).setPassword(null);
     }
 
-    public User deleteUser(User user) {
-        Objects.requireNonNull(user);
-        return gateway.delete(user).orElse(null); //todo think about
+    public MsgServiceResult update(User user) {
+        return gateway.update(prepare(user))
+                .map(u -> MsgServiceResult.success("User updated"))
+                .orElseGet(() -> MsgServiceResult.failed("User to update not found"));
+    }
+
+    public MsgServiceResult delete(String name) {
+        CommonUtils.requiredNotBlank(name);
+        return gateway.delete(name)
+                .map(u -> MsgServiceResult.success("User deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("User to delete not found"));
+    }
+
+    private User prepare(User source) {
+        Objects.requireNonNull(source);
+        source.setAuthorities(removeIfNotExistsInCache(source.getAuthorities()));
+        source.setPassword(passwordEncoder.encode(source.getPassword()));
+        return source;
     }
 
     private Collection<UserAuthority> removeIfNotExistsInCache(Collection<UserAuthority> authorities) {
-        Objects.requireNonNull(authorities);
-        Collection<UserAuthority> res = new ArrayList<>(authorities.size());
-        for (UserAuthority authority : authorities) {
-            if (authorityCache.exists(authority)) {
-                res.add(authority);
+        if (authorities != null && !authorities.isEmpty()) {
+            Collection<UserAuthority> res = new ArrayList<>(authorities.size());
+            for (UserAuthority authority : authorities) {
+                if (authorityCache.exists(authority)) {
+                    res.add(authority);
+                }
             }
+            return res;
         }
-        return res;
+        throw new IllegalArgumentException("User must have at least one authorities");
     }
-
-
-//    private void tryEncodeUserPassword(User user, DbUser dbUser) {
-//        if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        }
-//    }
 }

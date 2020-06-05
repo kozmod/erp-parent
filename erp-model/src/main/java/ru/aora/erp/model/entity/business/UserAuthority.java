@@ -6,26 +6,26 @@ import java.util.Objects;
 
 public final class UserAuthority implements GrantedAuthority {
 
-    private final String rootAuthority;
-    private final String subAuthority;
+    private final String moduleName;
+    private final String roleName;
 
-    public UserAuthority(String rootAuthority, String subAuthority) {
-        this.rootAuthority = rootAuthority;
-        this.subAuthority = subAuthority;
+    public UserAuthority(String moduleName, String roleName) {
+        this.moduleName = moduleName;
+        this.roleName = roleName;
     }
 
 
     @Override
     public String getAuthority() {
-        return rootAuthority + "_" + subAuthority;
+        return moduleName + "_" + roleName;
     }
 
-    public String getRootAuthority() {
-        return rootAuthority;
+    public String getModuleName() {
+        return moduleName;
     }
 
-    public String getSubAuthority() {
-        return subAuthority;
+    public String getRoleName() {
+        return roleName;
     }
 
     @Override
@@ -33,20 +33,20 @@ public final class UserAuthority implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAuthority that = (UserAuthority) o;
-        return Objects.equals(rootAuthority, that.rootAuthority) &&
-                Objects.equals(subAuthority, that.subAuthority);
+        return Objects.equals(moduleName, that.moduleName) &&
+                Objects.equals(roleName, that.roleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rootAuthority, subAuthority);
+        return Objects.hash(moduleName, roleName);
     }
 
     @Override
     public String toString() {
         return "UserAuthority{" +
-                "rootAuthority='" + rootAuthority + '\'' +
-                ", subAuthority='" + subAuthority + '\'' +
+                "rootAuthority='" + moduleName + '\'' +
+                ", subAuthority='" + roleName + '\'' +
                 '}';
     }
 }

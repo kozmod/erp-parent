@@ -1,23 +1,18 @@
 package ru.aora.erp.model.entity.db;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.StringJoiner;
 
 @Entity
 @Table(name = "Counteragent")
-public class DbCounteragent implements Serializable {
+public class DbCounteragent implements Serializable,Deactivatable {
 
     private static final long serialVersionUID = 8481999979205249004L;
 
@@ -51,17 +46,18 @@ public class DbCounteragent implements Serializable {
     @Column(name = "address")
     private String address;
 
-//    @Column(name = "creation_date")
-//    private LocalDateTime creationDate;
-
     @Column(name = "deactivation_date")
     private LocalDateTime deactivationDate;
 
-//    @Column(name = "version_timestamp",columnDefinition = "TIMESTAMP")
-//    private String  versionTimestamp;
-//
-//    @Column(name = "entity_uuid", nullable = false)
-//    private String entityUuid;
+    @Column(name = "deactivated")
+    private Integer activeStatus;
+
+    @PrePersist
+    private void prePersist(){
+        if(activeStatus == null){
+            activeStatus = ACTIVE_ENTITY_FLAG;
+        }
+    }
 
     public String getId() {
         return id;
@@ -144,15 +140,6 @@ public class DbCounteragent implements Serializable {
         return this;
     }
 
-//    public LocalDateTime getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public DbCounteragent setCreationDate(LocalDateTime creationDate) {
-//        this.creationDate = creationDate;
-//        return this;
-//    }
-
     public LocalDateTime getDeactivationDate() {
         return deactivationDate;
     }
@@ -162,41 +149,30 @@ public class DbCounteragent implements Serializable {
         return this;
     }
 
-//    public String getEntityUuid() {
-//        return entityUuid;
-//    }
-//
-//    public DbCounteragent setEntityUuid(String entityUuid) {
-//        this.entityUuid = entityUuid;
-//        return this;
-//    }
-//
-//    public String  getVersionTimestamp() {
-//        return versionTimestamp;
-//    }
-//
-//    public DbCounteragent setVersionTimestamp(String  versionTimestamp) {
-//        this.versionTimestamp = versionTimestamp;
-//        return this;
-//    }
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public DbCounteragent setActiveStatus(Integer deactivated) {
+        this.activeStatus = deactivated;
+        return this;
+    }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", DbCounteragent.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
-                .add("counteragentName='" + counteragentName + "'")
-                .add("groupName='" + groupName + "'")
-                .add("directorFirstName='" + directorFirstName + "'")
-                .add("directorSurname='" + directorSurname + "'")
-                .add("directorPatronymic='" + directorPatronymic + "'")
-                .add("phoneNumber='" + phoneNumber + "'")
-                .add("mail='" + mail + "'")
-                .add("address='" + address + "'")
-//                .add("creationDate=" + creationDate)
-                .add("deactivationDate=" + deactivationDate)
-//                .add("versionTimestamp=" + versionTimestamp)
-//                .add("entityUuid='" + entityUuid + "'")
-                .toString();
+        return "DbCounteragent{" +
+                "id='" + id + '\'' +
+                ", counteragentName='" + counteragentName + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", directorFirstName='" + directorFirstName + '\'' +
+                ", directorSurname='" + directorSurname + '\'' +
+                ", directorPatronymic='" + directorPatronymic + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mail='" + mail + '\'' +
+                ", address='" + address + '\'' +
+                ", deactivationDate=" + deactivationDate +
+                ", deactivated=" + activeStatus +
+                '}';
     }
 }
 

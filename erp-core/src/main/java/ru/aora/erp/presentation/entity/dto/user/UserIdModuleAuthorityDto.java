@@ -49,7 +49,7 @@ public final class UserIdModuleAuthorityDto {
     private static Map<String, ModuleAuthorityDto> toModuleNameAuthorityMap(Collection<UserAuthority> userAuthorities, Collection<UserAuthority> allAuthorities) {
         final Map<String, ModuleAuthorityDto> map = new LinkedHashMap<>(allAuthorities.size(), 1.1f);
         for (var allAuthority : allAuthorities) {
-            final var moduleName = allAuthority.getRootAuthority();
+            final var moduleName = allAuthority.getModuleName();
             var moduleAuthorityDto = map.get(moduleName);
             if (moduleAuthorityDto == null) {
                 map.put(
@@ -58,9 +58,9 @@ public final class UserIdModuleAuthorityDto {
                 );
             }
             if (CollectionUtils.isNotEmpty(userAuthorities) && userAuthorities.contains(allAuthority)) {
-                moduleAuthorityDto.moduleMap.put(allAuthority.getSubAuthority(), true);
+                moduleAuthorityDto.moduleMap.put(allAuthority.getRoleName(), true);
             } else {
-                moduleAuthorityDto.moduleMap.put(allAuthority.getSubAuthority(), false);
+                moduleAuthorityDto.moduleMap.put(allAuthority.getRoleName(), false);
             }
         }
         return map;

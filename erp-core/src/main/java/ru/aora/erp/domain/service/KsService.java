@@ -1,51 +1,41 @@
 package ru.aora.erp.domain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import ru.aora.erp.domain.CrudGateway;
+import ru.aora.erp.domain.model.MsgServiceResult;
 import ru.aora.erp.model.entity.business.Ks;
-import ru.aora.erp.model.entity.db.DbKs;
-import ru.aora.erp.model.entity.mapper.KsMapper;
-import ru.aora.erp.repository.jpa.JpaKsRepository;
 import ru.aora.erp.utils.common.CommonUtils;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-@Service
-@Transactional
 public class KsService {
-    private final JpaKsRepository KsRepository;
-    private final KsMapper ksMapper = KsMapper.INSTANCE;
+    private final CrudGateway<Ks, String> gateway;
 
-    @Autowired
-    public KsService(JpaKsRepository KsRepository) {
-        this.KsRepository = KsRepository;
+    public KsService(CrudGateway<Ks, String> gateway) {
+        this.gateway = gateway;
     }
 
     public List<Ks> loadAll() {
-        return KsRepository.findAll()
-                .stream()
-                .map(ksMapper::toKs)
-                .collect(Collectors.toList());
+        return gateway.loadAllActive();
     }
 
-    public Ks update(Ks ks) {
+    public MsgServiceResult update(Ks ks) {
         Objects.requireNonNull(ks);
-        DbKs updatedKs = KsRepository.save(ksMapper.toDbKs(ks));
-        return ksMapper.toKs(updatedKs);
+        return gateway.update(ks)
+                .map(c -> MsgServiceResult.success("Ks updated"))
+                .orElseGet(() -> MsgServiceResult.failed("Ks to update not found"));
     }
 
     public Ks create(Ks ks) {
-        DbKs createdKs = KsRepository.save(ksMapper.toDbKs(ks));
-        return ksMapper.toKs(createdKs);
+        Objects.requireNonNull(ks);
+        return gateway.create(ks);
     }
 
-    public String delete(String KsId) {
-        CommonUtils.requiredNotBlank(KsId);
-        KsRepository.deleteById(KsId);
-        return KsId;
+    public MsgServiceResult delete(String id) {
+        CommonUtils.requiredNotBlank(id);
+        return gateway.delete(id)
+                .map(c -> MsgServiceResult.success("Ks deleted"))
+                .orElseGet(() -> MsgServiceResult.failed("Ks to delete not found"));
     }
 }
 
